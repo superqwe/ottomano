@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('importa_Personale_abilitazioni', views.importa_Personale_abilitazioni, name='importa_Personale_abilitazioni'),
 ]
