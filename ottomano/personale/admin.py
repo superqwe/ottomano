@@ -1,6 +1,12 @@
 from django.contrib import admin
 
 from .models import Lavoratore
+
+
 # Register your models here.
 
-admin.site.register(Lavoratore)
+class LavoratoreAdmin(admin.ModelAdmin):
+    list_display = ('cognome', 'nome')
+
+
+admin.site.register(Lavoratore, LavoratoreAdmin)

@@ -1,5 +1,7 @@
 import pandas as pd
 
+from personale.models import Lavoratore
+
 PATH_XLSX = r'C:\Users\benedetto.basile\Desktop\FORNARO\Programmi\ottomano\jupyter\2019REG_Personale_abilitazioni.xlsx'
 
 
@@ -8,5 +10,47 @@ def importa_xlsx():
     df.drop(columns='#', inplace=True)
 
     for index, row in df.iterrows():
+        # print(row['Cognome '], row['Nome'],  '\n' * 10, )
+
+        if not pd.isna(row['matr']):
+            matricola = row['matr']
+        else:
+            matricola = None
+
+        if not pd.isna(row['cellulare']):
+            cellulare = row['cellulare']
+        else:
+            cellulare = None
+
+        lavoratore = Lavoratore(
+            matricola=matricola,
+            cognome=row['Cognome '].strip(),
+            nome=row['Nome'].strip(),
+            cf=row['Codice fiscale'],
+            sesso=row['Sesso'],
+            data_nascita=row['Data di nascita'],
+            luogo_nascita=row['Luogo di nascita'],
+            provincia_nascita=row['Provincia di nascita'],
+            indirizzo=row['Indirizzo'],
+            cap=row['CAP'],
+            citta=row['Città'],
+            provincia=row['Provincia'],
+            # cellulare=cellulare,
+            # data_inizio=row['data assunzione'],
+            tipo_contratto=row['Contratto'],
+            # data_fine=row['fine lavoro'],
+            livello=row[' liv.'],
+            qualifica=row['qualifica '],
+            assunzione=row['assunzione'],
+            busta_paga=row['busta paga'],
+            mansione=row['Mansione'],
+            attivita_svolta=row['Attività svolta'],
+            mansione_1=row['mansione 1'],
+            mansione_2=row['mansione 2'],
+            mansione_3=row['mansione 3'],
+            reparto=row['Reparto']
+        )
         #     print(row)
-        print(row['Cognome '], row['Nome'], row['Codice fiscale'])
+        print(row['Cognome '], row['Nome'])
+
+        lavoratore.save()
