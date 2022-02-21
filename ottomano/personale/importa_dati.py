@@ -8,6 +8,8 @@ PATH_XLSX = r'C:\Users\benedetto.basile\Desktop\FORNARO\Programmi\ottomano\jupyt
 def importa_xlsx():
     df = pd.read_excel(PATH_XLSX, sheet_name='ANAGRAFICA ', skiprows=6, na_values='')
     df.drop(columns='#', inplace=True)
+    df = df.where(pd.notnull(df), None)
+    df.replace('______', None, inplace=True)
 
     for index, row in df.iterrows():
         # print(row['Cognome '], row['Nome'],  '\n' * 10, )
@@ -18,14 +20,19 @@ def importa_xlsx():
             matricola = None
 
         if not pd.isna(row['cellulare']):
-            cellulare = row['cellulare']
+            cellulare = int(str(row['cellulare']).replace('.','').replace(' ', ''))
         else:
             cellulare = None
 
+        if not pd.isna(row['fine lavoro']):
+           fine_lavoro =  row['fine lavoro']
+        else:
+           fine_lavoro =  None
+
         lavoratore = Lavoratore(
             matricola=matricola,
-            cognome=row['Cognome '].strip(),
-            nome=row['Nome'].strip(),
+            cognome=row['Cognome '].strip().title(),
+            nome=row['Nome'].strip().title(),
             cf=row['Codice fiscale'],
             sesso=row['Sesso'],
             data_nascita=row['Data di nascita'],
@@ -35,10 +42,10 @@ def importa_xlsx():
             cap=row['CAP'],
             citta=row['Città'],
             provincia=row['Provincia'],
-            # cellulare=cellulare,
-            # data_inizio=row['data assunzione'],
+            cellulare=cellulare,
+            data_inizio=row['data assunzione'],
             tipo_contratto=row['Contratto'],
-            # data_fine=row['fine lavoro'],
+            data_fine=fine_lavoro,
             livello=row[' liv.'],
             qualifica=row['qualifica '],
             assunzione=row['assunzione'],
