@@ -12,9 +12,9 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def importa_Personale_abilitazioni(request):
-    personale.importa_dati.importa_xlsx()
-    return HttpResponse("xls importato")
+# def importa_Personale_abilitazioni(request):
+#     personale.importa_dati.importa_xlsx()
+#     return HttpResponse("xls importato")
 
 def anagrafica(request):
     lavoratori = Lavoratore.objects.all()
