@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Lavoratore(models.Model):
+    in_forza = models.BooleanField(default=True)
     matricola = models.IntegerField(blank=True, null=True)
     cognome = models.CharField(max_length=20, blank=True, null=True)
     nome = models.CharField(max_length=20, blank=True, null=True)

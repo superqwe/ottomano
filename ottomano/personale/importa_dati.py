@@ -10,6 +10,7 @@ def importa_xlsx():
     df.drop(columns='#', inplace=True)
     df = df.where(pd.notnull(df), None)
     df.replace('______', None, inplace=True)
+    df.replace('-----', None, inplace=True)
 
     for index, row in df.iterrows():
         # print(row['Cognome '], row['Nome'],  '\n' * 10, )
