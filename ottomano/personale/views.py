@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import personale.importa_dati
 
-from personale.models import Lavoratore
+from personale.models import Lavoratore, Formazione
 
 
 def index(request):
@@ -22,3 +22,20 @@ def anagrafica(request):
                'lavoratori': lavoratori}
 
     return render(request, 'personale/base.html', context)
+
+
+def formazione(request):
+    formazione = Formazione.objects.all()
+    print(formazione)
+    context = {'titolo': 'Formazione',
+               'formazione': formazione}
+
+    return render(request, 'personale/formazione.html', context)
+
+def aggiorna_documenti(request):
+    formazione = Formazione.objects.all()
+    print(formazione)
+    context = {'titolo': 'Formazione',
+               'formazione': formazione}
+
+    return render(request, 'personale/aggiorna_documenti.html', context)

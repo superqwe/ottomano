@@ -36,3 +36,36 @@ class Lavoratore(models.Model):
         ordering = ['cognome', 'nome']
         verbose_name = 'Lavoratore'
         verbose_name_plural = 'Lavoratori'
+
+    def __str__(self):
+        return '%s %s' % (self.cognome, self.nome)
+
+
+class Formazione(models.Model):
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+    preposto = models.DateField(blank=True, null=True, default=None)
+    preposto_ck = models.BooleanField(blank=True, null=True, default=None)
+    primo_soccorso = models.DateField(blank=True, null=True, default=None)
+    primo_soccorso_ck = models.BooleanField(blank=True, null=True, default=None)
+    antincendio = models.DateField(blank=True, null=True, default=None)
+    antincendio_ck = models.BooleanField(blank=True, null=True, default=None)
+    art37 = models.DateField(blank=True, null=True, default=None)
+    art37_ck = models.BooleanField(blank=True, null=True, default=None)
+    spazi_confinati = models.DateField(blank=True, null=True, default=None)
+    spazi_confinati_ck = models.BooleanField(blank=True, null=True, default=None)
+    ponteggiatore = models.DateField(blank=True, null=True, default=None)
+    ponteggiatore_ck = models.BooleanField(blank=True, null=True, default=None)
+    autogru = models.DateField(blank=True, null=True, default=None)
+    autogru_ck = models.BooleanField(blank=True, null=True, default=None)
+    carrello = models.DateField(blank=True, null=True, default=None)
+    carrello_ck = models.BooleanField(blank=True, null=True, default=None)
+    ple = models.DateField(blank=True, null=True, default=None)
+    ple_ck = models.BooleanField(blank=True, null=True, default=None)
+
+    class Meta:
+        ordering = ['lavoratore',]
+        verbose_name = 'Formazione'
+        verbose_name_plural = 'Formazione'
+
+    def __str__(self):
+        return '%s %s' % (self.lavoratore.cognome, self.lavoratore.nome)

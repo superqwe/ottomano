@@ -1,0 +1,19 @@
+{% extends "personale/base.html" %}
+
+{% block titolo %}
+Documenti
+{% endblock %}
+
+{% block menu_sezione %}
+ms
+{% endblock %}
+
+
+{% block corpo %}
+
+{% for lavoratore in formazione %}
+<p>{{lavoratore.lavoratore.cognome}}{{lavoratore.art37}}</p>
+
+{% endfor %}
+
+{% endblock %}
