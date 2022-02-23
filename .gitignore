@@ -17,4 +17,5 @@ jupyter
 
 *.bat
 db.*
+ottomano/personale/migrations
 
