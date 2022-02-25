@@ -55,15 +55,19 @@ class Formazione(models.Model):
     spazi_confinati_ck = models.BooleanField(blank=True, null=True, default=None)
     ponteggiatore = models.DateField(blank=True, null=True, default=None)
     ponteggiatore_ck = models.BooleanField(blank=True, null=True, default=None)
+    imbracatore = models.DateField(blank=True, null=True, default=None)
+    imbracatore_ck = models.BooleanField(blank=True, null=True, default=None)
     autogru = models.DateField(blank=True, null=True, default=None)
     autogru_ck = models.BooleanField(blank=True, null=True, default=None)
+    gru_autocarro = models.DateField(blank=True, null=True, default=None)
+    gru_autocarro_ck = models.BooleanField(blank=True, null=True, default=None)
     carrello = models.DateField(blank=True, null=True, default=None)
     carrello_ck = models.BooleanField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
     ple_ck = models.BooleanField(blank=True, null=True, default=None)
 
     class Meta:
-        ordering = ['lavoratore',]
+        ordering = ['lavoratore', ]
         verbose_name = 'Formazione'
         verbose_name_plural = 'Formazione'
 

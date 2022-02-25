@@ -10,10 +10,46 @@ Formazione
 
 
 {% block corpo %}
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Preposto</th>
+            <th scope="col">Primo Soccorso</th>
+            <th scope="col">Antincendio</th>
+            <th scope="col">Art37</th>
+            <th scope="col">Spazi Confinati</th>
+            <th scope="col">Ponteggiatore</th>
+            <th scope="col">Imbracatore</th>
+            <th scope="col">Autogru</th>
+            <th scope="col">Gru su Autocarro</th>
+            <th scope="col">Carrello</th>
+            <th scope="col">PLE</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lavoratore in formazione %}
+        <tr >
+            <td >{{lavoratore.lavoratore.cognome}}</td>
+            <td >{{lavoratore.lavoratore.nome}}</td>
+            <td class="text-center">{{lavoratore.preposto|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.antincendio|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.art37|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.ponteggiatore|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.imbracatore|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.autogru|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.gru_autocarro|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.carrello|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.ple|date:"d/m/y"}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-{% for lavoratore in formazione %}
-<p>{{lavoratore.lavoratore.cognome}}{{lavoratore.art37}}</p>
-
-{% endfor %}
 
 {% endblock %}

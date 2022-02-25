@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
 # import personale.importa_dati
-
+from django.core.exceptions import ObjectDoesNotExist
 from personale.models import Lavoratore, Formazione
 
 from pprint import pprint as pp
@@ -52,6 +52,7 @@ def aggiorna_documenti(request):
     nuovi_lavoratori = []
     lista_documenti = []
     for lavoratore in dir_lavoratori:
+        # print(lavoratore)
 
         if not lavoratore in elenco_lavoratori:
 
@@ -66,12 +67,33 @@ def aggiorna_documenti(request):
         path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
         try:
             attestati = os.listdir(path_attestati)
-            # print(lavoratore)
-            attestati= aggiorna_documenti_util.calcola_data_attestati(attestati)
+            attestati = aggiorna_documenti_util.calcola_data_attestati(attestati)
         except FileNotFoundError:
             attestati = []
 
         lista_documenti.append([lavoratore, attestati])
+
+        # salva su db
+        if attestati:
+            cognome, nome = lavoratore.split(maxsplit=1)
+
+            try:
+                formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+                print('----->', formazione_)
+            except ObjectDoesNotExist:
+                lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+                formazione_ = Formazione(lavoratore=lavoratore)
+
+            for corso, data in attestati:
+                setattr(formazione_, corso, data)
+
+            formazione_.save()
+            #
+            # formazione = Formazione(lavoratore=lavoratore)
+            # formazione.save()
+
+            # for corso, data in attestati:
+            #     lavoratore[corso]=corso
 
     # pp(lista_documenti)
 
