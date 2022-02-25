@@ -11,9 +11,17 @@ ms
 
 {% block corpo %}
 
-{% for lavoratore in formazione %}
-<p>{{lavoratore.lavoratore.cognome}}{{lavoratore.art37}}</p>
+{% for lavoratore, attestati in lista_documenti %}
+<p>{{lavoratore|title}}</p>
 
+<ul>
+    {% for corso, data in attestati%}
+    <li>
+        {{ corso }}: {{data|date:"d/m/y"}}
+        {% endfor %}
+    </li>
+</ul>
 {% endfor %}
+
 
 {% endblock %}

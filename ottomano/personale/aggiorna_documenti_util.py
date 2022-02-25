@@ -1,0 +1,44 @@
+import datetime
+import os.path
+
+DURATA_CORSI = {
+    'art37': 5,
+    'carrello': 5,
+    'ept': 5,
+    'gru_autocarro': 5,
+    'imbracatore': 5,
+    'ple': 5,
+    'ponteggiatore': 4,
+    'primo_soccorso': 3,
+    'spazi_confinati': 5,
+}
+
+
+def calcola_data_scadenza(data_corso, durata):
+    data = datetime.datetime.strptime(data_corso, '%d%m%y') + datetime.timedelta(365 * durata)
+    return data
+
+
+def calcola_data_attestati(attestati):
+    attestati_ = []
+    for attestato in attestati:
+        corso, data = os.path.splitext(attestato)[0].split()
+
+        match corso:
+            case 'antincendio':
+                #todo: da sistemare
+                data = calcola_data_scadenza(data, 5)
+            case 'preposto':
+                #todo: da sistemare
+                data = calcola_data_scadenza(data, 5)
+            case 'dpi3':
+                # print('dpi3', data)
+                continue
+            case _:
+                # print('*' * 10, corso)
+                durata = DURATA_CORSI[corso]
+                data = calcola_data_scadenza(data, durata)
+
+        attestati_.append((corso, data))
+
+    return attestati_

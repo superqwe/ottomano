@@ -9,6 +9,10 @@ from django.shortcuts import render
 
 from personale.models import Lavoratore, Formazione
 
+from pprint import pprint as pp
+
+from personale import aggiorna_documenti_util
+
 PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori'
 
 
@@ -39,26 +43,43 @@ def formazione(request):
 
 def aggiorna_documenti(request):
     # verifica se sono presenti nuovi lavoratori
-    elenco_lavoratori = Lavoratore.objects.all().values_list('cognome', 'nome')
+    elenco_lavoratori = Lavoratore.objects.all().values_list('cognome', 'nome').order_by('cognome')
     elenco_lavoratori = [('%s %s' % lavoratore).lower() for lavoratore in elenco_lavoratori]
 
     dir_lavoratori = os.listdir(PATH_DOCUMENTI)
     dir_lavoratori = [lavoratore.lower() for lavoratore in dir_lavoratori]
 
-    nuovi_lavoratori=[]
+    nuovi_lavoratori = []
+    lista_documenti = []
     for lavoratore in dir_lavoratori:
+
         if not lavoratore in elenco_lavoratori:
+
             if os.path.isdir(lavoratore):
                 nuovi_lavoratori.append(lavoratore)
-                print('\n'*3, 'Nuovo lavoratore', lavoratore, '\n'*3)
-                #todo: implementare nuovo lavoratore
+                print('\n' * 3, 'Nuovo lavoratore', lavoratore, '\n' * 3)
+                # todo: implementare nuovo lavoratore
+            else:
+                continue
 
+        # ricerca documenti
+        path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
+        try:
+            attestati = os.listdir(path_attestati)
+            # print(lavoratore)
+            attestati= aggiorna_documenti_util.calcola_data_attestati(attestati)
+        except FileNotFoundError:
+            attestati = []
+
+        lista_documenti.append([lavoratore, attestati])
+
+    # pp(lista_documenti)
 
     ####
     # formazione = Formazione.objects.all()
     # print(formazione)
 
     context = {'titolo': 'Aggiorna Documenti',
-               'nuovi_lavoratori': nuovi_lavoratori}
+               'lista_documenti': lista_documenti}
 
     return render(request, 'personale/aggiorna_documenti.html', context)
