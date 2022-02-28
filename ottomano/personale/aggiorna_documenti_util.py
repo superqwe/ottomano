@@ -22,7 +22,7 @@ def calcola_data_scadenza(data_corso, durata):
     return data
 
 
-def calcola_data_attestati(attestati):
+def calcola_data_attestati(attestati, lavoratore):
     attestati_ = []
     for attestato in attestati:
         corso, data = os.path.splitext(attestato)[0].split()
@@ -35,10 +35,9 @@ def calcola_data_attestati(attestati):
                 # todo: da sistemare
                 data = calcola_data_scadenza(data, 5)
             case 'dpi3':
-                # print('dpi3', data)
+                print('*** attestato non riconosciuto ***', lavoratore, attestato)
                 continue
             case _:
-                # print('*' * 10, corso)
                 durata = DURATA_CORSI[corso]
                 data = calcola_data_scadenza(data, durata)
 

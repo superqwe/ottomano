@@ -69,7 +69,7 @@ def aggiorna_documenti(request):
         path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
         try:
             attestati = os.listdir(path_attestati)
-            attestati = aggiorna_documenti_util.calcola_data_attestati(attestati)
+            attestati = aggiorna_documenti_util.calcola_data_attestati(attestati, lavoratore)
         except FileNotFoundError:
             attestati = []
 

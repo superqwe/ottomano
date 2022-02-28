@@ -57,6 +57,8 @@ class Formazione(models.Model):
     ponteggiatore_ck = models.BooleanField(blank=True, null=True, default=None)
     imbracatore = models.DateField(blank=True, null=True, default=None)
     imbracatore_ck = models.BooleanField(blank=True, null=True, default=None)
+    ept = models.DateField(blank=True, null=True, default=None)
+    ept_ck = models.BooleanField(blank=True, null=True, default=None)
     autogru = models.DateField(blank=True, null=True, default=None)
     autogru_ck = models.BooleanField(blank=True, null=True, default=None)
     gru_autocarro = models.DateField(blank=True, null=True, default=None)
