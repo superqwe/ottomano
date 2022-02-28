@@ -17,12 +17,23 @@
 <body>
 
 <div class="container-fluid">
-    <div>
-        <h1>
-            {% block titolo %}
-            {{titolo}}
-            {% endblock %}
-        </h1>
+    <div class="row">
+        <div class="col">
+            <h1>
+                {% block titolo %}
+                {{titolo}}
+                {% endblock %}
+            </h1>
+        </div>
+
+        <div class="col text-end">
+            <div class="btn-group " role="group">
+                <a href="/personale/formazione" class="btn btn-outline-primary {{pagina_attiva_formazione}}">Formazione</a>
+                <a href="/personale/anagrafica" class="btn btn-outline-primary {{pagina_attiva_anagrafica}}">Anagrafica</a>
+                <a href="/personale/aggiorna_documenti" class="btn btn-outline-primary {{pagina_attiva_aggiorna_documenti}}">Aggiorna Documenti</a>
+                <a href="/admin" class="btn btn-outline-primary">Admin</a>
+            </div>
+        </div>
     </div>
 
     <div>

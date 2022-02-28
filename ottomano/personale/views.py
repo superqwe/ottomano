@@ -27,6 +27,7 @@ def index(request):
 def anagrafica(request):
     lavoratori = Lavoratore.objects.filter(in_forza=True)
     context = {'titolo': 'Anagrafica',
+               'pagina_attiva_anagrafica': 'active',
                'lavoratori': lavoratori}
 
     return render(request, 'personale/base.html', context)
@@ -36,6 +37,7 @@ def formazione(request):
     formazione = Formazione.objects.filter(lavoratore__in_forza=True)
     # print(formazione)
     context = {'titolo': 'Formazione',
+               'pagina_attiva_formazione': 'active',
                'formazione': formazione}
 
     return render(request, 'personale/formazione.html', context)
@@ -102,6 +104,7 @@ def aggiorna_documenti(request):
     # print(formazione)
 
     context = {'titolo': 'Aggiorna Documenti',
+               'pagina_attiva_aggiorna_documenti': 'active',
                'lista_documenti': lista_documenti}
 
     return render(request, 'personale/aggiorna_documenti.html', context)
