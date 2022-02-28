@@ -16,6 +16,7 @@ DURATA_CORSI = {
 
 
 def calcola_data_scadenza(data_corso, durata):
+    # todo: aumentare direttamente l'anno
     data = datetime.datetime.strptime(data_corso, '%d%m%y') + datetime.timedelta(365 * durata)
     return data
 

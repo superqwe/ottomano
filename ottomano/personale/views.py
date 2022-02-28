@@ -25,7 +25,7 @@ def index(request):
 #     return HttpResponse("xls importato")
 
 def anagrafica(request):
-    lavoratori = Lavoratore.objects.all()
+    lavoratori = Lavoratore.objects.filter(in_forza=True)
     context = {'titolo': 'Anagrafica',
                'lavoratori': lavoratori}
 
@@ -33,8 +33,8 @@ def anagrafica(request):
 
 
 def formazione(request):
-    formazione = Formazione.objects.all()
-    print(formazione)
+    formazione = Formazione.objects.filter(lavoratore__in_forza=True)
+    # print(formazione)
     context = {'titolo': 'Formazione',
                'formazione': formazione}
 
