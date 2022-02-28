@@ -57,11 +57,14 @@ def aggiorna_documenti(request):
         # print(lavoratore)
 
         if not lavoratore in elenco_lavoratori:
+            path_dir_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
 
-            if os.path.isdir(lavoratore):
+            if os.path.isdir(path_dir_lavoratore):
                 nuovi_lavoratori.append(lavoratore)
-                print('\n' * 3, 'Nuovo lavoratore', lavoratore, '\n' * 3)
-                # todo: implementare nuovo lavoratore
+                print('\n' * 3, 'Nuovo lavoratore', lavoratore.split(maxsplit=1), '\n' * 3)
+                cognome, nome = lavoratore.split(maxsplit=1)
+                nuovo_lavoratore = Lavoratore(cognome=cognome.title(), nome=nome.title())
+                nuovo_lavoratore.save()
             else:
                 continue
 
@@ -101,7 +104,7 @@ def aggiorna_documenti(request):
 
     ####
     # formazione = Formazione.objects.all()
-    # print(formazione)
+    print(nuovi_lavoratori)
 
     context = {'titolo': 'Aggiorna Documenti',
                'pagina_attiva_aggiorna_documenti': 'active',
