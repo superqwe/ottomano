@@ -16,6 +16,7 @@ Formazione
         <tr class="text-center">
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
+            <th scope="col">Mansione</th>
             <th scope="col">Preposto</th>
             <th scope="col">Primo Soccorso</th>
             <th scope="col">Antincendio</th>
@@ -27,6 +28,7 @@ Formazione
             <th scope="col">Gru su Autocarro</th>
             <th scope="col">Carrello</th>
             <th scope="col">PLE</th>
+            <th scope="col">RLS</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +36,7 @@ Formazione
         <tr >
             <td >{{lavoratore.lavoratore.cognome}}</td>
             <td >{{lavoratore.lavoratore.nome}}</td>
+            <td >{{lavoratore.lavoratore.mansione}}</td>
             <td class="text-center">{{lavoratore.preposto|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.antincendio|date:"d/m/y"}}</td>
@@ -45,6 +48,7 @@ Formazione
             <td class="text-center">{{lavoratore.gru_autocarro|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.carrello|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.ple|date:"d/m/y"}}</td>
+            <td class="text-center">{{lavoratore.rls|date:"d/m/y"}}</td>
         </tr>
         {% endfor %}
         </tbody>

@@ -16,6 +16,6 @@ env
 jupyter
 
 *.bat
-db.*
+db*.*
 ottomano/personale/migrations
 

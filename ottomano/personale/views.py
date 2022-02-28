@@ -74,12 +74,12 @@ def aggiorna_documenti(request):
         lista_documenti.append([lavoratore, attestati])
 
         # salva su db
-        if attestati:
+        if attestati or True:
             cognome, nome = lavoratore.split(maxsplit=1)
 
             try:
                 formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-                print('----->', formazione_)
+                # print('----->', formazione_)
             except ObjectDoesNotExist:
                 lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
                 formazione_ = Formazione(lavoratore=lavoratore)

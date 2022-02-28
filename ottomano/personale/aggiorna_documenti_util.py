@@ -10,6 +10,7 @@ DURATA_CORSI = {
     'ple': 5,
     'ponteggiatore': 4,
     'primo_soccorso': 3,
+    'rls': 1,
     'spazi_confinati': 5,
 }
 
@@ -26,10 +27,10 @@ def calcola_data_attestati(attestati):
 
         match corso:
             case 'antincendio':
-                #todo: da sistemare
+                # todo: da sistemare
                 data = calcola_data_scadenza(data, 5)
             case 'preposto':
-                #todo: da sistemare
+                # todo: da sistemare
                 data = calcola_data_scadenza(data, 5)
             case 'dpi3':
                 # print('dpi3', data)

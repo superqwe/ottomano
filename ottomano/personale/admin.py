@@ -14,8 +14,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
 
 
 class FormazioneAdmin(admin.ModelAdmin):
-    list_display = (
-        'lavoratore', 'art37')
+    list_display = ('lavoratore', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     # list_display_links = ('cognome', 'nome')
     # list_filter =('in_forza', 'reparto')
 

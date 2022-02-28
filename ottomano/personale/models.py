@@ -65,6 +65,8 @@ class Formazione(models.Model):
     carrello_ck = models.BooleanField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
     ple_ck = models.BooleanField(blank=True, null=True, default=None)
+    rls = models.DateField(blank=True, null=True, default=None)
+    rls_ck = models.BooleanField(blank=True, null=True, default=None)
 
     class Meta:
         ordering = ['lavoratore', ]
