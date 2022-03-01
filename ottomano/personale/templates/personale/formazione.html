@@ -17,6 +17,7 @@ Formazione
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
             <th scope="col">Mansione</th>
+            <th scope="col">Cantiere</th>
             <th scope="col">Preposto</th>
             <th scope="col">Primo Soccorso</th>
             <th scope="col">Antincendio</th>
@@ -38,8 +39,9 @@ Formazione
             <td >{{lavoratore.lavoratore.cognome}}</td>
             <td >{{lavoratore.lavoratore.nome}}</td>
             <td >{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
+            <td >{{lavoratore.lavoratore.reparto|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.preposto|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.primo_soccorso_ck}}">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.antincendio|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.art37|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>

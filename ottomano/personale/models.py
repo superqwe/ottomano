@@ -1,7 +1,11 @@
 from django.db import models
 
+STATO_DOCUMENTI = [
+    (None, 'ok_np'),
+    ('table-warning', 'scade'),
+    ('table-danger', 'scaduto')
+]
 
-# Create your models here.
 
 class Lavoratore(models.Model):
     in_forza = models.BooleanField(default=True)
@@ -44,31 +48,32 @@ class Lavoratore(models.Model):
 class Formazione(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     preposto = models.DateField(blank=True, null=True, default=None)
-    preposto_ck = models.BooleanField(blank=True, null=True, default=None)
     primo_soccorso = models.DateField(blank=True, null=True, default=None)
-    primo_soccorso_ck = models.BooleanField(blank=True, null=True, default=None)
     antincendio = models.DateField(blank=True, null=True, default=None)
-    antincendio_ck = models.BooleanField(blank=True, null=True, default=None)
     art37 = models.DateField(blank=True, null=True, default=None)
-    art37_ck = models.BooleanField(blank=True, null=True, default=None)
     spazi_confinati = models.DateField(blank=True, null=True, default=None)
-    spazi_confinati_ck = models.BooleanField(blank=True, null=True, default=None)
     ponteggiatore = models.DateField(blank=True, null=True, default=None)
-    ponteggiatore_ck = models.BooleanField(blank=True, null=True, default=None)
     imbracatore = models.DateField(blank=True, null=True, default=None)
-    imbracatore_ck = models.BooleanField(blank=True, null=True, default=None)
     ept = models.DateField(blank=True, null=True, default=None)
-    ept_ck = models.BooleanField(blank=True, null=True, default=None)
     autogru = models.DateField(blank=True, null=True, default=None)
-    autogru_ck = models.BooleanField(blank=True, null=True, default=None)
     gru_autocarro = models.DateField(blank=True, null=True, default=None)
-    gru_autocarro_ck = models.BooleanField(blank=True, null=True, default=None)
     carrello = models.DateField(blank=True, null=True, default=None)
-    carrello_ck = models.BooleanField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
-    ple_ck = models.BooleanField(blank=True, null=True, default=None)
     rls = models.DateField(blank=True, null=True, default=None)
-    rls_ck = models.BooleanField(blank=True, null=True, default=None)
+    preposto_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    primo_soccorso_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    antincendio_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    art37_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    spazi_confinati_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                          default='ok_np')
+    ponteggiatore_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    imbracatore_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ept_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    autogru_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    gru_autocarro_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    carrello_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ple_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    rls_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     class Meta:
         ordering = ['lavoratore', ]
