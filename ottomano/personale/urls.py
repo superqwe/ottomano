@@ -7,5 +7,6 @@ urlpatterns = [
     # path('importa_Personale_abilitazioni', views.importa_Personale_abilitazioni, name='importa_Personale_abilitazioni'),
     path('anagrafica', views.anagrafica, name='anagrafica'),
     path('aggiorna_documenti', views.aggiorna_documenti, name='aggiorna_documenti'),
+    path('aggiorna_stato', views.aggiorna_stato, name='aggiorna_stato'),
     path('formazione', views.formazione, name='formazione'),
 ]

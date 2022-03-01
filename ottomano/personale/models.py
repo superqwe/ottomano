@@ -60,6 +60,7 @@ class Formazione(models.Model):
     carrello = models.DateField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
     rls = models.DateField(blank=True, null=True, default=None)
+
     preposto_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     primo_soccorso_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     antincendio_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')

@@ -40,19 +40,19 @@ Formazione
             <td >{{lavoratore.lavoratore.nome}}</td>
             <td >{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
             <td >{{lavoratore.lavoratore.reparto|default_if_none:""}}</td>
-            <td class="text-center">{{lavoratore.preposto|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.preposto_ck}}">{{lavoratore.preposto|date:"d/m/y"}}</td>
             <td class="text-center {{lavoratore.primo_soccorso_ck}}">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.antincendio|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.art37|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.ponteggiatore|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.imbracatore|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.ept|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.autogru|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.gru_autocarro|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.carrello|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.ple|date:"d/m/y"}}</td>
-            <td class="text-center">{{lavoratore.rls|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.antincendio_ck}}">{{lavoratore.antincendio|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.art37_ck}}">{{lavoratore.art37|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.spazi_confinati_ck}}">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ponteggiatore_ck}}">{{lavoratore.ponteggiatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.imbracatore_ck}}">{{lavoratore.imbracatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ept_ck}}">{{lavoratore.ept|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.autogru_ck}}">{{lavoratore.autogru|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.gru_autocarro_ck}}">{{lavoratore.gru_autocarro|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.carrello_ck}}">{{lavoratore.carrello|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ple_ck}}">{{lavoratore.ple|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.rls_ck}}">{{lavoratore.rls|date:"d/m/y"}}</td>
         </tr>
         {% endfor %}
         </tbody>
