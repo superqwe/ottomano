@@ -76,7 +76,8 @@
                 <th scope="col">Mansione1</th>
                 <th scope="col">Mansione2</th>
                 <th scope="col">Mansione3</th>
-                <th scope="col">Reparto</th>
+<!--                <th scope="col">Reparto</th>-->
+                <th scope="col">Cantiere</th>
             </tr>
             </thead>
             <tbody>
@@ -106,7 +107,8 @@
                 <td>{{lavoratore.mansione_1|default_if_none:""}}</td>
                 <td>{{lavoratore.mansione_2|default_if_none:""}}</td>
                 <td>{{lavoratore.mansione_3|default_if_none:""}}</td>
-                <td>{{lavoratore.reparto|default_if_none:""}}</td>
+<!--                <td>{{lavoratore.reparto|default_if_none:""}}</td>-->
+                <td>{{lavoratore.cantiere|default_if_none:""}}</td>
             </tr>
             {% endfor %}
             </tbody>

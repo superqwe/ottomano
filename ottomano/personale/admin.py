@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Lavoratore, Formazione
+from .models import Lavoratore, Formazione, Cantiere
 
 
 # Register your models here.
@@ -11,6 +11,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
         'attivita_svolta', 'mansione_1', 'mansione_2', 'mansione_3', 'reparto')
     list_display_links = ('cognome', 'nome')
     list_filter = ('in_forza', 'reparto')
+    save_on_top = True
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -36,5 +37,10 @@ class FormazioneAdmin(admin.ModelAdmin):
     # list_filter =('in_forza', 'reparto')
 
 
+class CantiereAdmin(admin.ModelAdmin):
+    save_on_top = True
+
+
 admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Formazione, FormazioneAdmin)
+admin.site.register(Cantiere, CantiereAdmin)

@@ -7,6 +7,18 @@ STATO_DOCUMENTI = [
 ]
 
 
+class Cantiere(models.Model):
+    cantiere = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        ordering = ['cantiere', ]
+        verbose_name = 'Cantiere'
+        verbose_name_plural = 'Cantieri'
+
+    def __str__(self):
+        return '%s' % self.cantiere
+
+
 class Lavoratore(models.Model):
     in_forza = models.BooleanField(default=True)
     matricola = models.IntegerField(blank=True, null=True)
@@ -34,7 +46,8 @@ class Lavoratore(models.Model):
     mansione_1 = models.CharField(max_length=20, blank=True, null=True)
     mansione_2 = models.CharField(max_length=20, blank=True, null=True)
     mansione_3 = models.CharField(max_length=20, blank=True, null=True)
-    reparto = models.CharField(max_length=50, blank=True, null=True)
+    reparto = models.CharField(max_length=50, blank=True, null=True) #todo da rimuovere
+    cantiere = models.ForeignKey(Cantiere, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ['cognome', 'nome']

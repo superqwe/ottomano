@@ -15,6 +15,7 @@ from pprint import pprint as pp
 from personale import aggiorna_documenti_util
 
 PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori'
+# PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 12)
 
