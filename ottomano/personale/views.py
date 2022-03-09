@@ -1,4 +1,5 @@
 import datetime
+import glob
 import os
 
 from django.shortcuts import render
@@ -8,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
-from personale.models import Lavoratore, Formazione
+from personale.models import Lavoratore, Formazione, Idoneita
 
 from pprint import pprint as pp
 
@@ -72,7 +73,7 @@ def aggiorna_documenti(request):
             else:
                 continue
 
-        # ricerca documenti
+        # ricerca attestati
         path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
         try:
             attestati = os.listdir(path_attestati)
@@ -97,6 +98,31 @@ def aggiorna_documenti(request):
                 setattr(formazione_, corso, data)
 
             formazione_.save()
+
+        # ricerca idoneità
+        path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
+        os.chdir(path_lavoratore)
+        lfile = glob.glob('idoneità*')
+
+        try:
+            idoneita = Idoneita.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+        except ObjectDoesNotExist:
+            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+            idoneita = Idoneita(lavoratore=lavoratore)
+
+        match len(lfile):
+            case 1:
+                scadenza_idoneita = os.path.splitext(lfile[0])[0].split()[1]
+                scadenza_idoneita = datetime.datetime.strptime(scadenza_idoneita, '%d%m%y')
+                idoneita.idoneita = scadenza_idoneita
+            case 0:
+                print('*** manca idoneità *** %s' % lavoratore)
+            case _:
+                print('*** più di una idoneità *** %s' % lavoratore)
+
+        idoneita.save()
+
+    os.chdir(PATH_DOCUMENTI)
 
     context = {'titolo': 'Aggiorna Documenti',
                'pagina_attiva_aggiorna_documenti': 'active',

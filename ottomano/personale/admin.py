@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Lavoratore, Formazione, Cantiere
+from .models import Lavoratore, Formazione, Cantiere, Idoneita
 
 
 # Register your models here.
@@ -41,6 +41,12 @@ class CantiereAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+class IdoneitaAdmin(admin.ModelAdmin):
+    list_display = ('lavoratore', 'idoneita')
+    save_on_top = True
+
+
 admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Cantiere, CantiereAdmin)
+admin.site.register(Idoneita, IdoneitaAdmin)

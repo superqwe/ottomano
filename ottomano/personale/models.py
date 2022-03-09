@@ -46,7 +46,7 @@ class Lavoratore(models.Model):
     mansione_1 = models.CharField(max_length=20, blank=True, null=True)
     mansione_2 = models.CharField(max_length=20, blank=True, null=True)
     mansione_3 = models.CharField(max_length=20, blank=True, null=True)
-    reparto = models.CharField(max_length=50, blank=True, null=True) #todo da rimuovere
+    reparto = models.CharField(max_length=50, blank=True, null=True)  # todo da rimuovere
     cantiere = models.ForeignKey(Cantiere, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
@@ -96,3 +96,18 @@ class Formazione(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.lavoratore.cognome, self.lavoratore.nome)
+
+
+class Idoneita(models.Model):
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+    idoneita = models.DateField(blank=True, null=True, default=None)
+
+    idoneita_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+
+    class Meta:
+        ordering = ['lavoratore', ]
+        verbose_name = 'Idoneità'
+        verbose_name_plural = 'Idoneità'
+
+    def __str__(self):
+        return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.idoneita)
