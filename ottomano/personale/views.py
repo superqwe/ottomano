@@ -19,7 +19,7 @@ PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori'
 # PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 12)
-
+FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -81,7 +81,7 @@ def aggiorna_documenti(request):
         except FileNotFoundError:
             attestati = []
 
-        lista_documenti.append([lavoratore, attestati])
+        # lista_documenti.append([lavoratore, attestati])
 
         # salva su db
         if attestati or True:
@@ -115,12 +115,20 @@ def aggiorna_documenti(request):
                 scadenza_idoneita = os.path.splitext(lfile[0])[0].split()[1]
                 scadenza_idoneita = datetime.datetime.strptime(scadenza_idoneita, '%d%m%y')
                 idoneita.idoneita = scadenza_idoneita
+
+                attestati.append(('idoneità', scadenza_idoneita))
+
             case 0:
                 print('*** manca idoneità *** %s' % lavoratore)
             case _:
                 print('*** più di una idoneità *** %s' % lavoratore)
 
         idoneita.save()
+
+        ###
+        lista_documenti.append([lavoratore, attestati])
+
+    # pp(lista_documenti)
 
     os.chdir(PATH_DOCUMENTI)
 
@@ -161,6 +169,11 @@ def aggiorna_stato(request):
     Formazione.objects.filter(rls__lt=OGGI).update(rls_ck='table-danger')
     # Formazione.objects.filter(__lt=OGGI).update(_ck='table-danger')
     # result.update(primo_soccorso_ck='table-warning')
+
+    Idoneita.objects.filter(idoneita=None).update(idoneita_ck='table-danger')
+    a = Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
+    pp(a)
+
     result = None
 
     context = {'titolo': 'Aggiorna Stato',
@@ -169,3 +182,13 @@ def aggiorna_stato(request):
                }
 
     return render(request, 'personale/aggiorna_stato.html', context)
+
+
+def idoneita(request):
+    idoneita = Idoneita.objects.filter(lavoratore__in_forza=True)
+    # print(formazione)
+    context = {'titolo': 'Idoneità',
+               'pagina_attiva_idoneita': 'active',
+               'idoneita': idoneita}
+
+    return render(request, 'personale/idoneita.html', context)

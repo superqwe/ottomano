@@ -9,4 +9,5 @@ urlpatterns = [
     path('aggiorna_documenti', views.aggiorna_documenti, name='aggiorna_documenti'),
     path('aggiorna_stato', views.aggiorna_stato, name='aggiorna_stato'),
     path('formazione', views.formazione, name='formazione'),
+    path('idoneita', views.idoneita, name='idoneita'),
 ]
