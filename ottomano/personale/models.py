@@ -71,6 +71,7 @@ class Formazione(models.Model):
     autogru = models.DateField(blank=True, null=True, default=None)
     gru_autocarro = models.DateField(blank=True, null=True, default=None)
     carrello = models.DateField(blank=True, null=True, default=None)
+    sollevatore = models.DateField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
     rls = models.DateField(blank=True, null=True, default=None)
 
@@ -86,6 +87,7 @@ class Formazione(models.Model):
     autogru_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     gru_autocarro_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     carrello_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    sollevatore_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     ple_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     rls_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 

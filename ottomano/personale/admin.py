@@ -28,6 +28,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('autogru', 'autogru_ck'),
         ('gru_autocarro', 'gru_autocarro_ck'),
         ('carrello', 'carrello_ck'),
+        ('sollevatore', 'sollevatore_ck'),
         ('ple', 'ple_ck'),
         ('rls', 'rls_ck'),
     )

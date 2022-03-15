@@ -21,6 +21,7 @@ OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 12)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -151,6 +152,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(autogru__lt=FRA_N_MESI).update(autogru_ck='table-warning')
     Formazione.objects.filter(gru_autocarro__lt=FRA_N_MESI).update(gru_autocarro_ck='table-warning')
     Formazione.objects.filter(carrello__lt=FRA_N_MESI).update(carrello_ck='table-warning')
+    Formazione.objects.filter(sollevatore__lt=FRA_N_MESI).update(sollevatore_ck='table-warning')
     Formazione.objects.filter(ple__lt=FRA_N_MESI).update(ple_ck='table-warning')
     Formazione.objects.filter(rls__lt=FRA_N_MESI).update(rls_ck='table-warning')
 
@@ -170,9 +172,10 @@ def aggiorna_stato(request):
     # Formazione.objects.filter(__lt=OGGI).update(_ck='table-danger')
     # result.update(primo_soccorso_ck='table-warning')
 
+    Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
+    Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
     Idoneita.objects.filter(idoneita=None).update(idoneita_ck='table-danger')
-    a = Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
-    pp(a)
+    Idoneita.objects.filter(idoneita__lte=OGGI).update(idoneita_ck='table-danger')
 
     result = None
 
