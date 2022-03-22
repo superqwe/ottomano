@@ -141,6 +141,21 @@ def aggiorna_documenti(request):
 
 
 def aggiorna_stato(request):
+    Formazione.objects.filter(preposto__gt=OGGI).update(preposto_ck='')
+    Formazione.objects.filter(primo_soccorso__gt=OGGI).update(primo_soccorso_ck='')
+    Formazione.objects.filter(antincendio__gt=OGGI).update(antincendio_ck='')
+    Formazione.objects.filter(art37__gt=OGGI).update(art37_ck='')
+    Formazione.objects.filter(spazi_confinati__gt=OGGI).update(spazi_confinati_ck='')
+    Formazione.objects.filter(ponteggiatore__gt=OGGI).update(ponteggiatore_ck='')
+    Formazione.objects.filter(imbracatore__gt=OGGI).update(imbracatore_ck='')
+    Formazione.objects.filter(ept__gt=OGGI).update(ept_ck='')
+    Formazione.objects.filter(autogru__gt=OGGI).update(autogru_ck='')
+    Formazione.objects.filter(gru_autocarro__gt=OGGI).update(gru_autocarro_ck='')
+    Formazione.objects.filter(carrello__gt=OGGI).update(carrello_ck='')
+    Formazione.objects.filter(sollevatore__gt=OGGI).update(sollevatore_ck='')
+    Formazione.objects.filter(ple__gt=OGGI).update(ple_ck='')
+    Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
+
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning')
     Formazione.objects.filter(primo_soccorso__lt=FRA_N_MESI).update(primo_soccorso_ck='table-warning')
     Formazione.objects.filter(antincendio__lt=FRA_N_MESI).update(antincendio_ck='table-warning')
