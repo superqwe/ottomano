@@ -3,6 +3,7 @@ import os.path
 
 DURATA_CORSI = {
     'art37': 5,
+    'aspp': 4,
     'autogru': 5,
     'carrello': 5,
     'ept': 5,
@@ -36,7 +37,7 @@ def calcola_data_attestati(attestati, lavoratore):
             case 'preposto':
                 # todo: da sistemare
                 data = calcola_data_scadenza(data, 5)
-            case 'dpi3':
+            case 'amianto' | 'dpi3':
                 print('*** attestato non riconosciuto ***', lavoratore, attestato)
                 continue
             case _:
