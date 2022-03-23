@@ -31,6 +31,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('sollevatore', 'sollevatore_ck'),
         ('ple', 'ple_ck'),
         ('rls', 'rls_ck'),
+        ('aspp', 'aspp_ck'),
     )
     list_display = ('lavoratore', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     save_on_top = True

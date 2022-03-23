@@ -74,6 +74,7 @@ class Formazione(models.Model):
     sollevatore = models.DateField(blank=True, null=True, default=None)
     ple = models.DateField(blank=True, null=True, default=None)
     rls = models.DateField(blank=True, null=True, default=None)
+    aspp = models.DateField(blank=True, null=True, default=None)
 
     preposto_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     primo_soccorso_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
@@ -90,6 +91,7 @@ class Formazione(models.Model):
     sollevatore_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     ple_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     rls_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    aspp_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     class Meta:
         ordering = ['lavoratore', ]

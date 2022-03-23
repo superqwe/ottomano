@@ -155,6 +155,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(sollevatore__gt=OGGI).update(sollevatore_ck='')
     Formazione.objects.filter(ple__gt=OGGI).update(ple_ck='')
     Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
+    Formazione.objects.filter(aspp__gt=OGGI).update(aspp_ck='')
 
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning')
     Formazione.objects.filter(primo_soccorso__lt=FRA_N_MESI).update(primo_soccorso_ck='table-warning')
@@ -170,6 +171,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(sollevatore__lt=FRA_N_MESI).update(sollevatore_ck='table-warning')
     Formazione.objects.filter(ple__lt=FRA_N_MESI).update(ple_ck='table-warning')
     Formazione.objects.filter(rls__lt=FRA_N_MESI).update(rls_ck='table-warning')
+    Formazione.objects.filter(aspp__lt=FRA_N_MESI).update(aspp_ck='table-warning')
 
     Formazione.objects.filter(preposto__lt=OGGI).update(preposto_ck='table-danger')
     Formazione.objects.filter(primo_soccorso__lt=OGGI).update(primo_soccorso_ck='table-danger')
@@ -184,8 +186,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(carrello__lt=OGGI).update(carrello_ck='table-danger')
     Formazione.objects.filter(ple__lt=OGGI).update(ple_ck='table-danger')
     Formazione.objects.filter(rls__lt=OGGI).update(rls_ck='table-danger')
-    # Formazione.objects.filter(__lt=OGGI).update(_ck='table-danger')
-    # result.update(primo_soccorso_ck='table-warning')
+    Formazione.objects.filter(aspp__lt=OGGI).update(aspp_ck='table-danger')
 
     Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
     Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
