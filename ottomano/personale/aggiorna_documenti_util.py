@@ -37,7 +37,7 @@ def calcola_data_attestati(attestati, lavoratore):
             case 'preposto':
                 # todo: da sistemare
                 data = calcola_data_scadenza(data, 5)
-            case 'amianto' | 'dpi3':
+            case 'amianto' | 'dpi3' | 'formatore' | 'spazi_confinati_lc':
                 print('*** attestato non riconosciuto ***', lavoratore, attestato)
                 continue
             case _:
