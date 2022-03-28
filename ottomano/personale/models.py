@@ -105,6 +105,13 @@ class Formazione(models.Model):
 class Idoneita(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     idoneita = models.DateField(blank=True, null=True, default=None)
+    otoprotettori = models.BooleanField(default=False)
+    guanti = models.BooleanField(default=False)
+    posture = models.BooleanField(default=False)
+    carichi_10 = models.BooleanField(default=False)
+    carichi_15 = models.BooleanField(default=False)
+    sollecitazioni_arto_superiore_sinistro = models.BooleanField(default=False)
+    spazi_confinati = models.BooleanField(default=False)
 
     idoneita_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 

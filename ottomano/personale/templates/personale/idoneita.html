@@ -17,6 +17,15 @@ Idoneità
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
             <th scope="col">Idoneità</th>
+            <th scope="col">Obblogo dei DPI per il rumore anche per livelli di esposizione giornaliera arumore tra 80 e
+                85 dB(A)
+            </th>
+            <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
+            <th scope="col">Evitare posture incongrue</th>
+            <th scope="col">Limitare la movimentazione manuale dei carichi a max km 10</th>
+            <th scope="col">Limitare la movimentazione manuale dei carichi a max km 15</th>
+            <th scope="col">Evitare intense e ripetute sollecitazioni dell'arto superiore sinistro</th>
+            <th scope="col">Non adibire ad attività in spazi confinati</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +34,41 @@ Idoneità
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">{{lavoratore.idoneita|date:"d/m/y"}}</td>
+            <td class="text-center">
+                {% if lavoratore.otoprotettori %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.guanti %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.posture %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.carichi_10 %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.carichi_15 %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.sollecitazioni_arto_superiore_sinistro %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.spazi_confinati %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
