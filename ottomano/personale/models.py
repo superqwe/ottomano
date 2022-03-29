@@ -112,6 +112,8 @@ class Idoneita(models.Model):
     carichi_15 = models.BooleanField(default=False)
     sollecitazioni_arto_superiore_sinistro = models.BooleanField(default=False)
     spazi_confinati = models.BooleanField(default=False)
+    mansioni_gravose = models.BooleanField(default=False)
+    temperature = models.BooleanField(default=False)
 
     idoneita_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 

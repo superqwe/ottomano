@@ -44,6 +44,18 @@ class CantiereAdmin(admin.ModelAdmin):
 
 
 class IdoneitaAdmin(admin.ModelAdmin):
+    fields = (
+        'lavoratore',
+        ('idoneita', 'idoneita_ck'),
+        'otoprotettori',
+        'guanti',
+        'posture',
+        ('carichi_10', 'carichi_15'),
+        'sollecitazioni_arto_superiore_sinistro',
+        'spazi_confinati',
+        'mansioni_gravose',
+        'temperature',
+    )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
 
