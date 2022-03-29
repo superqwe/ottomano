@@ -69,8 +69,12 @@ def aggiorna_documenti(request):
                 nuovi_lavoratori.append(lavoratore)
                 print('\n' * 3, 'Nuovo lavoratore', lavoratore.split(maxsplit=1), '\n' * 3)
                 cognome, nome = lavoratore.split(maxsplit=1)
+
                 nuovo_lavoratore = Lavoratore(cognome=cognome.title(), nome=nome.title())
                 nuovo_lavoratore.save()
+
+                nuovo_lavoratore_idoneita = Idoneita(lavoratore=nuovo_lavoratore)
+                nuovo_lavoratore_idoneita.save()
             else:
                 continue
 
@@ -101,7 +105,12 @@ def aggiorna_documenti(request):
             formazione_.save()
 
         # ricerca idoneità
-        path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
+        try:
+            path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
+        except TypeError:
+            # todo: eccezione da gestire
+            print('*** errore nella ricerca dell\'idoneità di ', lavoratore)
+
         os.chdir(path_lavoratore)
         lfile = glob.glob('idoneità*')
 
