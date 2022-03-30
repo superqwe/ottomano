@@ -86,8 +86,6 @@ def aggiorna_documenti(request):
         except FileNotFoundError:
             attestati = []
 
-        # lista_documenti.append([lavoratore, attestati])
-
         # salva su db
         if attestati or True:
             cognome, nome = lavoratore.split(maxsplit=1)
@@ -134,6 +132,31 @@ def aggiorna_documenti(request):
                 print('*** più di una idoneità *** %s' % lavoratore)
 
         idoneita.save()
+
+        # ricerca nomine
+        path_nomine = os.path.join(PATH_DOCUMENTI, lavoratore, 'nomine')
+
+        try:
+            nomine = os.listdir(path_nomine)
+
+            for nomina in nomine:
+                tipo_nomina, data_nomina = os.path.splitext(nomina)[0].split()
+                data_nomina = datetime.datetime.strptime(data_nomina, '%d%m%y')
+
+                formazione = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+
+                match tipo_nomina:
+                    case 'nomina_preposto':
+                        formazione.nomina_preposto = data_nomina
+                    case 'nomina_antincendio':
+                        formazione.nomina_antincendio = data_nomina
+                    case 'nomina_primo_soccorso':
+                        formazione.nomina_primo_soccorso = data_nomina
+
+                formazione.save()
+
+        except FileNotFoundError:
+            pass
 
         ###
         lista_documenti.append([lavoratore, attestati])

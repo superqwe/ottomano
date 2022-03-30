@@ -75,6 +75,10 @@ class Formazione(models.Model):
     ple = models.DateField(blank=True, null=True, default=None)
     rls = models.DateField(blank=True, null=True, default=None)
     aspp = models.DateField(blank=True, null=True, default=None)
+    nomina_preposto = models.DateField(blank=True, null=True, default=None)
+    nomina_antincendio = models.DateField(blank=True, null=True, default=None)
+    nomina_primo_soccorso = models.DateField(blank=True, null=True, default=None)
+    nomina_aspp = models.DateField(blank=True, null=True, default=None)
 
     preposto_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     primo_soccorso_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')

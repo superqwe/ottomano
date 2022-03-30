@@ -37,14 +37,20 @@ Formazione
         </thead>
         <tbody>
         {% for lavoratore in formazione %}
-        <tr >
-            <td >{{lavoratore.lavoratore.cognome}}</td>
-            <td >{{lavoratore.lavoratore.nome}}</td>
-            <td >{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
-            <td >{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>
-            <td class="text-center {{lavoratore.preposto_ck}}">{{lavoratore.preposto|date:"d/m/y"}}</td>
-            <td class="text-center {{lavoratore.primo_soccorso_ck}}">{{lavoratore.primo_soccorso|date:"d/m/y"}}</td>
-            <td class="text-center {{lavoratore.antincendio_ck}}">{{lavoratore.antincendio|date:"d/m/y"}}</td>
+        <tr>
+            <td>{{lavoratore.lavoratore.cognome}}</td>
+            <td>{{lavoratore.lavoratore.nome}}</td>
+            <td>{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
+            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>
+            <td class="text-center {{lavoratore.preposto_ck}}">{{lavoratore.preposto|date:"d/m/y"}}
+                {% if lavoratore.nomina_preposto %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
+            <td class="text-center {{lavoratore.primo_soccorso_ck}}">{{lavoratore.primo_soccorso|date:"d/m/y"}}
+                {% if lavoratore.nomina_primo_soccorso %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
+            <td class="text-center {{lavoratore.antincendio_ck}}">{{lavoratore.antincendio|date:"d/m/y"}}
+                {% if lavoratore.nomina_antincendio %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
             <td class="text-center {{lavoratore.art37_ck}}">{{lavoratore.art37|date:"d/m/y"}}</td>
             <td class="text-center {{lavoratore.spazi_confinati_ck}}">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>
             <td class="text-center {{lavoratore.ponteggiatore_ck}}">{{lavoratore.ponteggiatore|date:"d/m/y"}}</td>

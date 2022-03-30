@@ -17,9 +17,9 @@ class LavoratoreAdmin(admin.ModelAdmin):
 class FormazioneAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
-        ('preposto', 'preposto_ck'),
-        ('primo_soccorso', 'primo_soccorso_ck'),
-        ('antincendio', 'antincendio_ck'),
+        ('preposto', 'preposto_ck', 'nomina_preposto'),
+        ('primo_soccorso', 'primo_soccorso_ck', 'nomina_primo_soccorso'),
+        ('antincendio', 'antincendio_ck', 'nomina_antincendio'),
         ('art37', 'art37_ck'),
         ('spazi_confinati', 'spazi_confinati_ck'),
         ('ponteggiatore', 'ponteggiatore_ck'),
@@ -31,7 +31,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('sollevatore', 'sollevatore_ck'),
         ('ple', 'ple_ck'),
         ('rls', 'rls_ck'),
-        ('aspp', 'aspp_ck'),
+        ('aspp', 'aspp_ck', 'nomina_aspp'),
     )
     list_display = ('lavoratore', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     save_on_top = True
