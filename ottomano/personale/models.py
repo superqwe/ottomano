@@ -6,6 +6,12 @@ STATO_DOCUMENTI = [
     ('table-danger', 'scaduto')
 ]
 
+STATO_FORMAZIONE = [
+    ('verde', 'ok'),
+    ('giallo', 'scade'),
+    ('rosso', 'scaduto')
+]
+
 
 class Cantiere(models.Model):
     cantiere = models.CharField(max_length=50, blank=True, null=True)
@@ -21,6 +27,7 @@ class Cantiere(models.Model):
 
 class Lavoratore(models.Model):
     in_forza = models.BooleanField(default=True)
+    cantiere = models.ForeignKey(Cantiere, on_delete=models.CASCADE, blank=True, null=True)
     matricola = models.IntegerField(blank=True, null=True)
     cognome = models.CharField(max_length=20, blank=True, null=True)
     nome = models.CharField(max_length=20, blank=True, null=True)
@@ -47,7 +54,6 @@ class Lavoratore(models.Model):
     mansione_2 = models.CharField(max_length=20, blank=True, null=True)
     mansione_3 = models.CharField(max_length=20, blank=True, null=True)
     reparto = models.CharField(max_length=50, blank=True, null=True)  # todo da rimuovere
-    cantiere = models.ForeignKey(Cantiere, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ['cognome', 'nome']
@@ -60,6 +66,7 @@ class Lavoratore(models.Model):
 
 class Formazione(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+    stato = models.CharField(max_length=20, choices=STATO_FORMAZIONE, blank=True, null=True, default='ok_np')
     dirigente = models.DateField(blank=True, null=True, default=None)
     preposto = models.DateField(blank=True, null=True, default=None)
     primo_soccorso = models.DateField(blank=True, null=True, default=None)

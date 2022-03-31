@@ -17,6 +17,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
 class FormazioneAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
+        'stato',
         ('dirigente', 'dirigente_ck'),
         ('preposto', 'preposto_ck', 'nomina_preposto'),
         ('primo_soccorso', 'primo_soccorso_ck', 'nomina_primo_soccorso'),
@@ -34,7 +35,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('rls', 'rls_ck'),
         ('aspp', 'aspp_ck', 'nomina_aspp'),
     )
-    list_display = ('lavoratore', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
+    list_display = ('lavoratore', 'stato', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     save_on_top = True
     # list_display_links = ('cognome', 'nome')
     # list_filter =('in_forza', 'reparto')
