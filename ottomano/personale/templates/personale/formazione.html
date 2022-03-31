@@ -18,6 +18,7 @@ Formazione
             <th scope="col">Nome</th>
             <th scope="col">Mansione</th>
             <th scope="col">Cantiere</th>
+            <th scope="col">Dirigente*</th>
             <th scope="col">Preposto*</th>
             <th scope="col">Primo Soccorso</th>
             <th scope="col">Antincendio*</th>
@@ -42,6 +43,7 @@ Formazione
             <td>{{lavoratore.lavoratore.nome}}</td>
             <td>{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
             <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>
+            <td class="text-center {{lavoratore.dirigente_ck}}">{{lavoratore.dirigente|date:"d/m/y"}}</td>
             <td class="text-center {{lavoratore.preposto_ck}}">{{lavoratore.preposto|date:"d/m/y"}}
                 {% if lavoratore.nomina_preposto %}<i class="fa-solid fa-file-lines"></i>{% endif %}
             </td>

@@ -17,6 +17,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
 class FormazioneAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
+        ('dirigente', 'dirigente_ck'),
         ('preposto', 'preposto_ck', 'nomina_preposto'),
         ('primo_soccorso', 'primo_soccorso_ck', 'nomina_primo_soccorso'),
         ('antincendio', 'antincendio_ck', 'nomina_antincendio'),

@@ -173,6 +173,7 @@ def aggiorna_documenti(request):
 
 
 def aggiorna_stato(request):
+    Formazione.objects.filter(dirigente__gt=OGGI).update(dirigente_ck='')
     Formazione.objects.filter(preposto__gt=OGGI).update(preposto_ck='')
     Formazione.objects.filter(primo_soccorso__gt=OGGI).update(primo_soccorso_ck='')
     Formazione.objects.filter(antincendio__gt=OGGI).update(antincendio_ck='')
@@ -189,6 +190,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
     Formazione.objects.filter(aspp__gt=OGGI).update(aspp_ck='')
 
+    Formazione.objects.filter(dirigente__lt=FRA_N_MESI).update(dirigente_ck='table-warning')
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning')
     Formazione.objects.filter(primo_soccorso__lt=FRA_N_MESI).update(primo_soccorso_ck='table-warning')
     Formazione.objects.filter(antincendio__lt=FRA_N_MESI).update(antincendio_ck='table-warning')
@@ -205,6 +207,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(rls__lt=FRA_N_MESI).update(rls_ck='table-warning')
     Formazione.objects.filter(aspp__lt=FRA_N_MESI).update(aspp_ck='table-warning')
 
+    Formazione.objects.filter(dirigente__lt=OGGI).update(dirigente_ck='table-danger')
     Formazione.objects.filter(preposto__lt=OGGI).update(preposto_ck='table-danger')
     Formazione.objects.filter(primo_soccorso__lt=OGGI).update(primo_soccorso_ck='table-danger')
     Formazione.objects.filter(antincendio__lt=OGGI).update(antincendio_ck='table-danger')

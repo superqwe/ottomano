@@ -6,6 +6,7 @@ DURATA_CORSI = {
     'aspp': 5,
     'autogru': 5,
     'carrello': 5,
+    'dirigente': 5,
     'ept': 5,
     'gru_autocarro': 5,
     'imbracatore': 5,
