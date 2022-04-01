@@ -20,6 +20,7 @@ PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori'
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
+FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 
 
 def index(request):
@@ -247,6 +248,30 @@ def idoneita(request):
     # print(formazione)
     context = {'titolo': 'Idoneità',
                'pagina_attiva_idoneita': 'active',
+               'idoneita': idoneita}
+
+    return render(request, 'personale/idoneita.html', context)
+
+
+def scadenziario_formazione(request):
+    lavoratori = Formazione.objects. \
+        filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso']). \
+        order_by('-stato', 'lavoratore__cognome', 'lavoratore__nome')
+
+    context = {'titolo': 'Scadenziario Formazione',
+               'pagina_attiva_scadenziario_formazione': 'active',
+               'formazione': lavoratori}
+
+    return render(request, 'personale/scadenziario_formazione.html', context)
+
+
+def scadenziario_idoneita(request):
+    idoneita = Idoneita.objects. \
+        filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
+        order_by('-idoneita_ck', 'lavoratore__cognome', 'lavoratore__nome')
+
+    context = {'titolo': 'Scadenzario Idoneità',
+               'pagina_attiva_scadenziario_idoneita': 'active',
                'idoneita': idoneita}
 
     return render(request, 'personale/idoneita.html', context)
