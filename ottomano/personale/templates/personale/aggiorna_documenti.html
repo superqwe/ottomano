@@ -15,7 +15,7 @@ ms
 <p>{{lavoratore|title}}</p>
 
 <ul>
-    {% for corso, data in attestati%}
+    {% for corso, data, data_dc in attestati%}
     <li>
         {{ corso }}: {{data|date:"d/m/y"}}
         {% endfor %}

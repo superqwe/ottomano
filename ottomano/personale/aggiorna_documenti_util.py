@@ -20,31 +20,31 @@ DURATA_CORSI = {
 
 
 def calcola_data_scadenza(data_corso, durata):
-    data = datetime.datetime.strptime(data_corso, '%d%m%y')
-    data = datetime.date(data.year + durata, data.month, data.day)
+    data_corso = datetime.datetime.strptime(data_corso, '%d%m%y')
+    data_scadenza = datetime.date(data_corso.year + durata, data_corso.month, data_corso.day)
 
-    return data
+    return data_scadenza, data_corso
 
 
 def calcola_data_attestati(attestati, lavoratore):
     attestati_ = []
     for attestato in attestati:
-        corso, data = os.path.splitext(attestato)[0].split()
+        corso, data_dc = os.path.splitext(attestato)[0].split()
 
         match corso:
             case 'antincendio':
                 # todo: da sistemare
-                data = calcola_data_scadenza(data, 5)
+                data_scadenza, data_corso = calcola_data_scadenza(data_dc, 5)
             case 'preposto':
                 # todo: da sistemare
-                data = calcola_data_scadenza(data, 5)
+                data_scadenza, data_corso = calcola_data_scadenza(data_dc, 5)
             case 'amianto' | 'dpi3' | 'formatore' | 'spazi_confinati_lc':
                 print('*** attestato non riconosciuto ***', lavoratore, attestato)
                 continue
             case _:
                 durata = DURATA_CORSI[corso]
-                data = calcola_data_scadenza(data, durata)
+                data_scadenza, data_corso = calcola_data_scadenza(data_dc, durata)
 
-        attestati_.append((corso, data))
+        attestati_.append((corso, data_corso, data_scadenza))
 
     return attestati_

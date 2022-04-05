@@ -98,8 +98,11 @@ def aggiorna_documenti(request):
                 lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
                 formazione_ = Formazione(lavoratore=lavoratore)
 
-            for corso, data in attestati:
+            for corso, data_dc, data in attestati:
+                # print(attestati)
+                # print(corso)
                 setattr(formazione_, corso, data)
+                setattr(formazione_, '%s_dc' % corso, data_dc)
 
             formazione_.save()
 
@@ -125,7 +128,7 @@ def aggiorna_documenti(request):
                 scadenza_idoneita = datetime.datetime.strptime(scadenza_idoneita, '%d%m%y')
                 idoneita.idoneita = scadenza_idoneita
 
-                attestati.append(('idoneità', scadenza_idoneita))
+                attestati.append(('idoneità', scadenza_idoneita, None))
 
             case 0:
                 print('*** manca idoneità *** %s' % lavoratore)
@@ -262,7 +265,7 @@ def scadenziario_formazione(request):
                'pagina_attiva_scadenziario_formazione': 'active',
                'formazione': lavoratori}
 
-    return render(request, 'personale/scadenziario_formazione.html', context)
+    return render(request, 'personale/formazione.html', context)
 
 
 def scadenziario_idoneita(request):
