@@ -19,7 +19,7 @@
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
             <th scope="col">Idoneità</th>
-            <th scope="col">Obblogo dei DPI per il rumore anche per livelli di esposizione giornaliera arumore tra 80 e
+            <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
             </th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
@@ -39,8 +39,7 @@
             <td>{{lavoratore.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf" target="_blank">
-
-                    {{lavoratore.idoneita|date:"d/m/y"}}
+                {{lavoratore.idoneita|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center">
