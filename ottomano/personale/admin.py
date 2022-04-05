@@ -8,9 +8,9 @@ from .models import Lavoratore, Formazione, Cantiere, Idoneita
 class LavoratoreAdmin(admin.ModelAdmin):
     list_display = (
         'in_forza', 'cognome', 'nome', 'cellulare', 'data_fine', 'qualifica', 'assunzione', 'mansione',
-        'attivita_svolta', 'mansione_1', 'mansione_2', 'mansione_3', 'reparto')
+        'attivita_svolta', 'mansione_1', 'mansione_2', 'mansione_3', 'cantiere')
     list_display_links = ('cognome', 'nome')
-    list_filter = ('in_forza', 'reparto')
+    list_filter = ('in_forza', 'cantiere')
     save_on_top = True
 
 

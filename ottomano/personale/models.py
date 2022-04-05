@@ -48,11 +48,11 @@ class Lavoratore(models.Model):
     qualifica = models.CharField(max_length=20, blank=True, null=True)
     assunzione = models.CharField(max_length=20, blank=True, null=True)
     busta_paga = models.CharField(max_length=20, blank=True, null=True)
-    mansione = models.CharField(max_length=20, blank=True, null=True)
-    attivita_svolta = models.CharField(max_length=20, blank=True, null=True)
-    mansione_1 = models.CharField(max_length=20, blank=True, null=True)
-    mansione_2 = models.CharField(max_length=20, blank=True, null=True)
-    mansione_3 = models.CharField(max_length=20, blank=True, null=True)
+    mansione = models.CharField(max_length=30, blank=True, null=True)
+    attivita_svolta = models.CharField(max_length=30, blank=True, null=True)
+    mansione_1 = models.CharField(max_length=30, blank=True, null=True)
+    mansione_2 = models.CharField(max_length=30, blank=True, null=True)
+    mansione_3 = models.CharField(max_length=30, blank=True, null=True)
     reparto = models.CharField(max_length=50, blank=True, null=True)  # todo da rimuovere
 
     class Meta:
