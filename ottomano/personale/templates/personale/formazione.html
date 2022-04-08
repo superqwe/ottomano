@@ -22,8 +22,8 @@
             <th scope="col">Nome</th>
             <th scope="col">Mansione</th>
             <th scope="col">Cantiere</th>
-            <th scope="col">Dirigente*</th>
-            <th scope="col">Preposto*</th>
+            <th scope="col">Dirigente**</th>
+            <th scope="col">Preposto**</th>
             <th scope="col">Primo Soccorso</th>
             <th scope="col">Antincendio*</th>
             <th scope="col">Art37</th>
@@ -120,9 +120,15 @@
                 </a>
             </td>
             <td class="text-center {{lavoratore.carrello_ck}}">
+                {% if lavoratore.carrello %}
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/carrello {{lavoratore.carrello_dc|date:"dmy"}}.pdf" target="_blank">
                 {{lavoratore.carrello|date:"d/m/y"}}
                 </a>
+                {% elif lavoratore.sollevatore %}
+                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/sollevatore {{lavoratore.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">
+                    <i class="fa-solid fa-right-long"></i>
+                </a>
+                {% endif %}
             </td>
             <td class="text-center {{lavoratore.sollevatore_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/sollevatore {{lavoratore.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">

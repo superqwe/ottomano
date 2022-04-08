@@ -27,10 +27,6 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-# def importa_Personale_abilitazioni(request):
-#     personale.importa_dati.importa_xlsx()
-#     return HttpResponse("xls importato")
-
 def anagrafica(request):
     lavoratori = Lavoratore.objects.filter(in_forza=True)
     context = {'titolo': 'Anagrafica',
@@ -278,3 +274,11 @@ def scadenziario_idoneita(request):
                'idoneita': idoneita}
 
     return render(request, 'personale/idoneita.html', context)
+
+
+def estrai_dati(request):
+    context = {'titolo': 'Estrai Dati',
+               'pagina_attiva_estrai_dati': 'active',
+               }
+
+    return render(request, 'personale/estrai_dati.html', context)
