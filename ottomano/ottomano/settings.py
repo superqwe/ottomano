@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', ]
 # Application definition
 
 INSTALLED_APPS = [
+    'mezzi.apps.MezziConfig',
     'personale.apps.PersonaleConfig',
     'django.contrib.admin',
     'django.contrib.auth',

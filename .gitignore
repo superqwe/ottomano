@@ -17,6 +17,7 @@ jupyter
 
 *.bat
 db*.*
+ottomano/mezzi/migrations
 ottomano/personale/migrations
 ottomano/New File.txt
 SyncToy*
