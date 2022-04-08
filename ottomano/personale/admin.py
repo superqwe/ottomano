@@ -38,7 +38,7 @@ class FormazioneAdmin(admin.ModelAdmin):
     list_display = ('lavoratore', 'stato', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     save_on_top = True
     # list_display_links = ('cognome', 'nome')
-    # list_filter =('in_forza', 'reparto')
+    list_filter = ('stato', 'lavoratore__in_forza', 'lavoratore__cantiere')
 
 
 class CantiereAdmin(admin.ModelAdmin):

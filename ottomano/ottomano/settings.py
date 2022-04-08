@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 
+from django.conf.locale.it import formats as it_formats
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -110,6 +112,8 @@ TIME_ZONE = 'Europe/Rome'
 USE_I18N = True
 
 USE_TZ = True
+
+it_formats.DATE_FORMAT = "d/m/y"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
