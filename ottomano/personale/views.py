@@ -267,7 +267,7 @@ def scadenziario_formazione(request):
 def scadenziario_idoneita(request):
     idoneita = Idoneita.objects. \
         filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
-        order_by('-idoneita_ck', 'lavoratore__cognome', 'lavoratore__nome')
+        order_by('-idoneita_ck', 'idoneita', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario Idoneità',
                'pagina_attiva_scadenziario_idoneita': 'active',
