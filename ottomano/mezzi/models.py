@@ -26,6 +26,7 @@ class Mezzo(models.Model):
     ce = models.BooleanField(default=True)
     assicurazione = models.DateField(blank=True, null=True)
     rct = models.DateField(blank=True, null=True)
+    libretto = models.BooleanField(default=None)
     revisione = models.DateField(blank=True, null=True)
     inail = models.DateField(blank=True, null=True)
 
