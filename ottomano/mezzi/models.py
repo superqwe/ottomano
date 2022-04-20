@@ -1,21 +1,33 @@
 from django.db import models
+import datetime
 
 TIPOLOGIA = [
     ('aut', 'Auto'),
-    ('fur', 'Furgone'),
-    ('esc', 'Escavatore'),
-    ('pal', 'Pala'),
-    ('ter', 'Terna'),
-    ('car', 'Carrello'),
-    ('sol', 'Sollevatore'),
-    ('ple', 'PLE'),
+    ('auc', 'Autocarro'),
     ('bet', 'Betoniera'),
+    ('car', 'Carrello'),
     ('dum', 'Dumper'),
+    ('esc', 'Escavatore'),
+    ('fur', 'Furgone'),
+    ('pal', 'Pala'),
+    ('ple', 'PLE'),
     ('rul', 'Rullo'),
+    ('sol', 'Sollevatore'),
+    ('ter', 'Terna'),
 ]
 
 
-# Create your models here.
+class RCT(models.Model):
+    scadenza = models.DateField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'RCT Aziendale'
+        verbose_name_plural = 'RCT Aziendale'
+
+    def __str__(self):
+        return '%s' % self.scadenza
+
+
 class Mezzo(models.Model):
     in_forza = models.BooleanField(default=True)
     tipologia = models.CharField(max_length=3, choices=TIPOLOGIA, blank=True, null=True, default=None)
@@ -23,16 +35,23 @@ class Mezzo(models.Model):
     modello = models.CharField(max_length=30, blank=True, null=True, default=None)
     targa = models.CharField(max_length=30, blank=True, null=True, default=None)
     matricola = models.CharField(max_length=30, blank=True, null=True, default=None)
-    ce = models.BooleanField(default=True)
+    ce = models.BooleanField(default=False)
     assicurazione = models.DateField(blank=True, null=True)
-    rct = models.DateField(blank=True, null=True)
+    rct_aziendale = models.BooleanField(default=False)
     libretto = models.BooleanField(default=None)
     revisione = models.DateField(blank=True, null=True)
     inail = models.DateField(blank=True, null=True)
 
     def nome(self):
         t_m = self.targa if self.targa else self.matricola
-        return '%s - %s - %s' % (self.marca, self.modello, t_m)
+        modello = self.modello.replace('/', '_').replace('.', '_')
+        return '%s - %s - %s' % (self.marca, modello, t_m)
+
+    def scadenza_mezzo(self):
+        if self.rct_aziendale:
+            return 'aziendale'
+        else:
+            return self.assicurazione
 
     class Meta:
         ordering = ['tipologia', 'marca', 'modello', 'targa', 'matricola']
