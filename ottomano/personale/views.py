@@ -24,7 +24,7 @@ FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world. You're at the personale index.")
 
 
 def anagrafica(request):

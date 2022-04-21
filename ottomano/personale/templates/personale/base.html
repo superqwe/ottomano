@@ -31,10 +31,19 @@
 
         <div class="col text-end">
             <div class="btn-group " role="group">
+                <a href="/personale/formazione" class="btn btn-outline-primary active"><i
+                        class="fa-solid fa-user-group"></i></a>
+                <a href="/mezzi/elenco" class="btn btn-outline-primary"><i class="fa-solid fa-truck-pickup"></i></a>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="btn-group " role="group">
                 <a href="/personale/formazione"
                    class="btn btn-outline-primary {{pagina_attiva_formazione}}">Formazione</a>
                 <a href="/personale/scadenziario_formazione"
-                   class="btn btn-outline-primary {{pagina_attiva_scadenziario_formazione}}">Scadenziario Formazione</a>
+                   class="btn btn-outline-primary {{pagina_attiva_scadenziario_formazione}}">Scadenziario
+                    Formazione</a>
                 <a href="/personale/idoneita"
                    class="btn btn-outline-primary {{pagina_attiva_idoneita}}">Idoneità</a>
                 <a href="/personale/scadenziario_idoneita"
@@ -52,7 +61,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="row">
         {% block menu_sezione %}
         Menu sezione
         {% endblock %}
