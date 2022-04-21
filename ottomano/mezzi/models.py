@@ -11,6 +11,7 @@ TIPOLOGIA = [
     ('fur', 'Furgone'),
     ('pal', 'Pala'),
     ('ple', 'PLE'),
+    ('rim', 'Rimorchio'),
     ('rul', 'Rullo'),
     ('sol', 'Sollevatore'),
     ('ter', 'Terna'),
@@ -40,6 +41,7 @@ class Mezzo(models.Model):
     rct_aziendale = models.BooleanField(default=False)
     libretto = models.BooleanField(default=None)
     revisione = models.DateField(blank=True, null=True)
+    immatricolazione = models.DateField(blank=True, null=True)
     inail = models.DateField(blank=True, null=True)
 
     def nome(self):
