@@ -86,9 +86,14 @@ def aggiorna_documenti(request):
                             documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
                             warnings.warn('Nome file errato - %s' % documento)
 
+                case 'verifica_periodica':
+                    data = views_util.str2datetime(doc[1])
+                    data_scadenza_verifica = views_util.aggiungi_anni(data)
+                    mezzo.inail = data_scadenza_verifica
+
                 case _:
                     documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
-                    warnings.warn('Nome documento non processato - %s' % documento)
+                    warnings.warn('Nome documento non processato - %s (%s)' % (mezzo, documento))
 
         mezzo.save()
         elenco_documenti_mezzi.append((mezzo, documenti_mezzo_ok, documenti_mezzo_errore))

@@ -12,7 +12,7 @@ ms
 {% block corpo %}
 
 {% for mezzo, doc_ok, doc_no in mezzi %}
-<p>{{mezzo|title}}</p>
+<p>{{mezzo|upper}}</p>
 
 <ul>
     {% for documento in doc_ok %}
