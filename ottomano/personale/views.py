@@ -230,7 +230,7 @@ def aggiorna_stato(request):
     Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
     Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
     Idoneita.objects.filter(idoneita=None).update(idoneita_ck='table-danger')
-    Idoneita.objects.filter(idoneita__lte=OGGI).update(idoneita_ck='table-danger')
+    Idoneita.objects.filter(idoneita__lt=OGGI).update(idoneita_ck='table-danger')
 
     result = None
 
@@ -267,7 +267,7 @@ def scadenziario_formazione(request):
 def scadenziario_idoneita(request):
     idoneita = Idoneita.objects. \
         filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
-        order_by('-idoneita_ck', 'idoneita', 'lavoratore__cognome', 'lavoratore__nome')
+        order_by('idoneita', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario Idoneità',
                'pagina_attiva_scadenziario_idoneita': 'active',
