@@ -37,6 +37,7 @@ class Mezzo(models.Model):
     targa = models.CharField(max_length=30, blank=True, null=True, default=None)
     matricola = models.CharField(max_length=30, blank=True, null=True, default=None)
     ce = models.BooleanField(default=False)
+    ce_accessori = models.BooleanField(default=False)
     assicurazione = models.DateField(blank=True, null=True)
     rct_aziendale = models.BooleanField(default=False)
     libretto = models.BooleanField(default=None)

@@ -63,7 +63,7 @@
                 <th scope="col">Modello</th>
                 <th scope="col">Targa</th>
                 <th scope="col">Matricola</th>
-                <th scope="col">Dichiarazione CE</th>
+                <th scope="col">Dichiarazione CE Mezzo/Accessori</th>
                 <th scope="col">Assicurazione</th>
                 <th scope="col">RCT</th>
                 <th scope="col">Libretto Circolazione</th>
@@ -81,7 +81,10 @@
                 <td>{{mezzo.modello|upper}}</td>
                 <td>{{mezzo.targa|default_if_none:""}}</td>
                 <td>{{mezzo.matricola|default_if_none:""}}</td>
-                <td class="text-center">{% if mezzo.ce %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>
+                <td class="text-center">
+                    {% if mezzo.ce %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}
+                    {% if mezzo.ce_accessori %} / <i class="fa-solid fa-circle-check verde"></i>{% endif %}
+                </td>
                 <td class="text-center">{{mezzo.assicurazione|date:"d/m/y"}}</td>
                 <td class="text-center">{% if mezzo.rct_aziendale %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>
                 <td class="text-center">{% if mezzo.libretto %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>

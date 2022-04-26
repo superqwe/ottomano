@@ -39,19 +39,33 @@ def aggiorna_stato(request):
 def aggiorna_documenti(request):
     elenco_mezzi = Mezzo.objects.all()
 
+    elenco_documenti_mezzi = []
     for mezzo in elenco_mezzi:
-        print('\n', mezzo.nome())
+        # print('\n', mezzo.nome())
         path_mezzo = os.path.join(PATH_DOCUMENTI, mezzo.nome())
 
         documenti = os.listdir(path_mezzo)
 
+        documenti_mezzo_ok = []
+        documenti_mezzo_errore = []
         for documento in documenti:
+            documenti_mezzo_ok.append(os.path.splitext(documento)[0])
             doc = os.path.splitext(documento)[0].split()
 
             match doc[0]:
+                case 'altro':
+                    documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
+
                 case 'assicurazione':
                     data = views_util.str2datetime(doc[1])
                     mezzo.assicurazione = data
+
+                case 'ce':
+                    mezzo.ce = True
+
+                case 'ce_accessori':
+                    mezzo.ce_accessori = True
+
                 case 'immatricolazione':
                     data = views_util.str2datetime(doc[1])
                     mezzo.immatricolazione = data
@@ -69,10 +83,18 @@ def aggiorna_documenti(request):
                         case 1:
                             mezzo.libretto = True
                         case _:
+                            documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
                             warnings.warn('Nome file errato - %s' % documento)
+
                 case _:
-                    print(doc)
+                    documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
+                    warnings.warn('Nome documento non processato - %s' % documento)
 
         mezzo.save()
+        elenco_documenti_mezzi.append((mezzo, documenti_mezzo_ok, documenti_mezzo_errore))
 
-    return HttpResponse("Hello, world. You're at the aggiorna mezzi index.")
+    context = {'titolo': 'Elenco Mezzi',
+               'pagina_attiva_elenco': 'active',
+               'mezzi': elenco_documenti_mezzi}
+
+    return render(request, 'mezzi/aggiorna_documenti.html', context)

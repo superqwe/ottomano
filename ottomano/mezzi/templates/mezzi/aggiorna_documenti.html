@@ -1,0 +1,33 @@
+{% extends "mezzi/base.html" %}
+
+{% block titolo %}
+Documenti
+{% endblock %}
+
+{% block menu_sezione %}
+ms
+{% endblock %}
+
+
+{% block corpo %}
+
+{% for mezzo, doc_ok, doc_no in mezzi %}
+<p>{{mezzo|title}}</p>
+
+<ul>
+    {% for documento in doc_ok %}
+    <li>
+        {{ documento }}
+        {% endfor %}
+    </li>
+    {% for documento in doc_no %}
+    <li class="rosso">
+        {{ documento }}
+        {% endfor %}
+    </li>
+
+</ul>
+{% endfor %}
+
+
+{% endblock %}
