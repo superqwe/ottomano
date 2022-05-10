@@ -46,6 +46,8 @@ class Mezzo(models.Model):
     matricola_inail = models.CharField(max_length=30, blank=True, null=True, default=None)
     libretto_inail = models.BooleanField(default=False)
     inail = models.DateField(blank=True, null=True)
+    manuale = models.BooleanField(default=False)
+    faldone = models.CharField(max_length=30, blank=True, null=True, default=None)
 
     def nome(self):
         t_m = self.targa if self.targa else self.matricola

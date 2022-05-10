@@ -73,6 +73,8 @@
                 <th scope="col">Immatricolazione INAIL</th>
                 <th scope="col">Libretto INAIL</th>
                 <th scope="col">Verifica periodica</th>
+                <th scope="col">Manuale Uso e Manutenzione</th>
+                <th scope="col">Faldone</th>
             </tr>
             </thead>
             <tbody>
@@ -96,6 +98,8 @@
                 <td class="text-center">{{mezzo.immatricolazione|date:"d/m/y"}}</td>
                 <td class="text-center">{% if mezzo.libretto_inail %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>
                 <td class="text-center">{{mezzo.inail|date:"d/m/y"}}</td>
+                <td class="text-center">{% if mezzo.manuale %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>
+                <td>{{mezzo.faldone|default_if_none:""}}</td>
             </tr>
             {% endfor %}
             </tbody>
