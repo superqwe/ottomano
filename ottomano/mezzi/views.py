@@ -86,6 +86,9 @@ def aggiorna_documenti(request):
                             documenti_mezzo_errore.append((documenti_mezzo_ok.pop()))
                             warnings.warn('Nome file errato - %s' % documento)
 
+                case 'libretto_inail':
+                    mezzo.libretto_inail = True
+
                 case 'verifica_periodica':
                     data = views_util.str2datetime(doc[1])
                     data_scadenza_verifica = views_util.aggiungi_anni(data)

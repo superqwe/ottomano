@@ -35,10 +35,6 @@
                 <a href="/mezzi/elenco" class="btn btn-outline-primary active"><i class="fa-solid fa-truck-pickup"></i></a>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        {% block menu_sezione %}
         <div class="col text-end btn-group " role="group">
             <a href="/mezzi/elenco"
                class="btn btn-outline-primary {{pagina_attiva_elenco}}">Elenco</a>
@@ -48,7 +44,12 @@
                class="btn btn-outline-primary {{pagina_attiva_aggiorna_documenti}}">Aggiorna Documenti</a>
             <a href="/mezzi/aggiorna_stato"
                class="btn btn-outline-primary {{pagina_attiva_aggiorna_stato}}">Aggiorna Stato</a>
+            <a href="/admin" class="btn btn-outline-primary">Admin</a>
         </div>
+    </div>
+
+    <div class="row">
+        {% block menu_sezione %}
         {% endblock %}
     </div>
 
@@ -69,7 +70,8 @@
                 <th scope="col">Libretto Circolazione</th>
                 <th scope="col">Revisione</th>
                 <th scope="col">Matricola INAIL</th>
-                <th scope="col">Immatricolazione</th>
+                <th scope="col">Immatricolazione INAIL</th>
+                <th scope="col">Libretto INAIL</th>
                 <th scope="col">Verifica periodica</th>
             </tr>
             </thead>
@@ -92,6 +94,7 @@
                 <td class="text-center">{{mezzo.revisione|date:"d/m/y"}}</td>
                 <td class="text-center">{{mezzo.matricola_inail|default_if_none:""}}</td>
                 <td class="text-center">{{mezzo.immatricolazione|date:"d/m/y"}}</td>
+                <td class="text-center">{% if mezzo.libretto_inail %}<i class="fa-solid fa-circle-check verde"></i>{% endif %}</td>
                 <td class="text-center">{{mezzo.inail|date:"d/m/y"}}</td>
             </tr>
             {% endfor %}
