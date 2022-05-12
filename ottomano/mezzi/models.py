@@ -43,7 +43,7 @@ class Mezzo(models.Model):
     libretto = models.BooleanField(default=None)
     revisione = models.DateField(blank=True, null=True)
     immatricolazione = models.DateField(blank=True, null=True)
-    matricola_inail = models.CharField(max_length=30, blank=True, null=True, default=None)
+    matricola_inail = models.CharField(max_length=40, blank=True, null=True, default=None)
     libretto_inail = models.BooleanField(default=False)
     inail = models.DateField(blank=True, null=True)
     manuale = models.BooleanField(default=False)
