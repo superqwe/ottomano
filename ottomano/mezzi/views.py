@@ -12,7 +12,7 @@ from mezzi import views_util
 # import personale.importa_dati
 
 pp('')
-PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi\New Folder'
+PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi'
 
 
 def index(request):

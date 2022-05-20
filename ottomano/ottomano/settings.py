@@ -122,7 +122,7 @@ it_formats.DATE_FORMAT = "d/m/y"
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori',
-    r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi\New Folder',
+    r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi',
 ]
 
 # Default primary key field type

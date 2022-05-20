@@ -1,6 +1,12 @@
 from django.db import models
 import datetime
 
+STATO_DOCUMENTI = [
+    (None, 'ok_np'),
+    ('table-warning', 'scade'),
+    ('table-danger', 'scaduto')
+]
+
 TIPOLOGIA = [
     ('aut', 'Auto'),
     ('auc', 'Autocarro'),
@@ -48,6 +54,10 @@ class Mezzo(models.Model):
     inail = models.DateField(blank=True, null=True)
     manuale = models.BooleanField(default=False)
     faldone = models.CharField(max_length=30, blank=True, null=True, default=None)
+
+    assicurazione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    revisione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    inail_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     def nome(self):
         t_m = self.targa if self.targa else self.matricola
