@@ -82,15 +82,14 @@
             <tr>
                 <td class="text-center"><i class="fa-solid fa-circle"></i></td>
                 <td>{{mezzo.get_tipologia_display}}</td>
-                <td>{{mezzo.marca|upper}}</td>
-                <td>{{mezzo.modello|upper}}</td>
-                <td>{{mezzo.targa|default_if_none:""}}</td>
-                <td>{{mezzo.matricola|default_if_none:""}}</td>
+                <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.marca|upper}}</a></td>
+                <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.modello|upper}}</a></td>
+                <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.targa|default_if_none:""}}</a></td>
+                <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.matricola|default_if_none:""}}</a></td>
                 <td class="text-center">
                     {% if mezzo.ce %}
                     <a href="{% static ''%}{{mezzo.nome}}/ce.pdf" target="_blank">
-                        <i class="fa-solid fa-circle-check verde"></i>
-                    </a>
+                        <i class="fa-solid fa-circle-check verde"></i></a>
                     {% endif %}
                     {% if mezzo.ce_accessori %} /
                     <a href="{% static ''%}{{mezzo.nome}}/ce_accessori.pdf" target="_blank">

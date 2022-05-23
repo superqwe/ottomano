@@ -9,8 +9,6 @@ from mezzi.models import Mezzo
 
 from mezzi import views_util
 
-# import personale.importa_dati
-
 pp('')
 PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi'
 
