@@ -51,13 +51,14 @@ class Mezzo(models.Model):
     immatricolazione = models.DateField(blank=True, null=True)
     matricola_inail = models.CharField(max_length=40, blank=True, null=True, default=None)
     libretto_inail = models.BooleanField(default=False)
-    inail = models.DateField(blank=True, null=True)
+    inail = models.DateField(blank=True, null=True, verbose_name='Verifica Periodica')
     manuale = models.BooleanField(default=False)
     faldone = models.CharField(max_length=30, blank=True, null=True, default=None)
 
     assicurazione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     revisione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
-    inail_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    inail_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np',
+                                verbose_name='Verifica Periodica ck')
 
     def nome(self):
         t_m = self.targa if self.targa else self.matricola

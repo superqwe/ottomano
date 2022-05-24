@@ -5,6 +5,17 @@ from .models import Mezzo, RCT
 # Register your models here.
 
 class MezzoAdmin(admin.ModelAdmin):
+    fields = (
+        'in_forza',
+        ('tipologia', 'marca', 'modello', 'targa', 'matricola'),
+        ('ce', 'ce_accessori'),
+        ('rct_aziendale', 'assicurazione', 'assicurazione_ck'),
+        ('libretto', 'revisione', 'revisione_ck'),
+        ('libretto_inail', 'immatricolazione', 'matricola_inail'),
+        ('inail', 'inail_ck'),
+        'manuale'
+
+    )
     list_display = (
         'in_forza', 'tipologia', 'marca', 'modello', 'targa', 'matricola', 'assicurazione', 'libretto',
         'revisione', 'rct_aziendale', 'inail', 'faldone')
