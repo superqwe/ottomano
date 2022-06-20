@@ -57,6 +57,8 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'spazi_confinati',
         'mansioni_gravose',
         'temperature',
+        'scale',
+        'calzature',
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True

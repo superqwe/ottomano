@@ -144,6 +144,8 @@ class Idoneita(models.Model):
     spazi_confinati = models.BooleanField(default=False)
     mansioni_gravose = models.BooleanField(default=False)
     temperature = models.BooleanField(default=False)
+    scale = models.BooleanField(default=False)
+    calzature = models.BooleanField(default=False)
 
     idoneita_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 

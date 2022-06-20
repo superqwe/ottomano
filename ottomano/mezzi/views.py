@@ -102,8 +102,8 @@ def aggiorna_documenti(request):
         mezzo.save()
         elenco_documenti_mezzi.append((mezzo, documenti_mezzo_ok, documenti_mezzo_errore))
 
-    context = {'titolo': 'Elenco Mezzi',
-               'pagina_attiva_elenco': 'active',
+    context = {'titolo': 'Documenti Mezzi Aggiornati',
+               'pagina_attiva_aggiorna_documenti': 'active',
                'mezzi': elenco_documenti_mezzi}
 
     return render(request, 'mezzi/aggiorna_documenti.html', context)

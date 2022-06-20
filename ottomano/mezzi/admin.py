@@ -13,9 +13,10 @@ class MezzoAdmin(admin.ModelAdmin):
         ('libretto', 'revisione', 'revisione_ck'),
         ('libretto_inail', 'immatricolazione', 'matricola_inail'),
         ('inail', 'inail_ck'),
-        'manuale'
-
+        'manuale',
+        'faldone'
     )
+
     list_display = (
         'in_forza', 'tipologia', 'marca', 'modello', 'targa', 'matricola', 'assicurazione', 'libretto',
         'revisione', 'rct_aziendale', 'inail', 'faldone')
