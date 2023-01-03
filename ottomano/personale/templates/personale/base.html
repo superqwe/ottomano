@@ -21,11 +21,13 @@
 
 <div class="container-fluid">
     <div class="row">
+
         <div class="col">
             <h1>
                 {% block titolo %}
                 {{titolo}}
                 {% endblock %}
+                <span class="h6">{% now "SHORT_DATE_FORMAT" %}</span>
             </h1>
         </div>
 
@@ -34,6 +36,8 @@
                 <a href="/personale/formazione" class="btn btn-outline-primary active"><i
                         class="fa-solid fa-user-group"></i></a>
                 <a href="/mezzi/elenco" class="btn btn-outline-primary"><i class="fa-solid fa-truck-pickup"></i></a>
+                <a href="/attrezzi/elenco" class="btn btn-outline-primary"><i class="fa-solid fa-hammer"></i></a>
+                <a href="/attrezzi/elenco" class="btn btn-outline-primary"><i class="fa-solid fa-book"></i></a>
             </div>
         </div>
 

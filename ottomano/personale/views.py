@@ -2,20 +2,19 @@ import datetime
 import glob
 import os
 
-from django.shortcuts import render
-
+# import personale.importa_dati
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
-# import personale.importa_dati
-from django.core.exceptions import ObjectDoesNotExist
+from personale import aggiorna_documenti_util
 from personale.models import Lavoratore, Formazione, Idoneita
 
 from pprint import pprint as pp
 
-from personale import aggiorna_documenti_util
+from personale import estrai_dati_util
 
-PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori'
+PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
 # PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
@@ -33,15 +32,18 @@ def anagrafica(request):
                'pagina_attiva_anagrafica': 'active',
                'lavoratori': lavoratori}
 
-    return render(request, 'personale/base.html', context)
+    return render(request, 'base.html', context)
 
 
 def formazione(request):
-    formazione = Formazione.objects.filter(lavoratore__in_forza=True)
-    # print(formazione)
+    formazione_ = Formazione.objects. \
+        filter(lavoratore__in_forza=True). \
+        order_by('lavoratore__cantiere__nome', 'lavoratore__cognome', 'lavoratore__nome')
+
     context = {'titolo': 'Formazione',
                'pagina_attiva_formazione': 'active',
-               'formazione': formazione}
+               'formazione': formazione_,
+               'conteggio_rg': conteggio_rg(formazione_)}
 
     return render(request, 'personale/formazione.html', context)
 
@@ -148,6 +150,10 @@ def aggiorna_documenti(request):
                 match tipo_nomina:
                     case 'nomina_preposto':
                         formazione.nomina_preposto = data_nomina
+                    case 'nomina_preposto_subappalti':
+                        formazione.nomina_preposto_subappalti = data_nomina
+                    case 'nomina_preposto_imbracatore':
+                        formazione.nomina_preposto_imbracatore = data_nomina
                     case 'nomina_antincendio':
                         formazione.nomina_antincendio = data_nomina
                     case 'nomina_primo_soccorso':
@@ -259,7 +265,15 @@ def scadenziario_formazione(request):
 
     context = {'titolo': 'Scadenziario Formazione',
                'pagina_attiva_scadenziario_formazione': 'active',
-               'formazione': lavoratori}
+               'formazione': lavoratori,
+               'conteggio_rg': conteggio_rg(lavoratori)}
+
+    return render(request, 'personale/formazione.html', context)
+
+
+def scadenziario_formazione2(request):
+    context = {'titolo': 'Scadenziario Formazione',
+               'pagina_attiva_scadenziario_formazione': 'active',}
 
     return render(request, 'personale/formazione.html', context)
 
@@ -277,8 +291,79 @@ def scadenziario_idoneita(request):
 
 
 def estrai_dati(request):
+    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__reparto='Uffici Sede')
+
+    gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
+
     context = {'titolo': 'Estrai Dati',
                'pagina_attiva_estrai_dati': 'active',
+               'lavoratori': lavoratori,
+               'n_gruppi_lavoratori': n_gruppi_lavoratori,
+               'gruppi_lavoratori': gruppi_lavoratori,
                }
 
     return render(request, 'personale/estrai_dati.html', context)
+
+
+def dati_estratti(request):
+    if request.method == 'POST':
+
+        lavoratori = []
+        for x in request.POST.keys():
+            if x != 'csrfmiddlewaretoken':
+                lavoratore = Formazione.objects.get(id__exact=x)
+                lavoratori.append(lavoratore)
+
+        dati = estrai_dati_util.Estrai_Dati()
+        dati.salva_lavoratori(lavoratori)
+
+    context = {'titolo': 'Dati Estratti',
+               'pagina_attiva_estrai_dati': 'active',
+               'lavoratori': lavoratori,
+               }
+
+    return render(request, 'personale/dati_estratti.html', context)
+
+
+def conteggio_rg(query):
+    stato_r = query.filter(stato='rosso').count()
+    stato_g = query.filter(stato='giallo').count()
+    art37_r = query.filter(art37_ck='table-danger').count()
+    art37_g = query.filter(art37_ck='table-warning').count()
+    preposto_r = query.filter(preposto_ck='table-danger').count()
+    preposto_g = query.filter(preposto_ck='table-warning').count()
+    dirigente_r = query.filter(dirigente_ck='table-danger').count()
+    dirigente_g = query.filter(dirigente_ck='table-warning').count()
+    antincendio_r = query.filter(antincendio_ck='table-danger').count()
+    antincendio_g = query.filter(antincendio_ck='table-warning').count()
+    primo_soccorso_r = query.filter(primo_soccorso_ck='table-danger').count()
+    primo_soccorso_g = query.filter(primo_soccorso_ck='table-warning').count()
+    ponteggiatore_r = query.filter(ponteggiatore_ck='table-danger').count()
+    ponteggiatore_g = query.filter(ponteggiatore_ck='table-warning').count()
+    ept_r = query.filter(ept_ck='table-danger').count()
+    ept_g = query.filter(ept_ck='table-warning').count()
+    ple_r = query.filter(ple_ck='table-danger').count()
+    ple_g = query.filter(ple_ck='table-warning').count()
+
+    conteggio = {
+        'stato_r': stato_r,
+        'stato_g': stato_g,
+        'art37_r': art37_r,
+        'art37_g': art37_g,
+        'preposto_r': preposto_r,
+        'preposto_g': preposto_g,
+        'dirigente_r': dirigente_r,
+        'dirigente_g': dirigente_g,
+        'antincendio_r': antincendio_r,
+        'antincendio_g': antincendio_g,
+        'primo_soccorso_r': primo_soccorso_r,
+        'primo_soccorso_g': primo_soccorso_g,
+        'ponteggiatore_r': ponteggiatore_r,
+        'ponteggiatore_g': ponteggiatore_g,
+        'ept_r': ept_r,
+        'ept_g': ept_g,
+        'ple_r': ple_r,
+        'ple_g': ple_g,
+    }
+
+    return conteggio

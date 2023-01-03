@@ -10,8 +10,38 @@
 
 
 {% block corpo %}
-<div>
+<div class="container-fluid">
+
     {{dati}}
+
+    <form action="./dati_estratti" method="post" name="lavoratori">
+        {% csrf_token %}
+
+        <input type="submit" value="Submit"><br>
+
+        <!--        {% for lavoratore in lavoratori %}-->
+        <!--        <input type="checkbox" id="{{lavoratore.pk}}" name="{{lavoratore.pk}}" value="{{lavoratore}}">-->
+        <!--        <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>-->
+        <!--        {% endfor %}-->
+
+        <div class="row">
+
+
+            {% for gruppo in gruppi_lavoratori %}
+            <div class="col">
+                {% for lavoratore in gruppo %}
+                <input type="checkbox" id="{{lavoratore.pk}}" name="{{lavoratore.pk}}" value="{{lavoratore}}">
+                <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+
+
 </div>
 
 

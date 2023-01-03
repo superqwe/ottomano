@@ -28,13 +28,15 @@ SECRET_KEY = 'django-insecure-f1pg&okn@s-dgf84v#i+*+qfso_8!e8k)vr)3ni$6(0e1a@kp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', ]
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', '192.168.2.170']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'attrezzi.apps.AttrezziConfig',
     'mezzi.apps.MezziConfig',
     'personale.apps.PersonaleConfig',
+    'sgi.apps.SgiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'ottomano.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,8 +123,9 @@ it_formats.DATE_FORMAT = "d/m/y"
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    r'C:\Users\benedetto.basile\Dropbox\Documenti_Lavoratori',
-    r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi',
+    r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
+    r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
+    r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
 ]
 
 # Default primary key field type

@@ -8,6 +8,7 @@ DURATA_CORSI = {
     'carrello': 5,
     'dirigente': 5,
     'ept': 5,
+    'dumper': 5,
     'gru_autocarro': 5,
     'imbracatore': 5,
     'ple': 5,
@@ -26,6 +27,17 @@ def calcola_data_scadenza(data_corso, durata):
     return data_scadenza, data_corso
 
 
+def calcola_data_scadenza_preposto(data_corso):
+    data_corso = datetime.datetime.strptime(data_corso, '%d%m%y')
+
+    if data_corso >= datetime.datetime(2022, 6, 1):
+        data_scadenza = datetime.date(data_corso.year + 2, data_corso.month, data_corso.day)
+    else:
+        data_scadenza = datetime.date(data_corso.year + 5, data_corso.month, data_corso.day)
+
+    return data_scadenza, data_corso
+
+
 def calcola_data_attestati(attestati, lavoratore):
     attestati_ = []
     for attestato in attestati:
@@ -36,9 +48,8 @@ def calcola_data_attestati(attestati, lavoratore):
                 # todo: da sistemare
                 data_scadenza, data_corso = calcola_data_scadenza(data_dc, 5)
             case 'preposto':
-                # todo: da sistemare
-                data_scadenza, data_corso = calcola_data_scadenza(data_dc, 5)
-            case 'amianto' | 'dpi3' | 'formatore' | 'spazi_confinati_lc':
+                data_scadenza, data_corso = calcola_data_scadenza_preposto(data_dc)
+            case 'amianto' | 'dpi3' | 'formatore' | 'lavori_quota' | 'mmt' | 'rir' | 'spazi_confinati_lc':
                 print('*** attestato non riconosciuto ***', lavoratore, attestato)
                 continue
             case _:

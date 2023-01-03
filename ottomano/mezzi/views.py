@@ -10,7 +10,7 @@ from mezzi.models import Mezzo
 from mezzi import views_util
 
 pp('')
-PATH_DOCUMENTI = r'C:\Users\benedetto.basile\Dropbox\Documenti_Mezzi'
+PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Mezzi'
 
 
 def index(request):

@@ -9,6 +9,7 @@ urlpatterns = [
     path('aggiorna_documenti', views.aggiorna_documenti, name='aggiorna_documenti'),
     path('aggiorna_stato', views.aggiorna_stato, name='aggiorna_stato'),
     path('estrai_dati', views.estrai_dati, name='estrai_dati'),
+    path('dati_estratti', views.dati_estratti, name='dati_estratti'),
     path('formazione', views.formazione, name='formazione'),
     path('idoneita', views.idoneita, name='idoneita'),
     path('scadenziario_formazione', views.scadenziario_formazione, name='scadenziario_formazione'),

@@ -15,8 +15,10 @@ env
 .idea
 jupyter
 
+venv
 *.bat
 db*.*
+ottomano/attrezzi/migrations
 ottomano/mezzi/migrations
 ottomano/personale/migrations
 ottomano/New File.txt
