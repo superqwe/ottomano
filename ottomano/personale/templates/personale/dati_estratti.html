@@ -1,0 +1,37 @@
+{% extends "personale/base.html" %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+<div class="container">
+
+
+    {% for lavoratore in lavoratori %}
+    <p>{{ lavoratore }}</p>
+    {% endfor %}
+
+<!--    <form action="./dati_estratti" method="post" name="lavoratori">-->
+<!--        {% csrf_token %}-->
+
+<!--        <input type="submit" value="Submit"><br>-->
+
+<!--        {% for lavoratore in lavoratori %}-->
+<!--        <input type="checkbox" id="{{lavoratore.pk}}" name="{{lavoratore.pk}}" value="{{lavoratore}}">-->
+<!--        <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>-->
+<!--        {% endfor %}-->
+
+<!--        <input type="submit" value="Submit">-->
+<!--    </form>-->
+
+
+</div>
+
+
+{% endblock %}

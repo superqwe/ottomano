@@ -1,0 +1,77 @@
+{% extends "personale/base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="col">Stato</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Mansione</th>
+            <th scope="col">Cantiere</th>
+            <th scope="col">Dirigente*</th>
+            <th scope="col">Preposto*</th>
+            <th scope="col">Primo Soccorso</th>
+            <th scope="col">Antincendio*</th>
+            <th scope="col">Art37</th>
+            <th scope="col">Spazi Confinati</th>
+            <th scope="col">Ponteggiatore</th>
+            <th scope="col">Imbracatore</th>
+            <th scope="col">EPT</th>
+            <th scope="col">Autogru</th>
+            <th scope="col">Gru su Autocarro</th>
+            <th scope="col">Muletto</th>
+            <th scope="col">Manitou</th>
+            <th scope="col">PLE</th>
+            <th scope="col">RLS</th>
+            <th scope="col">ASPP</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lavoratore in formazione %}
+        <tr>
+            <td><i class="text-center fa-solid fa-circle {{lavoratore.stato}}"></i></td>
+            <td>{{lavoratore.lavoratore.cognome}}</td>
+            <td>{{lavoratore.lavoratore.nome}}</td>
+            <td>{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
+            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>
+            <td class="text-center {{lavoratore.dirigente_ck}}">{{lavoratore.dirigente|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.preposto_ck}}">{{lavoratore.preposto|date:"d/m/y"}}
+                {% if lavoratore.nomina_preposto %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
+            <td class="text-center {{lavoratore.primo_soccorso_ck}}">{{lavoratore.primo_soccorso|date:"d/m/y"}}
+                {% if lavoratore.nomina_primo_soccorso %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
+            <td class="text-center {{lavoratore.antincendio_ck}}">{{lavoratore.antincendio|date:"d/m/y"}}
+                {% if lavoratore.nomina_antincendio %}<i class="fa-solid fa-file-lines"></i>{% endif %}
+            </td>
+            <td class="text-center {{lavoratore.art37_ck}}">{{lavoratore.art37|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.spazi_confinati_ck}}">{{lavoratore.spazi_confinati|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ponteggiatore_ck}}">{{lavoratore.ponteggiatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.imbracatore_ck}}">{{lavoratore.imbracatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ept_ck}}">{{lavoratore.ept|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.autogru_ck}}">{{lavoratore.autogru|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.gru_autocarro_ck}}">{{lavoratore.gru_autocarro|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.carrello_ck}}">{{lavoratore.carrello|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.sollevatore_ck}}">{{lavoratore.sollevatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.ple_ck}}">{{lavoratore.ple|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.rls_ck}}">{{lavoratore.rls|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.aspp_ck}}">{{lavoratore.aspp|date:"d/m/y"}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

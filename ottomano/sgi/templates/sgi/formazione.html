@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+
+{% block menu_sezione %}
+<!--<div class="col">-->
+<!--    <div class="btn-group " role="group">-->
+<!--        <a href="/personale/formazione"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_formazione}}">Formazione</a>-->
+<!--        <a href="/personale/scadenziario_formazione"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_scadenziario_formazione}}">Scadenziario-->
+<!--            Formazione</a>-->
+<!--        <a href="/personale/idoneita"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_idoneita}}">Idoneità</a>-->
+<!--        <a href="/personale/scadenziario_idoneita"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_scadenziario_idoneita}}">Scadenziario Idoneità</a>-->
+<!--        <a href="/personale/anagrafica"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_anagrafica}}">Anagrafica</a>-->
+<!--        <a href="/personale/aggiorna_documenti"-->
+<!--           class="btn btn-outline-primary {{pagina_attiva_aggiorna_documenti}}">Aggiorna Documenti</a>-->
+<!--        <a href="/personale/aggiorna_stato"-->
+<!--           class="btn btn-outline-primary  {{pagina_attiva_aggiorna_stato}}">Aggiorna Stato</a>-->
+<!--        <a href="/personale/estrai_dati"-->
+<!--           class="btn btn-outline-primary  {{pagina_attiva_estrai_dati}}">Estrai Dati</a>-->
+<!--        <a href="/admin" class="btn btn-outline-primary">Admin</a>-->
+<!--    </div>-->
+<!--</div>-->
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+    <table class="table table-striped table-sm">
+
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="col">Mese</th>
+            <th scope="col">Corso</th>
+            <th scope="col">Data</th>
+            <th scope="col">Argomento del corso</th>
+            <th scope="col">Docente</th>
+            <th scope="col">n. ore</th>
+            <th scope="col">n. persone</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for corso in formazione %}
+        <tr>
+            <td>{{corso.get_mese_display}}</td>
+            <td class="text-center">{{corso.corso|default_if_none:"-"}}</td>
+            <td>{{corso.data|date:"d/m/y"}}</td>
+            <td>{{corso.argomento}}</td>
+            <td>{{corso.docente}}</td>
+            <td class="text-center">{{corso.ore}}</td>
+            <td class="text-center">{{corso.persone}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+{% endblock %}
