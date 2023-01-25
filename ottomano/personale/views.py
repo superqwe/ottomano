@@ -136,9 +136,9 @@ def aggiorna_documenti(request):
         idoneita.save()
 
         # ricerca nomine
-        path_nomine = os.path.join(PATH_DOCUMENTI, lavoratore, 'nomine')
 
         try:
+            path_nomine = os.path.join(PATH_DOCUMENTI, lavoratore, 'nomine')
             nomine = os.listdir(path_nomine)
 
             for nomina in nomine:

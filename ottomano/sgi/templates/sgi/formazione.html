@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
+
 {% block titolo %}
+{% load static %}
+<img  class="logo_ottomano" src="{% static 'sgi/images/Impresa_Ottomano.jpg' %}"><br>
 {{titolo}}
+
+
 {% endblock %}
 
 
@@ -33,7 +38,7 @@
 
 {% block corpo %}
 
-{% load static %}
+<!--{% load static %}-->
 
 
 <div>
@@ -63,6 +68,32 @@
             <td class="text-center">{{corso.persone}}</td>
         </tr>
         {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+<div>
+    <table class="table table-sm table-bordered">
+
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="col">Revisione</th>
+            <th scope="col">Data</th>
+            <th scope="col">Redatto ASPP</th>
+            <th scope="col">Verificato RSGI</th>
+            <th scope="col">Autorizzato DIR</th>
+        </tr>
+        </thead>
+
+        <tbody class="border border-dark">
+        <td class="text-center align-middle rigo_firme">0</td>
+        <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
         </tbody>
 
     </table>
