@@ -6,7 +6,9 @@ from django.shortcuts import render
 
 from sgi.models import Formazione
 
-import pandas as pd
+from pprint import pprint as pp
+
+FORMAZIONE_ANNO = 2023
 
 
 def index(request):
@@ -45,14 +47,23 @@ def index(request):
     return HttpResponse("Hello, world. You're at the personale index.")
 
 
-def formazione(request):
-    formazione_ = Formazione.objects.all()
+def formazione(request, anno=FORMAZIONE_ANNO):
+    formazione_ = Formazione.objects.filter(data__year=anno)
 
     context = {'titolo': 'Programma di informazione, formazione, addestramento',
                'pagina_attiva_formazione': 'active',
                'formazione': formazione_,
-    #            'conteggio_rg': conteggio_rg(formazione_)
                }
 
-    # return HttpResponse("Hello SGI, world. You're at the personale index.")
+    pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
+
+    match anno:
+        case 2023:
+            pagina_attiva_formazione_2023 = 'active'
+        case 2022:
+            pagina_attiva_formazione_2022 = 'active'
+
+    context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
+    context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
+
     return render(request, 'sgi/formazione.html', context)

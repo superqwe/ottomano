@@ -28,7 +28,7 @@ class Formazione(models.Model):
     persone = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        ordering = ['-mese', '-data', '-corso']
+        ordering = ['-data', '-corso']
         verbose_name = 'Formazione'
         verbose_name_plural = 'Formazioni'
 
