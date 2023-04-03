@@ -47,7 +47,7 @@ class Lavoratore(models.Model):
     livello = models.CharField(max_length=2, blank=True, null=True)
     qualifica = models.CharField(max_length=20, blank=True, null=True)
     assunzione = models.CharField(max_length=20, blank=True, null=True)
-    busta_paga = models.CharField(max_length=20, blank=True, null=True)
+    busta_paga = models.CharField(max_length=30, blank=True, null=True)
     mansione = models.CharField(max_length=30, blank=True, null=True)
     attivita_svolta = models.CharField(max_length=30, blank=True, null=True)
     mansione_1 = models.CharField(max_length=30, blank=True, null=True)
