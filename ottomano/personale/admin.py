@@ -60,6 +60,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'temperature',
         'scale',
         'calzature',
+        'lenti',
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True

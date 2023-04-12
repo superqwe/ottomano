@@ -32,6 +32,7 @@
             <th scope="col">Evitare l'esposizione ad elevate temperature</th>
             <th scope="col">Evitare evitare la ripetura salita e discesa di scale</th>
             <th scope="col">Uso di calzature antinfortunistiche compatibili con l'utilizzo del plantare</th>
+            <th scope="col">Lenti polarizzate</th>
         </tr>
         </thead>
         <tbody>
@@ -96,6 +97,11 @@
             </td>
             <td class="text-center">
                 {% if lavoratore.calzature %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.lenti %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
