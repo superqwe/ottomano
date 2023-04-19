@@ -1,0 +1,65 @@
+from django.shortcuts import render
+import os
+import warnings
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from attrezzi.models import Attrezzo
+
+from pprint import pprint as pp
+
+pp('')
+PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Attrezzi'
+
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the attrezzi index.")
+
+
+def elenco(request):
+    attrezzi = Attrezzo.objects.all()
+    pp(attrezzi)
+    context = {'titolo': 'Elenco Attrezzi',
+               'pagina_attiva_elenco': 'active',
+               'attrezzi': attrezzi}
+
+    return render(request, 'attrezzi/base.html', context)
+
+
+def aggiorna_documenti(request):
+    elenco_attrezzi = Attrezzo.objects.all()
+
+    elenco_documenti_attrezzi = []
+
+    for attrezzo in elenco_attrezzi:
+        # print('\n', mezzo.nome())
+        path_attrezzo = os.path.join(PATH_DOCUMENTI, attrezzo.tipologia.nome, attrezzo.nome())
+
+        documenti = os.listdir(path_attrezzo)
+
+        documenti_attrezzo_ok = []
+        documenti_attrezzo_errore = []
+        for documento in documenti:
+            documenti_attrezzo_ok.append(os.path.splitext(documento)[0])
+            doc = os.path.splitext(documento)[0].split()
+
+            match doc[0]:
+
+                case 'ce':
+                    attrezzo.ce = True
+
+                case 'manuale':
+                    attrezzo.manuale = True
+
+                case _:
+                    documenti_attrezzo_errore.append((documenti_attrezzo_ok.pop()))
+                    warnings.warn('Nome documento non processato - %s (%s)' % (attrezzo, documento))
+
+        attrezzo.save()
+        elenco_documenti_attrezzi.append((attrezzo, documenti_attrezzo_ok, documenti_attrezzo_errore))
+
+    context = {'titolo': 'Documenti Mezzi Aggiornati',
+               'pagina_attiva_aggiorna_documenti': 'active',
+               'attrezzi': elenco_documenti_attrezzi}
+
+    return render(request, 'attrezzi/aggiorna_documenti.html', context)

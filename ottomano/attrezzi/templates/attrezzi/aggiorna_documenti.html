@@ -1,0 +1,33 @@
+{% extends "attrezzi/base.html" %}
+
+{% block titolo %}
+Documenti
+{% endblock %}
+
+{% block menu_sezione %}
+ms
+{% endblock %}
+
+
+{% block corpo %}
+
+{% for attrezzo, doc_ok, doc_no in attrezzi %}
+<p>{{attrezzo|upper}}</p>
+
+<ul>
+    {% for documento in doc_ok %}
+    <li>
+        {{ documento }}
+        {% endfor %}
+    </li>
+    {% for documento in doc_no %}
+    <li class="rosso">
+        {{ documento }}
+        {% endfor %}
+    </li>
+
+</ul>
+{% endfor %}
+
+
+{% endblock %}
