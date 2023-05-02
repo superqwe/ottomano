@@ -261,7 +261,7 @@ def idoneita(request):
 def scadenziario_formazione(request):
     lavoratori = Formazione.objects. \
         filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso']). \
-        order_by('-stato', 'lavoratore__cognome', 'lavoratore__nome')
+        order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenziario Formazione',
                'pagina_attiva_scadenziario_formazione': 'active',
@@ -273,7 +273,7 @@ def scadenziario_formazione(request):
 
 def scadenziario_formazione2(request):
     context = {'titolo': 'Scadenziario Formazione',
-               'pagina_attiva_scadenziario_formazione': 'active',}
+               'pagina_attiva_scadenziario_formazione': 'active', }
 
     return render(request, 'personale/formazione.html', context)
 
