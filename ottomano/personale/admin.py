@@ -50,7 +50,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
         ('idoneita', 'idoneita_ck'),
-        'otoprotettori',
+        ('otoprotettori', 'rumore50'),
         'guanti',
         'posture',
         ('carichi_10', 'carichi_15'),

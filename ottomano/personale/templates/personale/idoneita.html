@@ -22,6 +22,7 @@
             <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
             </th>
+            <th scope="col">Esposizione personale quotidiana al rumore non superiore al 50% dell'orario giornaliero</th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
             <th scope="col">Evitare posture incongrue</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 10</th>
@@ -47,6 +48,11 @@
             </td>
             <td class="text-center">
                 {% if lavoratore.otoprotettori %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.rumore50 %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>

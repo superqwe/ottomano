@@ -141,6 +141,7 @@ class Idoneita(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     idoneita = models.DateField(blank=True, null=True, default=None)
     otoprotettori = models.BooleanField(default=False)
+    rumore50 = models.BooleanField(default=False)
     guanti = models.BooleanField(default=False)
     posture = models.BooleanField(default=False)
     carichi_10 = models.BooleanField(default=False)
