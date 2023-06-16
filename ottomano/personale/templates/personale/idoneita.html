@@ -12,13 +12,16 @@
 {% block corpo %}
 
 {% load static %}
+
+<!--Prescrizioni derivate dalla sorveglianza sanitaria dei lavoratori-->
+
 <div>
     <table class="table table-striped table-sm">
         <thead class="table-light sticky-top">
         <tr class="text-center">
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-            <th scope="col">Idoneità</th>
+<!--            <th scope="col">Idoneità</th>-->
             <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
             </th>
@@ -117,5 +120,31 @@
     </table>
 </div>
 
+<!--<div>-->
+<!--    <table class="table table-sm table-bordered">-->
+
+<!--        <thead class="table-light">-->
+<!--        <tr class="text-center">-->
+<!--            <th scope="col">Revisione</th>-->
+<!--            <th scope="col">Data</th>-->
+<!--            <th scope="col">Romanelli</th>-->
+<!--            <th scope="col">Albano</th>-->
+<!--            <th scope="col">Conserva</th>-->
+<!--            <th scope="col">Ciampo</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+
+<!--        <tbody class="border border-secondary">-->
+<!--        <td class="text-center align-middle rigo_firme">1</td>-->
+<!--        <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+
+<!--    </table>-->
+<!--</div>-->
 
 {% endblock %}
