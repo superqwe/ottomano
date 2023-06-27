@@ -15,6 +15,7 @@ DURATA_CORSI = {
     'ponteggiatore': 4,
     'primo_soccorso': 3,
     'rls': 1,
+    'rullo': 5,
     'sollevatore': 5,
     'spazi_confinati': 5,
 }

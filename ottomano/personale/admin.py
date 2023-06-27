@@ -28,6 +28,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('imbracatore', 'imbracatore_dc', 'imbracatore_ck', 'nomina_preposto_imbracatore'),
         ('ept', 'ept_dc', 'ept_ck'),
         ('dumper', 'dumper_dc', 'dumper_ck'),
+        ('rullo', 'rullo_dc', 'rullo_ck'),
         ('autogru', 'autogru_dc', 'autogru_ck'),
         ('gru_autocarro', 'gru_autocarro_dc', 'gru_autocarro_ck'),
         ('carrello', 'carrello_dc', 'carrello_ck'),

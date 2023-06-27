@@ -89,6 +89,10 @@
                 {% if conteggio_rg.dumper_r %}<span class="badge bg-danger">{{conteggio_rg.dumper_r}}</span>{% endif %}
                 {% if conteggio_rg.dumper_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.dumper_g}}</span>{% endif %}
             </th>
+            <th scope="col">Rullo
+                {% if conteggio_rg.rullo_r %}<span class="badge bg-danger">{{conteggio_rg.rullo_r}}</span>{% endif %}
+                {% if conteggio_rg.rullo_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.rullo_g}}</span>{% endif %}
+            </th>
             <th scope="col">Autogru
                 {% if conteggio_rg.autogru_r %}<span class="badge bg-danger">{{conteggio_rg.autogru_r}}</span>{% endif %}
                 {% if conteggio_rg.autogru_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.autogru_g}}</span>{% endif %}
@@ -192,6 +196,11 @@
             <td class="text-center {{lavoratore.dumper_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/dumper {{lavoratore.dumper_dc|date:"dmy"}}.pdf" target="_blank">
                 {{lavoratore.dumper|date:"d/m/y"}}
+                </a>
+            </td>
+            <td class="text-center {{lavoratore.rullo_ck}}">
+                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/rullo {{lavoratore.rullo_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.rullo|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center {{lavoratore.autogru_ck}}">
