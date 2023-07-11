@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
 {% endblock %}
 
 
@@ -32,6 +33,7 @@
 
         <thead class="table-light sticky-top">
         <tr class="text-center">
+            <th scope="col">n</th>
             <th scope="col">Data</th>
             <th scope="col">Emittente</th>
             <th scope="col">Area</th>
@@ -49,6 +51,7 @@
         <tbody>
         {% for nc in elenco_non_conformita %}
         <tr>
+            <td class="text-center">{{ forloop.counter }}</td>
             <td>{{nc.data|date:"d/m/y"}}</td>
             <td class="text-center">{{nc.get_emittente_display}}</td>
             <td class="text-center">{{nc.get_area_display}}</td>

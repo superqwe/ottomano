@@ -72,7 +72,8 @@ def non_conformita(request, anno=FORMAZIONE_ANNO):
     non_conformita_ = Non_Conformita.objects.filter(data__year=anno)
 
     context = {'titolo': 'Registro Non Conformità',
-               'pagina_attiva_formazione': 'active',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_nc': 'active',
                'elenco_non_conformita': non_conformita_,
                }
 

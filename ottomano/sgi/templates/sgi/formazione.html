@@ -4,12 +4,12 @@
 {% block titolo %}
 {% load static %}
 <img class="logo_ottomano" src="{% static 'sgi/images/Impresa_Ottomano.jpg' %}"><br>
+
 {{titolo}}
-
-
 {% endblock %}
 
 {% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
 {% endblock %}
 
 {% block menu_sezione %}
