@@ -4,7 +4,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from sgi.models import Formazione
+from sgi.models import Formazione, Non_Conformita
 
 from pprint import pprint as pp
 
@@ -67,3 +67,23 @@ def formazione(request, anno=FORMAZIONE_ANNO):
     context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
 
     return render(request, 'sgi/formazione.html', context)
+def non_conformita(request, anno=FORMAZIONE_ANNO):
+    non_conformita_ = Non_Conformita.objects.filter(data__year=anno)
+
+    context = {'titolo': 'Registro Non Conformità',
+               'pagina_attiva_formazione': 'active',
+               'elenco_non_conformita': non_conformita_,
+               }
+
+    pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
+
+    match anno:
+        case 2023:
+            pagina_attiva_formazione_2023 = 'active'
+        case 2022:
+            pagina_attiva_formazione_2022 = 'active'
+
+    context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
+    context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
+
+    return render(request, 'sgi/non_conformita.html', context)

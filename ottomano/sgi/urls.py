@@ -9,6 +9,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('formazione/', views.formazione, name='formazione'),
     path('formazione/<int:anno>/', views.formazione, name='formazione'),
+    path('non_conformita/', views.non_conformita, name='non_conformita'),
+    path('non_conformita/<int:anno>/', views.non_conformita, name='non_conformita'),
 ]
 
 # urlpatterns = [
