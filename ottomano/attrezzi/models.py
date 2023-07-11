@@ -3,6 +3,7 @@ from django.db import models
 
 class Tipologia(models.Model):
     nome = models.CharField(max_length=50, blank=True, null=True)
+    faldone = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         ordering = ['nome', ]
@@ -21,7 +22,6 @@ class Attrezzo(models.Model):
     matricola = models.CharField(max_length=20, blank=True, null=True)
     ce = models.BooleanField(default=False)
     manuale = models.BooleanField(default=False)
-    faldone = models.CharField(max_length=10, blank=True, null=True)
 
     def nome(self):
         if self.matricola:
