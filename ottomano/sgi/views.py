@@ -52,6 +52,7 @@ def formazione(request, anno=FORMAZIONE_ANNO):
 
     context = {'titolo': 'Programma di informazione, formazione, addestramento',
                'pagina_attiva_formazione': 'active',
+               'sezione_sgi_attiva': 'active',
                'formazione': formazione_,
                }
 

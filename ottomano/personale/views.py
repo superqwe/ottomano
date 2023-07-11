@@ -29,6 +29,7 @@ def index(request):
 def anagrafica(request):
     lavoratori = Lavoratore.objects.filter(in_forza=True)
     context = {'titolo': 'Anagrafica',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_anagrafica': 'active',
                'lavoratori': lavoratori}
 
@@ -42,6 +43,7 @@ def formazione(request):
 
     context = {'titolo': 'Formazione',
                'pagina_attiva_formazione': 'active',
+               'sezione_formazione_attiva': 'active',
                'formazione': formazione_,
                'conteggio_rg': conteggio_rg(formazione_)}
 
@@ -172,6 +174,7 @@ def aggiorna_documenti(request):
     os.chdir(PATH_DOCUMENTI)
 
     context = {'titolo': 'Aggiorna Documenti',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_aggiorna_documenti': 'active',
                'lista_documenti': lista_documenti}
 
@@ -241,6 +244,7 @@ def aggiorna_stato(request):
     result = None
 
     context = {'titolo': 'Aggiorna Stato',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_aggiorna_stato': 'active',
                'dati': result,
                }
@@ -252,6 +256,7 @@ def idoneita(request):
     idoneita = Idoneita.objects.filter(lavoratore__in_forza=True)
     # print(formazione)
     context = {'titolo': 'Idoneità',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_idoneita': 'active',
                'idoneita': idoneita}
 
@@ -264,6 +269,7 @@ def scadenziario_formazione(request):
         order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenziario Formazione',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_scadenziario_formazione': 'active',
                'formazione': lavoratori,
                'conteggio_rg': conteggio_rg(lavoratori)}
@@ -273,6 +279,7 @@ def scadenziario_formazione(request):
 
 def scadenziario_formazione2(request):
     context = {'titolo': 'Scadenziario Formazione',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_scadenziario_formazione': 'active', }
 
     return render(request, 'personale/formazione.html', context)
@@ -284,6 +291,7 @@ def scadenziario_idoneita(request):
         order_by('idoneita', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario Idoneità',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_scadenziario_idoneita': 'active',
                'idoneita': idoneita}
 
@@ -296,6 +304,7 @@ def estrai_dati(request):
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 
     context = {'titolo': 'Estrai Dati',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
                'lavoratori': lavoratori,
                'n_gruppi_lavoratori': n_gruppi_lavoratori,
@@ -318,6 +327,7 @@ def dati_estratti(request):
         dati.salva_lavoratori(lavoratori)
 
     context = {'titolo': 'Dati Estratti',
+               'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
                'lavoratori': lavoratori,
                }
