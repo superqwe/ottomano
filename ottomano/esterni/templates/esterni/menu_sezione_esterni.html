@@ -1,0 +1,10 @@
+<div class="col  text-end">
+    <div class="btn-group " role="group">
+
+        {% for cantiere in cantieri %}
+        <a href="/esterni/lavoratori/{{cantiere.id}}"
+           class="btn btn-outline-primary">{{cantiere}}</a>
+        {% endfor %}
+
+    </div>
+</div>
