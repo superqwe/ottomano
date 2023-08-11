@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'mezzi.apps.MezziConfig',
     'personale.apps.PersonaleConfig',
     'sgi.apps.SgiConfig',
+    'esterni.apps.EsterniConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

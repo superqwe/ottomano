@@ -29,5 +29,6 @@ urlpatterns = [
     path('mezzi/', include('mezzi.urls')),
     path('personale/', include('personale.urls')),
     path('sgi/', include('sgi.urls')),
+    path('esterni/', include('esterni.urls')),
     path('admin/', admin.site.urls),
 ]
