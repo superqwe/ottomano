@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Cantiere_Esterno
-from personale.models import Lavoratore
+from personale.models import Lavoratore, Formazione
 from mezzi.models import Mezzo
 
 
@@ -12,7 +12,7 @@ class CantiereEsternoAdmin(admin.ModelAdmin):
     save_on_top = True
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == 'elenco_lavoratori':
+        if db_field.name == 'elenco_lavoratori2':
             kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True)
 
         elif db_field.name == 'elenco_mezzi':

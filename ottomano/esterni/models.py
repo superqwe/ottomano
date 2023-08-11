@@ -8,7 +8,7 @@ class Cantiere_Esterno(models.Model):
     cantiere = models.CharField(max_length=100, blank=True, null=True)
     in_corso = models.BooleanField(default=True)
     elenco_lavoratori = models.ManyToManyField(Lavoratore, blank=True)
-    elenco_lavoratori2 = models.ManyToManyField(Formazione, blank=True)
+    # elenco_lavoratori2 = models.ManyToManyField(Formazione, blank=True)
     elenco_mezzi = models.ManyToManyField(Mezzo, blank=True)
 
     def __str__(self):
