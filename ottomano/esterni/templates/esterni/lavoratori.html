@@ -108,7 +108,7 @@
 <!--            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>-->
             <td class="text-center {{lavoratore.art37_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore__formazione.art37|date:"d/m/y"}}
+                {{lavoratore.art37|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center {{lavoratore.preposto_ck}}">

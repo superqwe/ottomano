@@ -23,7 +23,7 @@ def lavoratori(request, id_cantiere):
     print(elenco_lavoratori)
     print()
     for x in elenco_lavoratori:
-        print(x.nome)
+        print(x.formazione_set.all())
 
     context = {'titolo': cantiere,
                'id_cantiere': id_cantiere,
