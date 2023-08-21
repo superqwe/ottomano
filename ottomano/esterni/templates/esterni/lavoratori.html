@@ -23,7 +23,8 @@
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
             <th scope="col"  class="bordo-destro">Mansione</th>
-<!--            <th scope="col">Cantiere</th>-->
+            <th scope="col"  class="bordo-destro">Idoneità</th>
+            <th scope="col"  class="bordo-destro">Consegna DPI</th>
             <th scope="col">Art37
                 {% if conteggio_rg.art37_r %}<span class="badge bg-danger">{{conteggio_rg.art37_r}}</span>{% endif %}
                 {% if conteggio_rg.art37_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.art37_g}}</span>{% endif %}
@@ -32,15 +33,11 @@
                 {% if conteggio_rg.preposto_r %}<span class="badge bg-danger">{{conteggio_rg.preposto_r}}</span>{% endif %}
                 {% if conteggio_rg.preposto_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.preposto_g}}</span>{% endif %}
             </th>
-<!--            <th scope="col" class="bordo-destro">Dirigente**-->
-<!--                {% if conteggio_rg.dirigente_r %}<span class="badge bg-danger">{{conteggio_rg.dirigente_r}}</span>{% endif %}-->
-<!--                {% if conteggio_rg.dirigente_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.dirigente_g}}</span>{% endif %}-->
-<!--            </th>-->
             <th scope="col">Primo Soccorso
                 {% if conteggio_rg.primo_soccorso_r %}<span class="badge bg-danger">{{conteggio_rg.primo_soccorso_r}}</span>{% endif %}
                 {% if conteggio_rg.primo_soccorso_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.primo_soccorso_g}}</span>{% endif %}
             </th>
-            <th scope="col" class="bordo-destro">Antincendio*
+            <th scope="col" class="bordo-destro">Antincendio
                 {% if conteggio_rg.antincendio_r %}<span class="badge bg-danger">{{conteggio_rg.antincendio_r}}</span>{% endif %}
                 {% if conteggio_rg.antincendio_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.antincendio_g}}</span>{% endif %}
             </th>
@@ -105,117 +102,112 @@
             <td>{{lavoratore.cognome}}</td>
             <td>{{lavoratore.nome}}</td>
             <td class="bordo-destro">{{lavoratore.mansione|default_if_none:""}}</td>
-<!--            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>-->
+            <td class="bordo-destro">
+                <a href="{% static ''%}{{lavoratore}}/idoneità {{lavoratore.idoneita_set.all.0.idoneita|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.idoneita_set.all.0.idoneita|date:"d/m/y"}}</a>
+            </td>
+            <td class="bordo-destro">{{lavoratore.dpi|default_if_none:""}}</td>
             <td class="text-center {{lavoratore.art37_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.art37|date:"d/m/y"}}
+                <a href="{% static ''%}{{lavoratore}}/attestati/art37 {{lavoratore.formazione_set.all.0.art37_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.art37|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.preposto_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/preposto {{lavoratore.preposto_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.preposto|date:"d/m/y"}}</a>
-                {% if lavoratore.nomina_preposto %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_preposto {{lavoratore.nomina_preposto|date:"dmy"}}.pdf" target="_blank">
+            <td class="text-center {{lavoratore.formazione_set.all.0.preposto_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/preposto {{lavoratore.formazione_set.all.0.preposto_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.preposto|date:"d/m/y"}}</a>
+                {% if lavoratore.formazione_set.all.0.nomina_preposto %}
+                <a href="{% static ''%}{{lavoratore}}/nomine/nomina_preposto {{lavoratore.formazione_set.all.0.nomina_preposto|date:"dmy"}}.pdf" target="_blank">
                 <i class="fa-solid fa-file-lines"></i></a>
                 {% endif %}
-<!--                {% if lavoratore.nomina_preposto_subappalti %}-->
-<!--                <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_preposto_subappalti {{lavoratore.nomina_preposto_subappalti|date:"dmy"}}.pdf" target="_blank">-->
-<!--                <i class="fa-solid fa-file-arrow-down"></i></a>-->
-<!--                {% endif %}-->
             </td>
-<!--            <td class="bordo-destro text-center {{lavoratore.dirigente_ck}}">-->
-<!--                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/dirigente {{lavoratore.dirigente_dc|date:"dmy"}}.pdf" target="_blank">-->
-<!--                {{lavoratore.dirigente|date:"d/m/y"}}-->
-<!--                </a>-->
-<!--            </td>-->
             <td class="text-center {{lavoratore.primo_soccorso_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/primo_soccorso {{lavoratore.primo_soccorso_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.primo_soccorso|date:"d/m/y"}}</a>
-                {% if lavoratore.nomina_primo_soccorso %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_primo_soccorso {{lavoratore.nomina_primo_soccorso|date:"dmy"}}.pdf" target="_blank">
+                <a href="{% static ''%}{{lavoratore}}/attestati/primo_soccorso {{lavoratore.formazione_set.all.0.primo_soccorso_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.primo_soccorso|date:"d/m/y"}}</a>
+                {% if lavoratore.formazione_set.all.0.nomina_primo_soccorso %}
+                <a href="{% static ''%}{{lavoratore}}/nomine/nomina_primo_soccorso {{lavoratore.formazione_set.all.0.nomina_primo_soccorso|date:"dmy"}}.pdf" target="_blank">
                 <i class="fa-solid fa-file-lines"></i></a>
                 {% endif %}
             </td>
-            <td class="bordo-destro text-center {{lavoratore.antincendio_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/antincendio {{lavoratore.antincendio_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.antincendio|date:"d/m/y"}}</a>
-                {% if lavoratore.nomina_antincendio %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_antincendio {{lavoratore.nomina_antincendio|date:"dmy"}}.pdf" target="_blank">
+            <td class="bordo-destro text-center {{lavoratore.formazione_set.all.0.antincendio_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/antincendio {{lavoratore.formazione_set.all.0.antincendio_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.antincendio|date:"d/m/y"}}</a>
+                {% if lavoratore.formazione_set.all.0.nomina_antincendio %}
+                <a href="{% static ''%}{{lavoratore}}/nomine/nomina_antincendio {{lavoratore.formazione_set.all.0.nomina_antincendio|date:"dmy"}}.pdf" target="_blank">
                 <i class="fa-solid fa-file-lines"></i></a>
                 {% endif %}
             </td>
-            <td class="text-center {{lavoratore.spazi_confinati_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/spazi_confinati {{lavoratore.spazi_confinati_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.spazi_confinati|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.spazi_confinati_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/spazi_confinati {{lavoratore.formazione_set.all.0.spazi_confinati_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.spazi_confinati|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.ponteggiatore_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/ponteggiatore {{lavoratore.ponteggiatore_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.ponteggiatore|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.ponteggiatore_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/ponteggiatore {{lavoratore.formazione_set.all.0.ponteggiatore_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.ponteggiatore|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="bordo-destro text-center {{lavoratore.imbracatore_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/imbracatore {{lavoratore.imbracatore_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.imbracatore|date:"d/m/y"}}</a>
-                {% if lavoratore.nomina_preposto_imbracatore %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_preposto_imbracatore {{lavoratore.nomina_preposto_imbracatore|date:"dmy"}}.pdf" target="_blank">
+            <td class="bordo-destro text-center {{lavoratore.formazione_set.all.0.imbracatore_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/imbracatore {{lavoratore.formazione_set.all.0.imbracatore_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.imbracatore|date:"d/m/y"}}</a>
+                {% if lavoratore.formazione_set.all.0.nomina_preposto_imbracatore %}
+                <a href="{% static ''%}{{lavoratore}}/nomine/nomina_preposto_imbracatore {{lavoratore.formazione_set.all.0.nomina_preposto_imbracatore|date:"dmy"}}.pdf" target="_blank">
                 <i class="fa-solid fa-file-lines"></i></a>
                 {% endif %}
             </td>
-            <td class="text-center {{lavoratore.ept_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/ept {{lavoratore.ept_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.ept|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.ept_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/ept {{lavoratore.formazione_set.all.0.ept_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.ept|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.dumper_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/dumper {{lavoratore.dumper_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.dumper|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.dumper_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/dumper {{lavoratore.formazione_set.all.0.dumper_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.dumper|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.rullo_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/rullo {{lavoratore.rullo_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.rullo|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.rullo_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/rullo {{lavoratore.formazione_set.all.0.rullo_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.rullo|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.autogru_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/autogru {{lavoratore.autogru_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.autogru|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.autogru_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/autogru {{lavoratore.formazione_set.all.0.autogru_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.autogru|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.gru_autocarro_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/gru_autocarro {{lavoratore.gru_autocarro_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.gru_autocarro|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.gru_autocarro_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/gru_autocarro {{lavoratore.formazione_set.all.0.gru_autocarro_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.gru_autocarro|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.carrello_ck}}">
+            <td class="text-center {{lavoratore.formazione_set.all.0.carrello_ck}}">
                 {% if lavoratore.carrello %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/carrello {{lavoratore.carrello_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.carrello|date:"d/m/y"}}
+                <a href="{% static ''%}{{lavoratore}}/attestati/carrello {{lavoratore.formazione_set.all.0.carrello_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.carrello|date:"d/m/y"}}
                 </a>
                 {% elif lavoratore.sollevatore %}
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/sollevatore {{lavoratore.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">
+                <a href="{% static ''%}{{lavoratore}}/attestati/sollevatore {{lavoratore.formazione_set.all.0.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">
                     <i class="fa-solid fa-right-long"></i>
                 </a>
                 {% endif %}
             </td>
-            <td class="text-center {{lavoratore.sollevatore_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/sollevatore {{lavoratore.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.sollevatore|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.sollevatore_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/sollevatore {{lavoratore.formazione_set.all.0.sollevatore_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.sollevatore|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="bordo-destro text-center {{lavoratore.ple_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/ple {{lavoratore.ple_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.ple|date:"d/m/y"}}
+            <td class="bordo-destro text-center {{lavoratore.formazione_set.all.0.ple_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/ple {{lavoratore.formazione_set.all.0.ple_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.ple|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.rls_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/rls {{lavoratore.rls_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.rls|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.rls_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/rls {{lavoratore.formazione_set.all.0.rls_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.rls|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center {{lavoratore.aspp_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/aspp {{lavoratore.aspp_dc|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.aspp|date:"d/m/y"}}
+            <td class="text-center {{lavoratore.formazione_set.all.0.aspp_ck}}">
+                <a href="{% static ''%}{{lavoratore}}/attestati/aspp {{lavoratore.formazione_set.all.0.aspp_dc|date:"dmy"}}.pdf" target="_blank">
+                {{lavoratore.formazione_set.all.0.aspp|date:"d/m/y"}}
                 </a>
             </td>
         </tr>
