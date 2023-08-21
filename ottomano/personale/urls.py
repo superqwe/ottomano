@@ -11,7 +11,7 @@ urlpatterns = [
     path('dati_estratti', views.dati_estratti, name='dati_estratti'),
     path('formazione', views.formazione, name='formazione'),
     path('idoneita', views.idoneita, name='idoneita'),
-    path('consegna_dpi', views.idoneita, name='consegna_dpi'),
+    path('scadenzario_dpi', views.scadenzario_dpi, name='scadenzario_dpi'),
     path('scadenziario_formazione', views.scadenziario_formazione, name='scadenziario_formazione'),
     path('scadenziario_idoneita', views.scadenziario_idoneita, name='scadenziario_idoneita'),
 ]

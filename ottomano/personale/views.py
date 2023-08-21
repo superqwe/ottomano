@@ -323,7 +323,7 @@ def scadenziario_idoneita(request):
 
     context = {'titolo': 'Scadenzario Idoneità',
                'sezione_formazione_attiva': 'active',
-               'pagina_attiva_scadenziario_idoneita': 'active',
+               'pagina_attiva_scadenzario_idoneita': 'active',
                'idoneita': idoneita}
 
     return render(request, 'personale/idoneita.html', context)
@@ -410,14 +410,16 @@ def conteggio_rg(query):
     return conteggio
 
 
-def consegna_dpi(request):
-    idoneita = Idoneita.objects. \
-        filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
-        order_by('idoneita', 'lavoratore__cognome', 'lavoratore__nome')
+def scadenzario_dpi(request):
+    dpi = DPI.objects. \
+        filter(lavoratore__in_forza=True,). \
+        order_by('lavoratore__cognome', 'lavoratore__nome')
 
-    context = {'titolo': 'DPI',
+    print(dpi)
+
+    context = {'titolo': 'Scadenzario DPI',
                'sezione_formazione_attiva': 'active',
-               'pagina_attiva_consegna_dpi': 'active',
-               'idoneita': idoneita}
+               'pagina_attiva_scadenzario_dpi': 'active',
+               'lista_dpi': dpi}
 
-    return render(request, 'personale/consegna_dpi.html', context)
+    return render(request, 'personale/scadenzario_dpi.html', context)

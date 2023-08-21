@@ -21,18 +21,28 @@
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
             <th scope="col">Consegna DPI</th>
+            <th scope="col">Elmetto</th>
+            <th scope="col">Rilevatore H2S</th>
+            <th scope="col">Maschera SC/SC</th>
+            <th scope="col">Imbracatura</th>
+            <th scope="col">Cordino</th>
         </tr>
         </thead>
         <tbody>
-        {% for lavoratore in consegna_dpi %}
+        {% for dpi in lista_dpi %}
         <tr>
-            <td>{{lavoratore.lavoratore.cognome}}</td>
-            <td>{{lavoratore.lavoratore.nome}}</td>
+            <td>{{dpi.lavoratore.cognome}}</td>
+            <td>{{dpi.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.idoneita|date:"d/m/y"}}
+                {{dpi.consegna|date:"d/m/y"}}
                 </a>
             </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         {% endfor %}
         </tbody>
