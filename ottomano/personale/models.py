@@ -166,3 +166,16 @@ class Idoneita(models.Model):
 
     def __str__(self):
         return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.idoneita)
+
+
+class DPI(models.Model):
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+    consegna = models.DateField(blank=True, null=True, default=None)
+
+    class Meta:
+        ordering = ['lavoratore', ]
+        verbose_name = 'Consegna DPI'
+        verbose_name_plural = 'Consegne DPI'
+
+    def __str__(self):
+        return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.consegna)

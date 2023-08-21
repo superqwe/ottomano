@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
 from personale import aggiorna_documenti_util
-from personale.models import Lavoratore, Formazione, Idoneita
+from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
 from pprint import pprint as pp
 
@@ -165,6 +165,37 @@ def aggiorna_documenti(request):
 
         except FileNotFoundError:
             pass
+
+        # ricerca consegna DPI
+        try:
+            path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
+        except TypeError:
+            # todo: eccezione da gestire
+            print('*** errore nella ricerca della consegna DPI di ', lavoratore)
+
+        os.chdir(path_lavoratore)
+        lfile = glob.glob('consegna_dpi*')
+
+        try:
+            dpi = DPI.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+        except ObjectDoesNotExist:
+            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+            dpi = DPI(lavoratore=lavoratore)
+
+        match len(lfile):
+            case 1:
+                data_consegna_dpi = os.path.splitext(lfile[0])[0].split()[1]
+                data_consegna_dpi = datetime.datetime.strptime(data_consegna_dpi, '%d%m%y')
+                dpi.consegna = data_consegna_dpi
+
+                attestati.append(('consegna_dpi', data_consegna_dpi, None))
+
+            case 0:
+                print('*** manca consegna dpi *** %s' % lavoratore)
+            case _:
+                print('*** più di una consegna dpi *** %s' % lavoratore)
+
+        dpi.save()
 
         ###
         lista_documenti.append([lavoratore, attestati])
@@ -377,3 +408,16 @@ def conteggio_rg(query):
     }
 
     return conteggio
+
+
+def consegna_dpi(request):
+    idoneita = Idoneita.objects. \
+        filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
+        order_by('idoneita', 'lavoratore__cognome', 'lavoratore__nome')
+
+    context = {'titolo': 'DPI',
+               'sezione_formazione_attiva': 'active',
+               'pagina_attiva_consegna_dpi': 'active',
+               'idoneita': idoneita}
+
+    return render(request, 'personale/consegna_dpi.html', context)

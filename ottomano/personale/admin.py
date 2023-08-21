@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Lavoratore, Formazione, Cantiere, Idoneita
+from .models import Lavoratore, Formazione, Cantiere, Idoneita, DPI
 
 
 # Register your models here.
@@ -65,9 +65,28 @@ class IdoneitaAdmin(admin.ModelAdmin):
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
+class DPIAdmin(admin.ModelAdmin):
+    # fields = (
+    #     'lavoratore',
+    #     ('idoneita', 'idoneita_ck'),
+    #     ('otoprotettori', 'rumore50'),
+    #     'guanti',
+    #     'posture',
+    #     ('carichi_10', 'carichi_15'),
+    #     'sollecitazioni_arto_superiore_sinistro',
+    #     'spazi_confinati',
+    #     'mansioni_gravose',
+    #     'temperature',
+    #     'scale',
+    #     'calzature',
+    #     'lenti',
+    # )
+    list_display = ('lavoratore', 'consegna')
+    save_on_top = True
 
 
 admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Cantiere, CantiereAdmin)
 admin.site.register(Idoneita, IdoneitaAdmin)
+admin.site.register(DPI, DPIAdmin)
