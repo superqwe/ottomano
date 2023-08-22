@@ -412,10 +412,8 @@ def conteggio_rg(query):
 
 def scadenzario_dpi(request):
     dpi = DPI.objects. \
-        filter(lavoratore__in_forza=True,). \
-        order_by('lavoratore__cognome', 'lavoratore__nome')
-
-    print(dpi)
+        filter(lavoratore__in_forza=True, ). \
+        order_by('lavoratore__cantiere', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario DPI',
                'sezione_formazione_attiva': 'active',
