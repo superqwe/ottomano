@@ -127,6 +127,7 @@ STATICFILES_DIRS = [
     r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
     r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
     r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
+    r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
 ]
 
 # Default primary key field type
