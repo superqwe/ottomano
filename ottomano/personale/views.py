@@ -5,7 +5,7 @@ import os
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from personale import aggiorna_documenti_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
@@ -23,7 +23,7 @@ FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the personale index.")
+    return HttpResponseRedirect("/personale/formazione")
 
 
 def anagrafica(request):
