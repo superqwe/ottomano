@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "../menu_macro_sezione_esterni.html" %}
+{% endblock %}
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+{% load static %}
+
+<div>
+    <p class="h3 list-unstyled ">Documentazione di Cantiere</p>
+    <dl class="row">
+        <dt class="col-2">PSC</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/01 Tav PSC01_PSC _ag2022.pdf" target="_blank">
+                Aprile 2022 </a>
+        </dd>
+
+        <dt class="col-2">Notifica Preliminare</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/02 221118 NOTIFICA AGG.pdf" target="_blank">
+                 18/11/2022</a>
+        </dd>
+    </dl>
+
+    <p class="h3">Documentazione Impresa Ottomano</p>
+    <dl class="row">
+        <dt class="col-2">POS</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/03 POS Faggiano rev1 100223.pdf" target="_blank">
+                rev. 1 del 10/01/2023</a>
+        </dd>
+        <dt class="col-2">Verbale di formazione</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/Verbale n. 85_23.11.2022.pdf" target="_blank">
+                23/11/22</a>,
+        </dd>
+    </dl>
+    <p class="h3">Organigramma di cantiere</p>
+<!--    <img src="{% static 'esterni/images/230829 Organigramma Cantiere.png' %}" alt="ninet"><br>-->
+
+
+</div>
+
+{% endblock %}

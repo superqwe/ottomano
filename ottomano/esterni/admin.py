@@ -8,12 +8,12 @@ class CantiereEsternoAdmin(admin.ModelAdmin):
     filter_horizontal = ['elenco_lavoratori', 'elenco_mezzi']
     list_display = ('in_corso', 'cantiere')
     list_display_links = ('cantiere',)
-    list_filter =  ['in_corso',]
+    list_filter = ['in_corso', ]
     save_on_top = True
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == 'elenco_lavoratori2':
-            kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True)
+        if db_field.name == 'elenco_lavoratori':
+            kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True, cantiere__cantiere='ENI')
 
         elif db_field.name == 'elenco_mezzi':
             kwargs["queryset"] = Mezzo.objects.filter(in_forza=True)

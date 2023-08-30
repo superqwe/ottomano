@@ -8,7 +8,7 @@ from .models import Cantiere_Esterno
 
 def index(request):
     cantieri = Cantiere_Esterno.objects.filter(in_corso=True)
-    context = {'titolo': 'Cantieri Estreni',
+    context = {'titolo': 'Cantieri Esterni',
                'pagina_attiva_esterni': 'active',
                'sezione_esterni_attiva': 'active',
                'cantieri': cantieri,
