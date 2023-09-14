@@ -2,6 +2,7 @@
 
 {% block titolo %}
 {{titolo}}
+<!--Prescrizioni derivante dalla sorveglianza danitaria dei lavoratori-->
 {% endblock %}
 
 
@@ -45,8 +46,8 @@
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf" target="_blank">
-                {{lavoratore.idoneita|date:"d/m/y"}}
+                <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf"
+                target="_blank">{{lavoratore.idoneita|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center">
@@ -120,31 +121,33 @@
     </table>
 </div>
 
-<!--<div>-->
-<!--    <table class="table table-sm table-bordered">-->
-
-<!--        <thead class="table-light">-->
-<!--        <tr class="text-center">-->
-<!--            <th scope="col">Revisione</th>-->
-<!--            <th scope="col">Data</th>-->
-<!--            <th scope="col">Romanelli</th>-->
-<!--            <th scope="col">Albano</th>-->
-<!--            <th scope="col">Conserva</th>-->
-<!--            <th scope="col">Ciampo</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-
-<!--        <tbody class="border border-secondary">-->
-<!--        <td class="text-center align-middle rigo_firme">1</td>-->
-<!--        <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-
-<!--    </table>-->
-<!--</div>-->
+<div>
+    <table class="table table-sm table-bordered">
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="col" colspan="2"></th>
+            <th scope="col" colspan="4">Per ricevuta</th>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Revisione</th>
+            <th scope="col">Data</th>
+            <th scope="col">Romanelli</th>
+            <th scope="col">Albano</th>
+            <th scope="col">Conserva</th>
+            <th scope="col">Ciampo</th>
+        </tr>
+        </thead>
+        <tbody class="border border-secondary">
+        <tr>
+            <td class="text-center align-middle rigo_firme">2</td>
+            <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

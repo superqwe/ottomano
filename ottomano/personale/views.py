@@ -17,7 +17,7 @@ from personale import estrai_dati_util
 PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
 # PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
 OGGI = datetime.date.today()
-FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
+FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 
@@ -421,3 +421,27 @@ def scadenzario_dpi(request):
                'lista_dpi': dpi}
 
     return render(request, 'personale/scadenzario_dpi.html', context)
+
+def scadenziario_formazione_schede(request):
+    lista_corsi = ('preposto', 'primo_soccorso')
+
+    lavoratori = Formazione.objects. \
+        filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso'])
+    # pp(lavoratori)
+
+    a = Lavoratore.objects.values(lista_corsi[0])
+    pp(a)
+
+
+
+    lavoratori = Formazione.objects. \
+        filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso']). \
+        order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
+
+    context = {'titolo': 'Scadenziario Formazione',
+               'sezione_formazione_attiva': 'active',
+               'pagina_attiva_scadenziario_formazione': 'active',
+               'formazione': lavoratori,
+               'conteggio_rg': conteggio_rg(lavoratori)}
+
+    return render(request, 'personale/formazione_schede.html', context)
