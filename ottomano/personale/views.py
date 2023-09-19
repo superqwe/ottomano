@@ -413,6 +413,7 @@ def conteggio_rg(query):
 def scadenzario_dpi(request):
     dpi = DPI.objects. \
         filter(lavoratore__in_forza=True, ). \
+        exclude(lavoratore__cantiere__cantiere='Uffici Sede'). \
         order_by('lavoratore__cantiere', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario DPI',
@@ -421,6 +422,7 @@ def scadenzario_dpi(request):
                'lista_dpi': dpi}
 
     return render(request, 'personale/scadenzario_dpi.html', context)
+
 
 def scadenziario_formazione_schede(request):
     lista_corsi = ('preposto', 'primo_soccorso')
@@ -431,8 +433,6 @@ def scadenziario_formazione_schede(request):
 
     a = Lavoratore.objects.values(lista_corsi[0])
     pp(a)
-
-
 
     lavoratori = Formazione.objects. \
         filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso']). \

@@ -34,13 +34,13 @@
             <td>{{dpi.lavoratore.cognome}}</td>
             <td>{{dpi.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf" target="_blank">
+                <a href="{% static ''%}{{dpi.lavoratore}}/consegna_dpi {{dpi.consegna|date:"dmy"}}.pdf" target="_blank">
                 {{dpi.consegna|date:"d/m/y"}}
                 </a>
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.elmetto|date:"m/y"}}</td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.rilevatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.maschera|date:"m/y"}}</td>
             <td></td>
             <td></td>
         </tr>

@@ -65,6 +65,8 @@ class IdoneitaAdmin(admin.ModelAdmin):
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
+
+
 class DPIAdmin(admin.ModelAdmin):
     # fields = (
     #     'lavoratore',
@@ -81,7 +83,8 @@ class DPIAdmin(admin.ModelAdmin):
     #     'calzature',
     #     'lenti',
     # )
-    list_display = ('lavoratore', 'consegna')
+    list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
+    list_filter = ('lavoratore__in_forza',)
     save_on_top = True
 
 

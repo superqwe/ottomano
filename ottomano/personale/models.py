@@ -171,6 +171,9 @@ class Idoneita(models.Model):
 class DPI(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     consegna = models.DateField(blank=True, null=True, default=None)
+    elmetto = models.DateField(blank=True, null=True, default=None)
+    rilevatore = models.DateField(blank=True, null=True, default=None)
+    maschera = models.DateField(blank=True, null=True, default=None)
 
     class Meta:
         ordering = ['lavoratore', ]
