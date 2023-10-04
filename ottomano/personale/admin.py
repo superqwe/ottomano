@@ -68,21 +68,12 @@ class IdoneitaAdmin(admin.ModelAdmin):
 
 
 class DPIAdmin(admin.ModelAdmin):
-    # fields = (
-    #     'lavoratore',
-    #     ('idoneita', 'idoneita_ck'),
-    #     ('otoprotettori', 'rumore50'),
-    #     'guanti',
-    #     'posture',
-    #     ('carichi_10', 'carichi_15'),
-    #     'sollecitazioni_arto_superiore_sinistro',
-    #     'spazi_confinati',
-    #     'mansioni_gravose',
-    #     'temperature',
-    #     'scale',
-    #     'calzature',
-    #     'lenti',
-    # )
+    fields = (
+        'lavoratore',
+        'consegna',
+        ('elmetto', 'elmetto_df'),
+        'maschera'
+    )
     list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
     list_filter = ('lavoratore__in_forza',)
     save_on_top = True

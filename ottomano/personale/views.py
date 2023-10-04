@@ -197,10 +197,14 @@ def aggiorna_documenti(request):
 
         dpi.save()
 
-        ###
         lista_documenti.append([lavoratore, attestati])
 
-    # pp(lista_documenti)
+    lista_dpi = DPI.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+
+    # aggiorna data scadenza elemetto
+    for dpi in lista_dpi:
+        dpi.elmetto = aggiorna_documenti_util.aggiungi_anni(dpi.elmetto_df, 5)
+        dpi.save()
 
     os.chdir(PATH_DOCUMENTI)
 
