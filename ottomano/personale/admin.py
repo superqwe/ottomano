@@ -62,6 +62,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'scale',
         'calzature',
         'lenti',
+        'semestrale'
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
