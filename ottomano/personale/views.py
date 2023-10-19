@@ -387,6 +387,8 @@ def conteggio_rg(query):
     ponteggiatore_g = query.filter(ponteggiatore_ck='table-warning').count()
     ept_r = query.filter(ept_ck='table-danger').count()
     ept_g = query.filter(ept_ck='table-warning').count()
+    carrello_r = query.filter(carrello_ck='table-danger').count()
+    carrello_g = query.filter(carrello_ck='table-warning').count()
     ple_r = query.filter(ple_ck='table-danger').count()
     ple_g = query.filter(ple_ck='table-warning').count()
 
@@ -407,6 +409,8 @@ def conteggio_rg(query):
         'ponteggiatore_g': ponteggiatore_g,
         'ept_r': ept_r,
         'ept_g': ept_g,
+        'carrello_r': carrello_r,
+        'carrello_g': carrello_g,
         'ple_r': ple_r,
         'ple_g': ple_g,
     }
