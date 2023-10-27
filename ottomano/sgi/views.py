@@ -69,7 +69,7 @@ def formazione(request, anno=FORMAZIONE_ANNO):
 
     return render(request, 'sgi/formazione.html', context)
 def non_conformita(request, anno=FORMAZIONE_ANNO):
-    non_conformita_ = Non_Conformita.objects.filter(data__year=anno)
+    non_conformita_ = Non_Conformita.objects.filter(data__year=anno).order_by('-data')
 
     context = {'titolo': 'Registro Non Conformità',
                'sezione_sgi_attiva': 'active',

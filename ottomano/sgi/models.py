@@ -44,6 +44,7 @@ EMITTENTE = [
     ('a_scc', 'Assistente CSE SCC'),
     ('aspp', 'ASPP'),
     ('hse eni', 'HSE ENI'),
+    ('a_hse_scc', 'Assistente HSE SCC'),
 ]
 AREA = [
     ('sic', 'Sicurezza'),
@@ -73,7 +74,7 @@ class Non_Conformita(models.Model):
     data_verifica = models.DateField(blank=True, null=True)
 
     class Meta:
-        ordering = ['data']
+        ordering = ['-data']
         verbose_name = 'Non Conformità'
         verbose_name_plural = 'Non Conformità'
 
