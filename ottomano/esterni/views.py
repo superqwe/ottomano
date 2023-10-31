@@ -5,16 +5,21 @@ from django.shortcuts import render
 from personale.models import Lavoratore, Formazione, Idoneita
 from .models import Cantiere_Esterno
 
+from pprint import pprint as pp
 
 def index(request):
     cantieri = Cantiere_Esterno.objects.filter(in_corso=True)
+
+    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__reparto='Uffici Sede')
+
     context = {'titolo': 'Cantieri Esterni',
                'pagina_attiva_esterni': 'active',
                'sezione_esterni_attiva': 'active',
                'cantieri': cantieri,
+               'lavoratori':lavoratori,
                # 'conteggio_rg': conteggio_rg(formazione_)
                }
-    return render(request, 'esterni/elenco cantieri.html', context)
+    return render(request, 'esterni/elenco_cantieri.html', context)
 
 
 def lavoratori(request, id_cantiere):

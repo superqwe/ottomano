@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_esterni.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+{% load static %}
+
+<div>
+    <table class="table table-striped table-sm">
+
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th>Cogmone</th>
+            <th>None</th>
+            <th>Mansione</th>
+            <th>Preposto</th>
+            <th>Addetto primo soccorso</th>
+            <th>Addetto antincendio</th>
+            <th>Abilitato spazi confinati</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for lavoratore in lavoratori %}
+        <tr>
+            <td>{{lavoratore.lavoratore.cognome}}</td>
+            <td>{{lavoratore.lavoratore.nome}}</td>
+            <td>{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
+            <td>{% if lavoratore.preposto %}x{% endif %}</td>
+            <td>{% if lavoratore.primo_soccorso %}x{% endif %}</td>
+            <td>{% if lavoratore.antincendio %}x{% endif %}</td>
+            <td>{% if lavoratore.spazi_confinati %}x{% endif %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+
+{% endblock %}
