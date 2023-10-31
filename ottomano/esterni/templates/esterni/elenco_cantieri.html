@@ -32,15 +32,16 @@
         </thead>
 
         <tbody>
+
         {% for lavoratore in lavoratori %}
         <tr>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
             <td>{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
-            <td>{% if lavoratore.preposto %}x{% endif %}</td>
-            <td>{% if lavoratore.primo_soccorso %}x{% endif %}</td>
-            <td>{% if lavoratore.antincendio %}x{% endif %}</td>
-            <td>{% if lavoratore.spazi_confinati %}x{% endif %}</td>
+            <td class="text-center">{% if lavoratore.preposto %}x{% endif %}</td>
+            <td class="text-center">{% if lavoratore.primo_soccorso %}x{% endif %}</td>
+            <td class="text-center">{% if lavoratore.antincendio %}x{% endif %}</td>
+            <td class="text-center">{% if lavoratore.spazi_confinati %}x{% endif %}</td>
         </tr>
         {% endfor %}
         </tbody>
