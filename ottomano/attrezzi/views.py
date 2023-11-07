@@ -35,7 +35,10 @@ def aggiorna_documenti(request):
         # print('\n', mezzo.nome())
         path_attrezzo = os.path.join(PATH_DOCUMENTI, attrezzo.tipologia.nome, attrezzo.nome())
 
-        documenti = os.listdir(path_attrezzo)
+        try:
+            documenti = os.listdir(path_attrezzo)
+        except FileNotFoundError:
+            warnings.warn(f'Percorso non trovato - {path_attrezzo}')
 
         documenti_attrezzo_ok = []
         documenti_attrezzo_errore = []
