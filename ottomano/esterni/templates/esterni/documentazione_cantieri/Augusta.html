@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "../menu_macro_sezione_esterni.html" %}
+{% endblock %}
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+{% load static %}
+
+<div>
+    <p class="h3 list-unstyled ">Documentazione di Cantiere</p>
+    <dl class="row">
+        <dt class="col-2">PSC</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/00 130TAR04-1R-SEC-00700-02R00 rev signed.pdf" target="_blank">
+                rev. 02 del Ottobre 2022 </a>
+        </dd>
+
+        <dt class="col-2">Notifica Preliminare</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/01 Notifica preliminare.pdf" target="_blank">
+                del 21/04/2023</a>
+        </dd>
+    </dl>
+
+    <p class="h3">Documentazione Impresa Ottomano</p>
+    <dl class="row">
+        <dt class="col-2">POS</dt>
+        <dd class="col-10">
+            <a href="{% static ''%}{{titolo}}/10 POS OTTOMANO Calata V rev1_1 140723___.pdf" target="_blank">
+                rev. 1.1 del 14/05/2023</a>
+        </dd>
+        <dt class="col-2">Verbali di formazione</dt>
+        <dd class="col-10">del
+            <a href="{% static ''%}{{titolo}}/21 Verbale n. 59 18.07.23 POS Calata V.pdf" target="_blank">
+                10/07/23</a>,
+            <a href="{% static ''%}{{titolo}}/22 Verbale n. 61 20.07.23 POS Calata V.pdf" target="_blank">
+                20/07/23</a>,
+            <a href="{% static ''%}{{titolo}}/23 Verbale n. 66 01.08.23 POS Calata V.pdf" target="_blank">
+                01/08/23</a>
+        </dd>
+    </dl>
+    <p class="h3">Organigramma di cantiere</p>
+    <img src="{% static 'esterni/images/231107 Augusta.png' %}" alt="ninet"><br>
+
+
+</div>
+
+{% endblock %}
