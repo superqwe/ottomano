@@ -32,9 +32,33 @@
 
 <!--{% load static %}-->
 
+<div>
+    <table class="table table-striped table-sm table-hover">
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col"></th>
+            <th scope="col">Numero sessioni</th>
+            <th scope="col">Ore formazione</th>
+            <th scope="col">Ore formazione media procapite</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for rigo in statistiche %}
+        <tr>
+            <th scope="row">{{ rigo.0 }}</th>
+            <td class="text-center">{{ rigo.1 }}</td>
+            <td class="text-center">{{ rigo.2|floatformat:1 }}</td>
+            <td class="text-center">{{ rigo.3|floatformat:1}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 
 <div>
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-sm table-hover">
 
         <thead class="table-light sticky-top">
         <tr class="text-center">
@@ -69,7 +93,7 @@
 <div>
     <table class="table table-sm table-bordered">
 
-        <thead class="table-light">
+        <thead>
         <tr class="text-center">
             <th scope="col">Revisione</th>
             <th scope="col">Data</th>
