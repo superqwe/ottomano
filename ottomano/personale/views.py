@@ -4,9 +4,10 @@ import os
 
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
-# Create your views here.
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+
 from personale import aggiorna_documenti_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
@@ -219,22 +220,42 @@ def aggiorna_documenti(request):
 def aggiorna_stato(request):
     Formazione.objects.filter(lavoratore__in_forza=True).update(stato='verde')
 
-    Formazione.objects.filter(dirigente__gt=OGGI).update(dirigente_ck='')
-    Formazione.objects.filter(preposto__gt=OGGI).update(preposto_ck='')
-    Formazione.objects.filter(primo_soccorso__gt=OGGI).update(primo_soccorso_ck='')
-    Formazione.objects.filter(antincendio__gt=OGGI).update(antincendio_ck='')
-    Formazione.objects.filter(art37__gt=OGGI).update(art37_ck='')
-    Formazione.objects.filter(spazi_confinati__gt=OGGI).update(spazi_confinati_ck='')
-    Formazione.objects.filter(ponteggiatore__gt=OGGI).update(ponteggiatore_ck='')
-    Formazione.objects.filter(imbracatore__gt=OGGI).update(imbracatore_ck='')
-    Formazione.objects.filter(ept__gt=OGGI).update(ept_ck='')
-    Formazione.objects.filter(autogru__gt=OGGI).update(autogru_ck='')
-    Formazione.objects.filter(gru_autocarro__gt=OGGI).update(gru_autocarro_ck='')
-    Formazione.objects.filter(carrello__gt=OGGI).update(carrello_ck='')
-    Formazione.objects.filter(sollevatore__gt=OGGI).update(sollevatore_ck='')
-    Formazione.objects.filter(ple__gt=OGGI).update(ple_ck='')
-    Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
-    Formazione.objects.filter(aspp__gt=OGGI).update(aspp_ck='')
+    Formazione.objects.filter(Q(dirigente__gt=OGGI) | Q(dirigente__isnull=True)).update(dirigente_ck='')
+    Formazione.objects.filter(Q(preposto__gt=OGGI) | Q(preposto__isnull=True)).update(preposto_ck='')
+    Formazione.objects.filter(Q(primo_soccorso__gt=OGGI) | Q(primo_soccorso__isnull=True)).update(primo_soccorso_ck='')
+    Formazione.objects.filter(Q(antincendio__gt=OGGI) | Q(antincendio__isnull=True)).update(antincendio_ck='')
+    Formazione.objects.filter(Q(art37__gt=OGGI) | Q(art37__isnull=True)).update(art37_ck='')
+    Formazione.objects.filter(Q(spazi_confinati__gt=OGGI) | Q(spazi_confinati__isnull=True)).update(
+        spazi_confinati_ck='')
+    Formazione.objects.filter(Q(ponteggiatore__gt=OGGI) | Q(ponteggiatore__isnull=True)).update(ponteggiatore_ck='')
+    Formazione.objects.filter(Q(imbracatore__gt=OGGI) | Q(imbracatore__isnull=True)).update(imbracatore_ck='')
+    Formazione.objects.filter(Q(ept__gt=OGGI) | Q(ept__isnull=True)).update(ept_ck='')
+    Formazione.objects.filter(Q(autogru__gt=OGGI) | Q(autogru__isnull=True)).update(autogru_ck='')
+    Formazione.objects.filter(Q(gru_autocarro__gt=OGGI) | Q(gru_autocarro__isnull=True)).update(gru_autocarro_ck='')
+    Formazione.objects.filter(Q(carrello__gt=OGGI) | Q(carrello__isnull=True)).update(carrello_ck='')
+    Formazione.objects.filter(Q(sollevatore__gt=OGGI) | Q(sollevatore__isnull=True)).update(sollevatore_ck='')
+    Formazione.objects.filter(Q(ple__gt=OGGI) | Q(ple__isnull=True)).update(ple_ck='')
+    Formazione.objects.filter(Q(rls__gt=OGGI) | Q(rls__isnull=True)).update(rls_ck='')
+    Formazione.objects.filter(Q(aspp__gt=OGGI) | Q(aspp__isnull=True)).update(aspp_ck='')
+
+    # todo: blocco obsoleto --> eliminare dopo verifica funzionamento blocco soprastante
+    # Formazione.objects.filter(dirigente__gt=OGGI).update(dirigente_ck='')
+    # Formazione.objects.filter(preposto__gt=OGGI).update(preposto_ck='')
+    # Formazione.objects.filter(primo_soccorso__gt=OGGI).update(primo_soccorso_ck='')
+    # Formazione.objects.filter(antincendio__gt=OGGI).update(antincendio_ck='')
+    # Formazione.objects.filter(art37__gt=OGGI).update(art37_ck='')
+    # Formazione.objects.filter(spazi_confinati__gt=OGGI).update(spazi_confinati_ck='')
+    # Formazione.objects.filter(ponteggiatore__gt=OGGI).update(ponteggiatore_ck='')
+    # Formazione.objects.filter(imbracatore__gt=OGGI).update(imbracatore_ck='')
+    # Formazione.objects.filter(ept__gt=OGGI).update(ept_ck='')
+    # Formazione.objects.filter(autogru__gt=OGGI).update(autogru_ck='')
+    # Formazione.objects.filter(gru_autocarro__gt=OGGI).update(gru_autocarro_ck='')
+    # Formazione.objects.filter(carrello__gt=OGGI).update(carrello_ck='')
+    # Formazione.objects.filter(sollevatore__gt=OGGI).update(sollevatore_ck='')
+    # Formazione.objects.filter(ple__gt=OGGI).update(ple_ck='')
+    # Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
+    # Formazione.objects.filter(aspp__gt=OGGI).update(aspp_ck='')
+    ####################################################################################
 
     Formazione.objects.filter(dirigente__lt=FRA_N_MESI).update(dirigente_ck='table-warning', stato='giallo')
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning', stato='giallo')
