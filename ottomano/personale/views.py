@@ -21,6 +21,7 @@ OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
+FRA_1_ANNO = OGGI + datetime.timedelta(days=365)
 
 
 def index(request):
@@ -454,6 +455,10 @@ def scadenzario_dpi(request):
 
 
 def scadenziario_formazione_schede(request):
+    def my_sort(sub_li):
+        sub_li.sort(key=lambda x: x[2])
+        return sub_li
+
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
                    'sollevatore', 'ple', 'rls', 'aspp')
@@ -462,16 +467,27 @@ def scadenziario_formazione_schede(request):
     for corso in lista_corsi:
         corso_ck = '%s_ck' % corso
 
-        giallo = Q(**{corso_ck: 'table-warning'})
-        rosso = Q(**{corso_ck: 'table-danger'})
-        lavoratori = Formazione.objects. \
-            filter(giallo | rosso). \
-            filter(lavoratore__in_forza=True). \
-            order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
+        scade_tra_1_anno = Q(**{'%s__lt' % corso: FRA_1_ANNO})
+        lavoratori = Formazione.objects.filter(scade_tra_1_anno).filter(lavoratore__in_forza=True)
 
         if lavoratori:
-            elenco_lavoratori = [(x.lavoratore.cognome, x.lavoratore.nome, getattr(x,corso)) for x in lavoratori]
-            scadenze.append((corso, elenco_lavoratori))
+            elenco_lavoratori = [[x.lavoratore.cognome, x.lavoratore.nome, getattr(x, corso), getattr(x, corso_ck)]
+                                 for x in lavoratori
+                                 ]
+
+            elenco_lavoratori_ = []
+            for lavoratore in elenco_lavoratori:
+                cognome, nome, scadenza_corso, colore_corso = lavoratore
+
+                if colore_corso:
+                    colore_corso = colore_corso.replace('table', 'bg')
+
+                lavoratori_ = cognome, nome, scadenza_corso, colore_corso
+                elenco_lavoratori_.append(lavoratori_)
+
+                elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
+
+            scadenze.append((corso, elenco_lavoratori_))
 
     pp(scadenze)
 
