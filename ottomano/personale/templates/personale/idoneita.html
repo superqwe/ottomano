@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block titolo %}
-{{titolo}}
-<!--Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori-->
+<!--{{titolo}}-->
+Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
 {% endblock %}
 
 
@@ -22,8 +22,8 @@
         <tr class="text-center">
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-            <th scope="col" >Idoneità</th>
-<!--            <th scope="col" class="d-print-none">Idoneità</th>-->
+<!--            <th scope="col" >Idoneità</th>-->
+            <th scope="col" class="d-print-none">Idoneità</th>
             <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
             </th>
@@ -33,6 +33,7 @@
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 15</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 10</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni dell'arto superiore sinistro</th>
+            <th scope="col">Evitare intense e ripetute sollecitazioni del rachide</th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
             <th scope="col">Controlli semestrali</th>
             <th scope="col">Evitare posture incongrue</th>
@@ -47,8 +48,8 @@
         <tr>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
-            <td class="text-center {{lavoratore.idoneita_ck}}">
-<!--            <td class="text-center {{lavoratore.idoneita_ck}} d-print-none">-->
+<!--            <td class="text-center {{lavoratore.idoneita_ck}}">-->
+            <td class="text-center {{lavoratore.idoneita_ck}} d-print-none">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:"dmy"}}.pdf" target="_blank">
                 {{lavoratore.idoneita|date:"d/m/y"}}
                 </a>
@@ -85,6 +86,11 @@
             </td>
             <td class="text-center">
                 {% if lavoratore.sollecitazioni_arto_superiore_sinistro %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.sollecitazioni_rachide %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
@@ -146,7 +152,7 @@
         </thead>
         <tbody class="border border-secondary">
         <tr>
-            <td class="text-center align-middle rigo_firme">3</td>
+            <td class="text-center align-middle rigo_firme">4</td>
             <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>
             <td></td>
             <td></td>

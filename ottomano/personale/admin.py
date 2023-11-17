@@ -55,7 +55,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'guanti',
         'posture',
         ('carichi_10', 'carichi_15'),
-        'sollecitazioni_arto_superiore_sinistro',
+        ('sollecitazioni_arto_superiore_sinistro', 'sollecitazioni_rachide'),
         'spazi_confinati',
         'mansioni_gravose',
         'temperature',

@@ -454,23 +454,31 @@ def scadenzario_dpi(request):
 
 
 def scadenziario_formazione_schede(request):
-    lista_corsi = ('preposto', 'primo_soccorso')
+    lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
+                   'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
+                   'sollevatore', 'ple', 'rls', 'aspp')
 
-    lavoratori = Formazione.objects. \
-        filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso'])
-    # pp(lavoratori)
+    scadenze = []
+    for corso in lista_corsi:
+        corso_ck = '%s_ck' % corso
 
-    a = Lavoratore.objects.values(lista_corsi[0])
-    pp(a)
+        giallo = Q(**{corso_ck: 'table-warning'})
+        rosso = Q(**{corso_ck: 'table-danger'})
+        lavoratori = Formazione.objects. \
+            filter(giallo | rosso). \
+            filter(lavoratore__in_forza=True). \
+            order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
 
-    lavoratori = Formazione.objects. \
-        filter(lavoratore__in_forza=True, stato__in=['giallo', 'rosso']). \
-        order_by('lavoratore__cantiere__nome', '-stato', 'lavoratore__cognome', 'lavoratore__nome')
+        if lavoratori:
+            elenco_lavoratori = [(x.lavoratore.cognome, x.lavoratore.nome, getattr(x,corso)) for x in lavoratori]
+            scadenze.append((corso, elenco_lavoratori))
+
+    pp(scadenze)
 
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_scadenziario_formazione': 'active',
-               'formazione': lavoratori,
+               'scadenze': scadenze,
                'conteggio_rg': conteggio_rg(lavoratori)}
 
     return render(request, 'personale/formazione_schede.html', context)
