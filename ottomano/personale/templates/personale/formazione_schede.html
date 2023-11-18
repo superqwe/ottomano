@@ -16,29 +16,31 @@
 <div class="row">
 
     {% for corso, lavoratori, conteggi in scadenze %}
-    <div class="col">
+    <div class="col-2">
 
         <div class="card">
 
             <div class="card-header">
                 <h5 class="card-title">{{corso|upper}}</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
-                    <span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span>
-                    <span class="badge rounded-pill bg-success">{{ conteggi.0 }}</span>
-                    <span class="badge rounded-pill bg-warning">{{ conteggi.1 }}</span>
-                    <span class="badge rounded-pill bg-danger">{{ conteggi.2 }}</span>
+                    {% if conteggi.3 %}<span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span>{% endif %}
+                    {% if conteggi.0 %}<span class="badge rounded-pill bg-success">{{ conteggi.0 }}</span>{% endif %}
+                    {% if conteggi.1 %}<span class="badge rounded-pill bg-warning">{{ conteggi.1 }}</span>{% endif %}
+                    {% if conteggi.2 %}<span class="badge rounded-pill bg-danger">{{ conteggi.2 }}</span>{% endif %}
                 </h6>
             </div>
 
             <div class="card-body">
-                <ul class="list-group list-group-flush">
+<!--                <ul class="list-group list-group-flush">-->
                     {% for lavoratore in lavoratori %}
-                    <li class="list-group-item {{lavoratore.3}}">
-                        <div><span class="">{{lavoratore.0}} {{lavoratore.1}}</span></div>
-                        <div>{{lavoratore.2}}</div>
-                    </li>
+<!--                    <li class="list-group-item {{lavoratore.3}}">-->
+                        <div class="row {{lavoratore.3}}">
+                            <div class="col-8">{{lavoratore.0}} {{lavoratore.1}}</div>
+                            <div class="col-4">{{lavoratore.2}}</div>
+                        </div>
+<!--                    </li>-->
                     {% endfor %}
-                </ul>
+<!--                </ul>-->
             </div>
 
         </div>

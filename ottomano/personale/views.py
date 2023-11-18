@@ -467,7 +467,7 @@ def scadenziario_formazione_schede(request):
     def conteggio(elenco):
         filtra = [x[3] for x in elenco]
 
-        return filtra.count(''), filtra.count('bg-warning'), filtra.count('bg-danger'), len(filtra)
+        return filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra)
 
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
@@ -490,7 +490,7 @@ def scadenziario_formazione_schede(request):
                 cognome, nome, scadenza_corso, colore_corso = lavoratore
 
                 if colore_corso:
-                    colore_corso = colore_corso.replace('table', 'bg')
+                    colore_corso = colore_corso.replace('table', 'text')
 
                 lavoratori_ = cognome, nome, scadenza_corso, colore_corso
                 elenco_lavoratori_.append(lavoratori_)
@@ -501,8 +501,6 @@ def scadenziario_formazione_schede(request):
 
             for rigo in elenco_lavoratori_:
                 scadenze.append((corso, rigo, conteggio(rigo)))
-
-    # pp(scadenze)
 
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
