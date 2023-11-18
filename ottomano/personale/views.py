@@ -464,6 +464,11 @@ def scadenziario_formazione_schede(request):
         lista_lunga = iter(lista_lunga)
         return iter(lambda: tuple(itertools.islice(lista_lunga, lunghezza_massima_lista)), ())
 
+    def conteggio(elenco):
+        filtra = [x[3] for x in elenco]
+
+        return filtra.count(''), filtra.count('bg-warning'), filtra.count('bg-danger'), len(filtra)
+
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
                    'sollevatore', 'ple', 'rls', 'aspp')
@@ -495,7 +500,7 @@ def scadenziario_formazione_schede(request):
             elenco_lavoratori_ = list(dividi_liste(elenco_lavoratori_, 10))
 
             for rigo in elenco_lavoratori_:
-                scadenze.append((corso, rigo))
+                scadenze.append((corso, rigo, conteggio(rigo)))
 
     # pp(scadenze)
 

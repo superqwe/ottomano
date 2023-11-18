@@ -15,14 +15,19 @@
 
 <div class="row">
 
-    {% for corso, lavoratori in scadenze %}
+    {% for corso, lavoratori, conteggi in scadenze %}
     <div class="col">
 
         <div class="card">
 
             <div class="card-header">
                 <h5 class="card-title">{{corso|upper}}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">6 3 2 1</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                    <span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span>
+                    <span class="badge rounded-pill bg-success">{{ conteggi.0 }}</span>
+                    <span class="badge rounded-pill bg-warning">{{ conteggi.1 }}</span>
+                    <span class="badge rounded-pill bg-danger">{{ conteggi.2 }}</span>
+                </h6>
             </div>
 
             <div class="card-body">
