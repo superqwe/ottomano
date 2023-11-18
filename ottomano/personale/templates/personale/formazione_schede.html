@@ -13,38 +13,34 @@
 
 {% load static %}
 
-<div>
-    <div class="card-group">
+<div class="row">
 
-        {% for corso, lavoratori in scadenze %}
-        <div class="card" style="width: 18rem;">
+    {% for corso, lavoratori in scadenze %}
+    <div class="col">
+
+        <div class="card">
+
             <div class="card-header">
                 <h5 class="card-title">{{corso|upper}}</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">6 3 2 1</h6>
             </div>
+
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     {% for lavoratore in lavoratori %}
                     <li class="list-group-item {{lavoratore.3}}">
-                        <div><span class="">{{lavoratore.0}} {{lavoratore.1}}</span>
-
-                        </div>
+                        <div><span class="">{{lavoratore.0}} {{lavoratore.1}}</span></div>
                         <div>{{lavoratore.2}}</div>
                     </li>
                     {% endfor %}
                 </ul>
             </div>
+
         </div>
-        {% endfor %}
-
-
-
 
     </div>
+    {% endfor %}
+
 </div>
-
-
-
-
 
 {% endblock %}

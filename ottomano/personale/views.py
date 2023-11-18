@@ -1,6 +1,7 @@
 import datetime
 import glob
 import os
+import itertools
 
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
@@ -459,6 +460,10 @@ def scadenziario_formazione_schede(request):
         sub_li.sort(key=lambda x: x[2])
         return sub_li
 
+    def dividi_liste(lista_lunga, lunghezza_massima_lista):
+        lista_lunga = iter(lista_lunga)
+        return iter(lambda: tuple(itertools.islice(lista_lunga, lunghezza_massima_lista)), ())
+
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
                    'sollevatore', 'ple', 'rls', 'aspp')
@@ -487,9 +492,12 @@ def scadenziario_formazione_schede(request):
 
                 elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
 
-            scadenze.append((corso, elenco_lavoratori_))
+            elenco_lavoratori_ = list(dividi_liste(elenco_lavoratori_, 10))
 
-    pp(scadenze)
+            for rigo in elenco_lavoratori_:
+                scadenze.append((corso, rigo))
+
+    # pp(scadenze)
 
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
