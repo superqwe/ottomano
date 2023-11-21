@@ -466,8 +466,18 @@ def scadenziario_formazione_schede(request):
 
     def conteggio(elenco):
         filtra = [x[3] for x in elenco]
+        return (filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra),
+                int(filtra.count('') / 10 + 1) * 2)
 
+    def conteggio2(elenco):
+        filtra = [x[3] for x in elenco]
         return filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra)
+
+    def card_ordinate_per_n_elementi(elenco):
+        elenco.sort(key=lambda x: x[2][3])
+        print()
+        pp(elenco)
+        return reversed(elenco)
 
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
@@ -497,10 +507,14 @@ def scadenziario_formazione_schede(request):
 
                 elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
 
-            elenco_lavoratori_ = list(dividi_liste(elenco_lavoratori_, 10))
+            # elenco_lavoratori_ = list(dividi_liste(elenco_lavoratori_, 10))
+            #
+            # for rigo in elenco_lavoratori_:
+            #     scadenze.append((corso, rigo, conteggio(rigo)))
 
-            for rigo in elenco_lavoratori_:
-                scadenze.append((corso, rigo, conteggio(rigo)))
+            scadenze.append((corso, elenco_lavoratori_, conteggio(elenco_lavoratori_)))
+
+    scadenze = card_ordinate_per_n_elementi(scadenze)
 
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
