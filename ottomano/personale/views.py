@@ -469,7 +469,7 @@ def scadenzario_formazione_schede(request, anno):
     def conteggio(elenco):
         filtra = [x[3] for x in elenco]
         return (filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra),
-                int(filtra.count('') / 10 + 1) * 2)
+                int(len(filtra) / 10 + 1) * 2)
 
     def conteggio2(elenco):
         filtra = [x[3] for x in elenco]
@@ -512,6 +512,8 @@ def scadenzario_formazione_schede(request, anno):
 
                 elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
 
+            print('\n', corso)
+            pp(elenco_lavoratori_)
             scadenze.append((corso, elenco_lavoratori_, conteggio(elenco_lavoratori_)))
 
     scadenze = card_ordinate_per_n_elementi(scadenze)
