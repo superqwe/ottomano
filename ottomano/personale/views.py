@@ -1,5 +1,6 @@
 import datetime
 import glob
+import math
 import os
 import itertools
 
@@ -469,7 +470,7 @@ def scadenzario_formazione_schede(request, anno):
     def conteggio(elenco):
         filtra = [x[3] for x in elenco]
         return (filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra),
-                int(len(filtra) / 10 + 1) * 2)
+                math.ceil(len(filtra) / 10) * 2)
 
     def conteggio2(elenco):
         filtra = [x[3] for x in elenco]
