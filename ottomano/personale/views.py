@@ -23,6 +23,8 @@ FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 FRA_1_ANNO = OGGI + datetime.timedelta(days=365)
+ANNO_CORRENTE = OGGI.year
+ANNO_PROSSIMO = OGGI.year + 1
 
 
 def index(request):
@@ -455,7 +457,7 @@ def scadenzario_dpi(request):
     return render(request, 'personale/scadenzario_dpi.html', context)
 
 
-def scadenziario_formazione_schede(request):
+def scadenzario_formazione_schede(request, anno):
     def my_sort(sub_li):
         sub_li.sort(key=lambda x: x[2])
         return sub_li
@@ -477,6 +479,11 @@ def scadenziario_formazione_schede(request):
         elenco.sort(key=lambda x: x[2][3])
         return reversed(elenco)
 
+    if anno == 'corrente':
+        scadenza_formazione = datetime.date(ANNO_CORRENTE, 12, 31)
+    else:
+        scadenza_formazione = datetime.date(ANNO_PROSSIMO, 12, 31)
+
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
                    'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
                    'sollevatore', 'ple', 'rls', 'aspp')
@@ -485,7 +492,7 @@ def scadenziario_formazione_schede(request):
     for corso in lista_corsi:
         corso_ck = '%s_ck' % corso
 
-        scade_tra_1_anno = Q(**{'%s__lt' % corso: FRA_1_ANNO})
+        scade_tra_1_anno = Q(**{'%s__lt' % corso: scadenza_formazione})
         lavoratori = Formazione.objects.filter(scade_tra_1_anno).filter(lavoratore__in_forza=True)
 
         if lavoratori:
