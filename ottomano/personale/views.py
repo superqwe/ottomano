@@ -532,4 +532,9 @@ def scadenzario_formazione_schede(request, anno):
                'scadenze': card,
                'conteggio_rg': conteggio_rg(lavoratori)}
 
+    if anno == 'corrente':
+        context['pagina_attiva_formazione_corrente'] = 'active'
+    else:
+        context['pagina_attiva_formazione_prossimo'] = 'active'
+
     return render(request, 'personale/formazione_schede.html', context)
