@@ -475,8 +475,6 @@ def scadenziario_formazione_schede(request):
 
     def card_ordinate_per_n_elementi(elenco):
         elenco.sort(key=lambda x: x[2][3])
-        print()
-        pp(elenco)
         return reversed(elenco)
 
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
@@ -507,19 +505,21 @@ def scadenziario_formazione_schede(request):
 
                 elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
 
-            # elenco_lavoratori_ = list(dividi_liste(elenco_lavoratori_, 10))
-            #
-            # for rigo in elenco_lavoratori_:
-            #     scadenze.append((corso, rigo, conteggio(rigo)))
-
             scadenze.append((corso, elenco_lavoratori_, conteggio(elenco_lavoratori_)))
 
     scadenze = card_ordinate_per_n_elementi(scadenze)
 
+    card = []
+    for scadenza in scadenze:
+        scadenza_ = list(scadenza)
+        elenco_lavoratori_a_tranci = list(dividi_liste(scadenza_[1], 10))
+        scadenza_[1] = elenco_lavoratori_a_tranci
+        card.append(scadenza_)
+
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_scadenziario_formazione': 'active',
-               'scadenze': scadenze,
+               'scadenze': card,
                'conteggio_rg': conteggio_rg(lavoratori)}
 
     return render(request, 'personale/formazione_schede.html', context)
