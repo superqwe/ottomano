@@ -158,6 +158,7 @@ class Idoneita(models.Model):
     calzature = models.BooleanField(default=False)
     lenti = models.BooleanField(default=False)
     semestrale = models.BooleanField(default=False)
+    dpi_respiratori = models.BooleanField('Uso diligente di idonei DPI respiratori', default=False)
 
     idoneita_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 

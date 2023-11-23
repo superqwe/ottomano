@@ -38,6 +38,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             <th scope="col">Controlli semestrali</th>
             <th scope="col">Evitare posture incongrue</th>
             <th scope="col">Non adibire ad attività in spazi confinati</th>
+            <th scope="col">Uso diligente di idonei DPI respiratori</th>
             <th scope="col">Evitare evitare la ripetura salita e discesa di scale</th>
             <th scope="col">Evitare l'esposizione ad elevate temperature</th>
             <th scope="col">Evitare mansioni gravose</th>
@@ -111,6 +112,11 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             </td>
             <td class="text-center">
                 {% if lavoratore.spazi_confinati %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.dpi_respiratori %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
