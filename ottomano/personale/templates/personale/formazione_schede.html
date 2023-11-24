@@ -32,9 +32,8 @@
         <div class="card">
 
             <div class="card-header">
-                <h5 class="card-title">{{corso|upper}}</h5>
+                <h5 class="card-title">{{corso|upper}} <span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
-                    {% if conteggi.3 %}<span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span>{% endif %}
                     {% if conteggi.0 %}<span class="badge rounded-pill bg-success">{{ conteggi.0 }}</span>{% endif %}
                     {% if conteggi.1 %}<span class="badge rounded-pill bg-warning">{{ conteggi.1 }}</span>{% endif %}
                     {% if conteggi.2 %}<span class="badge rounded-pill bg-danger">{{ conteggi.2 }}</span>{% endif %}
