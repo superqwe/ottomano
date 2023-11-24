@@ -1,6 +1,6 @@
 from django.db import models
 
-
+from personale.models import Lavoratore
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------
 MESE = [
     ('01', 'Gennaio'),
@@ -81,3 +81,19 @@ class Non_Conformita(models.Model):
 
     def __str__(self):
         return 'NC del %s' % (self.data,)
+
+class DPI2(models.Model):
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+    consegna = models.DateField(blank=True, null=True, default=None)
+    elmetto = models.DateField(blank=True, null=True, default=None)
+    elmetto_df = models.DateField(blank=True, null=True, default=None)
+    rilevatore = models.DateField(blank=True, null=True, default=None)
+    maschera = models.DateField(blank=True, null=True, default=None)
+
+    class Meta:
+        ordering = ['lavoratore', ]
+        verbose_name = 'Consegna DPI'
+        verbose_name_plural = 'Consegne DPI'
+
+    def __str__(self):
+        return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.consegna)

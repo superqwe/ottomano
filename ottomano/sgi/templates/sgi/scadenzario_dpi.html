@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+<div class="col text-end">
+    <a href="/sgi/scadenzario_dpi_aggiorna/" class="btn btn-outline-primary" target=”_blank”>Aggiorna scadenze</a>
+</div>
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Consegna DPI</th>
+            <th scope="col">Elmetto</th>
+            <th scope="col">Rilevatore H2S</th>
+            <th scope="col">Maschera SC/SC</th>
+            <th scope="col">Imbracatura</th>
+            <th scope="col">Cordino</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dpi in lista_dpi %}
+        <tr>
+            <td>{{dpi.lavoratore.cognome}}</td>
+            <td>{{dpi.lavoratore.nome}}</td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">
+                <a href="{% static ''%}{{dpi.lavoratore}}/consegna_dpi {{dpi.consegna|date:"dmy"}}.pdf" target="_blank">
+                {{dpi.consegna|date:"d/m/y"}}
+                </a>
+            </td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.elmetto|date:"m/y"}}</td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.rilevatore|date:"d/m/y"}}</td>
+            <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.maschera|date:"m/y"}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

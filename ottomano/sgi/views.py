@@ -134,3 +134,12 @@ def non_conformita(request, anno=FORMAZIONE_ANNO):
     context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
 
     return render(request, 'sgi/non_conformita.html', context)
+
+
+def scadenzario_dpi(request):
+    context = {'titolo': 'Registro Non Conformità',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_scadenzario_dpi': 'active',
+               }
+
+    return render(request, 'sgi/scadenzario_dpi.html', context)

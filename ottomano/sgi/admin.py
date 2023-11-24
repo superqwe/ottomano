@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Formazione, Non_Conformita
+from .models import Formazione, Non_Conformita, DPI2
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -16,6 +16,17 @@ class Non_ConformitaAdmin(admin.ModelAdmin):
     date_hierarchy = 'data'
     save_on_top = True
 
+class DPIAdmin(admin.ModelAdmin):
+    fields = (
+        'lavoratore',
+        'consegna',
+        ('elmetto', 'elmetto_df'),
+        'maschera'
+    )
+    list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
+    list_filter = ('lavoratore__in_forza',)
+    save_on_top = True
 
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Non_Conformita, Non_ConformitaAdmin)
+admin.site.register(DPI2, DPIAdmin)
