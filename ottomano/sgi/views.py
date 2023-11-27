@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 from sgi.models import Formazione, Non_Conformita, DPI2
 
@@ -135,7 +135,7 @@ def non_conformita(request, anno=FORMAZIONE_ANNO):
     return render(request, 'sgi/non_conformita.html', context)
 
 
-def scadenzario_dpi(request):
+def scadenzario_dpi_aggiorna(request):
     lavoratori = Lavoratore.objects.filter(in_forza=True)
 
     for lavoratore in lavoratori:
@@ -166,9 +166,16 @@ def scadenzario_dpi(request):
             dpi.elmetto = datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
             dpi.save()
 
+    return redirect(scadenzario_dpi)
+
+def scadenzario_dpi(request):
+    lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+
+
     context = {'titolo': 'Scadenzario DPI',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_scadenzario_dpi': 'active',
+               'lista_dpi':lista_dpi,
                }
 
     return render(request, 'sgi/scadenzario_dpi.html', context)

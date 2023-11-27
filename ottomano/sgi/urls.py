@@ -12,6 +12,7 @@ urlpatterns = [
     path('non_conformita/', views.non_conformita, name='non_conformita'),
     path('non_conformita/<int:anno>/', views.non_conformita, name='non_conformita'),
     path('scadenzario_dpi/', views.scadenzario_dpi, name='scadenzario_dpi'),
+    path('scadenzario_dpi_aggiorna/', views.scadenzario_dpi_aggiorna, name='scadenzario_dpi_aggiorna'),
 ]
 
 # urlpatterns = [

@@ -172,45 +172,45 @@ def aggiorna_documenti(request):
         except FileNotFoundError:
             pass
 
-        # ricerca consegna DPI
-        try:
-            path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
-        except TypeError:
-            # todo: eccezione da gestire
-            print('*** errore nella ricerca della consegna DPI di ', lavoratore)
-
-        os.chdir(path_lavoratore)
-        lfile = glob.glob('consegna_dpi*')
-
-        try:
-            dpi = DPI.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-        except ObjectDoesNotExist:
-            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
-            dpi = DPI(lavoratore=lavoratore)
-
-        match len(lfile):
-            case 1:
-                data_consegna_dpi = os.path.splitext(lfile[0])[0].split()[1]
-                data_consegna_dpi = datetime.datetime.strptime(data_consegna_dpi, '%d%m%y')
-                dpi.consegna = data_consegna_dpi
-
-                attestati.append(('consegna_dpi', data_consegna_dpi, None))
-
-            case 0:
-                print('*** manca consegna dpi *** %s' % lavoratore)
-            case _:
-                print('*** più di una consegna dpi *** %s' % lavoratore)
-
-        dpi.save()
+        # # ricerca consegna DPI
+        # try:
+        #     path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
+        # except TypeError:
+        #     # todo: eccezione da gestire
+        #     print('*** errore nella ricerca della consegna DPI di ', lavoratore)
+        #
+        # os.chdir(path_lavoratore)
+        # lfile = glob.glob('consegna_dpi*')
+        #
+        # try:
+        #     dpi = DPI.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+        # except ObjectDoesNotExist:
+        #     lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+        #     dpi = DPI(lavoratore=lavoratore)
+        #
+        # match len(lfile):
+        #     case 1:
+        #         data_consegna_dpi = os.path.splitext(lfile[0])[0].split()[1]
+        #         data_consegna_dpi = datetime.datetime.strptime(data_consegna_dpi, '%d%m%y')
+        #         dpi.consegna = data_consegna_dpi
+        #
+        #         attestati.append(('consegna_dpi', data_consegna_dpi, None))
+        #
+        #     case 0:
+        #         print('*** manca consegna dpi *** %s' % lavoratore)
+        #     case _:
+        #         print('*** più di una consegna dpi *** %s' % lavoratore)
+        #
+        # dpi.save()
 
         lista_documenti.append([lavoratore, attestati])
 
-    lista_dpi = DPI.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
-
-    # aggiorna data scadenza elemetto
-    for dpi in lista_dpi:
-        dpi.elmetto = aggiorna_documenti_util.aggiungi_anni(dpi.elmetto_df, 5)
-        dpi.save()
+    # lista_dpi = DPI.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+    #
+    # # aggiorna data scadenza elemetto
+    # for dpi in lista_dpi:
+    #     dpi.elmetto = aggiorna_documenti_util.aggiungi_anni(dpi.elmetto_df, 5)
+    #     dpi.save()
 
     os.chdir(PATH_DOCUMENTI)
 
