@@ -364,12 +364,19 @@ def estrai_dati(request):
 
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 
+    formazione = (
+        'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati', 'ponteggiatore', 'imbracatore', 'ept',
+        'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello', 'sollevatore', 'ple', 'rls', 'aspp')
+
+    gruppi_formazione, n_gruppi_formazione = estrai_dati_util.dividi_elenco_lavoratori(formazione)
+
     context = {'titolo': 'Estrai Dati',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
-               'lavoratori': lavoratori,
                'n_gruppi_lavoratori': n_gruppi_lavoratori,
                'gruppi_lavoratori': gruppi_lavoratori,
+               'n_gruppi_formazione': n_gruppi_formazione,
+               'gruppi_formazione': gruppi_formazione,
                }
 
     return render(request, 'personale/estrai_dati.html', context)
@@ -379,18 +386,25 @@ def dati_estratti(request):
     if request.method == 'POST':
 
         lavoratori = []
+        documenti = []
         for x in request.POST.keys():
             if x != 'csrfmiddlewaretoken':
-                lavoratore = Formazione.objects.get(id__exact=x)
-                lavoratori.append(lavoratore)
+                if x.isnumeric():
+                    lavoratore = Formazione.objects.get(id__exact=x)
+                    lavoratori.append(lavoratore)
+                else:
+                    documenti.append(x)
 
         dati = estrai_dati_util.Estrai_Dati()
-        dati.salva_lavoratori(lavoratori)
+        # dati.salva_lavoratori(lavoratori)
+
+        dati.estrai(lavoratori, documenti)
 
     context = {'titolo': 'Dati Estratti',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
                'lavoratori': lavoratori,
+               'documenti': documenti,
                }
 
     return render(request, 'personale/dati_estratti.html', context)
