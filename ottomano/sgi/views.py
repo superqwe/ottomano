@@ -1,15 +1,14 @@
 import csv
+import pathlib
 from datetime import datetime
 
-from django.db.models import Max
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
-
 from personale.models import Lavoratore
-from sgi.models import Formazione, Non_Conformita
+from sgi.models import Formazione, Non_Conformita, DPI2
 
-from pprint import pprint as pp
-
+PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2023
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
@@ -137,7 +136,37 @@ def non_conformita(request, anno=FORMAZIONE_ANNO):
 
 
 def scadenzario_dpi(request):
-    context = {'titolo': 'Registro Non Conformità',
+    lavoratori = Lavoratore.objects.filter(in_forza=True)
+
+    for lavoratore in lavoratori:
+        cognome, nome = lavoratore.cognome, lavoratore.nome
+        path_lavoratore = PATH_DOCUMENTI.joinpath('{} {}'.format(cognome, nome))
+        consegna_dpi = list(path_lavoratore.glob('consegna_dpi*'))
+
+        try:
+            dpi = DPI2.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+        except ObjectDoesNotExist:
+            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+            dpi = DPI2(lavoratore=lavoratore)
+
+        if consegna_dpi:
+            data_consegna = consegna_dpi[0].name.split()[1].split('.')[0]
+            data_consegna = datetime.strptime(data_consegna, '%d%m%y')
+            dpi.consegna = data_consegna
+
+        dpi.save()
+
+    # aggiorna data scadenza elemetto
+    lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+
+    for dpi in lista_dpi:
+        data_fabbrica = dpi.elmetto_df
+
+        if data_fabbrica:
+            dpi.elmetto = datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
+            dpi.save()
+
+    context = {'titolo': 'Scadenzario DPI',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_scadenzario_dpi': 'active',
                }
