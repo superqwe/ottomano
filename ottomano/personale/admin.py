@@ -68,21 +68,21 @@ class IdoneitaAdmin(admin.ModelAdmin):
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
 
-
-class DPIAdmin(admin.ModelAdmin):
-    fields = (
-        'lavoratore',
-        'consegna',
-        ('elmetto', 'elmetto_df'),
-        'maschera'
-    )
-    list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
-    list_filter = ('lavoratore__in_forza',)
-    save_on_top = True
+# todo: obsoleto cancellare
+# class DPIAdmin(admin.ModelAdmin):
+#     fields = (
+#         'lavoratore',
+#         'consegna',
+#         ('elmetto', 'elmetto_df'),
+#         'maschera'
+#     )
+#     list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
+#     list_filter = ('lavoratore__in_forza',)
+#     save_on_top = True
 
 
 admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Cantiere, CantiereAdmin)
 admin.site.register(Idoneita, IdoneitaAdmin)
-admin.site.register(DPI, DPIAdmin)
+# admin.site.register(DPI, DPIAdmin)

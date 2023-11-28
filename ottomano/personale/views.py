@@ -370,6 +370,10 @@ def estrai_dati(request):
 
     gruppi_formazione, n_gruppi_formazione = estrai_dati_util.dividi_elenco_lavoratori(formazione)
 
+    nomine = ['nomina_{}'.format(x) for x in
+              ('preposto', 'preposto_imbracatore', 'antincendio', 'primo_soccorso', 'aspp')]
+    gruppi_nomine, n_gruppi_nomine = estrai_dati_util.dividi_elenco_lavoratori(nomine)
+
     context = {'titolo': 'Estrai Dati',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
@@ -377,6 +381,8 @@ def estrai_dati(request):
                'gruppi_lavoratori': gruppi_lavoratori,
                'n_gruppi_formazione': n_gruppi_formazione,
                'gruppi_formazione': gruppi_formazione,
+               'n_gruppi_nomine': n_gruppi_nomine,
+               'gruppi_nomine': gruppi_nomine,
                }
 
     return render(request, 'personale/estrai_dati.html', context)
@@ -386,25 +392,33 @@ def dati_estratti(request):
     if request.method == 'POST':
 
         lavoratori = []
-        documenti = []
+        # documenti = []
+        attestati = []
+        nomine = []
         for x in request.POST.keys():
             if x != 'csrfmiddlewaretoken':
                 if x.isnumeric():
                     lavoratore = Formazione.objects.get(id__exact=x)
                     lavoratori.append(lavoratore)
+                elif x.startswith('nomina_'):
+                    nomine.append(x)
                 else:
-                    documenti.append(x)
+                    attestati.append(x)
 
         dati = estrai_dati_util.Estrai_Dati()
         # dati.salva_lavoratori(lavoratori)
 
-        dati.estrai(lavoratori, documenti)
+        tabella = dati.estrai(lavoratori, attestati, nomine)
+
+        documenti = attestati
+        documenti.extend(nomine)
 
     context = {'titolo': 'Dati Estratti',
                'sezione_formazione_attiva': 'active',
                'pagina_attiva_estrai_dati': 'active',
                'lavoratori': lavoratori,
                'documenti': documenti,
+               'tabella': tabella,
                }
 
     return render(request, 'personale/dati_estratti.html', context)

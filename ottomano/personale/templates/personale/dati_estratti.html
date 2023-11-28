@@ -24,32 +24,42 @@
         </thead>
 
         <tbody>
-        {% for lavoratore in lavoratori %}
+        {% for lavoratore, attestati, nomine in tabella %}
         <tr>
-            <td>{{lavoratore.lavoratore.cognome}}</td>
-            <td>{{lavoratore.lavoratore.nome}}</td>
+            <td>{{lavoratore.0}}</td>
+            <td>{{lavoratore.1}}</td>
+
+            {% for attestato in attestati %}
+            <td class="text-center">{{attestato.0|default_if_none:""}}</td>
+            {% endfor %}
+
+            {% for nomina in nomine %}
+            <td class="text-center">{{nomina|default_if_none:""}}</td>
+            {% endfor %}
+
         </tr>
         {% endfor %}
         </tbody>
 
     </table>
+
 </div>
 
 
 <div class="container">
 
-    <div class="row">
-        {% for lavoratore in lavoratori %}
-        <p>{{ lavoratore }}</p>
-        {% endfor %}
-    </div>
+    <!--    <div class="row">-->
+    <!--        {% for lavoratore in lavoratori %}-->
+    <!--        <p>{{ lavoratore }}</p>-->
+    <!--        {% endfor %}-->
+    <!--    </div>-->
 
 
-    <div class="row">
-        {% for documento in documenti %}
-        <p>{{ documento }}</p>
-        {% endfor %}
-    </div>
+    <!--    <div class="row">-->
+    <!--        {% for documento in documenti %}-->
+    <!--        <p>{{ documento }}</p>-->
+    <!--        {% endfor %}-->
+    <!--    </div>-->
 
 
 </div>

@@ -32,18 +32,19 @@ class Estrai_Dati():
         with open(CFG, 'w') as cfg:
             config.write(cfg)
 
-    def estrai(self, elenco_lavoratori, elenco_formazione):
+    def estrai(self, elenco_lavoratori, elenco_formazione, elenco_nomine):
         tabella = []
         for lavoratore in elenco_lavoratori:
             cognome, nome = lavoratore.lavoratore.cognome, lavoratore.lavoratore.nome
             rigo = [(cognome, nome), ]
 
-            # formazione_lavoratore
-            # for formazione in elenco_formazione:
-                # print(lavoratore, formazione, getattr(lavoratore, formazione))
-            a = [getattr(lavoratore, formazione) for formazione in elenco_formazione]
+            a = [(getattr(lavoratore, formazione), getattr(lavoratore, '{}_ck'.format(formazione))) for formazione in
+                 elenco_formazione]
             rigo.append(a)
+            rigo.append(['nomine',])
 
-            tabella.append((rigo))
+            tabella.append(rigo)
 
         pp(tabella)
+
+        return tabella
