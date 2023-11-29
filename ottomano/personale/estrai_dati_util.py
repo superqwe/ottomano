@@ -1,10 +1,14 @@
 import configparser
-from itertools import islice
 import math
+import pathlib
+import shutil
+from itertools import islice
 from pprint import pprint as pp
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
+PATH_BASE = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
+PATH_ESTRAI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Estratti')
 
 
 def chunk(arr_range, arr_size):
@@ -48,6 +52,25 @@ class Estrai_Dati():
 
             tabella.append(rigo)
 
-        pp(tabella)
+            # salva documenti
+            nominativo = f'{cognome} {nome}'
+            path_lavoratore = PATH_BASE / nominativo
+            path_lavoratore_attestati = path_lavoratore / 'attestati'
+            path_lavoratore_nomine = path_lavoratore / 'nomine'
+
+            errori = []
+            for nome_attestato, (data_attestato, dummy) in zip(elenco_formazione, attestati):
+                if data_attestato:
+                    nome_originale = '{} {}.pdf'.format(nome_attestato,
+                                                        getattr(lavoratore, '{}_dc'.format(nome_attestato)).strftime(
+                                                            '%d%m%y'))
+                    nome_destinazione = '{} {}.pdf'.format(nominativo, nome_attestato)
+
+                    path_originale = path_lavoratore_attestati / nome_originale
+                    path_destinazione = PATH_ESTRAI / nome_destinazione
+
+                    shutil.copy(path_originale, path_destinazione)
+
+        # pp(tabella)
 
         return tabella
