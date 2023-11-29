@@ -30,7 +30,7 @@
             <td>{{lavoratore.1}}</td>
 
             {% for attestato in attestati %}
-            <td class="text-center">{{attestato.0|default_if_none:""}}</td>
+            <td class="text-center {{attestato.1}}">{{attestato.0|default_if_none:""}}</td>
             {% endfor %}
 
             {% for nomina in nomine %}

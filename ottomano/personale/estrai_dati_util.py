@@ -48,6 +48,6 @@ class Estrai_Dati():
 
             tabella.append(rigo)
 
-        # pp(tabella)
+        pp(tabella)
 
         return tabella
