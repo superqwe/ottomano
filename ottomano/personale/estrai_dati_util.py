@@ -85,8 +85,8 @@ class Estrai_Dati():
 
         # pp(tabella)
 
+        # zippa i file estratti
         path_iniziale = pathlib.Path.cwd()
-
         os.chdir(PATH_ESTRAI)
 
         file_zip = '{}.zip'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'))
@@ -95,15 +95,6 @@ class Estrai_Dati():
             for nfile in lfile:
                 zip_pdf.write(nfile)
 
-        #
-        # with zipfile.ZipFile(path_file_zip, 'w') as zip_pdf:
-        #     zip_pdf.mkdir(PATH_ESTRAI)
-        #     # for pdf in PATH_ESTRAI.glob('*.pdf'):
-        #     #     zip_pdf.write(pdf)
-        #     zip_pdf.Pa
-        # shutil.make_archive(path_file_zip, 'zip', PATH_ESTRAI)
-
         os.chdir(path_iniziale)
-        print(pathlib.Path.cwd())
 
         return tabella
