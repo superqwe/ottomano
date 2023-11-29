@@ -34,7 +34,11 @@
             {% endfor %}
 
             {% for nomina in nomine %}
-            <td class="text-center">{{nomina|default_if_none:""}}</td>
+            <td class="text-center">
+                {% if nomina %}
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                {% endif%}
+            </td>
             {% endfor %}
 
         </tr>

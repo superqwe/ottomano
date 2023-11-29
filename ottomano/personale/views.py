@@ -392,7 +392,6 @@ def dati_estratti(request):
     if request.method == 'POST':
 
         lavoratori = []
-        # documenti = []
         attestati = []
         nomine = []
         for x in request.POST.keys():

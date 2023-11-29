@@ -38,13 +38,16 @@ class Estrai_Dati():
             cognome, nome = lavoratore.lavoratore.cognome, lavoratore.lavoratore.nome
             rigo = [(cognome, nome), ]
 
-            a = [(getattr(lavoratore, formazione), getattr(lavoratore, '{}_ck'.format(formazione))) for formazione in
-                 elenco_formazione]
-            rigo.append(a)
-            rigo.append(['nomine',])
+            # todo: campo *_ck non funzionante
+            attestati = [(getattr(lavoratore, formazione), getattr(lavoratore, '{}_ck'.format(formazione))) for
+                         formazione in elenco_formazione]
+            rigo.append(attestati)
+
+            nomine = [getattr(lavoratore, nomina) for nomina in elenco_nomine]
+            rigo.append(nomine)
 
             tabella.append(rigo)
 
-        pp(tabella)
+        # pp(tabella)
 
         return tabella
