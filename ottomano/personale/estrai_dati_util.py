@@ -1,9 +1,13 @@
 import configparser
+import glob
 import math
+import os
 import pathlib
 import shutil
 from itertools import islice
 from pprint import pprint as pp
+import zipfile
+import datetime
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
@@ -37,6 +41,12 @@ class Estrai_Dati():
             config.write(cfg)
 
     def estrai(self, elenco_lavoratori, elenco_formazione, elenco_nomine):
+
+        try:
+            shutil.rmtree(PATH_ESTRAI)
+        except (PermissionError, FileNotFoundError):
+            pass
+
         tabella = []
         for lavoratore in elenco_lavoratori:
             cognome, nome = lavoratore.lavoratore.cognome, lavoratore.lavoratore.nome
@@ -58,12 +68,14 @@ class Estrai_Dati():
             path_lavoratore_attestati = path_lavoratore / 'attestati'
             path_lavoratore_nomine = path_lavoratore / 'nomine'
 
+            pathlib.Path(PATH_ESTRAI).mkdir(parents=True, exist_ok=True)
+
             errori = []
             for nome_attestato, (data_attestato, dummy) in zip(elenco_formazione, attestati):
                 if data_attestato:
                     nome_originale = '{} {}.pdf'.format(nome_attestato,
-                                                        getattr(lavoratore, '{}_dc'.format(nome_attestato)).strftime(
-                                                            '%d%m%y'))
+                                                        getattr(lavoratore,
+                                                                '{}_dc'.format(nome_attestato)).strftime('%d%m%y'))
                     nome_destinazione = '{} {}.pdf'.format(nominativo, nome_attestato)
 
                     path_originale = path_lavoratore_attestati / nome_originale
@@ -72,5 +84,26 @@ class Estrai_Dati():
                     shutil.copy(path_originale, path_destinazione)
 
         # pp(tabella)
+
+        path_iniziale = pathlib.Path.cwd()
+
+        os.chdir(PATH_ESTRAI)
+
+        file_zip = '{}.zip'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'))
+        with zipfile.ZipFile(file_zip, 'w') as zip_pdf:
+            lfile = glob.glob('*.pdf')
+            for nfile in lfile:
+                zip_pdf.write(nfile)
+
+        #
+        # with zipfile.ZipFile(path_file_zip, 'w') as zip_pdf:
+        #     zip_pdf.mkdir(PATH_ESTRAI)
+        #     # for pdf in PATH_ESTRAI.glob('*.pdf'):
+        #     #     zip_pdf.write(pdf)
+        #     zip_pdf.Pa
+        # shutil.make_archive(path_file_zip, 'zip', PATH_ESTRAI)
+
+        os.chdir(path_iniziale)
+        print(pathlib.Path.cwd())
 
         return tabella
