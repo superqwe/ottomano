@@ -5,12 +5,18 @@
 {% endblock %}
 
 
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_personale.html" %}
+{% endblock %}
+
 {% block menu_sezione %}
+{% include "./1_sottomenu_sezione_personale.html" %}
 {% endblock %}
 
 
 {% block corpo %}
 <div class="container-fluid">
+    <div class="row">
     <form action="./dati_estratti" method="post" name="lavoratori">
         {% csrf_token %}
         <input type="submit" value="Submit"><br>
@@ -70,7 +76,7 @@
 
         <input type="submit" value="Submit">
     </form>
-
+</div>
 
 </div>
 

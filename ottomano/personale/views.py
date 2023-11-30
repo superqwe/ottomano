@@ -39,7 +39,8 @@ def anagrafica(request):
                'pagina_attiva_anagrafica': 'active',
                'lavoratori': lavoratori}
 
-    return render(request, 'base.html', context)
+    return render(request, './personale/anagrafica.html', context)
+    # return render(request, 'base.html', context)
 
 
 def formazione(request):

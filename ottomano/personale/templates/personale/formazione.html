@@ -4,23 +4,20 @@
 {{titolo}}
 {% endblock %}
 
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_personale.html" %}
+{% endblock %}
 
 {% block menu_sezione %}
-<div class="col text-end d-print-none">
-    <div class="btn-group " role="group">
-        <a href="/personale/scadenzario_formazione_schede/corrente" class="btn btn-outline-primary">
-            Scadenzario Annuale</a>
-        <a href="/personale/aggiorna_documenti" class="btn btn-outline-primary {{pagina_attiva_aggiorna_documenti}}">
-            Aggiorna Documenti</a>
-        <a href="/personale/aggiorna_stato" class="btn btn-outline-primary  {{pagina_attiva_aggiorna_stato}}">
-            Aggiorna Stato</a>
-    </div>
+<div class="col d-print-none">
+    <a href="/personale/scadenzario_formazione_schede/corrente" class="btn btn-outline-primary">
+        Scadenzario Annuale</a>
 </div>
+
+{% include "./1_sottomenu_sezione_personale.html" %}
 {% endblock %}
 
-{% block menu_macro_sezione %}
-{% include "./menu_sezione_personale.html" %}
-{% endblock %}
+
 
 
 {% block corpo %}
