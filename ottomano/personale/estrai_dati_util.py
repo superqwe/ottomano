@@ -70,6 +70,7 @@ class Estrai_Dati():
 
             pathlib.Path(PATH_ESTRAI).mkdir(parents=True, exist_ok=True)
 
+            # todo: gestire gli errori
             errori = []
             for nome_attestato, (data_attestato, dummy) in zip(elenco_formazione, attestati):
                 if data_attestato:
@@ -80,6 +81,18 @@ class Estrai_Dati():
 
                     path_originale = path_lavoratore_attestati / nome_originale
                     path_destinazione = PATH_ESTRAI / nome_destinazione
+
+                    shutil.copy(path_originale, path_destinazione)
+
+            for nome_nomina, nomina_esistente in zip(elenco_nomine, nomine):
+                if nomina_esistente:
+                    nome_originale = '{} {}.pdf'.format(nome_nomina,
+                                                        getattr(lavoratore, nome_nomina).strftime('%d%m%y'))
+                    nome_destinazione = '{} {}.pdf'.format(nominativo, nome_nomina)
+
+                    path_originale = path_lavoratore_nomine / nome_originale
+                    path_destinazione = PATH_ESTRAI / nome_destinazione
+                    print(path_originale, path_destinazione)
 
                     shutil.copy(path_originale, path_destinazione)
 
