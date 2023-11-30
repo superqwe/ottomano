@@ -19,7 +19,8 @@
     <div class="row">
     <form action="./dati_estratti" method="post" name="lavoratori">
         {% csrf_token %}
-        <input type="submit" value="Submit"><br>
+<!--        <input type="submit" value="Estrai documenti"><br>-->
+         <div><button class="btn btn-primary" type="submit">Estrai documenti</button></div>
 
         <div class="row">
             <div class="h2">Lavoratori</div>
@@ -73,8 +74,8 @@
             {% endfor %}
         </div>
 
-
-        <input type="submit" value="Submit">
+        <button class="btn btn-primary" type="submit">Estrai documenti</button>
+<!--        <input type="submit" value="Submit">-->
     </form>
 </div>
 
