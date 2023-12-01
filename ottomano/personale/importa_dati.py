@@ -21,14 +21,14 @@ def importa_xlsx():
             matricola = None
 
         if not pd.isna(row['cellulare']):
-            cellulare = int(str(row['cellulare']).replace('.','').replace(' ', ''))
+            cellulare = int(str(row['cellulare']).replace('.', '').replace(' ', ''))
         else:
             cellulare = None
 
         if not pd.isna(row['fine lavoro']):
-           fine_lavoro =  row['fine lavoro']
+            fine_lavoro = row['fine lavoro']
         else:
-           fine_lavoro =  None
+            fine_lavoro = None
 
         lavoratore = Lavoratore(
             matricola=matricola,

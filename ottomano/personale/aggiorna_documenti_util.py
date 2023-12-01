@@ -61,6 +61,7 @@ def calcola_data_attestati(attestati, lavoratore):
 
     return attestati_
 
+
 def aggiungi_anni(data, anni=1):
     if data:
         return datetime.date(data.year + anni, data.month, data.day)

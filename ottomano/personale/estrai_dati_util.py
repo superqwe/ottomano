@@ -1,13 +1,12 @@
 import configparser
+import datetime
 import glob
 import math
 import os
 import pathlib
 import shutil
-from itertools import islice
-from pprint import pprint as pp
 import zipfile
-import datetime
+from itertools import islice
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
@@ -26,7 +25,7 @@ def dividi_elenco_lavoratori(lavoratori, n_colonne=N_COLONNE):
     return gruppi, n_colonne
 
 
-class Estrai_Dati():
+class Estrai_Dati:
     def __int__(self):
         print('ciaoo ' * 20)
 

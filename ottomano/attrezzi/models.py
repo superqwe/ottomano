@@ -25,9 +25,9 @@ class Attrezzo(models.Model):
 
     def nome(self):
         if self.matricola:
-            _nome= '%s - %s - %s' % (self.marca, self.modello, self.matricola)
+            _nome = '%s - %s - %s' % (self.marca, self.modello, self.matricola)
         else:
-            _nome= '%s - %s' % (self.marca, self.modello)
+            _nome = '%s - %s' % (self.marca, self.modello)
 
         _nome = _nome.replace('/', '_').replace('.', '_')
         return _nome

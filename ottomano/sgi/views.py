@@ -1,4 +1,3 @@
-import csv
 import pathlib
 from datetime import datetime
 
@@ -20,38 +19,6 @@ FORMAZIONE_FRAZIONI_ORE = {
 
 
 def index(request):
-    """"importa csv"""
-    MESE = {'Gennaio': '01',
-            'Febbraio': '02',
-            'Marzo': '03',
-            'Aprile': '04',
-            'Maggio': '05',
-            'Giugno': '06',
-            'Luglio': '07',
-            'Agosto': '08',
-            'Settembre': '09',
-            'Ottobre': '10',
-            'Novembre': '11',
-            'Dicembre': '12',
-            }
-    with open(r'C:\Users\benedetto.basile\Dropbox\SGI\Formazione\importare.csv') as file:
-        reader = csv.reader(file, dialect='excel', delimiter=';')
-        next(reader)  # Advance past the header
-
-        for row in reader:
-            mese, corso, data, argomento, docente, ore, persone = row[:-1]
-
-            mese = MESE[mese]
-            data = datetime.strptime(data, '%d/%m/%Y').date()
-            corso = corso if corso else None
-
-            print(mese, corso, data, argomento, docente, ore, persone)
-
-            formazione = Formazione(mese=mese, corso=corso, data=data, argomento=argomento, docente=docente, ore=ore,
-                                    persone=persone
-                                    )
-            # formazione.save()
-
     return HttpResponse("Hello, world. You're at the personale index.")
 
 
@@ -168,14 +135,14 @@ def scadenzario_dpi_aggiorna(request):
 
     return redirect(scadenzario_dpi)
 
+
 def scadenzario_dpi(request):
     lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
-
 
     context = {'titolo': 'Scadenzario DPI',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_scadenzario_dpi': 'active',
-               'lista_dpi':lista_dpi,
+               'lista_dpi': lista_dpi,
                }
 
     return render(request, 'sgi/scadenzario_dpi.html', context)

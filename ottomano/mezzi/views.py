@@ -68,7 +68,7 @@ def aggiorna_documenti(request):
                     data = views_util.str2datetime(doc[1])
                     mezzo.immatricolazione = data
 
-                    if mezzo.inail == None:
+                    if mezzo.inail is None:
                         data_inail = views_util.aggiungi_anni(data)
                         mezzo.inail = data_inail
 

@@ -1,11 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
+from personale.models import Formazione
 
-from personale.models import Lavoratore, Formazione, Idoneita
 from .models import Cantiere_Esterno
 
-from pprint import pprint as pp
 
 def index(request):
     cantieri = Cantiere_Esterno.objects.filter(in_corso=True)
@@ -16,7 +13,7 @@ def index(request):
                'pagina_attiva_esterni': 'active',
                'sezione_esterni_attiva': 'active',
                'cantieri': cantieri,
-               'lavoratori':lavoratori,
+               'lavoratori': lavoratori,
                # 'conteggio_rg': conteggio_rg(formazione_)
                }
     return render(request, 'esterni/elenco_cantieri.html', context)

@@ -70,6 +70,7 @@ def aggiorna_documenti(request):
     for lavoratore in dir_lavoratori:
         # print(lavoratore)
 
+        #todo: perchè not lavoratore?
         if not lavoratore in elenco_lavoratori:
             path_dir_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
 

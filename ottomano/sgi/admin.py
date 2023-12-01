@@ -16,6 +16,7 @@ class Non_ConformitaAdmin(admin.ModelAdmin):
     date_hierarchy = 'data'
     save_on_top = True
 
+
 class DPIAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
@@ -26,6 +27,7 @@ class DPIAdmin(admin.ModelAdmin):
     list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
     list_filter = ('lavoratore__in_forza',)
     save_on_top = True
+
 
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Non_Conformita, Non_ConformitaAdmin)

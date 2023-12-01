@@ -13,6 +13,7 @@ urlpatterns = [
     path('idoneita', views.idoneita, name='idoneita'),
     path('scadenzario_dpi', views.scadenzario_dpi, name='scadenzario_dpi'),
     path('scadenzario_formazione', views.scadenziario_formazione, name='scadenzario_formazione'),
-    path('scadenzario_formazione_schede/<slug:anno>/', views.scadenzario_formazione_schede, name='scadenzario_formazione_schede'),
+    path('scadenzario_formazione_schede/<slug:anno>/', views.scadenzario_formazione_schede,
+         name='scadenzario_formazione_schede'),
     path('scadenziario_idoneita', views.scadenziario_idoneita, name='scadenziario_idoneita'),
 ]

@@ -1,6 +1,7 @@
 from django.db import models
 
 from personale.models import Lavoratore
+
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------
 MESE = [
     ('01', 'Gennaio'),
@@ -81,6 +82,7 @@ class Non_Conformita(models.Model):
 
     def __str__(self):
         return 'NC del %s' % (self.data,)
+
 
 class DPI2(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
