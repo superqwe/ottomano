@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Formazione, Non_Conformita, DPI2
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -29,6 +29,21 @@ class DPIAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+class CassettaPSAdmin(admin.ModelAdmin):
+    fields = (
+        'stato',
+        'numero',
+        'allegato',
+        'ubicazione',
+        ('messa_in_servizio', 'dismissione'),
+        ('scadenza', 'ultima_verifica'),
+    )
+    list_display = ('stato', 'numero', 'allegato', 'ubicazione', 'ultima_verifica')
+    list_filter = ('stato',)
+    save_on_top = True
+
+
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Non_Conformita, Non_ConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
+admin.site.register(CassettaPS, CassettaPSAdmin)

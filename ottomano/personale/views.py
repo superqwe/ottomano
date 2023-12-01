@@ -1,21 +1,17 @@
 import datetime
 import glob
+import itertools
 import math
 import os
-import itertools
 
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 from personale import aggiorna_documenti_util
-from personale.models import Lavoratore, Formazione, Idoneita, DPI
-
-from pprint import pprint as pp
-
 from personale import estrai_dati_util
+from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
 PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
 # PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
@@ -70,7 +66,7 @@ def aggiorna_documenti(request):
     for lavoratore in dir_lavoratori:
         # print(lavoratore)
 
-        #todo: perchè not lavoratore?
+        # todo: perchè not lavoratore?
         if not lavoratore in elenco_lavoratori:
             path_dir_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
 
@@ -543,8 +539,6 @@ def scadenzario_formazione_schede(request, anno):
 
                 elenco_lavoratori_.sort(key=lambda x: x[2])  # ordina per data di scadenza
 
-            print('\n', corso)
-            pp(elenco_lavoratori_)
             scadenze.append((corso, elenco_lavoratori_, conteggio(elenco_lavoratori_)))
 
     scadenze = card_ordinate_per_n_elementi(scadenze)

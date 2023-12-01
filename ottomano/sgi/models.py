@@ -2,6 +2,16 @@ from django.db import models
 
 from personale.models import Lavoratore
 
+ALLEGATO_CASSETTA_PS = [
+    (1, 1),
+    (2, 2)
+]
+STATO_CASSETTA_PS = [
+    (0, 'Dismessa'),
+    (-1, 'Da reintegrare'),
+    (1, 'Ok')
+]
+
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------
 MESE = [
     ('01', 'Gennaio'),
@@ -99,3 +109,35 @@ class DPI2(models.Model):
 
     def __str__(self):
         return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.consegna)
+
+
+class CassettaPS(models.Model):
+    stato = models.CharField(max_length=10, choices=STATO_CASSETTA_PS, blank=True, null=True)
+    numero = models.CharField(max_length=10)
+    ubicazione = models.CharField(max_length=30)
+    allegato = models.CharField(max_length=10, choices=ALLEGATO_CASSETTA_PS, blank=True, null=True)
+    messa_in_servizio = models.DateField(blank=True, null=True)
+    dismissione = models.DateField(blank=True, null=True)
+    scadenza = models.DateField(blank=True, null=True)
+    ultima_verifica = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['numero', ]
+        verbose_name = 'Cassetta PS'
+        verbose_name_plural = 'Cassette PS'
+
+    def __str__(self):
+        return self.numero
+
+class VerificaCassettaPS(models.Model):
+    cassetta = models.ForeignKey(CassettaPS, on_delete=models.CASCADE)
+    data_verifica = models.DateField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['data_verifica', 'cassetta']
+        verbose_name = 'Verifica cassetta PS'
+        verbose_name_plural = 'Verifiche cassette PS'
+
+    def __str__(self):
+        return {'{} {}'}.format(self.cassetta, self.data_verifica)
