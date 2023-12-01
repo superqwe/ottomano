@@ -17,67 +17,92 @@
 {% block corpo %}
 <div class="container-fluid">
     <div class="row">
-    <form action="./dati_estratti" method="post" name="lavoratori">
-        {% csrf_token %}
-<!--        <input type="submit" value="Estrai documenti"><br>-->
-         <div><button class="btn btn-primary" type="submit">Estrai documenti</button></div>
-
-        <div class="row">
-            <div class="h2">Lavoratori</div>
-        </div>
-
-        <div class="row">
-            {% for gruppo in gruppi_lavoratori %}
-            <div class="col-2">
-                {% for lavoratore in gruppo %}
-                <input type="checkbox" id="{{lavoratore.pk}}" name="{{lavoratore.pk}}" value="{{lavoratore}}">
-                <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>
-                {% endfor %}
+        <form action="./dati_estratti" method="post" name="lavoratori">
+            {% csrf_token %}
+            <div>
+                <button class="btn btn-primary" type="submit">Estrai documenti</button>
             </div>
-            {% endfor %}
-        </div>
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Lavoratori</h2>
+                        <p class="card-text">
+
+                        <div class="row">
+                            {% for gruppo in gruppi_lavoratori %}
+                            <div class="col-2">
+                                {% for lavoratore in gruppo %}
+                                <input type="checkbox" id="{{lavoratore.pk}}" name="{{lavoratore.pk}}"
+                                       value="{{lavoratore}}">
+                                <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        </p>
+                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>
+                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>
+                    </div>
+                </div>
 
 
-        <div class="row">
-            <div class="h2">
-                <div class="h2">Attestati</div>
+                <div class="card col-6">
+                    <div class="card-body">
+                        <h2 class="card-title">Attestati</h2>
+                        <p class="card-text">
+
+                        <div class="row">
+                            {% for gruppo in gruppi_formazione %}
+                            <div class="col-4">
+                                {% for formazione in gruppo %}
+                                <input type="checkbox" id="{{formazione}}" name="{{formazione}}"
+                                       value="{{formazione}}_">
+                                <label for="{{formazione}}">{{formazione|title}}</label><br>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        </p>
+                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>
+                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>
+                    </div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h2 class="card-title">Nomine</h2>
+                        <p class="card-text">
+                            {% for nomina in nomine %}
+                            <input type="checkbox" id="{{nomina}}" name="{{nomina}}" value="{{nomina}}_">
+                            <label for="{{nomina}}">{{nomina|title}}</label><br>
+                            {% endfor %}
+                        </p>
+                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>
+                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>
+                    </div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h2 class="card-title">Documenti</h2>
+                        <p class="card-text">
+                            <input type="checkbox" id="unilav" name="unilav" value="unilav_">
+                            <label for="unilav">Unilav</label><br>
+                            <input type="checkbox" id="idoneita" name="idoneita" value="idoneita_">
+                            <label for="idoneita">Idoneità</label><br>
+                        </p>
+                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>
+                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>
+                    </div>
+                </div>
+
             </div>
-        </div>
 
 
-        <div class="row">
-            {% for gruppo in gruppi_formazione %}
-            <div class="col-2">
-                {% for formazione in gruppo %}
-                <input type="checkbox" id="{{formazione}}" name="{{formazione}}" value="{{formazione}}_">
-                <label for="{{formazione}}">{{formazione|title}}</label><br>
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
-
-
-        <div class="row">
-            <div class="h2">
-                <div class="h2">Nomine</div>
-            </div>
-        </div>
-
-        <div class="row">
-            {% for gruppo in gruppi_nomine %}
-            <div class="col-2">
-                {% for nomina in gruppo %}
-                <input type="checkbox" id="{{nomina}}" name="{{nomina}}" value="{{nomina}}_">
-                <label for="{{nomina}}">{{nomina|title}}</label><br>
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
-
-        <button class="btn btn-primary" type="submit">Estrai documenti</button>
-<!--        <input type="submit" value="Submit">-->
-    </form>
-</div>
+            <button class="btn btn-primary" type="submit">Estrai documenti</button>
+        </form>
+    </div>
 
 </div>
 

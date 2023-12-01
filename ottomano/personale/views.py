@@ -370,11 +370,11 @@ def estrai_dati(request):
         'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati', 'ponteggiatore', 'imbracatore', 'ept',
         'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello', 'sollevatore', 'ple', 'rls', 'aspp')
 
-    gruppi_formazione, n_gruppi_formazione = estrai_dati_util.dividi_elenco_lavoratori(formazione)
+    gruppi_formazione, n_gruppi_formazione = estrai_dati_util.dividi_elenco_lavoratori(formazione, 3)
 
     nomine = ['nomina_{}'.format(x) for x in
               ('preposto', 'preposto_imbracatore', 'antincendio', 'primo_soccorso', 'aspp')]
-    gruppi_nomine, n_gruppi_nomine = estrai_dati_util.dividi_elenco_lavoratori(nomine)
+    # gruppi_nomine, n_gruppi_nomine = estrai_dati_util.dividi_elenco_lavoratori(nomine)
 
     context = {'titolo': 'Estrai Dati',
                'sezione_formazione_attiva': 'active',
@@ -383,8 +383,9 @@ def estrai_dati(request):
                'gruppi_lavoratori': gruppi_lavoratori,
                'n_gruppi_formazione': n_gruppi_formazione,
                'gruppi_formazione': gruppi_formazione,
-               'n_gruppi_nomine': n_gruppi_nomine,
-               'gruppi_nomine': gruppi_nomine,
+               'nomine': nomine,
+               # 'n_gruppi_nomine': n_gruppi_nomine,
+               # 'gruppi_nomine': gruppi_nomine,
                }
 
     return render(request, 'personale/estrai_dati.html', context)
