@@ -2,14 +2,22 @@ from django.db import models
 
 from personale.models import Lavoratore
 
+# CASSETTE PS ---------------------------------------------------------------------------------------------------------
 ALLEGATO_CASSETTA_PS = [
-    (1, 1),
-    (2, 2)
+    ('1', '1'),
+    ('2', '2')
 ]
 STATO_CASSETTA_PS = [
-    (0, 'Dismessa'),
-    (-1, 'Da reintegrare'),
-    (1, 'Ok')
+    ('0', 'Dismessa'),
+    ('-1', 'Da reintegrare'),
+    ('1', 'Ok')
+]
+
+OPERAZIONE_CASSETTA_PS = [
+    ('ok', 'Verificata'),
+    ('no', 'Verificata da reintegrata'),
+    ('rei', 'Reintegrata'),
+    ('dis', 'Dismessa'),
 ]
 
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------
@@ -129,9 +137,12 @@ class CassettaPS(models.Model):
     def __str__(self):
         return self.numero
 
+
 class VerificaCassettaPS(models.Model):
     cassetta = models.ForeignKey(CassettaPS, on_delete=models.CASCADE)
     data_verifica = models.DateField(blank=True, null=True)
+    data_scadenza = models.DateField(blank=True, null=True)
+    operazione = models.CharField(max_length=10, choices=OPERAZIONE_CASSETTA_PS, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -140,4 +151,4 @@ class VerificaCassettaPS(models.Model):
         verbose_name_plural = 'Verifiche cassette PS'
 
     def __str__(self):
-        return {'{} {}'}.format(self.cassetta, self.data_verifica)
+        return '{} {}'.format(self.cassetta, self.data_verifica)
