@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
-from sgi.models import Formazione, Non_Conformita, DPI2
+from sgi.models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2023
@@ -146,3 +146,23 @@ def scadenzario_dpi(request):
                }
 
     return render(request, 'sgi/scadenzario_dpi.html', context)
+
+
+def cassette_ps(request):
+    lista_cassette = CassettaPS.objects.all()
+
+    for cassetta in lista_cassette:
+        ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
+        # print(cassetta, ultima_verifica.data_verifica,ultima_verifica.data_scadenza)
+        cassetta.ultima_verifica = ultima_verifica.data_verifica
+        cassetta.scadenza = ultima_verifica.data_scadenza
+        cassetta.save()
+
+
+    context = {'titolo': 'Registro Cassette PS',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_cassette_ps': 'active',
+               'lista_cassette': lista_cassette,
+               }
+
+    return render(request, 'sgi/cassette_ps.html', context)

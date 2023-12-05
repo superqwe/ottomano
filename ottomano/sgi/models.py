@@ -2,6 +2,8 @@ from django.db import models
 
 from personale.models import Lavoratore
 
+from pprint import pp
+
 # CASSETTE PS ---------------------------------------------------------------------------------------------------------
 ALLEGATO_CASSETTA_PS = [
     ('1', '1'),
@@ -120,10 +122,10 @@ class DPI2(models.Model):
 
 
 class CassettaPS(models.Model):
-    stato = models.CharField(max_length=10, choices=STATO_CASSETTA_PS, blank=True, null=True)
     numero = models.CharField(max_length=10)
+    stato = models.CharField(max_length=10, choices=STATO_CASSETTA_PS, blank=True, null=True)
     ubicazione = models.CharField(max_length=30)
-    allegato = models.CharField(max_length=10, choices=ALLEGATO_CASSETTA_PS, blank=True, null=True)
+    allegato = models.CharField(max_length=10, choices=ALLEGATO_CASSETTA_PS, default='2', blank=True, null=True)
     messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
     scadenza = models.DateField(blank=True, null=True)

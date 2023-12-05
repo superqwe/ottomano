@@ -31,13 +31,14 @@ class DPIAdmin(admin.ModelAdmin):
 
 class CassettaPSAdmin(admin.ModelAdmin):
     fields = (
-        'stato',
         'numero',
+        'stato',
         'allegato',
         'ubicazione',
         ('messa_in_servizio', 'dismissione'),
         ('scadenza', 'ultima_verifica'),
     )
+    # list_display = ('stato', 'numero', 'allegato', 'ubicazione')
     list_display = ('stato', 'numero', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)
     save_on_top = True

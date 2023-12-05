@@ -5,7 +5,8 @@
 {% load static %}
 <img class="logo_ottomano" src="{% static 'sgi/images/Impresa_Ottomano.jpg' %}"><br>
 
-{{titolo}}
+<!--{{titolo}}-->
+Consuntivo formazione anno 2023 al 05/12/23
 {% endblock %}
 
 {% block menu_macro_sezione %}
@@ -13,13 +14,13 @@
 {% endblock %}
 
 {% block menu_sezione %}
-<div class="col">
+<div class="col d-print-none">
     <div class="btn-group " role="group">
         <a href="/sgi/formazione/2023" class="btn btn-outline-primary {{pagina_attiva_formazione_2023}}">2023</a>
         <a href="/sgi/formazione/2022" class="btn btn-outline-primary {{pagina_attiva_formazione_2022}}">2022</a>
     </div>
 </div>
-<div class="col text-end">
+<div class="col text-end d-print-none">
     <a href="/admin/sgi/formazione/add/" class="btn btn-outline-success" target=”_blank”>
         <i class="fa-solid fa-square-plus"></i>
         Formazione

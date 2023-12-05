@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col">Cassetta</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Ubicazione</th>
+            <th scope="col">Scadenza</th>
+            <th scope="col">Ultima verifica</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for cassetta in lista_cassette %}
+    <tr>
+        <td>{{cassetta}}</td>
+        <td class="text-center">{{cassetta.allegato}}</td>
+        <td class="text-center">{{cassetta.ubicazione}}</td>
+        <td class="text-center">{{cassetta.scadenza}}</td>
+        <td class="text-center">{{cassetta.ultima_verifica}}</td>
+    </tr>
+<!--        <p>{{cassetta}} - {{cassetta.data_verifica}}- {{cassetta.data_scadenza}}</p>-->
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
