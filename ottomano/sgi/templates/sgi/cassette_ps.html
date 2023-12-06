@@ -27,19 +27,25 @@
             <th scope="col">Ubicazione</th>
             <th scope="col">Scadenza</th>
             <th scope="col">Ultima verifica</th>
+            <th scope="col">Esito verifica</th>
+            <th scope="col">Note</th>
         </tr>
         </thead>
 
         <tbody>
-        {% for cassetta in lista_cassette %}
-    <tr>
-        <td>{{cassetta}}</td>
-        <td class="text-center">{{cassetta.allegato}}</td>
-        <td class="text-center">{{cassetta.ubicazione}}</td>
-        <td class="text-center">{{cassetta.scadenza}}</td>
-        <td class="text-center">{{cassetta.ultima_verifica}}</td>
-    </tr>
-<!--        <p>{{cassetta}} - {{cassetta.data_verifica}}- {{cassetta.data_scadenza}}</p>-->
+        {% for cassetta, verifica in lista_cassette %}
+        <tr>
+            <td>{{cassetta}}</td>
+            <td class="text-center">{{cassetta.allegato}}</td>
+            <td class="text-center">{{cassetta.ubicazione}}</td>
+            <td class="text-center">{{cassetta.scadenza}}</td>
+            <td class="text-center">{{cassetta.ultima_verifica}}</td>
+            <td class="text-center {% if verifica.operazione == 'no' %}table-warning{% endif %}">
+                {{verifica.get_operazione_display}}
+            </td>
+            <td>{{verifica.note}}</td>
+        </tr>
+        <!--        <p>{{cassetta}} - {{cassetta.data_verifica}}- {{cassetta.data_scadenza}}</p>-->
 
         {% endfor %}
         </tbody>

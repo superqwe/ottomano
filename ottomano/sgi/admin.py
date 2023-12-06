@@ -39,7 +39,7 @@ class CassettaPSAdmin(admin.ModelAdmin):
         ('scadenza', 'ultima_verifica'),
     )
     # list_display = ('stato', 'numero', 'allegato', 'ubicazione')
-    list_display = ('stato', 'numero', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
+    list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)
     save_on_top = True
 

@@ -17,7 +17,7 @@ STATO_CASSETTA_PS = [
 
 OPERAZIONE_CASSETTA_PS = [
     ('ok', 'Verificata'),
-    ('no', 'Verificata da reintegrata'),
+    ('no', 'Da reintegrare'),
     ('rei', 'Reintegrata'),
     ('dis', 'Dismessa'),
 ]
@@ -124,7 +124,7 @@ class DPI2(models.Model):
 class CassettaPS(models.Model):
     numero = models.CharField(max_length=10)
     stato = models.CharField(max_length=10, choices=STATO_CASSETTA_PS, blank=True, null=True)
-    ubicazione = models.CharField(max_length=30)
+    ubicazione = models.CharField(max_length=30, blank=True, null=True)
     allegato = models.CharField(max_length=10, choices=ALLEGATO_CASSETTA_PS, default='2', blank=True, null=True)
     messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
@@ -148,7 +148,7 @@ class VerificaCassettaPS(models.Model):
     note = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = ['data_verifica', 'cassetta']
+        ordering = ['-data_verifica', 'cassetta']
         verbose_name = 'Verifica cassetta PS'
         verbose_name_plural = 'Verifiche cassette PS'
 

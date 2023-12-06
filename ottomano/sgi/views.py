@@ -151,18 +151,27 @@ def scadenzario_dpi(request):
 def cassette_ps(request):
     lista_cassette = CassettaPS.objects.all()
 
+    dati = []
     for cassetta in lista_cassette:
         ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
-        # print(cassetta, ultima_verifica.data_verifica,ultima_verifica.data_scadenza)
         cassetta.ultima_verifica = ultima_verifica.data_verifica
         cassetta.scadenza = ultima_verifica.data_scadenza
-        cassetta.save()
 
+        match ultima_verifica.operazione:
+            case 'ok' | 'rei':
+                cassetta.stato = '1'
+            case 'no':
+                cassetta.stato = '-1'
+            case 'dis':
+                cassetta.stato = '0'
+
+        cassetta.save()
+        dati.append((cassetta, ultima_verifica))
 
     context = {'titolo': 'Registro Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
-               'lista_cassette': lista_cassette,
+               'lista_cassette': dati,
                }
 
     return render(request, 'sgi/cassette_ps.html', context)
