@@ -1,5 +1,6 @@
 import pathlib
 from datetime import datetime
+from pprint import pp
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
@@ -152,6 +153,7 @@ def cassette_ps(request):
     lista_cassette = CassettaPS.objects.all()
 
     dati = []
+    articoli_reintegro = {}
     for cassetta in lista_cassette:
         ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
         cassetta.ultima_verifica = ultima_verifica.data_verifica
@@ -162,16 +164,23 @@ def cassette_ps(request):
                 cassetta.stato = '1'
             case 'no':
                 cassetta.stato = '-1'
+                for rigo in ultima_verifica.note.split('\n'):
+                    n, articolo = rigo.split(' ', 1)
+                    n = int(n[-1])
+                    articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + 1
             case 'dis':
                 cassetta.stato = '0'
 
         cassetta.save()
         dati.append((cassetta, ultima_verifica))
 
+    articoli_reintegro = dict(sorted(articoli_reintegro.items()))
+
     context = {'titolo': 'Registro Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
                'lista_cassette': dati,
+               'articoli_reintegro': articoli_reintegro,
                }
 
     return render(request, 'sgi/cassette_ps.html', context)

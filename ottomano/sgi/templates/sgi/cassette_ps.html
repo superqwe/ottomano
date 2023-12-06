@@ -45,8 +45,27 @@
             </td>
             <td>{{verifica.note}}</td>
         </tr>
-        <!--        <p>{{cassetta}} - {{cassetta.data_verifica}}- {{cassetta.data_scadenza}}</p>-->
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 
+<div class="col-2">
+    <table class="table table-striped table-sm">
+        <captio><strong>Articoli da reintegrare</strong></captio>
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col">n.</th>
+            <th scope="col">Articolo</th>
+        </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+        {% for articolo, quantita in articoli_reintegro.items %}
+        <tr>
+            <td class="text-center">{{quantita}}</td>
+            <td>{{articolo}}</td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
