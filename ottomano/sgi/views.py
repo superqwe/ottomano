@@ -167,6 +167,7 @@ def cassette_ps(request):
                 for rigo in ultima_verifica.note.split('\n'):
                     n, articolo = rigo.split(' ', 1)
                     n = int(n[-1])
+                    articolo = articolo.strip()
                     articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + 1
             case 'dis':
                 cassetta.stato = '0'
