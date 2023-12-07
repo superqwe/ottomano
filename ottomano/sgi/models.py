@@ -20,6 +20,7 @@ OPERAZIONE_CASSETTA_PS = [
     ('no', 'Da reintegrare'),
     ('rei', 'Reintegrata'),
     ('dis', 'Dismessa'),
+    ('ms', 'Messa in servizio'),
 ]
 
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------

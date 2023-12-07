@@ -46,7 +46,12 @@
             <td class="text-center">{{cassetta.ubicazione}}</td>
             <td class="text-center">{{cassetta.scadenza}}</td>
             <td class="text-center">{{cassetta.ultima_verifica}}</td>
-            <td class="text-center {% if verifica.operazione == 'no' %}table-warning{% endif %}">
+            <td class="text-center
+            {% if verifica.operazione == 'no' %}
+            table-warning
+            {% elif verifica.operazione == 'dis' %}
+            table-danger
+            {% endif %}">
                 {{verifica.get_operazione_display}}
             </td>
             <td>{{verifica.note}}</td>
