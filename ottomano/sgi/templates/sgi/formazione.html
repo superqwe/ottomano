@@ -5,8 +5,8 @@
 {% load static %}
 <img class="logo_ottomano" src="{% static 'sgi/images/Impresa_Ottomano.jpg' %}"><br>
 
-<!--{{titolo}}-->
-Consuntivo formazione anno 2023 al 05/12/23
+{{titolo}}
+<!--Consuntivo formazione anno 2023 al 05/12/23-->
 {% endblock %}
 
 {% block menu_macro_sezione %}
@@ -21,7 +21,7 @@ Consuntivo formazione anno 2023 al 05/12/23
     </div>
 </div>
 <div class="col text-end d-print-none">
-    <a href="/admin/sgi/formazione/add/" class="btn btn-outline-success" target=”_blank”>
+    <a href="/admin/sgi/formazione/add/" class="btn btn-outline-primary" target=”_blank”>
         <i class="fa-solid fa-square-plus"></i>
         Formazione
     </a>
@@ -78,7 +78,7 @@ Consuntivo formazione anno 2023 al 05/12/23
         <tr>
             <td>{{corso.get_mese_display}}</td>
             <td class="text-center">{{corso.corso|default_if_none:"-"}}</td>
-            <td>{{corso.data|date:"d/m/y"}}</td>
+            <td class="text-center">{{corso.data|date:"d/m/y"}}</td>
             <td>{{corso.argomento}}</td>
             <td>{{corso.docente}}</td>
             <td class="text-center">{{corso.ore}}</td>
