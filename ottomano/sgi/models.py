@@ -147,9 +147,11 @@ class VerificaCassettaPS(models.Model):
     data_scadenza = models.DateField(blank=True, null=True)
     operazione = models.CharField(max_length=10, choices=OPERAZIONE_CASSETTA_PS, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
+    materiale_integrato = models.TextField(blank=True, null=True)
+    materiale_da_integrare = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = ['-data_verifica', 'cassetta']
+        ordering = ['cassetta', '-data_verifica']
         verbose_name = 'Verifica cassetta PS'
         verbose_name_plural = 'Verifiche cassette PS'
 

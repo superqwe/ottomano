@@ -164,7 +164,7 @@ def cassette_ps(request):
                 cassetta.stato = '1'
             case 'no':
                 cassetta.stato = '-1'
-                for rigo in ultima_verifica.note.split('\n'):
+                for rigo in ultima_verifica.materiale_da_integrare.split('\n'):
                     n, articolo = rigo.split(' ', 1)
                     n = int(n[-1])
                     articolo = articolo.strip()
