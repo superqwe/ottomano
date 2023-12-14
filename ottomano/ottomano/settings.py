@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import sys
 
 from django.conf.locale.it import formats as it_formats
 
@@ -58,21 +59,38 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ottomano.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+if sys.platform == 'win32':
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
         },
-    },
-]
+    ]
+else:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': ['/home/ottomano/ottomano/ottomano/templates', ],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
 
 WSGI_APPLICATION = 'ottomano.wsgi.application'
 
@@ -123,12 +141,21 @@ it_formats.DATE_FORMAT = "d/m/y"
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
-    r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
-    r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
-    r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
-]
+
+if sys.platform == 'win32':
+    STATICFILES_DIRS = [
+        r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
+        r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
+        r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
+        r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
+    ]
+else:
+    STATICFILES_DIRS = [
+        r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
+        r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
+        r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
+        r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
