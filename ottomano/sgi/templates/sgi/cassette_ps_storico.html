@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+<div class="col text-end d-print-none">
+    <a href="/admin/sgi/verificacassettaps/add/" class="btn btn-outline-primary" target=”_blank”>
+        <i class="fa-solid fa-square-plus"></i>
+        Verifica
+    </a>
+    <a href="/sgi/cassette_ps/" class="btn btn-outline-primary" target=”_blank”>
+        Registro
+    </a>
+</div>
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+    <table class="table table-striped table-sm">
+
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col">Cassetta</th>
+            <th scope="col">Data verifica</th>
+            <th scope="col">Data scadenza</th>
+            <th scope="col">Operazione</th>
+            <th scope="col">Materiale reintegrato</th>
+            <th scope="col">Materiale da reintegrare</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for  verifica in lista_verifiche %}
+        <tr>
+            <td>{{verifica.cassetta}}</td>
+            <td class="text-center">{{verifica.data_verifica}}</td>
+            <td class="text-center">{{verifica.data_scadenza}}</td>
+            <td class="text-center
+            {% if verifica.operazione == 'no' %}
+            table-warning
+            {% elif verifica.operazione == 'dis' %}
+            table-danger
+            {% endif %}">
+                {{verifica.get_operazione_display}}
+            </td>
+            <td>{{verifica.materiale_integrato}}</td>
+            <td>{{verifica.materiale_da_integrare}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+
+    </table>
+
+</div>
+
+
+
+{% endblock %}

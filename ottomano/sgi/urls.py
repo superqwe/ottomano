@@ -14,6 +14,7 @@ urlpatterns = [
     path('scadenzario_dpi/', views.scadenzario_dpi, name='scadenzario_dpi'),
     path('scadenzario_dpi_aggiorna/', views.scadenzario_dpi_aggiorna, name='scadenzario_dpi_aggiorna'),
     path('cassette_ps/', views.cassette_ps, name='cassette_ps'),
+    path('cassette_ps_storico/', views.cassette_ps_storico, name='cassette_ps_storico'),
 ]
 
 # urlpatterns = [

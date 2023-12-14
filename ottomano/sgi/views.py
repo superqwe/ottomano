@@ -185,3 +185,15 @@ def cassette_ps(request):
                }
 
     return render(request, 'sgi/cassette_ps.html', context)
+
+
+def cassette_ps_storico(request):
+    dati = VerificaCassettaPS.objects.all().order_by('-data_verifica')
+
+    context = {'titolo': 'Storico verifiche Cassette PS',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_cassette_ps': 'active',
+               'lista_verifiche': dati,
+               }
+
+    return render(request, 'sgi/cassette_ps_storico.html', context)
