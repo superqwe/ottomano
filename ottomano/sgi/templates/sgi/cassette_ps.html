@@ -52,8 +52,17 @@
         <tr>
             <td>{{cassetta}}</td>
             <td class="text-center">{{cassetta.allegato}}</td>
-            <td class="text-center">{{cassetta.ubicazione}}</td>
-            <td class="text-center">{{cassetta.scadenza}}</td>
+            <td class="text-center
+            {% if cassetta.ubicazione == 'Disponibile' and verifica.operazione in 'ok,rei' %}
+            table-success
+            {% elif verifica.operazione == 'no' %}
+            table-warning
+            {% elif verifica.operazione == 'dis' %}
+            table-danger
+            {% endif %}">
+                {{cassetta.ubicazione}}
+            </td>
+            <td class="text-center">{{cassetta.scadenza|date:"m/y"}}</td>
             <td class="text-center">{{cassetta.ultima_verifica}}</td>
             <td class="text-center
             {% if verifica.operazione == 'no' %}
@@ -76,7 +85,6 @@
     </table>
 
 </div>
-
 
 
 <div class="col-2">

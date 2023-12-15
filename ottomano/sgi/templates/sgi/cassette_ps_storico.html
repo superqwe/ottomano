@@ -46,12 +46,14 @@
         <tr>
             <td>{{verifica.cassetta}}</td>
             <td class="text-center">{{verifica.data_verifica}}</td>
-            <td class="text-center">{{verifica.data_scadenza}}</td>
+            <td class="text-center">{{verifica.data_scadenza|date:"m/y"}}</td>
             <td class="text-center
             {% if verifica.operazione == 'no' %}
             table-warning
             {% elif verifica.operazione == 'dis' %}
             table-danger
+            {% else %}
+            table-success
             {% endif %}">
                 {{verifica.get_operazione_display}}
             </td>
