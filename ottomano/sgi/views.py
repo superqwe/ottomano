@@ -164,6 +164,7 @@ def cassette_ps(request):
                 cassetta.stato = '1'
             case 'no':
                 cassetta.stato = '-1'
+                cassetta.ubicazione = 'Da reintegrare'
                 for rigo in ultima_verifica.materiale_da_integrare.split('\n'):
                     n, articolo = rigo.split(' ', 1)
                     n = int(n[-1])
@@ -171,6 +172,7 @@ def cassette_ps(request):
                     articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + 1
             case 'dis':
                 cassetta.stato = '0'
+                cassetta.ubicazione = 'Dismessa'
 
         cassetta.save()
         dati.append((cassetta, ultima_verifica))
