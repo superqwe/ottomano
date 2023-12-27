@@ -6,9 +6,29 @@ from .models import Lavoratore, Formazione, Cantiere, Idoneita, DPI
 # Register your models here.
 
 class LavoratoreAdmin(admin.ModelAdmin):
+    fields = (
+        'in_forza',
+        'cantiere',
+        'matricola',
+        ('cognome', 'nome'),
+        'cf',
+        'sesso',
+        ('data_nascita', 'luogo_nascita', 'provincia_nascita'),
+        ('indirizzo', 'cap', 'citta', 'provincia'),
+        ('cellulare', 'email'),
+        ('tipo_contratto', 'data_inizio', 'data_fine'),
+        'livello',
+        'qualifica',
+        'assunzione',
+        'busta_paga',
+        'mansione',
+        'attivita_svolta',
+        ('mansione_1', 'mansione_2', 'mansione_3')
+    )
     list_display = (
-        'in_forza', 'cognome', 'nome', 'cellulare', 'data_fine', 'qualifica', 'assunzione', 'mansione',
-        'attivita_svolta', 'mansione_1', 'mansione_2', 'mansione_3', 'cantiere')
+        'in_forza', 'matricola', 'cognome', 'nome', 'cf', 'cellulare', 'data_fine', 'qualifica', 'data_nascita',
+        'luogo_nascita', 'provincia_nascita'
+    )
     list_display_links = ('cognome', 'nome')
     list_filter = ('in_forza', 'cantiere')
     save_on_top = True
@@ -67,6 +87,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
     )
     list_display = ('lavoratore', 'idoneita')
     save_on_top = True
+
 
 # todo: obsoleto cancellare
 # class DPIAdmin(admin.ModelAdmin):

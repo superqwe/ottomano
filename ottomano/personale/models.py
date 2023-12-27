@@ -41,6 +41,7 @@ class Lavoratore(models.Model):
     citta = models.CharField(max_length=50, blank=True, null=True)
     provincia = models.CharField(max_length=20, blank=True, null=True)
     cellulare = models.IntegerField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
     tipo_contratto = models.CharField(max_length=20, blank=True, null=True)
     data_inizio = models.DateField(blank=True, null=True)
     data_fine = models.DateField(blank=True, null=True)
@@ -53,7 +54,6 @@ class Lavoratore(models.Model):
     mansione_1 = models.CharField(max_length=30, blank=True, null=True)
     mansione_2 = models.CharField(max_length=30, blank=True, null=True)
     mansione_3 = models.CharField(max_length=30, blank=True, null=True)
-    reparto = models.CharField(max_length=50, blank=True, null=True)  # todo da rimuovere
 
     class Meta:
         ordering = ['cognome', 'nome']
