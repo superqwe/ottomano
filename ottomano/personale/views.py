@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from personale import aggiorna_documenti_util
+from . import aggiorna_documenti_util
 from personale import estrai_dati_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
@@ -20,6 +20,7 @@ FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
 FRA_1_ANNO = OGGI + datetime.timedelta(days=365)
+VECCHIO_DI_N_MESI = OGGI + datetime.timedelta(days=-30.5 * 1)
 ANNO_CORRENTE = OGGI.year
 ANNO_PROSSIMO = OGGI.year + 1
 
@@ -66,7 +67,7 @@ def aggiorna_documenti(request):
     for lavoratore in dir_lavoratori:
         # print(lavoratore)
 
-        # todo: perchè not lavoratore?
+        # todo: creazione nuovo lavoratore - non funziona!!!
         if not lavoratore in elenco_lavoratori:
             path_dir_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
 
@@ -87,24 +88,30 @@ def aggiorna_documenti(request):
         path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
         try:
             attestati = os.listdir(path_attestati)
+
+            # filtra attestasti vecchi
+            attestati = [x for x in attestati if datetime.datetime.fromtimestamp(
+                os.path.getmtime(
+                    os.path.join(path_attestati, x)
+                )
+            ).date() > VECCHIO_DI_N_MESI
+                         ]
+
             attestati = aggiorna_documenti_util.calcola_data_attestati(attestati, lavoratore)
         except FileNotFoundError:
             attestati = []
 
         # salva su db
-        if attestati or True:
-            cognome, nome = lavoratore.split(maxsplit=1)
+        cognome, nome = lavoratore.split(maxsplit=1)
+        if attestati:
 
             try:
                 formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-                # print('----->', formazione_)
             except ObjectDoesNotExist:
                 lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
                 formazione_ = Formazione(lavoratore=lavoratore)
 
             for corso, data_dc, data in attestati:
-                # print(attestati)
-                # print(corso)
                 setattr(formazione_, corso, data)
                 setattr(formazione_, '%s_dc' % corso, data_dc)
 

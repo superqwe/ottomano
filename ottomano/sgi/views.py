@@ -9,7 +9,7 @@ from personale.models import Lavoratore
 from sgi.models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-FORMAZIONE_ANNO = 2023
+FORMAZIONE_ANNO = 2024
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
     '15min': 0.25,
@@ -66,14 +66,17 @@ def formazione(request, anno=FORMAZIONE_ANNO):
                'statistiche': statistiche
                }
 
-    pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
+    pagina_attiva_formazione_2024 = pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
 
     match anno:
+        case 2024:
+            pagina_attiva_formazione_2024 = 'active'
         case 2023:
             pagina_attiva_formazione_2023 = 'active'
         case 2022:
             pagina_attiva_formazione_2022 = 'active'
 
+    context['pagina_attiva_formazione_2024'] = pagina_attiva_formazione_2024
     context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
     context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
 
