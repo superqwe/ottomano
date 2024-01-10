@@ -21,13 +21,10 @@ class LavoratoreAdmin(admin.ModelAdmin):
         'qualifica',
         'assunzione',
         'busta_paga',
-        'mansione',
-        'attivita_svolta',
-        ('mansione_1', 'mansione_2', 'mansione_3')
     )
     list_display = (
-        'in_forza', 'matricola', 'cognome', 'nome', 'cf', 'cellulare', 'data_fine', 'qualifica', 'data_nascita',
-        'luogo_nascita', 'provincia_nascita'
+        'in_forza', 'matricola', 'cognome', 'nome', 'cf', 'data_nascita',
+        'luogo_nascita', 'provincia_nascita', 'qualifica'
     )
     list_display_links = ('cognome', 'nome')
     list_filter = ('in_forza', 'cantiere')

@@ -13,8 +13,60 @@ def index(request):
 
 
 # def index(request):
-#     importa_dati_anagrafica()
-#     return HttpResponse("Hello, world. You're at the personale index 8080.")
+#     importa_dati_anagrafica2()
+#     return HttpResponse("Hello, world. You're at the personale index 8080 ANAGRAFICA2.")
+
+
+def importa_dati_anagrafica2():
+    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\231227_2 personale_lavoratore  - paola.xlsx'
+    df = pd.read_excel(PATH_XLSX, sheet_name='personale_lavoratore', skiprows=0, na_values='')
+    print(df.columns)
+
+    for index, row in df.iterrows():
+        lavoratore = Lavoratore.objects.get(id=row.id)
+        print(lavoratore)
+
+        # lavoratore.cf = row['CODICE FISCALE']
+        # lavoratore.sesso = row['SESSO']
+        #
+        # if pd.notna(row['DATA DI NASCITA']):
+        #     lavoratore.data_nascita = row['DATA DI NASCITA']
+        #
+        # lavoratore.luogo_nascita = row['LUOGO NASCITA']
+        #
+        # if pd.notna(row['PROVINCIA DI NASCITA']):
+        #     lavoratore.provincia_nascita = row['PROVINCIA DI NASCITA']
+        # else:
+        #     lavoratore.provincia_nascita = None
+        #
+        # lavoratore.indirizzo = row['RESIDENZA']
+        # if not pd.isna(row['CAP']):
+        #     lavoratore.cap = row['CAP']
+        #
+        # lavoratore.citta = row["CITTA'"]
+        # lavoratore.provincia = row['PROVINCIA']
+        #
+        # if not pd.isna(row['CELLULARE']):
+        #     lavoratore.cellulare = row['CELLULARE']
+        #
+        # lavoratore.email = row['E MAIL']
+        # lavoratore.tipo_contratto = row['CONTRATTO']
+        #
+        # if pd.notna(row['DATA ASSUNZIONE']):
+        #     lavoratore.data_inizio = row['DATA ASSUNZIONE']
+        #
+        if pd.notna(row['SCADENZA CONTRATTO']):
+            lavoratore.data_fine = row['SCADENZA CONTRATTO']
+        else:
+            lavoratore.data_fine = None
+        #
+        # if pd.notna(row['LIVELLO']):
+        #     lavoratore.livello = int(row['LIVELLO'])
+        # lavoratore.qualifica = row['QUALIFICA ATTUALE']
+        # lavoratore.assunzione = row['QUALIFICA ASSUNZIONE']
+        # lavoratore.busta_paga = row['MANSIONE_BUSTA_PAGA']
+
+        lavoratore.save()
 
 
 def importa_dati_anagrafica():

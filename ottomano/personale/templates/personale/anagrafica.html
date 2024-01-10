@@ -25,13 +25,13 @@
     <table class="table table-striped table-sm">
         <thead class="table-light">
         <tr class="text-center">
+            <th scope="col">Matricola</th>
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-            <th scope="col">Codice Fiscale</th>
-            <th scope="col">Sesso</th>
             <th scope="col">Nato il</th>
             <th scope="col">Luogo di nascita</th>
             <th scope="col">Prov.</th>
+            <th scope="col">Codice Fiscale</th>
             <th scope="col">Indirizzo</th>
             <th scope="col">CAP</th>
             <th scope="col">Città</th>
@@ -41,47 +41,37 @@
             <th scope="col">Inizio</th>
             <th scope="col">Fine</th>
             <th scope="col">Liv.</th>
-            <th scope="col">Qualifica</th>
             <th scope="col">Assunzione</th>
             <th scope="col">Busta paga</th>
-            <th scope="col">Mansione</th>
-            <th scope="col">Attività svolta</th>
-            <th scope="col">Mansione1</th>
-            <th scope="col">Mansione2</th>
-            <th scope="col">Mansione3</th>
-            <!--                <th scope="col">Reparto</th>-->
+            <th scope="col">Qualifica</th>
+            <th scope="col">Sesso</th>
             <th scope="col">Cantiere</th>
         </tr>
         </thead>
         <tbody>
         {% for lavoratore in lavoratori%}
         <tr>
+            <td class="text-center">{{lavoratore.matricola}}</td>
             <td>{{lavoratore.cognome}}</td>
             <td>{{lavoratore.nome}}</td>
-            <td class="ff_monospace">{{lavoratore.cf|default_if_none:""}}</td>
-            <td>{{lavoratore.sesso|default_if_none:""}}</td>
             <td>{{lavoratore.data_nascita|date:"d/m/y"}}</td>
-            <td>{{lavoratore.luogo_nascita|default_if_none:""}}</td>
-            <td>{{lavoratore.provincia_nascita|default_if_none:""|default_if_none:""}}</td>
-            <td>{{lavoratore.indirizzo|default_if_none:""}}</td>
-            <td>{{lavoratore.cap|default_if_none:""}}</td>
-            <td>{{lavoratore.citta|default_if_none:""}}</td>
-            <td>{{lavoratore.provincia|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.luogo_nascita|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.provincia_nascita|default_if_none:""|default_if_none:""}}</td>
+            <td class="ff_monospace">{{lavoratore.cf|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.indirizzo|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.cap|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.citta|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.provincia|default_if_none:""}}</td>
             <td>{{lavoratore.cellulare|default_if_none:""}}</td>
-            <td>{{lavoratore.tipo_contratto}}</td>
+            <td class="text-center">{{lavoratore.tipo_contratto}}</td>
             <td>{{lavoratore.data_inizio|date:"d/m/y"}}</td>
             <td>{{lavoratore.data_fine|default_if_none:""|date:"d/m/y"}}</td>
-            <td>{{lavoratore.livello|default_if_none:""}}</td>
-            <td>{{lavoratore.qualifica|default_if_none:""}}</td>
-            <td>{{lavoratore.assunzione|default_if_none:""}}</td>
-            <td>{{lavoratore.busta_paga|default_if_none:""}}</td>
-            <td>{{lavoratore.mansione|default_if_none:""}}</td>
-            <td>{{lavoratore.attivita_svolta|default_if_none:""}}</td>
-            <td>{{lavoratore.mansione_1|default_if_none:""}}</td>
-            <td>{{lavoratore.mansione_2|default_if_none:""}}</td>
-            <td>{{lavoratore.mansione_3|default_if_none:""}}</td>
-            <!--                <td>{{lavoratore.reparto|default_if_none:""}}</td>-->
-            <td>{{lavoratore.cantiere|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.livello|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.assunzione|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.busta_paga|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.qualifica|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.sesso|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.cantiere|default_if_none:""}}</td>
         </tr>
         {% endfor %}
         </tbody>

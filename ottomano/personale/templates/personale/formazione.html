@@ -53,7 +53,7 @@
                 {% if conteggio_rg.primo_soccorso_r %}<span class="badge bg-danger">{{conteggio_rg.primo_soccorso_r}}</span>{% endif %}
                 {% if conteggio_rg.primo_soccorso_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.primo_soccorso_g}}</span>{% endif %}
             </th>
-            <th scope="col" class="bordo-destro">Antincendio*
+            <th scope="col" class="bordo-destro">Antincendio
                 {% if conteggio_rg.antincendio_r %}<span class="badge bg-danger">{{conteggio_rg.antincendio_r}}</span>{% endif %}
                 {% if conteggio_rg.antincendio_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.antincendio_g}}</span>{% endif %}
             </th>
@@ -118,7 +118,7 @@
             <td class="text-center"><i class="fa-solid fa-circle {{lavoratore.stato}}"></i></td>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
-            <td class="bordo-destro">{{lavoratore.lavoratore.mansione|default_if_none:""}}</td>
+            <td class="bordo-destro">{{lavoratore.lavoratore.qualifica|default_if_none:""}}</td>
 <!--            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>-->
             <td class="text-center {{lavoratore.art37_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:'dmy'}}.pdf" target="_blank">
