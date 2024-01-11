@@ -37,6 +37,7 @@
             <th scope="col">Città</th>
             <th scope="col">Prov.</th>
             <th scope="col">Cellulare</th>
+            <th scope="col">Email</th>
             <th scope="col">Contr.</th>
             <th scope="col">Inizio</th>
             <th scope="col">Fine</th>
@@ -63,6 +64,7 @@
             <td class="text-center">{{lavoratore.citta|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.provincia|default_if_none:""}}</td>
             <td>{{lavoratore.cellulare|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.email|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.tipo_contratto}}</td>
             <td>{{lavoratore.data_inizio|date:"d/m/y"}}</td>
             <td>{{lavoratore.data_fine|default_if_none:""|date:"d/m/y"}}</td>
