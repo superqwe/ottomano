@@ -7,7 +7,7 @@ from .models import Cantiere_Esterno
 def index(request):
     cantieri = Cantiere_Esterno.objects.filter(in_corso=True)
 
-    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__reparto='Uffici Sede')
+    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
 
     context = {'titolo': 'Cantieri Esterni',
                'pagina_attiva_esterni': 'active',
@@ -21,7 +21,7 @@ def index(request):
 
 def lavoratori(request, id_cantiere):
     cantiere = Cantiere_Esterno.objects.get(id=id_cantiere)
-    elenco_lavoratori = cantiere.elenco_lavoratori.all()
+    elenco_lavoratori = cantiere.elenco_lavoratori.filter(in_forza=True)
 
     context = {'titolo': cantiere,
                'id_cantiere': id_cantiere,
