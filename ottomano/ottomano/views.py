@@ -9,13 +9,13 @@ from sgi.models import RilevatoreH2S
 from pprint import pprint as pp
 
 
-# def index(request):
-#     return HttpResponseRedirect("/personale/formazione")
-
-
 def index(request):
-    importa_rilevatori()
-    return HttpResponse("Hello, world. You're at the personale index 8080 importa_rilevatori.")
+    return HttpResponseRedirect("/personale/formazione")
+
+
+# def index(request):
+#     importa_rilevatori()
+#     return HttpResponse("Hello, world. You're at the personale index 8080 importa_rilevatori.")
 
 
 def importa_rilevatori():

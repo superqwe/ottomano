@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
-from sgi.models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS
+from sgi.models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2024
@@ -136,6 +136,17 @@ def scadenzario_dpi_aggiorna(request):
         if data_fabbrica:
             dpi.elmetto = datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
             dpi.save()
+
+    # aggiorna data scadenza rilevatore h2s
+    lista_rilevatorih2s = RilevatoreH2S.objects.all()
+
+    for rilevatore in lista_rilevatorih2s:
+        try:
+            dpi = DPI2.objects.get(lavoratore=rilevatore.lavoratore)
+            dpi.rilevatore = rilevatore.data_scadenza
+            dpi.save()
+        except ObjectDoesNotExist:
+            pass
 
     return redirect(scadenzario_dpi)
 
