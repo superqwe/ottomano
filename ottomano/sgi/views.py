@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
-from sgi.models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2024
@@ -153,11 +153,13 @@ def scadenzario_dpi_aggiorna(request):
 
 def scadenzario_dpi(request):
     lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+    lista_rilevatorih2s = RilevatoreH2S.objects.all().exclude(uso='l')
 
     context = {'titolo': 'Scadenzario DPI',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_scadenzario_dpi': 'active',
                'lista_dpi': lista_dpi,
+               'lista_rilevatorih2s': lista_rilevatorih2s,
                }
 
     return render(request, 'sgi/scadenzario_dpi.html', context)
@@ -213,3 +215,13 @@ def cassette_ps_storico(request):
                }
 
     return render(request, 'sgi/cassette_ps_storico.html', context)
+def rilevatorih2s(request):
+    dati = RilevatoreH2S.objects.all()
+
+    context = {'titolo': 'Registro Rilevatori H2S',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_rilevatorih2s': 'active',
+               'registro': dati,
+               }
+
+    return render(request, 'sgi/rilevatorih2s.html', context)
