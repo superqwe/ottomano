@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -60,8 +60,23 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+class RilevatoreH2SAdmin(admin.ModelAdmin):
+    fields = (
+        'uso',
+        'lavoratore',
+        'marca',
+        'matricola',
+        'data_scadenza',
+        'data_bump_test'
+    )
+    list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test')
+    # list_filter = ('cassetta__stato', 'cassetta')
+    save_on_top = True
+
+
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Non_Conformita, Non_ConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
+admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)

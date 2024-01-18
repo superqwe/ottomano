@@ -41,6 +41,19 @@ MESE = [
     ('s2', '2° Semestre'),
 ]
 
+#  RILEVATORE H2S------------------------------------------------------------------------------------------------------
+MARCA_RILEVATORE_H2S = [
+    ('hw', 'Honeywell'),
+    ('dr', 'Drager'),
+    ('ms', 'MSA'),
+]
+USO_RILEVATORE_H2S = [
+    ('l', 'Consegnato'),
+    ('f', 'Fornitori'),
+    ('d', 'Disponibile')
+
+]
+
 
 class Formazione(models.Model):
     mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
@@ -147,7 +160,7 @@ class VerificaCassettaPS(models.Model):
     data_scadenza = models.DateField(blank=True, null=True)
     operazione = models.CharField(max_length=10, choices=OPERAZIONE_CASSETTA_PS, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
-    materiale_integrato = models.TextField('Materiale reintegrato',blank=True, null=True)
+    materiale_integrato = models.TextField('Materiale reintegrato', blank=True, null=True)
     materiale_da_integrare = models.TextField('Materiale da reintegrare', blank=True, null=True)
 
     class Meta:
@@ -157,3 +170,20 @@ class VerificaCassettaPS(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.cassetta, self.data_verifica)
+
+
+class RilevatoreH2S(models.Model):
+    uso = models.CharField(max_length=1, choices=USO_RILEVATORE_H2S, blank=True, null=True)
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+    marca = models.CharField(max_length=3, choices=MARCA_RILEVATORE_H2S, blank=True, null=True)
+    matricola = models.CharField(max_length=20, blank=True, null=True)
+    data_scadenza = models.DateField(blank=True, null=True)
+    data_bump_test = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-uso', 'lavoratore']
+        verbose_name = 'Rilevatore H2S'
+        verbose_name_plural = 'Rilevatori H2S'
+
+    def __str__(self):
+        return '{} {}'.format( self.marca, self.matricola)

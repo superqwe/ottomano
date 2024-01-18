@@ -4,17 +4,48 @@ from django.shortcuts import render
 import pandas as pd
 
 from personale.models import Lavoratore
+from sgi.models import RilevatoreH2S
 
 from pprint import pprint as pp
 
 
-def index(request):
-    return HttpResponseRedirect("/personale/formazione")
-
-
 # def index(request):
-#     importa_dati_anagrafica2()
-#     return HttpResponse("Hello, world. You're at the personale index 8080 ANAGRAFICA2.")
+#     return HttpResponseRedirect("/personale/formazione")
+
+
+def index(request):
+    importa_rilevatori()
+    return HttpResponse("Hello, world. You're at the personale index 8080 importa_rilevatori.")
+
+
+def importa_rilevatori():
+    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240124 Scadenzario DPI.xlsx'
+    df = pd.read_excel(PATH_XLSX, sheet_name='Foglio2', skiprows=0, na_values=None)
+    # print(df.columns)
+
+    for index, row in df.iterrows():
+        # print('\n', row.Cognome.title())
+        rilevatore = RilevatoreH2S()
+        try:
+            lavoratore = Lavoratore.objects.get(cognome=row.Cognome.strip().title(), nome=row.Nome.strip().title())
+            rilevatore.uso = 'l'
+            rilevatore.lavoratore = lavoratore
+        except:
+            rilevatore.uso = 'd'
+
+        rilevatore.matricola = row.Matricola
+        rilevatore.data_scadenza = row.Scadenza
+
+        match row.Tipo:
+            case 'Drager':
+                rilevatore.marca = 'dr'
+            case 'Honeywell':
+                rilevatore.marca = 'hw'
+            case 'MSA':
+                rilevatore.marca = 'ms'
+
+        # rilevatore.save()
+
 
 
 def importa_dati_anagrafica2():
@@ -66,7 +97,7 @@ def importa_dati_anagrafica2():
         # lavoratore.assunzione = row['QUALIFICA ASSUNZIONE']
         # lavoratore.busta_paga = row['MANSIONE_BUSTA_PAGA']
 
-        lavoratore.save()
+        # lavoratore.save()
 
 
 def importa_dati_anagrafica():
