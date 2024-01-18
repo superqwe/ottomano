@@ -186,4 +186,38 @@ class RilevatoreH2S(models.Model):
         verbose_name_plural = 'Rilevatori H2S'
 
     def __str__(self):
-        return '{} {}'.format( self.marca, self.matricola)
+        return '{} {}'.format(self.marca, self.matricola)
+
+
+# DPI ANTICADUTA ------------------------------------------------------------------------------------------------------
+USO_DPI_ANTICADUTA = [
+    ('c', 'Consegnato'),
+    ('d', 'Disponibile'),
+]
+
+TIPOLOGIA_DPI_ANTICADUTA = [
+    ('im', 'Imbracatura'),
+    ('c1', 'Cordino Singolo'),
+    ('c2', 'Cordino Doppio'),
+]
+
+
+class DPI_Anticaduta(models.Model):
+    uso = models.CharField(max_length=1, choices=USO_DPI_ANTICADUTA, blank=True, null=True)
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+    tipologia = models.CharField(max_length=2, choices=TIPOLOGIA_DPI_ANTICADUTA, blank=True, null=True)
+    tipo = models.CharField(max_length=20, blank=True, null=True)
+    marca = models.CharField(max_length=20, blank=True, null=True)
+    modello = models.CharField(max_length=20, blank=True, null=True)
+    matricola = models.CharField(max_length=20, blank=True, null=True)
+    data_fabbricazione = models.DateField(blank=True, null=True)
+    data_messa_in_servizio = models.DateField(blank=True, null=True)
+    data_scadenza = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-uso', 'lavoratore']
+        verbose_name = 'DPI Anticaduta'
+        verbose_name_plural = 'DPI Anticaduta'
+
+    def __str__(self):
+        return '{} {} {}'.format(self.tipologia, self.marca, self.matricola)
