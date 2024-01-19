@@ -92,16 +92,16 @@ def non_conformita(request, anno=FORMAZIONE_ANNO):
                'elenco_non_conformita': non_conformita_,
                }
 
-    pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
+    pagina_attiva_non_conformita_2024 = pagina_attiva_non_conformita_2023 = ''
 
     match anno:
+        case 2024:
+            pagina_attiva_non_conformita_2024 = 'active'
         case 2023:
-            pagina_attiva_formazione_2023 = 'active'
-        case 2022:
-            pagina_attiva_formazione_2022 = 'active'
+            pagina_attiva_non_conformita_2023 = 'active'
 
-    context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
-    context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
+    context['pagina_attiva_non_conformita_2024'] = pagina_attiva_non_conformita_2024
+    context['pagina_attiva_non_conformita_2023'] = pagina_attiva_non_conformita_2023
 
     return render(request, 'sgi/non_conformita.html', context)
 
