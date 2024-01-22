@@ -213,8 +213,26 @@ def cassette_ps_storico(request):
                'pagina_attiva_cassette_ps': 'active',
                'lista_verifiche': dati,
                }
-
     return render(request, 'sgi/cassette_ps_storico.html', context)
+
+
+def cassette_ps_scadenze(request):
+    lista_cassette = CassettaPS.objects.exclude(stato='0')
+
+    dati = []
+    for cassetta in lista_cassette:
+        verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).order_by('-data_verifica')[0]
+        dati.append((cassetta, verifica))
+
+    context = {'titolo': 'Storico verifiche Cassette PS',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_cassette_ps_scadenze': 'active',
+               'dati': dati,
+               }
+
+    return render(request, 'sgi/cassette_ps_scadenze.html', context)
+
+
 def rilevatorih2s(request):
     dati = RilevatoreH2S.objects.all()
 

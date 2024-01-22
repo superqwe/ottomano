@@ -18,6 +18,9 @@
     <a href="/sgi/cassette_ps/" class="btn btn-outline-primary" target=”_blank”>
         Registro
     </a>
+    <a href="/sgi/cassette_ps_scadenze/" class="btn btn-outline-primary" target=”_blank”>
+        Scadenze
+    </a>
 </div>
 {% endblock %}
 
@@ -42,7 +45,7 @@
         </thead>
 
         <tbody>
-        {% for  verifica in lista_verifiche %}
+        {% for verifica in lista_verifiche %}
         <tr>
             <td>{{verifica.cassetta}}</td>
             <td class="text-center">{{verifica.data_verifica}}</td>
@@ -68,7 +71,6 @@
     </table>
 
 </div>
-
 
 
 {% endblock %}

@@ -173,6 +173,22 @@ class VerificaCassettaPS(models.Model):
     materiale_integrato = models.TextField('Materiale reintegrato', blank=True, null=True)
     materiale_da_integrare = models.TextField('Materiale da reintegrare', blank=True, null=True)
 
+    sc2_guanti = models.DateField('Guanti sterili', blank=True, null=True)
+    sc2_iodio = models.DateField('Iodiopovidone 125ml', blank=True, null=True)
+    sc2_fisiologica = models.DateField('Fisiologica 250ml', blank=True, null=True)
+    sc2_garza18x40 = models.DateField('Garza 18x40', blank=True, null=True)
+    sc2_garza10x10 = models.DateField('Garza 10x10', blank=True, null=True)
+    sc2_pinzette = models.DateField('Pinzette', blank=True, null=True)
+    sc2_cotone = models.DateField('Cotone idrofilo', blank=True, null=True)
+    sc2_cerotti = models.DateField('Cerotti', blank=True, null=True)
+    sc2_cerotto25 = models.DateField('Cerotto alto 2.5cm', blank=True, null=True)
+    sc2_benda10 = models.DateField('Benda orlata 10cm', blank=True, null=True)
+    sc2_forbici = models.BooleanField(blank=True, null=True)
+    sc2_laccio = models.DateField('Laccio emostatico', blank=True, null=True)
+    sc2_ghiaccio = models.DateField('Ghiaccio pronto uso', blank=True, null=True)
+    sc2_sacchetto = models.BooleanField('Sacchetto monouso', blank=True, null=True)
+    sc2_istruzioni = models.BooleanField('Istruzioni/Estratto DLgs 81/08', blank=True, null=True)
+
     class Meta:
         ordering = ['cassetta', '-data_verifica']
         verbose_name = 'Verifica cassetta PS'
