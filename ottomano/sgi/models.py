@@ -54,25 +54,6 @@ USO_RILEVATORE_H2S = [
 
 ]
 
-
-class Formazione(models.Model):
-    mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
-    corso = models.IntegerField(blank=True, null=True)
-    data = models.DateField(blank=True, null=True)
-    argomento = models.CharField(max_length=100, blank=True, null=True)
-    docente = models.CharField(max_length=30, blank=True, null=True)
-    ore = models.CharField(max_length=6, blank=True, null=True)
-    persone = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        ordering = ['-data', '-corso']
-        verbose_name = 'Formazione'
-        verbose_name_plural = 'Formazioni'
-
-    def __str__(self):
-        return '%s %s' % (self.data, self.argomento)
-
-
 # NON CONFORMITÀ ------------------------------------------------------------------------------------------------------
 EMITTENTE = [
     ('sogein', 'CSE SOGEIN'),
@@ -93,6 +74,36 @@ TIPOLOGIA = [
 RESPONSABILE_TRATTAMENTO = [
     ('aspp', 'ASPP'),
 ]
+
+# DPI ANTICADUTA ------------------------------------------------------------------------------------------------------
+USO_DPI_ANTICADUTA = [
+    ('c', 'Consegnato'),
+    ('d', 'Disponibile'),
+]
+
+TIPOLOGIA_DPI_ANTICADUTA = [
+    ('im', 'Imbracatura'),
+    ('c1', 'Cordino Singolo'),
+    ('c2', 'Cordino Doppio'),
+]
+
+
+class Formazione(models.Model):
+    mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
+    corso = models.IntegerField(blank=True, null=True)
+    data = models.DateField(blank=True, null=True)
+    argomento = models.CharField(max_length=100, blank=True, null=True)
+    docente = models.CharField(max_length=30, blank=True, null=True)
+    ore = models.CharField(max_length=6, blank=True, null=True)
+    persone = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-data', '-corso']
+        verbose_name = 'Formazione'
+        verbose_name_plural = 'Formazioni'
+
+    def __str__(self):
+        return '%s %s' % (self.data, self.argomento)
 
 
 class Non_Conformita(models.Model):
@@ -159,7 +170,6 @@ class VerificaCassettaPS(models.Model):
     data_verifica = models.DateField(blank=True, null=True)
     data_scadenza = models.DateField(blank=True, null=True)
     operazione = models.CharField(max_length=10, choices=OPERAZIONE_CASSETTA_PS, blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
     materiale_integrato = models.TextField('Materiale reintegrato', blank=True, null=True)
     materiale_da_integrare = models.TextField('Materiale da reintegrare', blank=True, null=True)
 
@@ -187,19 +197,6 @@ class RilevatoreH2S(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.marca, self.matricola)
-
-
-# DPI ANTICADUTA ------------------------------------------------------------------------------------------------------
-USO_DPI_ANTICADUTA = [
-    ('c', 'Consegnato'),
-    ('d', 'Disponibile'),
-]
-
-TIPOLOGIA_DPI_ANTICADUTA = [
-    ('im', 'Imbracatura'),
-    ('c1', 'Cordino Singolo'),
-    ('c2', 'Cordino Doppio'),
-]
 
 
 class DPI_Anticaduta(models.Model):

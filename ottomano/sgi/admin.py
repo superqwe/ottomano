@@ -52,9 +52,8 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
         'operazione',
         ('materiale_integrato',
          'materiale_da_integrare'),
-        'note',
     )
-    list_display = ('cassetta', 'data_verifica', 'data_scadenza', 'operazione', 'note', 'materiale_integrato',
+    list_display = ('cassetta', 'data_verifica', 'data_scadenza', 'operazione', 'materiale_integrato',
                     'materiale_da_integrare',)
     list_filter = ('cassetta__stato', 'cassetta')
     save_on_top = True
