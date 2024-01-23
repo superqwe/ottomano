@@ -13,7 +13,7 @@ class CantiereEsternoAdmin(admin.ModelAdmin):
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == 'elenco_lavoratori':
-            kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True, cantiere__cantiere='ENI')
+            kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
 
         elif db_field.name == 'elenco_mezzi':
             kwargs["queryset"] = Mezzo.objects.filter(in_forza=True)

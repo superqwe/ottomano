@@ -365,7 +365,7 @@ def scadenziario_idoneita(request):
 
 
 def estrai_dati(request):
-    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__reparto='Uffici Sede')
+    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
 
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 
