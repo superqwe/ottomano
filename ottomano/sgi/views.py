@@ -224,9 +224,9 @@ def cassette_ps_scadenze(request):
         verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).order_by('-data_verifica')[0]
         dati.append((cassetta, verifica))
 
-    context = {'titolo': 'Storico verifiche Cassette PS',
+    context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
-               'pagina_attiva_cassette_ps_scadenze': 'active',
+               'pagina_attiva_cassette_ps': 'active',
                'dati': dati,
                }
 
