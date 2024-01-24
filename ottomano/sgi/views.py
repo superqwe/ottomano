@@ -1,3 +1,4 @@
+import inspect
 import pathlib
 from datetime import datetime
 from pprint import pp
@@ -7,6 +8,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
+
+import sgi.cassetta_ps_util as cassetta_ps_util
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2024
@@ -223,6 +226,22 @@ def cassette_ps_scadenze(request):
     for cassetta in lista_cassette:
         verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).order_by('-data_verifica')[0]
         dati.append((cassetta, verifica))
+
+
+    lista_scadenze =[]
+    for cassetta, verifica in dati:
+        print('\n', cassetta)
+
+        ps = cassetta_ps_util.Cassetta(verifica)
+        scadenze_cassetta = ps.prodotti_in_scadenza()
+        print(scadenze_cassetta)
+
+        if scadenze_cassetta:
+            lista_scadenze.extend(scadenze_cassetta)
+
+    lista_scadenze.sort()
+
+    pp(lista_scadenze)
 
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
