@@ -222,31 +222,21 @@ def cassette_ps_storico(request):
 def cassette_ps_scadenze(request):
     lista_cassette = CassettaPS.objects.exclude(stato='0')
 
-    dati = []
+    dati_cassette = []
+    elenco_scadenze = []
     for cassetta in lista_cassette:
         verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).order_by('-data_verifica')[0]
-        dati.append((cassetta, verifica))
+        dati_cassette.append((cassetta, verifica))
+        elenco_scadenze.append(verifica)
 
-
-    lista_scadenze =[]
-    for cassetta, verifica in dati:
-        print('\n', cassetta)
-
-        ps = cassetta_ps_util.Cassetta(verifica)
-        scadenze_cassetta = ps.prodotti_in_scadenza()
-        print(scadenze_cassetta)
-
-        if scadenze_cassetta:
-            lista_scadenze.extend(scadenze_cassetta)
-
-    lista_scadenze.sort()
-
-    pp(lista_scadenze)
+    cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
+    prodotti_in_scadenza = cassettaPS_Util.prodotti_in_scadenza()
 
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
-               'dati': dati,
+               'dati': dati_cassette,
+               'prodotti_in_scadenza_all2': prodotti_in_scadenza,
                }
 
     return render(request, 'sgi/cassette_ps_scadenze.html', context)
