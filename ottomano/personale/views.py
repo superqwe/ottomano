@@ -4,6 +4,8 @@ import itertools
 import math
 import os
 
+from pprint import pprint as pp
+
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
@@ -401,6 +403,7 @@ def dati_estratti(request):
         attestati = []
         nomine = []
         for x in request.POST.keys():
+            print(x)
             if x != 'csrfmiddlewaretoken':
                 if x.isnumeric():
                     lavoratore = Formazione.objects.get(id__exact=x)
@@ -412,6 +415,10 @@ def dati_estratti(request):
 
         dati = estrai_dati_util.Estrai_Dati()
         # dati.salva_lavoratori(lavoratori)
+
+        print()
+        pp(attestati)
+        print()
 
         tabella = dati.estrai(lavoratori, attestati, nomine)
 

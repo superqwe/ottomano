@@ -7,6 +7,7 @@ import pathlib
 import shutil
 import zipfile
 from itertools import islice
+from pprint import pp
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
@@ -40,7 +41,6 @@ class Estrai_Dati:
             config.write(cfg)
 
     def estrai(self, elenco_lavoratori, elenco_formazione, elenco_nomine):
-
         try:
             shutil.rmtree(PATH_ESTRAI)
         except (PermissionError, FileNotFoundError):

@@ -7,5 +7,6 @@
 .bordo-destro {border-right-width: 2px !important;}
 
 /* sgi */
+.no_link_sottolineato {text-decoration: none;}
 .rigo_firme {height: 100px;}
 .logo_ottomano {max-height: 64px}
