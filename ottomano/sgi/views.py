@@ -1,6 +1,6 @@
 import inspect
 import pathlib
-from datetime import datetime
+import datetime
 from pprint import pp
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,6 +10,7 @@ from personale.models import Lavoratore
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
 
 import sgi.cassetta_ps_util as cassetta_ps_util
+import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 FORMAZIONE_ANNO = 2024
@@ -125,7 +126,7 @@ def scadenzario_dpi_aggiorna(request):
 
         if consegna_dpi:
             data_consegna = consegna_dpi[0].name.split()[1].split('.')[0]
-            data_consegna = datetime.strptime(data_consegna, '%d%m%y')
+            data_consegna = datetime.datetime.strptime(data_consegna, '%d%m%y')
             dpi.consegna = data_consegna
 
         dpi.save()
@@ -137,7 +138,7 @@ def scadenzario_dpi_aggiorna(request):
         data_fabbrica = dpi.elmetto_df
 
         if data_fabbrica:
-            dpi.elmetto = datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
+            dpi.elmetto = datetime.datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
             dpi.save()
 
     # aggiorna data scadenza rilevatore h2s
@@ -151,7 +152,13 @@ def scadenzario_dpi_aggiorna(request):
         except ObjectDoesNotExist:
             pass
 
+    scadenzario_dpi_util.aggiorna_stato()
+
     return redirect(scadenzario_dpi)
+
+
+def scadenzario_dpi_aggiorna_stato():
+    pass
 
 
 def scadenzario_dpi(request):

@@ -4,6 +4,12 @@ from personale.models import Lavoratore
 
 from pprint import pp
 
+STATO_DOCUMENTI = [
+    (None, 'ok_np'),
+    ('table-warning', 'scade'),
+    ('table-danger', 'scaduto')
+]
+
 # CASSETTE PS ---------------------------------------------------------------------------------------------------------
 ALLEGATO_CASSETTA_PS = [
     ('1', '1'),
@@ -133,9 +139,14 @@ class DPI2(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     consegna = models.DateField(blank=True, null=True, default=None)
     elmetto = models.DateField(blank=True, null=True, default=None)
-    elmetto_df = models.DateField(blank=True, null=True, default=None)
+    elmetto_df = models.DateField('Data di fabbricazione', blank=True, null=True, default=None)
     rilevatore = models.DateField(blank=True, null=True, default=None)
     maschera = models.DateField(blank=True, null=True, default=None)
+
+    ck_consegna = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_elmetto = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_rilevatore = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_maschera = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     class Meta:
         ordering = ['lavoratore', ]

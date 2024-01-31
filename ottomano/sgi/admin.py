@@ -20,11 +20,12 @@ class Non_ConformitaAdmin(admin.ModelAdmin):
 class DPIAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
-        'consegna',
-        ('elmetto', 'elmetto_df'),
-        'maschera'
+        ('consegna', 'ck_consegna'),
+        ('elmetto', 'elmetto_df', 'ck_elmetto'),
+        ('rilevatore', 'ck_rilevatore'),
+        ('maschera', 'ck_maschera'),
     )
-    list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
+    list_display = ('lavoratore', 'consegna', 'elmetto', 'rilevatore', 'maschera')
     list_filter = ('lavoratore__in_forza',)
     save_on_top = True
 

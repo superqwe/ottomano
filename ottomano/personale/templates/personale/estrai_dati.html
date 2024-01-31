@@ -40,9 +40,10 @@
                             </div>
                             {% endfor %}
                         </div>
+                            <a class="btn btn-outline-secondary" id="lavoratori_tutti" onclick="showHide(event, this)">Seleziona tutto</a>
                         </p>
-<!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
-<!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
                     </div>
                 </div>
 
@@ -64,8 +65,8 @@
                             {% endfor %}
                         </div>
                         </p>
-<!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
-<!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
                     </div>
                 </div>
 
@@ -78,10 +79,10 @@
                             <label for="{{nomina}}">{{nomina|title}}</label><br>
                             {% endfor %}
                         </p>
-<!--                        <input class="btn btn-outline-secondary" type="button" onclick='selects()' value="Seleziona tutto"/>-->
-<!--                        <input class="btn btn-outline-secondary" type="button" onclick='deSelect()' value="Deseleziona Tutto"/>-->
-<!--                        <a class="btn btn-outline-secondary" onClick="toggle()">Seleziona tutto</a>-->
-<!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
+                        <!--                        <input class="btn btn-outline-secondary" type="button" onclick='selects()' value="Seleziona tutto"/>-->
+                        <!--                        <input class="btn btn-outline-secondary" type="button" onclick='deSelect()' value="Deseleziona Tutto"/>-->
+                        <!--                        <a class="btn btn-outline-secondary" onClick="toggle()">Seleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
                     </div>
                 </div>
 
@@ -94,8 +95,8 @@
                             <input type="checkbox" id="idoneita" name="idoneita" value="idoneita_">
                             <label for="idoneita">Idoneità</label><br>
                         </p>
-<!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
-<!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Seleziona tutto</a>-->
+                        <!--                        <a href="#" class="btn btn-outline-secondary">Deseleziona tutto</a>-->
                     </div>
                 </div>
 
@@ -108,22 +109,35 @@
 </div>
 
 <script type="text/javascript">
-    function selects(){
-        var ele=document.getElementsByName('nomine');
-        for(var i=0; i<ele.length; i++){
-            if(ele[i].type=='checkbox')
-                ele[i].checked=true;
-        }
+    function showHide(event) {
+      var tgt = event.target;
+      if (tgt.tagName === "BUTTON") {
+        var code = tgt.nextElementSibling;
+        code.classList.toggle('hide');
+      }
+      return false;
     }
-    function deSelect(){
-        var ele=document.getElementsByName('nomine');
-        for(var i=0; i<ele.length; i++){
-            if(ele[i].type=='checkbox')
-                ele[i].checked=false;
-
-        }
-    }
+    document.getElementById('lavoratori_tutti').setAttribute('onclick', "showHide(event, this)");
 </script>
+
+
+<!--<script type="text/javascript">-->
+<!--    function selects(){-->
+<!--        var ele=document.getElementsByName('nomine');-->
+<!--        for(var i=0; i<ele.length; i++){-->
+<!--            if(ele[i].type=='checkbox')-->
+<!--                ele[i].checked=true;-->
+<!--        }-->
+<!--    }-->
+<!--    function deSelect(){-->
+<!--        var ele=document.getElementsByName('nomine');-->
+<!--        for(var i=0; i<ele.length; i++){-->
+<!--            if(ele[i].type=='checkbox')-->
+<!--                ele[i].checked=false;-->
+
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 
 
 {% endblock %}
