@@ -10,18 +10,7 @@
 
 
 {% block menu_sezione %}
-<div class="col text-end d-print-none">
-    <a href="/admin/sgi/verificacassettaps/add/" class="btn btn-outline-primary" target=”_blank”>
-        <i class="fa-solid fa-square-plus"></i>
-        Verifica
-    </a>
-    <a href="/sgi/cassette_ps/" class="btn btn-outline-primary" target=”_blank”>
-        Registro
-    </a>
-    <a href="/sgi/cassette_ps_scadenze/" class="btn btn-outline-primary" target=”_blank”>
-        Scadenze
-    </a>
-</div>
+{% include "./menu_sezione_cassette_ps.html" %}
 {% endblock %}
 
 

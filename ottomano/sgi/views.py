@@ -195,7 +195,7 @@ def cassette_ps(request):
                     n, articolo = rigo.split(' ', 1)
                     n = int(n[-1])
                     articolo = articolo.strip()
-                    articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + 1
+                    articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
             case 'dis':
                 cassetta.stato = '0'
                 cassetta.ubicazione = 'Dismessa'
@@ -208,6 +208,7 @@ def cassette_ps(request):
     context = {'titolo': 'Registro Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
+               'pagina_attiva_cassette_ps_registro': 'active',
                'lista_cassette': dati,
                'articoli_reintegro': articoli_reintegro,
                }
@@ -221,6 +222,7 @@ def cassette_ps_storico(request):
     context = {'titolo': 'Storico verifiche Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
+               'pagina_attiva_cassette_ps_storico': 'active',
                'lista_verifiche': dati,
                }
     return render(request, 'sgi/cassette_ps_storico.html', context)
@@ -242,6 +244,7 @@ def cassette_ps_scadenze(request):
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
+               'pagina_attiva_cassette_ps_scadenze': 'active',
                'dati': dati_cassette,
                'prodotti_in_scadenza_all2': prodotti_in_scadenza,
                }
