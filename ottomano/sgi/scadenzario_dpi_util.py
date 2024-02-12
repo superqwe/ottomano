@@ -13,6 +13,7 @@ MESI_9_PASSATI = OGGI - datetime.timedelta(days=30.5 * 9)
 
 
 def aggiorna_stato():
+    DPI2.objects.filter(Q(consegna__lte=OGGI)).update(ck_consegna=None)
     DPI2.objects.filter(Q(consegna__lt=MESI_6_PASSATI)).update(ck_consegna='table-warning')
     DPI2.objects.filter(Q(consegna__lt=MESI_9_PASSATI) | Q(consegna__isnull=True)).update(ck_consegna='table-danger')
 
