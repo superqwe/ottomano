@@ -122,7 +122,11 @@
 <!--            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>-->
             <td class="text-center {{lavoratore.art37_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:'dmy'}}.pdf" target="_blank">
-                {{lavoratore.art37|date:"d/m/y"}}
+                    {% if lavoratore.art37_ck == 'es-prep' %}
+                    <i class="fa-solid fa-right-long"></i> Preposto
+                    {% else %}
+                    {{lavoratore.art37|date:"d/m/y"}}
+                    {% endif %}
                 </a>
             </td>
             <td class="text-center {{lavoratore.preposto_ck}}">

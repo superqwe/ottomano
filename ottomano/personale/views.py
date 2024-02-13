@@ -103,10 +103,11 @@ def aggiorna_documenti(request):
         except FileNotFoundError:
             attestati = []
 
+        # scadenza art37 --> preposto
+
         # salva su db
         cognome, nome = lavoratore.split(maxsplit=1)
         if attestati:
-
             try:
                 formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
             except ObjectDoesNotExist:
@@ -116,6 +117,17 @@ def aggiorna_documenti(request):
             for corso, data_dc, data in attestati:
                 setattr(formazione_, corso, data)
                 setattr(formazione_, '%s_dc' % corso, data_dc)
+
+            # modifica art37 se è stato effettuato il corso da preposto
+            # if [x[0] for x in attestati if x[0] == 'art37']:
+            #     if OGGI > formazione_.art37 and formazione_.art37 < formazione_.preposto:
+            #
+            #
+            #         pp(attestati)
+            #         print(OGGI > formazione_.art37 , formazione_.art37 < formazione_.preposto)
+            #         formazione_.art37_ck = 'es-prep'
+            #         print(formazione_.art37_ck)
+            #         print()
 
             formazione_.save()
 
@@ -151,7 +163,6 @@ def aggiorna_documenti(request):
         idoneita.save()
 
         # ricerca nomine
-
         try:
             path_nomine = os.path.join(PATH_DOCUMENTI, lavoratore, 'nomine')
             nomine = os.listdir(path_nomine)
@@ -250,25 +261,6 @@ def aggiorna_stato(request):
     Formazione.objects.filter(Q(rls__gt=OGGI) | Q(rls__isnull=True)).update(rls_ck='')
     Formazione.objects.filter(Q(aspp__gt=OGGI) | Q(aspp__isnull=True)).update(aspp_ck='')
 
-    # todo: blocco obsoleto --> eliminare dopo verifica funzionamento blocco soprastante
-    # Formazione.objects.filter(dirigente__gt=OGGI).update(dirigente_ck='')
-    # Formazione.objects.filter(preposto__gt=OGGI).update(preposto_ck='')
-    # Formazione.objects.filter(primo_soccorso__gt=OGGI).update(primo_soccorso_ck='')
-    # Formazione.objects.filter(antincendio__gt=OGGI).update(antincendio_ck='')
-    # Formazione.objects.filter(art37__gt=OGGI).update(art37_ck='')
-    # Formazione.objects.filter(spazi_confinati__gt=OGGI).update(spazi_confinati_ck='')
-    # Formazione.objects.filter(ponteggiatore__gt=OGGI).update(ponteggiatore_ck='')
-    # Formazione.objects.filter(imbracatore__gt=OGGI).update(imbracatore_ck='')
-    # Formazione.objects.filter(ept__gt=OGGI).update(ept_ck='')
-    # Formazione.objects.filter(autogru__gt=OGGI).update(autogru_ck='')
-    # Formazione.objects.filter(gru_autocarro__gt=OGGI).update(gru_autocarro_ck='')
-    # Formazione.objects.filter(carrello__gt=OGGI).update(carrello_ck='')
-    # Formazione.objects.filter(sollevatore__gt=OGGI).update(sollevatore_ck='')
-    # Formazione.objects.filter(ple__gt=OGGI).update(ple_ck='')
-    # Formazione.objects.filter(rls__gt=OGGI).update(rls_ck='')
-    # Formazione.objects.filter(aspp__gt=OGGI).update(aspp_ck='')
-    ####################################################################################
-
     Formazione.objects.filter(dirigente__lt=FRA_N_MESI).update(dirigente_ck='table-warning', stato='giallo')
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning', stato='giallo')
     Formazione.objects.filter(primo_soccorso__lt=FRA_N_MESI).update(primo_soccorso_ck='table-warning', stato='giallo')
@@ -303,6 +295,10 @@ def aggiorna_stato(request):
     Formazione.objects.filter(aspp__lt=OGGI).update(aspp_ck='table-danger', stato='rosso')
 
     Formazione.objects.filter(art37=None).update(art37_ck='table-danger', stato='rosso')
+
+    # art37 se ha la formazione da preposto
+    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(preposto__gt=OGGI)).update(
+        art37_ck='es-prep')
 
     Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
     Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
@@ -367,7 +363,8 @@ def scadenziario_idoneita(request):
 
 
 def estrai_dati(request):
-    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+    lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(
+        lavoratore__cantiere__cantiere='Uffici Sede')
 
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 

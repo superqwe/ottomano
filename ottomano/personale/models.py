@@ -3,7 +3,8 @@ from django.db import models
 STATO_DOCUMENTI = [
     (None, 'ok_np'),
     ('table-warning', 'scade'),
-    ('table-danger', 'scaduto')
+    ('table-danger', 'scaduto'),
+    ('es-prep', 'esonero preposto')
 ]
 
 STATO_FORMAZIONE = [
