@@ -444,12 +444,16 @@ def conteggio_rg(query):
     dirigente_g = query.filter(dirigente_ck='table-warning').count()
     antincendio_r = query.filter(antincendio_ck='table-danger').count()
     antincendio_g = query.filter(antincendio_ck='table-warning').count()
+    spazi_confinati_r = query.filter(spazi_confinati_ck='table-danger').count()
+    spazi_confinati_g = query.filter(spazi_confinati_ck='table-warning').count()
     primo_soccorso_r = query.filter(primo_soccorso_ck='table-danger').count()
     primo_soccorso_g = query.filter(primo_soccorso_ck='table-warning').count()
     ponteggiatore_r = query.filter(ponteggiatore_ck='table-danger').count()
     ponteggiatore_g = query.filter(ponteggiatore_ck='table-warning').count()
     ept_r = query.filter(ept_ck='table-danger').count()
     ept_g = query.filter(ept_ck='table-warning').count()
+    autogru_r = query.filter(autogru_ck='table-danger').count()
+    autogru_g = query.filter(autogru_ck='table-warning').count()
     carrello_r = query.filter(carrello_ck='table-danger').count()
     carrello_g = query.filter(carrello_ck='table-warning').count()
     ple_r = query.filter(ple_ck='table-danger').count()
@@ -466,12 +470,16 @@ def conteggio_rg(query):
         'dirigente_g': dirigente_g,
         'antincendio_r': antincendio_r,
         'antincendio_g': antincendio_g,
+        'spazi_confinati_r': spazi_confinati_r,
+        'spazi_confinati_g': spazi_confinati_g,
         'primo_soccorso_r': primo_soccorso_r,
         'primo_soccorso_g': primo_soccorso_g,
         'ponteggiatore_r': ponteggiatore_r,
         'ponteggiatore_g': ponteggiatore_g,
         'ept_r': ept_r,
         'ept_g': ept_g,
+        'autogru_r': autogru_r,
+        'autogru_g': autogru_g,
         'carrello_r': carrello_r,
         'carrello_g': carrello_g,
         'ple_r': ple_r,
