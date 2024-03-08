@@ -61,24 +61,29 @@ USO_RILEVATORE_H2S = [
 ]
 
 # NON CONFORMITÀ ------------------------------------------------------------------------------------------------------
-EMITTENTE = [
+NC_EMITTENTE = [
     ('sogein', 'CSE SOGEIN'),
     ('scc', 'CSE SCC'),
     ('a_scc', 'Assistente CSE SCC'),
     ('aspp', 'ASPP'),
+    ('rsgi', 'RSGI'),
     ('hse eni', 'HSE ENI'),
     ('a_hse_scc', 'Assistente HSE SCC'),
 ]
-AREA = [
+NC_AREA = [
     ('sic', 'Sicurezza'),
+    ('qua', 'Qualità'),
+    ('qhse', 'QHSE'),
 ]
 
-TIPOLOGIA = [
+NC_TIPOLOGIA = [
     ('nc', 'NC'),
+    ('oss', 'OSS'),
 ]
 
-RESPONSABILE_TRATTAMENTO = [
+NC_RESPONSABILE_TRATTAMENTO = [
     ('aspp', 'ASPP'),
+    ('rsgi', 'RSGI'),
 ]
 
 # DPI ANTICADUTA ------------------------------------------------------------------------------------------------------
@@ -114,15 +119,15 @@ class Formazione(models.Model):
 
 class Non_Conformita(models.Model):
     data = models.DateField(blank=True, null=True)
-    emittente = models.CharField(max_length=10, choices=EMITTENTE, blank=True, null=True)
-    area = models.CharField(max_length=10, choices=AREA, blank=True, null=True, default='sic')
-    tipologia = models.CharField(max_length=10, choices=TIPOLOGIA, blank=True, null=True, default='nc')
+    emittente = models.CharField(max_length=10, choices=NC_EMITTENTE, default='aspp', blank=True, null=True)
+    area = models.CharField(max_length=10, choices=NC_AREA, blank=True, null=True, default='sic')
+    tipologia = models.CharField(max_length=10, choices=NC_TIPOLOGIA, blank=True, null=True, default='nc')
     descrizione = models.TextField(blank=True, null=True)
     trattamento = models.TextField(blank=True, null=True)
     causa = models.TextField(blank=True, null=True)
     azione_correttiva = models.TextField(blank=True, null=True)
-    responsabile_trattamento = models.CharField(max_length=10, choices=RESPONSABILE_TRATTAMENTO, blank=True, null=True,
-                                                default='aspp')
+    responsabile_trattamento = models.CharField(max_length=10, choices=NC_RESPONSABILE_TRATTAMENTO, blank=True,
+                                                null=True, default='aspp')
     data_completamento = models.DateField(blank=True, null=True)
     data_verifica = models.DateField(blank=True, null=True)
 
@@ -194,7 +199,7 @@ class VerificaCassettaPS(models.Model):
     sc1_cerotti = models.DateField('Cerotti', blank=True, null=True)
     sc1_cerotto25 = models.DateField('Cerotto alto 2.5cm', blank=True, null=True)
     sc1_visiera = models.DateField('Visiera paraschizzi', blank=True, null=True)
-    sc1_forbici = models.BooleanField('Forbici',blank=True, null=True)
+    sc1_forbici = models.BooleanField('Forbici', blank=True, null=True)
     sc1_laccio = models.DateField('Laccio emostatico', blank=True, null=True)
     sc1_ghiaccio = models.DateField('Ghiaccio pronto uso', blank=True, null=True)
     sc1_sacchetto = models.BooleanField('Sacchetto monouso', blank=True, null=True)
@@ -214,7 +219,7 @@ class VerificaCassettaPS(models.Model):
     sc2_cerotti = models.DateField('Cerotti', blank=True, null=True)
     sc2_cerotto25 = models.DateField('Cerotto alto 2.5cm', blank=True, null=True)
     sc2_benda10 = models.DateField('Benda orlata 10cm', blank=True, null=True)
-    sc2_forbici = models.BooleanField('Forbici',blank=True, null=True)
+    sc2_forbici = models.BooleanField('Forbici', blank=True, null=True)
     sc2_laccio = models.DateField('Laccio emostatico', blank=True, null=True)
     sc2_ghiaccio = models.DateField('Ghiaccio pronto uso', blank=True, null=True)
     sc2_sacchetto = models.BooleanField('Sacchetto monouso', blank=True, null=True)

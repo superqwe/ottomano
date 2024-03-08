@@ -61,7 +61,7 @@
             <td>{{nc.causa}}</td>
             <td>{{nc.azione_correttiva}}</td>
             <td class="text-center">{{nc.get_responsabile_trattamento_display}}</td>
-            <td class="text-center">{{nc.data_completamento}}</td>
+            <td class="text-center">{{nc.data_completamento|default_if_none:"-"}}</td>
             <td class="text-center">{{nc.data_verifica|default_if_none:"-"}}</td>
         </tr>
         {% endfor %}
