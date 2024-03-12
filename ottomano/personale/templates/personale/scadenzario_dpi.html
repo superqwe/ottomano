@@ -34,8 +34,8 @@
             <td>{{dpi.lavoratore.cognome}}</td>
             <td>{{dpi.lavoratore.nome}}</td>
             <td class="text-center {{lavoratore.idoneita_ck}}">
-                <a href="{% static ''%}{{dpi.lavoratore}}/consegna_dpi {{dpi.consegna|date:"dmy"}}.pdf" target="_blank">
-                {{dpi.consegna|date:"d/m/y"}}
+                <a href="{% static ''%}{{dpi.lavoratore}}/consegna_dpi {{dpi.consegna|date:'dmy'}}.pdf" target="_blank">
+                    {{dpi.consegna|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center {{lavoratore.idoneita_ck}}">{{dpi.elmetto|date:"m/y"}}</td>
@@ -48,7 +48,6 @@
         </tbody>
     </table>
 </div>
-
 
 
 {% endblock %}
