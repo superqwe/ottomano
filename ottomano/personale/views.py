@@ -541,6 +541,15 @@ def scadenzario_formazione_schede(request, anno):
         scade_tra_1_anno = Q(**{'%s__lt' % corso: scadenza_formazione})
         lavoratori = Formazione.objects.filter(scade_tra_1_anno).filter(lavoratore__in_forza=True)
 
+        # esonero art37 #####
+        if corso == 'art37':
+            # per i preposti
+            lavoratori = [x for x in lavoratori if x.preposto == None or x.preposto <= x.art37]
+
+            # per gli aspp
+            lavoratori = [x for x in lavoratori if x.aspp == None or x.aspp <= x.art37]
+        #####################
+
         if lavoratori:
             elenco_lavoratori = [[x.lavoratore.cognome, x.lavoratore.nome, getattr(x, corso), getattr(x, corso_ck)]
                                  for x in lavoratori
