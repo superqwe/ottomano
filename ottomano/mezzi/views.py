@@ -23,7 +23,7 @@ def elenco(request):
                'pagina_attiva_elenco': 'active',
                'mezzi': mezzi}
 
-    return render(request, 'mezzi/base.html', context)
+    return render(request, 'mezzi/elenco.html', context)
 
 
 def scadenziario(request):
