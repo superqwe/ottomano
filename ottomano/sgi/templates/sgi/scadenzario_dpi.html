@@ -39,12 +39,12 @@
         <tbody>
         {% for dpi in lista_dpi %}
         <tr>
-            <td>{{dpi.lavoratore.cognome}}</td>
+            <td><a href="/admin/sgi/dpi2/{{dpi.pk}}/change/" target="_blank">{{dpi.lavoratore.cognome}}</a></td>
             <td>{{dpi.lavoratore.nome}}</td>
             <td class="text-center {{dpi.ck_consegna}}">
                 <a href="{% static ''%}{{dpi.lavoratore}}/consegna_dpi {{dpi.consegna|date:'dmy'}}.pdf"
-                target="_blank">
-                {{dpi.consegna|date:"d/m/y"}}
+                   target="_blank">
+                    {{dpi.consegna|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center {{dpi.ck_elmetto}}">{{dpi.elmetto|date:"m/y"}}</td>
