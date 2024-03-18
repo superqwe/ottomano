@@ -33,6 +33,7 @@
             </th>
             <th scope="col">Esposizione personale quotidiana al rumore non superiore al 50% dell'orario giornaliero</th>
             <th scope="col">Uso di calzature antinfortunistiche compatibili con l'utilizzo del plantare</th>
+            <th scope="col">Uso calzature antinfortunistiche leggere</th>
             <th scope="col">Lenti polarizzate</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 15</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 10</th>
@@ -70,7 +71,12 @@
                 {% endif %}
             </td>
             <td class="text-center bordo-destro">
-                {% if lavoratore.calzature %}
+                {% if lavoratore.calzature_plantare %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if lavoratore.calzature_leggere %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
@@ -79,12 +85,12 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.carichi_15 %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.carichi_10 %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -94,12 +100,12 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.sollecitazioni_rachide %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.guanti %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -109,12 +115,12 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center  bordo-destro">
                 {% if lavoratore.posture %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.spazi_confinati %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -124,12 +130,12 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center  bordo-destro">
                 {% if lavoratore.scale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.temperature %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}

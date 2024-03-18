@@ -77,7 +77,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'mansioni_gravose',
         'temperature',
         'scale',
-        'calzature',
+        ('calzature_plantare', 'calzature_leggere'),
         'lenti',
         'semestrale',
         'dpi_respiratori'
