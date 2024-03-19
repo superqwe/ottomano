@@ -39,36 +39,12 @@ class CassettaPSAdmin(admin.ModelAdmin):
         ('messa_in_servizio', 'dismissione'),
         ('scadenza', 'ultima_verifica'),
     )
-    # list_display = ('stato', 'numero', 'allegato', 'ubicazione')
     list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)
     save_on_top = True
 
 
 class VerificaCassettaPSAdmin(admin.ModelAdmin):
-    # fields = (
-    #     'cassetta',
-    #     'data_verifica',
-    #     'data_scadenza',
-    #     'operazione',
-    #     ('materiale_integrato',
-    #      'materiale_da_integrare'),
-    #     'sc2_guanti',
-    #     'sc2_iodio',
-    #     'sc2_fisiologica',
-    #     'sc2_garza18x40',
-    #     'sc2_garza10x10',
-    #     'sc2_pinzette',
-    #     'sc2_cotone',
-    #     'sc2_cerotti',
-    #     'sc2_cerotto25',
-    #     'sc2_benda10',
-    #     'sc2_forbici',
-    #     'sc2_laccio',
-    #     'sc2_ghiaccio',
-    #     'sc2_sacchetto',
-    #     'sc2_istruzioni',
-    # )
     fieldsets = [
         (None,
          {'fields': [
@@ -125,7 +101,7 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
     ]
     list_display = ('cassetta', 'data_verifica', 'data_scadenza', 'operazione', 'materiale_integrato',
                     'materiale_da_integrare',)
-    list_filter = ('cassetta__stato', 'cassetta')
+    list_filter = ('cassetta__stato', 'operazione', 'cassetta')
     save_on_top = True
 
 

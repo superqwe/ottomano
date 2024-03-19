@@ -175,7 +175,7 @@ class CassettaPS(models.Model):
     class Meta:
         ordering = ['numero', ]
         verbose_name = 'Cassetta PS'
-        verbose_name_plural = 'Cassette PS'
+        verbose_name_plural = 'Cassette PS elenco'
 
     def __str__(self):
         return self.numero
@@ -227,8 +227,8 @@ class VerificaCassettaPS(models.Model):
 
     class Meta:
         ordering = ['cassetta', '-data_verifica']
-        verbose_name = 'Verifica cassetta PS'
-        verbose_name_plural = 'Verifiche cassette PS'
+        verbose_name = 'Verifica Cassetta PS'
+        verbose_name_plural = 'Cassetta PS verifiche'
 
     def __str__(self):
         return '{} {}'.format(self.cassetta, self.data_verifica)
