@@ -103,7 +103,7 @@ class Formazione(models.Model):
     mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
     corso = models.IntegerField(blank=True, null=True)
     data = models.DateField(blank=True, null=True)
-    argomento = models.CharField(max_length=100, blank=True, null=True)
+    argomento = models.CharField(max_length=200, blank=True, null=True)
     docente = models.CharField(max_length=30, blank=True, null=True)
     ore = models.CharField(max_length=6, blank=True, null=True)
     persone = models.IntegerField(blank=True, null=True)
