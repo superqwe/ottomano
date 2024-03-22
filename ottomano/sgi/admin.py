@@ -1,4 +1,6 @@
-from django.contrib import admin
+import datetime
+
+from django.contrib import admin, messages
 
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta
 
@@ -44,7 +46,26 @@ class CassettaPSAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+def VerificaCassetta_duplica(modeladmin, request, queryset):
+    cassette = []
+    for cassetta in queryset:
+        cassette.append(cassetta.cassetta)
+        cassetta.pk = None
+        cassetta.data_verifica = datetime.date.today()
+        cassetta.save()
+
+    modeladmin.message_user(
+        request,
+        f'Verifiche duplicate {cassette}',
+        messages.SUCCESS
+    )
+
+
+VerificaCassetta_duplica.short_description = "Duplica verifica cassetta"
+
+
 class VerificaCassettaPSAdmin(admin.ModelAdmin):
+    actions = [VerificaCassetta_duplica, ]
     fieldsets = [
         (None,
          {'fields': [
