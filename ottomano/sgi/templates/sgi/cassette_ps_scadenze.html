@@ -22,11 +22,13 @@
 <div class="row">
     {% for cassetta, verifica in dati %}
 
+    {% if cassetta.allegato == '2' %}
+
     <div class="col-{{4}}">
         <div class="card">
 
             <div class="card-header">
-                <h2>Cassetta {{cassetta}}</h2>
+                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}</h2>
             </div>
 
             <div class="card-body">
@@ -42,7 +44,7 @@
                     <tbody>
                     <tr>
                         <td class="text-center">{{verifica.sc2_guanti|default_if_none:""|date:"m/Y"}}</td>
-                        <td>Guanti sterili monouso</td>
+                        <td>Guanti sterili monouso (x2)</td>
                     </tr>
                     <tr>
                         <td class="text-center">{{verifica.sc2_iodio|default_if_none:""|date:"m/Y"}}</td>
@@ -58,7 +60,7 @@
                     </tr>
                     <tr>
                         <td class="text-center">{{verifica.sc2_garza10x10|default_if_none:""|date:"m/Y"}}</td>
-                        <td>Compressa garza sterile 10x10 in buste singole</td>
+                        <td>Compressa garza sterile 10x10 in buste singole (x3)</td>
                     </tr>
                     <tr>
                         <td class="text-center">{{verifica.sc2_pinzette|default_if_none:""|date:"m/Y"}}</td>
@@ -102,7 +104,7 @@
                             <i class="fa-solid fa-circle-check verde"></i>
                             {% endif %}
                         </td>
-                        <td>Sacchetti monouso per la raccolta di rifiuti sanotari</td>
+                        <td>Sacchetti monouso per la raccolta di rifiuti sanitari</td>
                     </tr>
                     <tr>
                         <td class="text-center">
@@ -121,6 +123,116 @@
         </div>
 
     </div>
+
+    {% else %}
+
+        <div class="col-{{4}} ">
+        <div class="card">
+
+            <div class="card-header">
+                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}</h2>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-striped table-sm">
+
+                    <thead class="table-light sticky-top">
+                    <tr class="text-center">
+                        <th scope="col">Scadenza</th>
+                        <th scope="col">Prodotto</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Guanti sterili monouso (x5)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Flacone soluzione cutanea di iodiopovidone (10% iodio) 1 litro</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Flacone soluzione fisiologica (sodio  cloruro 0.9%) 500ml (x3)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Compresse di garza sterile 10x10 in buste singole (x10)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Compresse di garza sterile 18x40 in buste singole (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Pinzette di medicazione monouso (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Confezione di cotone idrofilo</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Confezioni di cerotti di varie misure pronte all'uso (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Rotoli di cerotto alto 2.5cm (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Visiera paraschizzi</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Un paio di forbici</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Lacci emostatici (x3)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Ghiaccio pronto all'uso (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Sacchetti monouso per la raccolta di rifiuti sanitari (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Teli sterili monouso</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Confezione di rete elastica di misura media (x2)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Termometro</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Apparecchio per la misurazione della pressione arteriosa</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>Istruzioni sul modo di usare i presidi e prestare i primi soccorsi</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
 
     {% endfor %}
 

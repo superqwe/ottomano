@@ -25,8 +25,8 @@ class Cassetta_PS_Util:
                     pass
 
         prodotti_in_scadenza.sort()
-        pp(prodotti_in_scadenza)
-        print()
+        # pp(prodotti_in_scadenza)
+        # print()
 
         scadenze = {}
         for data, prodotto in prodotti_in_scadenza:
@@ -36,8 +36,8 @@ class Cassetta_PS_Util:
             except KeyError:
                 scadenze[(data, prodotto[4:])] = 1
 
-        for x in scadenze:
-            print(x, scadenze[x])
+        # for x in scadenze:
+        #     print(x, scadenze[x])
 
         prodotti = [(x[0].strftime('%m/%Y'), x[1], scadenze[x]) for x in scadenze]
         return prodotti
