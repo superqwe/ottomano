@@ -39,7 +39,8 @@ class CassettaPSAdmin(admin.ModelAdmin):
         'allegato',
         'ubicazione',
         ('messa_in_servizio', 'dismissione'),
-        ('scadenza', 'ultima_verifica'),
+        ('scadenza', 'ck_scadenza'),
+        'ultima_verifica',
     )
     list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)

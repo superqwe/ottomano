@@ -172,6 +172,8 @@ class CassettaPS(models.Model):
     scadenza = models.DateField(blank=True, null=True)
     ultima_verifica = models.DateField(blank=True, null=True)
 
+    ck_scadenza = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+
     class Meta:
         ordering = ['numero', ]
         verbose_name = 'Cassetta PS'

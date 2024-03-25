@@ -22,6 +22,9 @@ FORMAZIONE_FRAZIONI_ORE = {
     '1,5': 1.5,
 }
 
+OGGI = datetime.date.today()
+FRA_4_MESI = OGGI + datetime.timedelta(days=30.5 * 6)
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the personale index.")
@@ -176,6 +179,10 @@ def scadenzario_dpi(request):
 
 
 def cassette_ps(request):
+    CassettaPS.objects.all().update(ck_scadenza='ok_np')
+    CassettaPS.objects.filter(scadenza__lt=FRA_4_MESI).update(ck_scadenza='table-warning')
+    CassettaPS.objects.filter(scadenza__lt=OGGI).update(ck_scadenza='table-danger')
+
     lista_cassette = CassettaPS.objects.all()
 
     dati = []
