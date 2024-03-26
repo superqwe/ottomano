@@ -10,34 +10,47 @@ class Cassetta_PS_Util:
     def __init__(self, verifica):
         self.verifiche = verifica
 
-
     def prodotti_in_scadenza(self):
-        prodotti_in_scadenza = []
+        prodotti_in_scadenza_all1 = []
+        prodotti_in_scadenza_all2 = []
         for verifica in self.verifiche:
 
             for prodotto, scadenza in inspect.getmembers(verifica):
 
-                try:
-                    if prodotto.startswith('sc2_') and scadenza < FRA_4_MESI:
-                        prodotti_in_scadenza.append((scadenza, prodotto))
+                match  verifica.cassetta.allegato:
+                    case '1':
+                        try:
+                            if prodotto.startswith('sc1_') and scadenza < FRA_4_MESI:
+                                prodotti_in_scadenza_all1.append((scadenza, prodotto))
+                        except TypeError:
+                            pass
 
-                except TypeError:
-                    pass
+                    case '2':
+                        try:
+                            if prodotto.startswith('sc2_') and scadenza < FRA_4_MESI:
+                                prodotti_in_scadenza_all2.append((scadenza, prodotto))
+                        except TypeError:
+                            pass
 
-        prodotti_in_scadenza.sort()
-        # pp(prodotti_in_scadenza)
-        # print()
+        prodotti_in_scadenza_all1.sort()
+        prodotti_in_scadenza_all2.sort()
 
-        scadenze = {}
-        for data, prodotto in prodotti_in_scadenza:
+        scadenze_all1 = {}
+        scadenze_all2 = {}
+        for data, prodotto in prodotti_in_scadenza_all1:
             try:
-                scadenze[(data, prodotto[4:])] += 1
+                scadenze_all1[(data, prodotto[4:])] += 1
 
             except KeyError:
-                scadenze[(data, prodotto[4:])] = 1
+                scadenze_all1[(data, prodotto[4:])] = 1
 
-        # for x in scadenze:
-        #     print(x, scadenze[x])
+        for data, prodotto in prodotti_in_scadenza_all2:
+            try:
+                scadenze_all2[(data, prodotto[4:])] += 1
 
-        prodotti = [(x[0].strftime('%m/%Y'), x[1], scadenze[x]) for x in scadenze]
-        return prodotti
+            except KeyError:
+                scadenze_all2[(data, prodotto[4:])] = 1
+
+        prodotti_all1 = [(x[0].strftime('%m/%Y'), x[1], scadenze_all1[x]) for x in scadenze_all1]
+        prodotti_all2 = [(x[0].strftime('%m/%Y'), x[1], scadenze_all2[x]) for x in scadenze_all2]
+        return prodotti_all1, prodotti_all2
