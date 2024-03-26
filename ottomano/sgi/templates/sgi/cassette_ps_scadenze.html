@@ -126,7 +126,7 @@
 
     {% else %}
 
-        <div class="col-{{4}} ">
+    <div class="col-{{4}} ">
         <div class="card">
 
             <div class="card-header">
@@ -145,79 +145,95 @@
 
                     <tbody>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_guanti|default_if_none:"" }}</td>
                         <td>Guanti sterili monouso (x5)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_iodio|default_if_none:"" }}</td>
                         <td>Flacone soluzione cutanea di iodiopovidone (10% iodio) 1 litro</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
-                        <td>Flacone soluzione fisiologica (sodio  cloruro 0.9%) 500ml (x3)</td>
+                        <td class="text-center">{{ verifica.sc1_fisiologica|default_if_none:"" }}</td>
+                        <td>Flacone soluzione fisiologica (sodio cloruro 0.9%) 500ml (x3)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_garza10x10|default_if_none:"" }}</td>
                         <td>Compresse di garza sterile 10x10 in buste singole (x10)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_garza18x40|default_if_none:"" }}</td>
                         <td>Compresse di garza sterile 18x40 in buste singole (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_pinzette|default_if_none:"" }}</td>
                         <td>Pinzette di medicazione monouso (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_cotone|default_if_none:"" }}</td>
                         <td>Confezione di cotone idrofilo</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_cerotti|default_if_none:"" }}</td>
                         <td>Confezioni di cerotti di varie misure pronte all'uso (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_cerotto25|default_if_none:"" }}</td>
                         <td>Rotoli di cerotto alto 2.5cm (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_visiera|default_if_none:"" }}</td>
                         <td>Visiera paraschizzi</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">
+                            {% if verifica.sc1_forbici %}
+                            <i class="fa-solid fa-circle-check verde"></i>
+                            {% endif %}
+                        </td>
                         <td>Un paio di forbici</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_laccio|default_if_none:"" }}</td>
                         <td>Lacci emostatici (x3)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_ghiaccio|default_if_none:"" }}</td>
                         <td>Ghiaccio pronto all'uso (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">
+                            {% if verifica.sc1_sacchetto %}
+                            <i class="fa-solid fa-circle-check verde"></i>
+                            {% endif %}
+                        </td>
                         <td>Sacchetti monouso per la raccolta di rifiuti sanitari (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_teli|default_if_none:"" }}</td>
                         <td>Teli sterili monouso</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_rete|default_if_none:"" }}</td>
                         <td>Confezione di rete elastica di misura media (x2)</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">{{ verifica.sc1_termometro|default_if_none:"" }}</td>
                         <td>Termometro</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">
+                            {% if verifica.sc1_sfigmomanometro %}
+                            <i class="fa-solid fa-circle-check verde"></i>
+                            {% endif %}
+                        </td>
                         <td>Apparecchio per la misurazione della pressione arteriosa</td>
                     </tr>
                     <tr>
-                        <td class="text-center"></td>
+                        <td class="text-center">
+                            {% if verifica.sc1_istruzioni %}
+                            <i class="fa-solid fa-circle-check verde"></i>
+                            {% endif %}
+                        </td>
                         <td>Istruzioni sul modo di usare i presidi e prestare i primi soccorsi</td>
                     </tr>
 
