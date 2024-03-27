@@ -17,11 +17,13 @@ class Cassetta_PS_Util:
 
             for prodotto, scadenza in inspect.getmembers(verifica):
 
-                match  verifica.cassetta.allegato:
+                match verifica.cassetta.allegato:
                     case '1':
                         try:
                             if prodotto.startswith('sc1_') and scadenza < FRA_4_MESI:
                                 prodotti_in_scadenza_all1.append((scadenza, prodotto))
+                                setattr(verifica, 'ck_%s' % prodotto, 'table-warning')
+                                verifica.save()
                         except TypeError:
                             pass
 
@@ -29,6 +31,8 @@ class Cassetta_PS_Util:
                         try:
                             if prodotto.startswith('sc2_') and scadenza < FRA_4_MESI:
                                 prodotti_in_scadenza_all2.append((scadenza, prodotto))
+                                setattr(verifica, 'ck_%s' % prodotto, 'table-warning')
+                                verifica.save()
                         except TypeError:
                             pass
 

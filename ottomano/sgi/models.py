@@ -227,6 +227,45 @@ class VerificaCassettaPS(models.Model):
     sc2_sacchetto = models.BooleanField('Sacchetto monouso', blank=True, null=True)
     sc2_istruzioni = models.BooleanField('Istruzioni/Estratto DLgs 81/08', blank=True, null=True)
 
+    ck_sc1_guanti = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_iodio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_fisiologica = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                          default='ok_np')
+    ck_sc1_garza10x10 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_garza18x40 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_pinzette = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_cotone = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_cerotti = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_cerotto25 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_visiera = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_forbici = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_laccio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_ghiaccio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_sacchetto = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_teli = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_rete = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_termometro = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc1_sfigmomanometro = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                              default='ok_np')
+    ck_sc1_istruzioni = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+
+    ck_sc2_guanti = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_iodio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_fisiologica = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                          default='ok_np')
+    ck_sc2_garza18x40 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_garza10x10 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_pinzette = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_cotone = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_cerotti = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_cerotto25 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_benda10 = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_forbici = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_laccio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_ghiaccio = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_sacchetto = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_sc2_istruzioni = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+
     class Meta:
         ordering = ['cassetta', '-data_verifica']
         verbose_name = 'Verifica Cassetta PS'
