@@ -245,6 +245,10 @@ def cassette_ps_scadenze(request):
         dati_cassette.append((cassetta, verifica))
         elenco_scadenze.append(verifica)
 
+    n_cassette_per_rigo = 3
+    dati_cassette = [dati_cassette[i: i + n_cassette_per_rigo] for i in
+                     range(0, len(dati_cassette), n_cassette_per_rigo)]
+
     cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
     prodotti_in_scadenza_all1, prodotti_in_scadenza_all2 = cassettaPS_Util.prodotti_in_scadenza()
 
@@ -252,7 +256,7 @@ def cassette_ps_scadenze(request):
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
                'pagina_attiva_cassette_ps_scadenze': 'active',
-               'dati': dati_cassette,
+               'gruppi_cassetta': dati_cassette,
                'prodotti_in_scadenza_all1': prodotti_in_scadenza_all1,
                'prodotti_in_scadenza_all2': prodotti_in_scadenza_all2,
                }

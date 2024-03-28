@@ -19,7 +19,9 @@
 {% load static %}
 
 
+{% for dati in gruppi_cassetta %}
 <div class="row">
+
     {% for cassetta, verifica in dati %}
 
     {% if cassetta.allegato == '2' %}
@@ -308,7 +310,10 @@
 
     {% endfor %}
 
+    {% cycle ''  '<div style="break-after:page"></div>'  %}
 </div>
+{% endfor %}
+
 
 <div class="row">
 
