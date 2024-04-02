@@ -46,17 +46,6 @@ PRODOTTI_ALL2 = {
 }
 
 
-def descrizione_prodotti_estesa(lista_prodotti, allegato):
-    match allegato:
-        case 1:
-            lista_prodotti = [(data, PRODOTTI_ALL1[prodotto], n) for data, prodotto, n in lista_prodotti]
-
-        case 2:
-            lista_prodotti = [(data, PRODOTTI_ALL2[prodotto], n) for data, prodotto, n in lista_prodotti]
-
-    return lista_prodotti
-
-
 class Cassetta_PS_Util:
     def __init__(self, verifica):
         self.verifiche = verifica
@@ -106,6 +95,6 @@ class Cassetta_PS_Util:
             except KeyError:
                 scadenze_all2[(data, prodotto[4:])] = 1
 
-        prodotti_all1 = [(x[0].strftime('%m/%y'), x[1], scadenze_all1[x]) for x in scadenze_all1]
-        prodotti_all2 = [(x[0].strftime('%m/%y'), x[1], scadenze_all2[x]) for x in scadenze_all2]
+        prodotti_all1 = [(x[0].strftime('%m/%y'), PRODOTTI_ALL1[x[1]], scadenze_all1[x]) for x in scadenze_all1]
+        prodotti_all2 = [(x[0].strftime('%m/%y'), PRODOTTI_ALL2[x[1]], scadenze_all2[x]) for x in scadenze_all2]
         return prodotti_all1, prodotti_all2
