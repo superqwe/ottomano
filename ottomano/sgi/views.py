@@ -252,6 +252,9 @@ def cassette_ps_scadenze(request):
     cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
     prodotti_in_scadenza_all1, prodotti_in_scadenza_all2 = cassettaPS_Util.prodotti_in_scadenza()
 
+    prodotti_in_scadenza_all1 = cassetta_ps_util.descrizione_prodotti_estesa(prodotti_in_scadenza_all1, 2)
+    prodotti_in_scadenza_all2 = cassetta_ps_util.descrizione_prodotti_estesa(prodotti_in_scadenza_all2, 2)
+
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
