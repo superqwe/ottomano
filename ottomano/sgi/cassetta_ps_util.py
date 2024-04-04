@@ -7,8 +7,8 @@ FRA_4_MESI = OGGI + datetime.timedelta(days=30.5 * 6)
 
 PRODOTTI_ALL1 = {
     'guanti': "Guanti sterili monouso (x5)",
-    'iodio': "Flacone soluzione cutanea di iodiopovidone (10% iodio) 1 litro",
-    'fisiologica': "Flacone soluzione fisiologica (sodio cloruro 0.9%) 500ml (x3)",
+    'iodio': "Flacone soluzione cutanea di iodopovidone (10% iodio) 1 litro",
+    'fisiologica': "Flacone soluzione fisiologica (sodio cloruro 0,9%) 500ml (x3)",
     'garza10x10': "Compresse di garza sterile 10x10 in buste singole (x10)",
     'garza18x40': "Compresse di garza sterile 18x40 in buste singole (x2)",
     'pinzette': "Pinzette di medicazione monouso (x2)",
@@ -29,8 +29,8 @@ PRODOTTI_ALL1 = {
 
 PRODOTTI_ALL2 = {
     'guanti': 'Guanti sterili monouso (x2)',
-    'iodio': 'Flacone soluzione cutanea di iodiopovidone (0% iodio) 125ml',
-    'fisiologica': 'Flacone soluzione fisiologica (Sodio cloruro 0.9%) da 250ml',
+    'iodio': 'Flacone soluzione cutanea di iodopovidone (10% iodio) 125ml',
+    'fisiologica': 'Flacone soluzione fisiologica (Sodio cloruro 0,9%) da 250ml',
     'garza18x40': 'Compressa garza sterile 18x40 in buste singole',
     'garza10x10': 'Compressa garza sterile 10x10 in buste singole (x3)',
     'pinzette': 'Pinzette di medicazione monouso',

@@ -199,10 +199,13 @@ def cassette_ps(request):
                 cassetta.stato = '-1'
                 cassetta.ubicazione = 'Da reintegrare'
                 for rigo in ultima_verifica.materiale_da_integrare.split('\n'):
-                    n, articolo = rigo.split(' ', 1)
-                    n = int(n[-1])
-                    articolo = articolo.strip()
-                    articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
+                    try:
+                        n, articolo = rigo.split(' ', 1)
+                        n = int(n[-1])
+                        articolo = articolo.strip()
+                        articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
+                    except ValueError:
+                        print('--> ERRORE -->',cassetta, rigo , '<---')
             case 'dis':
                 cassetta.stato = '0'
                 cassetta.ubicazione = 'Dismessa'
@@ -251,7 +254,6 @@ def cassette_ps_scadenze(request):
 
     cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
     prodotti_in_scadenza_all1, prodotti_in_scadenza_all2 = cassettaPS_Util.prodotti_in_scadenza()
-
 
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
