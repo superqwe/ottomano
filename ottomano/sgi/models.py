@@ -74,6 +74,7 @@ NC_AREA = [
     ('sic', 'Sicurezza'),
     ('qua', 'Qualità'),
     ('qhse', 'QHSE'),
+    ('amb', 'Ambiente'),
 ]
 
 NC_TIPOLOGIA = [
