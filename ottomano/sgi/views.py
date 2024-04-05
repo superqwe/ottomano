@@ -13,7 +13,7 @@ import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-FORMAZIONE_ANNO = 2024
+ANNO_CORRENTE = 2024
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
     '15min': 0.25,
@@ -30,7 +30,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the personale index.")
 
 
-def formazione(request, anno=FORMAZIONE_ANNO):
+def formazione(request, anno=ANNO_CORRENTE):
     formazione_ = Formazione.objects.filter(data__year=anno)
 
     # sessioni
@@ -90,7 +90,7 @@ def formazione(request, anno=FORMAZIONE_ANNO):
     return render(request, 'sgi/formazione.html', context)
 
 
-def non_conformita(request, anno=FORMAZIONE_ANNO):
+def non_conformita(request, anno=ANNO_CORRENTE):
     non_conformita_ = Non_Conformita.objects.filter(data__year=anno).order_by('-data')
 
     context = {'titolo': 'Registro Non Conformità',
@@ -205,7 +205,7 @@ def cassette_ps(request):
                         articolo = articolo.strip()
                         articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
                     except ValueError:
-                        print('--> ERRORE -->',cassetta, rigo , '<---')
+                        print('--> ERRORE -->', cassetta, rigo, '<---')
             case 'dis':
                 cassetta.stato = '0'
                 cassetta.ubicazione = 'Dismessa'
@@ -226,8 +226,8 @@ def cassette_ps(request):
     return render(request, 'sgi/cassette_ps.html', context)
 
 
-def cassette_ps_storico(request):
-    dati = VerificaCassettaPS.objects.all().order_by('-data_verifica')
+def cassette_ps_storico(request, anno=ANNO_CORRENTE):
+    dati = VerificaCassettaPS.objects.filter(data_verifica__year=anno).order_by('-data_verifica', 'cassetta')
 
     context = {'titolo': 'Storico verifiche Cassette PS',
                'sezione_sgi_attiva': 'active',
@@ -235,6 +235,9 @@ def cassette_ps_storico(request):
                'pagina_attiva_cassette_ps_storico': 'active',
                'lista_verifiche': dati,
                }
+
+    context['pagina_attiva_cassette_ps_storico_%i' % anno] = 'active'
+
     return render(request, 'sgi/cassette_ps_storico.html', context)
 
 
