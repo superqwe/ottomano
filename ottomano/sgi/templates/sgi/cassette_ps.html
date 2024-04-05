@@ -42,8 +42,8 @@
         <tbody>
         {% for cassetta, verifica in lista_cassette %}
         <tr>
-            <td class="text-center no_link_sottolineato"><a
-                    href="/admin/sgi/cassettaps/{{ cassetta.pk }}">{{cassetta}}</a></td>
+            <td class="text-center no_link_sottolineato">
+                <a href="/admin/sgi/cassettaps/{{ cassetta.pk }}">{{cassetta}}</a></td>
             <td class="text-center">{{cassetta.allegato}}</td>
             <td class="text-center
             {% if cassetta.ubicazione == 'Disponibile' and verifica.operazione in 'ok,rei,ms' %}
