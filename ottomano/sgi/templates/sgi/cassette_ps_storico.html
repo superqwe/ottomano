@@ -39,7 +39,8 @@
         <tr>
             <td>{{verifica.cassetta}}</td>
             <td class="text-center">
-                <a href="/admin/sgi/verificacassettaps/{{ verifica.pk }}">{{verifica.data_verifica}}</a></td>
+                <a href="/admin/sgi/verificacassettaps/{{ verifica.pk }}" target=”_blank”>{{verifica.data_verifica}}</a>
+            </td>
             <td class="text-center">{{verifica.data_scadenza|date:"m/y"}}</td>
             <td class="text-center
             {% if verifica.operazione == 'no' %}
