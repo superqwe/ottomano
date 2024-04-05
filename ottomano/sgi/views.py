@@ -229,11 +229,31 @@ def cassette_ps(request):
 def cassette_ps_storico(request, anno=ANNO_CORRENTE):
     dati = VerificaCassettaPS.objects.filter(data_verifica__year=anno).order_by('-data_verifica', 'cassetta')
 
+    materiale_integrato_1 = {}
+    materiale_integrato_2 = {}
+    for verifica in dati:
+        allegato = verifica.cassetta.allegato
+        materiale_integrato_verifica = [(int(x.strip().split(' ', 1)[0].split('.')[1]), x.strip().split(' ', 1)[1]) for
+                                        x in verifica.materiale_integrato.split('\n') if x]
+
+        for n, articolo in materiale_integrato_verifica:
+
+            if allegato == '1':
+                materiale_integrato_1[articolo] = materiale_integrato_1.get(articolo, 0) + n
+            elif allegato == '2':
+                materiale_integrato_2[articolo] = materiale_integrato_2.get(articolo, 0) + n
+
+
+    materiale_integrato_1 = dict(sorted(materiale_integrato_1.items()))
+    materiale_integrato_2 = dict(sorted(materiale_integrato_2.items()))
+
     context = {'titolo': 'Storico verifiche Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
                'pagina_attiva_cassette_ps_storico': 'active',
                'lista_verifiche': dati,
+               'materiale_integrato_1': materiale_integrato_1,
+               'materiale_integrato_2': materiale_integrato_2
                }
 
     context['pagina_attiva_cassette_ps_storico_%i' % anno] = 'active'
