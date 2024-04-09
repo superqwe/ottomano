@@ -74,6 +74,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         ('carichi_10', 'carichi_15'),
         ('sollecitazioni_arto_superiore_sinistro', 'sollecitazioni_rachide'),
         'spazi_confinati',
+        'altezza',
         'mansioni_gravose',
         'temperature',
         'scale',
