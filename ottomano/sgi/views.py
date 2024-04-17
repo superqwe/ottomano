@@ -7,7 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
+    AccessoriSollevamento, AccessoriSollevamento_Revisione
 
 import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
@@ -243,7 +244,6 @@ def cassette_ps_storico(request, anno=ANNO_CORRENTE):
             elif allegato == '2':
                 materiale_integrato_2[articolo] = materiale_integrato_2.get(articolo, 0) + n
 
-
     materiale_integrato_1 = dict(sorted(materiale_integrato_1.items()))
     materiale_integrato_2 = dict(sorted(materiale_integrato_2.items()))
 
@@ -300,3 +300,17 @@ def rilevatorih2s(request):
                }
 
     return render(request, 'sgi/rilevatorih2s.html', context)
+
+
+def accessori_sollevamento(request):
+    dati = AccessoriSollevamento.objects.filter(in_uso=True)
+    # dati = AccessoriSollevamento.objects.all()
+    revisione = AccessoriSollevamento_Revisione.objects.all()[0]
+
+    context = {'titolo': 'Registro Accessori di Sollevamento',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_accessori_sollevamento': 'active',
+               'registro': dati,
+               'revisione': revisione,
+               }
+    return render(request, 'sgi/accessori_sollevamento.html', context)

@@ -133,6 +133,13 @@ ACCESSORI_SOLLEVAMENTO_TERMINALI = [
     ('as', 'Asola'),
 ]
 
+ACCESSORI_SOLLEVAMENTO_REVISIONE = [
+    ('1', 'I'),
+    ('2', 'II'),
+    ('3', 'III'),
+    ('4', 'IV')
+]
+
 
 class AccessoriSollevamento(models.Model):
     tipo = models.CharField(max_length=4, choices=ACCESSORI_SOLLEVAMENTO_TIPO, blank=True, null=True)
@@ -162,6 +169,13 @@ class AccessoriSollevamento(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.codice, self.portata)
+
+
+class AccessoriSollevamento_Revisione(models.Model):
+    data_compilazione = models.DateField(blank=True, null=True)
+    revisione = models.IntegerField(blank=True, null=True)
+    trimestre = models.CharField(max_length=1, choices=ACCESSORI_SOLLEVAMENTO_REVISIONE, blank=True, null=True)
+    anno = models.IntegerField(blank=True, null=True)
 
 
 class Formazione(models.Model):

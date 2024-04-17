@@ -3,7 +3,7 @@ import datetime
 from django.contrib import admin, messages
 
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta, \
-    AccessoriSollevamento
+    AccessoriSollevamento, AccessoriSollevamento_Revisione
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -173,3 +173,4 @@ admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta, DPI_AnticadutaAdmin)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
+admin.site.register(AccessoriSollevamento_Revisione)

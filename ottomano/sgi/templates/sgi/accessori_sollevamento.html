@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th colspan="10">Identificazione</th>
+            <th colspan="7">Controllo Deterioramento</th>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Codice</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Colore</th>
+            <th scope="col">Portata [ton]</th>
+            <th scope="col">Lunghezza [m]</th>
+            <th scope="col">Terminali</th>
+            <th scope="col">Diametro</th>
+            <th scope="col">Anno</th>
+            <th scope="col">Reparto</th>
+            <th scope="col">Messa in servizio</th>
+            <th scope="col">Leggero</th>
+            <th scope="col">Medio</th>
+            <th scope="col">Grave</th>
+            <th scope="col">Esito</th>
+            <th scope="col">Dismissione</th>
+            <th scope="col">Note</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for rigo in registro %}
+        <tr>
+            <td class="text-center">{{rigo.codice}}</td>
+            <td>{{rigo.get_tipo_display}}</td>
+            <td>{{rigo.marca|default_if_none:""|upper}}</td>
+            <td class="text-center">{{rigo.get_colore_display|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.portata|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.lunghezza|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.get_terminali_display|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.get_diametro_display|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.anno|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.reparto|default_if_none:""}}</td>
+            <td class="text-center">{{rigo.data_messa_in_servizio|default_if_none:""}}</td>
+            <td class="text-center">
+                {% if rigo.usura_leggera %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if rigo.usura_media %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if rigo.usura_grave %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if rigo.conforme %}
+                <i class="fa-solid fa-circle-check verde"></i>
+                {% else%}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">{{rigo.data_dismissione|default_if_none:""}}</td>
+            <td>{{rigo.note|default_if_none:""}}</td>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <th colspan="5">Revisione {{revisione.revisione}} del {{revisione.data_compilazione}}</th>
+            <th colspan="6"> Trimestre di riferimento {{revisione.get_trimestre_display}}/{{revisione.anno}}</th>
+            <th colspan="6" class="text-right">Il Verificatore Mirelli Onofrio</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+{% endblock %}

@@ -9,13 +9,13 @@ from sgi.models import AccessoriSollevamento
 from pprint import pprint as pp
 
 
-# def index(request):
-#     return HttpResponseRedirect("/personale/formazione")
-
-
 def index(request):
-    importa_funi_catene()
-    return HttpResponse("Hello, world. You're at the importa_funi_catene.")
+    return HttpResponseRedirect("/personale/formazione")
+
+
+# def index(request):
+#     importa_funi_catene()
+#     return HttpResponse("Hello, world. You're at the importa_funi_catene.")
 
 
 def importa_funi_catene():
