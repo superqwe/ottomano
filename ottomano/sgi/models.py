@@ -99,6 +99,70 @@ TIPOLOGIA_DPI_ANTICADUTA = [
     ('c2', 'Cordino Doppio'),
 ]
 
+# ACCESSORI_SOLLEVAMENTO -----------------------------------------------------------------------------------------------
+ACCESSORI_SOLLEVAMENTO_TIPO = [
+    ('car', 'Carrucola'),
+    ('cat2', 'Tirante in catena a 2 bracci'),
+    ('cat4', 'Tirante in catena a 4 bracci'),
+    ('f', 'Braca fibra sintetica piatta'),
+    ('fc', 'Braca fibra sintetica piatta con cricchetto'),
+    ('grd', 'Grilli di sollevamento dritti'),
+    ('grl', 'Grilli di sollevamento a lira'),
+    ('gs', 'Gancio di sollevamento'),
+    ('pc', 'Pinze di sollevamento casseri'),
+    ('pl', 'Pinze di sollevamento lamiere'),
+]
+
+ACCESSORI_SOLLEVAMENTO_DIAMETRO = [
+    ('3_4', '3/4"'),
+    ('5_8', '5/8"'),
+    ('7/8', '7/8"'),
+]
+
+ACCESSORI_SOLLEVAMENTO_COLORE = [
+    ('a', 'Arancione'),
+    ('b', 'Blu'),
+    ('g', 'Giallo'),
+    ('gr', 'Grigio'),
+    ('m', 'Marrone'),
+    ('v', 'Verde'),
+]
+
+ACCESSORI_SOLLEVAMENTO_TERMINALI = [
+    ('an', 'Anello'),
+    ('as', 'Asola'),
+]
+
+
+class AccessoriSollevamento(models.Model):
+    tipo = models.CharField(max_length=4, choices=ACCESSORI_SOLLEVAMENTO_TIPO, blank=True, null=True)
+    marca = models.CharField(max_length=50, blank=True, null=True)
+    anno = models.IntegerField(blank=True, null=True)
+    codice = models.CharField(max_length=10, blank=True, null=True)
+    diametro = models.CharField(max_length=5, choices=ACCESSORI_SOLLEVAMENTO_DIAMETRO, blank=True, null=True)
+    colore = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_COLORE, blank=True, null=True)
+    lunghezza = models.CharField(max_length=10, blank=True, null=True)
+    portata = models.CharField(max_length=10, blank=True, null=True)
+    terminali = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_TERMINALI, blank=True, null=True)
+    reparto = models.CharField(max_length=20, blank=True, null=True)
+    usura_leggera = models.BooleanField(blank=True, null=True)
+    usura_media = models.BooleanField(blank=True, null=True)
+    usura_grave = models.BooleanField(blank=True, null=True)
+    usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)
+    conforme = models.BooleanField(default=True)
+    in_uso = models.BooleanField(default=True)
+    data_messa_in_servizio = models.DateField(blank=True, null=True)
+    data_dismissione = models.DateField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['codice']
+        verbose_name = 'Accessorio di sollevamento'
+        verbose_name_plural = 'Accessori di sollevamento'
+
+    def __str__(self):
+        return '%s - %s' % (self.codice, self.portata)
+
 
 class Formazione(models.Model):
     mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)

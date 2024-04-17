@@ -4,18 +4,92 @@ from django.shortcuts import render
 import pandas as pd
 
 from personale.models import Lavoratore
-from sgi.models import RilevatoreH2S
+from sgi.models import AccessoriSollevamento
 
 from pprint import pprint as pp
 
 
-def index(request):
-    return HttpResponseRedirect("/personale/formazione")
-
-
 # def index(request):
-#     importa_rilevatori()
-#     return HttpResponse("Hello, world. You're at the personale index 8080 importa_rilevatori.")
+#     return HttpResponseRedirect("/personale/formazione")
+
+
+def index(request):
+    importa_funi_catene()
+    return HttpResponse("Hello, world. You're at the importa_funi_catene.")
+
+
+def importa_funi_catene():
+    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240415 ACCESSORI DI SOLLEVAMENTO MOD ACS t2 r10 bozza.xlsm'
+    df = pd.read_excel(PATH_XLSX, sheet_name='ACCESSORI DI SOLLEVAMENTO', skiprows=0, na_values=None)
+
+    for index, row in df.iterrows():
+        print(row.codice)
+
+        accessorio = AccessoriSollevamento()
+
+        accessorio.tipo = row.codice.split()[0].lower()
+
+        if not pd.isna(row.marca):
+            accessorio.marca = row.marca
+
+        if not pd.isna(row.anno):
+            accessorio.anno = int(row.anno)
+
+        accessorio.codice = row.codice
+
+        if not pd.isna(row.diametro):
+            accessorio.diametro = row.diametro
+
+        if not pd.isna(row.colore):
+            accessorio.colore = row.colore
+
+        if not pd.isna(row.lunghezza):
+            accessorio.lunghezza = row.lunghezza
+
+        if accessorio.tipo == 'f':
+            match accessorio.colore:
+                case 'a':
+                    accessorio.portata = 10
+                case 'b':
+                    accessorio.portata = 8
+                case 'g':
+                    accessorio.portata = 3
+                case 'gr':
+                    accessorio.portata = 4
+                case 'm':
+                    accessorio.portata = 6
+                case 'v':
+                    accessorio.portata = 2
+                case _:
+                    accessorio.portata = row.portata
+
+        if not pd.isna(row.terminali):
+            accessorio.terminali = row.terminali
+
+        accessorio.reparto = row.reparto
+
+        if row.leggero == 'L':
+            accessorio.usura_leggera = True
+
+        if row.medio == 'M':
+            accessorio.usura_media = True
+
+        if row.sostituzione in ('G', 'S'):
+            accessorio.usura_grave = True
+            accessorio.usura_sostituzione = True
+            accessorio.conforme = False
+            accessorio.in_uso = False
+
+        if not pd.isna(row.servizio):
+            accessorio.data_messa_in_servizio = row.servizio
+
+        if not pd.isna(row.dismissione):
+            accessorio.data_dismissione = row.dismissione
+
+        if not pd.isna(row.note):
+            accessorio.note = row.note
+
+        # accessorio.save()
 
 
 def importa_rilevatori():
@@ -45,7 +119,6 @@ def importa_rilevatori():
                 rilevatore.marca = 'ms'
 
         # rilevatore.save()
-
 
 
 def importa_dati_anagrafica2():
