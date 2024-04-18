@@ -1,17 +1,17 @@
-import inspect
-import pathlib
 import datetime
+import pathlib
 from pprint import pp
-
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from personale.models import Lavoratore
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione
 
 import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
+from django.core.exceptions import ObjectDoesNotExist
+# from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from personale.models import Lavoratore
+
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
+    AccessoriSollevamento, AccessoriSollevamento_Revisione
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2024
@@ -25,6 +25,7 @@ FORMAZIONE_FRAZIONI_ORE = {
 
 OGGI = datetime.date.today()
 FRA_4_MESI = OGGI + datetime.timedelta(days=30.5 * 6)
+DA_6_MESI = OGGI - datetime.timedelta(days=30.5 * 6)
 
 
 def index(request):
@@ -303,8 +304,13 @@ def rilevatorih2s(request):
 
 
 def accessori_sollevamento(request):
-    dati = AccessoriSollevamento.objects.filter(in_uso=True)
+    AccessoriSollevamento.objects.filter(in_uso=True).update(stato='ok')
+    AccessoriSollevamento.objects.filter(data_messa_in_servizio__gt=DA_6_MESI).update(stato='recente')
+    AccessoriSollevamento.objects.filter(in_uso=False).update(stato='dismessa')
+    AccessoriSollevamento.objects.filter(data_dismissione__gt=DA_6_MESI).update(stato='dismessa_recente')
+
     # dati = AccessoriSollevamento.objects.all()
+    dati = AccessoriSollevamento.objects.exclude(stato='dismessa')
 
     revisione = AccessoriSollevamento_Revisione.objects.all()[0]
 

@@ -36,11 +36,11 @@
             <th scope="col">Diametro</th>
             <th scope="col">Anno</th>
             <th scope="col">Reparto</th>
-            <th scope="col">Messa in servizio</th>
             <th scope="col">Leggero</th>
             <th scope="col">Medio</th>
             <th scope="col">Grave</th>
             <th scope="col">Esito</th>
+            <th scope="col">Messa in servizio</th>
             <th scope="col">Dismissione</th>
             <th scope="col">Note</th>
         </tr>
@@ -48,7 +48,7 @@
 
         <tbody>
         {% for rigo in registro %}
-        <tr>
+        <tr class="{{rigo.get_stato_display}}">
             <td class="text-center">
                 <a href="/admin/sgi/accessorisollevamento/{{rigo.pk}}" target="_blank">
                     {{rigo.codice}}
@@ -62,8 +62,7 @@
             <td class="text-center">{{rigo.get_terminali_display|default_if_none:""}}</td>
             <td class="text-center">{{rigo.get_diametro_display|default_if_none:""}}</td>
             <td class="text-center">{{rigo.anno|default_if_none:""}}</td>
-            <td class="text-center">{{rigo.reparto|default_if_none:""}}</td>
-            <td class="text-center">{{rigo.data_messa_in_servizio|default_if_none:""}}</td>
+            <td class="text-center bordo-destro">{{rigo.reparto|default_if_none:""}}</td>
             <td class="text-center">
                 {% if rigo.usura_leggera %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
@@ -86,6 +85,7 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
+            <td class="text-center">{{rigo.data_messa_in_servizio|default_if_none:""}}</td>
             <td class="text-center">{{rigo.data_dismissione|default_if_none:""}}</td>
             <td>{{rigo.note|default_if_none:""|linebreaks}}</td>
             {% endfor %}

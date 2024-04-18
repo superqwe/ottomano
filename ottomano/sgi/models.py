@@ -141,8 +141,16 @@ ACCESSORI_SOLLEVAMENTO_REVISIONE = [
     ('4', 'IV')
 ]
 
+ACCESSORI_SOLLEVAMENTO_STATO = [
+    ('recente', 'table-success'),
+    ('ok', ''),
+    ('dismessa_recente', 'table-warning'),
+    ('dismessa', 'table-danger'),
+]
+
 
 class AccessoriSollevamento(models.Model):
+    stato = models.CharField(max_length=16, choices=ACCESSORI_SOLLEVAMENTO_STATO, blank=True, null=True)
     tipo = models.CharField(max_length=4, choices=ACCESSORI_SOLLEVAMENTO_TIPO, blank=True, null=True)
     marca = models.CharField(max_length=50, blank=True, null=True)
     anno = models.IntegerField(blank=True, null=True)
