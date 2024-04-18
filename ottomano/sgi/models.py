@@ -131,6 +131,7 @@ ACCESSORI_SOLLEVAMENTO_COLORE = [
 ACCESSORI_SOLLEVAMENTO_TERMINALI = [
     ('an', 'Anello'),
     ('as', 'Asola'),
+    ('ga', 'Gancio')
 ]
 
 ACCESSORI_SOLLEVAMENTO_REVISIONE = [

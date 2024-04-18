@@ -49,7 +49,11 @@
         <tbody>
         {% for rigo in registro %}
         <tr>
-            <td class="text-center">{{rigo.codice}}</td>
+            <td class="text-center">
+                <a href="/admin/sgi/accessorisollevamento/{{rigo.pk}}" target="_blank">
+                    {{rigo.codice}}
+                </a>
+            </td>
             <td>{{rigo.get_tipo_display}}</td>
             <td>{{rigo.marca|default_if_none:""|upper}}</td>
             <td class="text-center">{{rigo.get_colore_display|default_if_none:""}}</td>
@@ -83,7 +87,7 @@
                 {% endif %}
             </td>
             <td class="text-center">{{rigo.data_dismissione|default_if_none:""}}</td>
-            <td>{{rigo.note|default_if_none:""}}</td>
+            <td>{{rigo.note|default_if_none:""|linebreaks}}</td>
             {% endfor %}
         </tbody>
 

@@ -305,6 +305,7 @@ def rilevatorih2s(request):
 def accessori_sollevamento(request):
     dati = AccessoriSollevamento.objects.filter(in_uso=True)
     # dati = AccessoriSollevamento.objects.all()
+
     revisione = AccessoriSollevamento_Revisione.objects.all()[0]
 
     context = {'titolo': 'Registro Accessori di Sollevamento',
