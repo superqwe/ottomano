@@ -87,18 +87,6 @@ NC_RESPONSABILE_TRATTAMENTO = [
     ('rsgi', 'RSGI'),
 ]
 
-# DPI ANTICADUTA ------------------------------------------------------------------------------------------------------
-USO_DPI_ANTICADUTA = [
-    ('c', 'Consegnato'),
-    ('d', 'Disponibile'),
-]
-
-TIPOLOGIA_DPI_ANTICADUTA = [
-    ('im', 'Imbracatura'),
-    ('c1', 'Cordino Singolo'),
-    ('c2', 'Cordino Doppio'),
-]
-
 # ACCESSORI_SOLLEVAMENTO -----------------------------------------------------------------------------------------------
 ACCESSORI_SOLLEVAMENTO_TIPO = [
     ('car', 'Carrucola'),
@@ -148,6 +136,66 @@ ACCESSORI_SOLLEVAMENTO_STATO = [
     ('dismessa', 'table-danger'),
 ]
 
+# DPI ANTICADUTA -------------------------------------------------------------------------------------------------------
+
+DPI_ANTICADUTA_STATO = [
+    ('c', 'Consegnato'),
+    ('d', 'Disponibile'),
+    ('x', 'Dismesso'),
+]
+DPI_ANTICADUTA_TIPOLOGIA = [
+    ('im', 'Imbracatura'),
+    ('c1', 'Cordino Singolo'),
+    ('c2', 'Cordino Doppio'),
+]
+
+
+class DPI_Anticaduta_Consegna(models.Model):
+    data = models.DateField(blank=True, null=True)
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['data', 'lavoratore']
+        verbose_name = 'DPI Anticaduta Consegna'
+        verbose_name_plural = 'DPI Anticaduta Consegne'
+
+    def __str__(self):
+        # return self.data
+        return '{} {}'.format(self.data, self.lavoratore)
+
+
+class DPI_Anticaduta_Verifica(models.Model):
+    data = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['data', ]
+        verbose_name = 'DPI Anticaduta Verifica'
+        verbose_name_plural = 'DPI Anticaduta Verifiche'
+
+    def __str__(self):
+        return self.data
+
+
+class DPI_Anticaduta2(models.Model):
+    tipologia = models.CharField(max_length=2, choices=DPI_ANTICADUTA_TIPOLOGIA, blank=True, null=True)
+    stato = models.CharField(max_length=1, choices=DPI_ANTICADUTA_STATO, blank=True, null=True)
+    consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)
+    messa_in_servizio = models.DateField(blank=True, null=True)
+    verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True, null=True)
+    marca = models.CharField(max_length=20, blank=True, null=True)
+    modello = models.CharField(max_length=20, blank=True, null=True)
+    fabbricazione = models.DateField(blank=True, null=True)
+    matricola = models.CharField(max_length=20, blank=True, null=True)
+    dismissione = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['tipologia', 'matricola']
+        verbose_name = 'DPI Anticaduta'
+        verbose_name_plural = 'DPI Anticaduta'
+
+    def __str__(self):
+        return '{} {} {}'.format(self.tipologia, self.modello, self.matricola)
+
 
 class AccessoriSollevamento(models.Model):
     stato = models.CharField(max_length=16, choices=ACCESSORI_SOLLEVAMENTO_STATO, blank=True, null=True)
@@ -173,8 +221,8 @@ class AccessoriSollevamento(models.Model):
 
     class Meta:
         ordering = ['codice']
-        verbose_name = 'Accessorio di sollevamento'
-        verbose_name_plural = 'Accessori di sollevamento'
+        verbose_name = 'Accessorio di Sollevamento'
+        verbose_name_plural = 'Accessori di Sollevamento'
 
     def __str__(self):
         return '%s - %s' % (self.codice, self.portata)
@@ -186,6 +234,9 @@ class AccessoriSollevamento_Revisione(models.Model):
     trimestre = models.CharField(max_length=1, choices=ACCESSORI_SOLLEVAMENTO_REVISIONE, blank=True, null=True)
     anno = models.IntegerField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Accessori di Sollevamento Revisione'
+        verbose_name_plural = 'Accessori di Sollevamento Revisione'
 
 class Formazione(models.Model):
     mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
@@ -378,24 +429,3 @@ class RilevatoreH2S(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.marca, self.matricola)
-
-
-class DPI_Anticaduta(models.Model):
-    uso = models.CharField(max_length=1, choices=USO_DPI_ANTICADUTA, blank=True, null=True)
-    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
-    tipologia = models.CharField(max_length=2, choices=TIPOLOGIA_DPI_ANTICADUTA, blank=True, null=True)
-    tipo = models.CharField(max_length=20, blank=True, null=True)
-    marca = models.CharField(max_length=20, blank=True, null=True)
-    modello = models.CharField(max_length=20, blank=True, null=True)
-    matricola = models.CharField(max_length=20, blank=True, null=True)
-    data_fabbricazione = models.DateField(blank=True, null=True)
-    data_messa_in_servizio = models.DateField(blank=True, null=True)
-    data_scadenza = models.DateField(blank=True, null=True)
-
-    class Meta:
-        ordering = ['-uso', 'lavoratore']
-        verbose_name = 'DPI Anticaduta'
-        verbose_name_plural = 'DPI Anticaduta'
-
-    def __str__(self):
-        return '{} {} {}'.format(self.tipologia, self.marca, self.matricola)

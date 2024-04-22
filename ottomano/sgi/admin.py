@@ -2,8 +2,9 @@ import datetime
 
 from django.contrib import admin, messages
 
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione
+from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta2, \
+    DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica, AccessoriSollevamento, \
+    AccessoriSollevamento_Revisione
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -151,18 +152,18 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
     #     'data_scadenza',
     #     'data_bump_test'
     # )
-    list_display = (
-        'uso', 'lavoratore', 'tipologia', 'tipo', 'marca', 'modello', 'matricola', 'data_fabbricazione',
-        'data_messa_in_servizio', 'data_scadenza'
-    )
+    # list_display = (
+    #     'uso', 'lavoratore', 'tipologia', 'tipo', 'marca', 'modello', 'matricola', 'data_fabbricazione',
+    #     'data_messa_in_servizio', 'data_scadenza'
+    # )
     # list_filter = ('cassetta__stato', 'cassetta')
     save_on_top = True
 
 
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):
     list_display = (
-    'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
-    'usura_sostituzione', 'conforme', 'in_uso','data_messa_in_servizio', 'data_dismissione', 'note')
+        'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
+        'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
 
 
 admin.site.register(Formazione, FormazioneAdmin)
@@ -171,6 +172,9 @@ admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
-admin.site.register(DPI_Anticaduta, DPI_AnticadutaAdmin)
+# admin.site.register(DPI_Anticaduta, DPI_AnticadutaAdmin)
+admin.site.register(DPI_Anticaduta2)
+admin.site.register(DPI_Anticaduta_Consegna)
+admin.site.register(DPI_Anticaduta_Verifica)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
