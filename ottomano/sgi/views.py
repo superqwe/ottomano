@@ -159,11 +159,11 @@ def scadenzario_dpi_aggiorna(request):
 
     scadenzario_dpi_util.aggiorna_stato()
 
+    scadenzario_dpi_util.aggiorna_dpi_anticaduta()
+
     return redirect(scadenzario_dpi)
 
 
-def scadenzario_dpi_aggiorna_stato():
-    pass
 
 
 def scadenzario_dpi(request):

@@ -199,7 +199,7 @@ class DPI_Anticaduta2(models.Model):
     def ultima_consegna_data(self):
         consegna = self.consegna.all()
         try:
-            data = [c.data.strftime('%d/%m/%y') for c in consegna][0]
+            data = [c.data for c in consegna][0]
             return data
         except (AttributeError, IndexError):
             return None
@@ -303,6 +303,9 @@ class DPI2(models.Model):
     elmetto_df = models.DateField('Data di fabbricazione', blank=True, null=True, default=None)
     rilevatore = models.DateField(blank=True, null=True, default=None)
     maschera = models.DateField(blank=True, null=True, default=None)
+    imbracatura = models.DateField(blank=True, null=True, default=None)
+    cordino_singolo = models.DateField(blank=True, null=True, default=None)
+    cordino_doppio = models.DateField(blank=True, null=True, default=None)
 
     ck_consegna = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     ck_elmetto = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')

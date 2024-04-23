@@ -2,14 +2,20 @@ import datetime
 import inspect
 from pprint import pp
 
-from sgi.models import DPI2
+from sgi.models import DPI2, DPI_Anticaduta2
 
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 OGGI = datetime.date.today()
 FRA_3_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
 MESI_6_PASSATI = OGGI - datetime.timedelta(days=30.5 * 6)
 MESI_9_PASSATI = OGGI - datetime.timedelta(days=30.5 * 9)
+
+
+def aggiungi_n_anni(data, n=10):
+    data_out = datetime.date(data.year + n, data.month, 1)
+    return data_out
 
 
 def aggiorna_stato():
@@ -28,3 +34,27 @@ def aggiorna_stato():
     DPI2.objects.filter(Q(maschera__gt=OGGI)).update(ck_maschera='')
     DPI2.objects.filter(Q(maschera__lt=FRA_3_MESI)).update(ck_maschera='table-warning')
     DPI2.objects.filter(Q(maschera__lt=OGGI) | Q(maschera__isnull=True)).update(ck_maschera='table-danger')
+
+
+def aggiorna_dpi_anticaduta():
+    anticaduta = DPI_Anticaduta2.objects.all()
+
+    for articolo in anticaduta:
+        try:
+            dpi = DPI2.objects.get(lavoratore=articolo.ultima_consegna_lavoratore())
+            scadenza = aggiungi_n_anni(articolo.fabbricazione)
+
+            match articolo.tipologia:
+                case 'im':
+                    dpi.imbracatura = scadenza
+
+                case 'c1':
+                    dpi.cordino_singolo = scadenza
+
+                case 'c2':
+                    dpi.cordino_doppio = scadenza
+
+            dpi.save()
+
+        except ObjectDoesNotExist:
+            pass
