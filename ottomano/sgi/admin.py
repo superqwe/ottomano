@@ -152,7 +152,7 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
         'tipologia', 'stato', 'ultima_consegna_lavoratore', 'messa_in_servizio', 'verifica', 'ultima_consegna_data',
         'marca', 'modello', 'fabbricazione', 'matricola', 'dismissione'
     )
-    # list_filter = ('cassetta__stato', 'cassetta')
+    list_filter = ('tipologia','stato')
     save_on_top = True
 
 

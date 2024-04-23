@@ -19,6 +19,7 @@ urlpatterns = [
     path('cassette_ps_scadenze/', views.cassette_ps_scadenze, name='cassette_ps_contenuto'),
     path('rilevatorih2s/', views.rilevatorih2s, name='rilevatorih2s'),
     path('accessori_sollevamento/', views.accessori_sollevamento, name='accessori_sollevamento'),
+    path('dpi_anticaduta/', views.dpi_anticaduta, name='dpi_anticaduta'),
 ]
 
 # urlpatterns = [

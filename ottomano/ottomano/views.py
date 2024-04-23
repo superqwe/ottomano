@@ -39,7 +39,7 @@ def importa_imbracature():
             dpi.fabbricazione = row.fabbrIM
             dpi.matricola = row.matrIM
 
-            dpi.save()
+            # dpi.save()
 
         if not pd.isna(row.matrC1):
             print('c1', row.nominativo, row.matrC1)
@@ -55,7 +55,7 @@ def importa_imbracature():
             dpi.fabbricazione = row.fabbrC1
             dpi.matricola = row.matrC1
 
-            dpi.save()
+            # dpi.save()
 
         if not pd.isna(row.matrC2):
             print('c2', row.nominativo, row.matrC2)
@@ -71,8 +71,7 @@ def importa_imbracature():
             dpi.fabbricazione = row.fabbrC2
             dpi.matricola = row.matrC2
 
-
-            dpi.save()
+            # dpi.save()
 
         print()
 

@@ -173,7 +173,7 @@ class DPI_Anticaduta_Verifica(models.Model):
         verbose_name_plural = 'DPI Anticaduta Verifiche'
 
     def __str__(self):
-        return '{}'.format(self.data)
+        return '{}'.format(self.data.strftime('%d/%m/%y'))
 
 
 class DPI_Anticaduta2(models.Model):
@@ -190,19 +190,22 @@ class DPI_Anticaduta2(models.Model):
 
     def ultima_consegna_lavoratore(self):
         consegna = self.consegna.all()
-        lavoratore = [c.lavoratore for c in consegna]
-        return lavoratore
+        try:
+            lavoratore = [c.lavoratore for c in consegna][0]
+            return lavoratore
+        except IndexError:
+            return None
 
     def ultima_consegna_data(self):
         consegna = self.consegna.all()
         try:
-            data = [c.data.strftime('%d/%m/%y') for c in consegna]
+            data = [c.data.strftime('%d/%m/%y') for c in consegna][0]
             return data
-        except AttributeError:
+        except (AttributeError, IndexError):
             return None
 
     class Meta:
-        ordering = ['tipologia', 'matricola']
+        ordering = ['-tipologia', 'matricola']
         verbose_name = 'DPI Anticaduta'
         verbose_name_plural = 'DPI Anticaduta'
 
