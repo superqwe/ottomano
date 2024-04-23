@@ -4,7 +4,7 @@ from django.shortcuts import render
 import pandas as pd
 
 from personale.models import Lavoratore
-from sgi.models import AccessoriSollevamento
+from sgi.models import DPI_Anticaduta2
 
 from pprint import pprint as pp
 
@@ -14,8 +14,67 @@ def index(request):
 
 
 # def index(request):
-#     importa_funi_catene()
+#     importa_imbracature()
 #     return HttpResponse("Hello, world. You're at the importa_funi_catene.")
+
+
+def importa_imbracature():
+    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240417 Cinture sicurezza.xlsx'
+    df = pd.read_excel(PATH_XLSX, sheet_name='2023 Nuovo', skiprows=0, na_values=None)
+
+    for index, row in df.iterrows():
+        print(row.nominativo)
+
+        if not pd.isna(row.matrIM):
+            print('im', row.nominativo, row.matrIM)
+            dpi = DPI_Anticaduta2()
+            dpi.tipologia = 'im'
+            dpi.stato = 'c'
+
+            if not pd.isna(row.servizioIM):
+                dpi.messa_in_servizio = row.servizioIM
+
+            dpi.marca = row.marcaIM
+            dpi.modello = row.tipoIM
+            dpi.fabbricazione = row.fabbrIM
+            dpi.matricola = row.matrIM
+
+            dpi.save()
+
+        if not pd.isna(row.matrC1):
+            print('c1', row.nominativo, row.matrC1)
+            dpi = DPI_Anticaduta2()
+            dpi.tipologia = 'c1'
+            dpi.stato = 'c'
+
+            if not pd.isna(row.servizioC1):
+                dpi.messa_in_servizio = row.servizioC1
+
+            dpi.marca = row.marcaC1
+            dpi.modello = row.tipoC1
+            dpi.fabbricazione = row.fabbrC1
+            dpi.matricola = row.matrC1
+
+            dpi.save()
+
+        if not pd.isna(row.matrC2):
+            print('c2', row.nominativo, row.matrC2)
+            dpi = DPI_Anticaduta2()
+            dpi.tipologia = 'c2'
+            dpi.stato = 'c'
+
+            if not pd.isna(row.servizioC2):
+                dpi.messa_in_servizio = row.servizioC2
+
+            dpi.marca = row.marcaC2
+            dpi.modello = row.tipoC2
+            dpi.fabbricazione = row.fabbrC2
+            dpi.matricola = row.matrC2
+
+
+            dpi.save()
+
+        print()
 
 
 def importa_funi_catene():

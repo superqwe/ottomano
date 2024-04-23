@@ -155,7 +155,7 @@ class DPI_Anticaduta_Consegna(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
-        ordering = ['data', 'lavoratore']
+        ordering = ['-data', 'lavoratore']
         verbose_name = 'DPI Anticaduta Consegna'
         verbose_name_plural = 'DPI Anticaduta Consegne'
 
@@ -168,12 +168,12 @@ class DPI_Anticaduta_Verifica(models.Model):
     data = models.DateField(blank=True, null=True)
 
     class Meta:
-        ordering = ['data', ]
+        ordering = ['-data', ]
         verbose_name = 'DPI Anticaduta Verifica'
         verbose_name_plural = 'DPI Anticaduta Verifiche'
 
     def __str__(self):
-        return self.data
+        return '{}'.format(self.data)
 
 
 class DPI_Anticaduta2(models.Model):
@@ -185,8 +185,21 @@ class DPI_Anticaduta2(models.Model):
     marca = models.CharField(max_length=20, blank=True, null=True)
     modello = models.CharField(max_length=20, blank=True, null=True)
     fabbricazione = models.DateField(blank=True, null=True)
-    matricola = models.CharField(max_length=20, blank=True, null=True)
+    matricola = models.IntegerField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
+
+    def ultima_consegna_lavoratore(self):
+        consegna = self.consegna.all()
+        lavoratore = [c.lavoratore for c in consegna]
+        return lavoratore
+
+    def ultima_consegna_data(self):
+        consegna = self.consegna.all()
+        try:
+            data = [c.data.strftime('%d/%m/%y') for c in consegna]
+            return data
+        except AttributeError:
+            return None
 
     class Meta:
         ordering = ['tipologia', 'matricola']
@@ -237,6 +250,7 @@ class AccessoriSollevamento_Revisione(models.Model):
     class Meta:
         verbose_name = 'Accessori di Sollevamento Revisione'
         verbose_name_plural = 'Accessori di Sollevamento Revisione'
+
 
 class Formazione(models.Model):
     mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)

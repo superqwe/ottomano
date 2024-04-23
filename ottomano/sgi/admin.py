@@ -146,16 +146,12 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
 class DPI_AnticadutaAdmin(admin.ModelAdmin):
     # fields = (
     #     'uso',
-    #     'lavoratore',
-    #     'marca',
-    #     'matricola',
-    #     'data_scadenza',
-    #     'data_bump_test'
     # )
-    # list_display = (
-    #     'uso', 'lavoratore', 'tipologia', 'tipo', 'marca', 'modello', 'matricola', 'data_fabbricazione',
-    #     'data_messa_in_servizio', 'data_scadenza'
-    # )
+    filter_horizontal = ('consegna',)
+    list_display = (
+        'tipologia', 'stato', 'ultima_consegna_lavoratore', 'messa_in_servizio', 'verifica', 'ultima_consegna_data',
+        'marca', 'modello', 'fabbricazione', 'matricola', 'dismissione'
+    )
     # list_filter = ('cassetta__stato', 'cassetta')
     save_on_top = True
 
@@ -172,8 +168,7 @@ admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
-# admin.site.register(DPI_Anticaduta, DPI_AnticadutaAdmin)
-admin.site.register(DPI_Anticaduta2)
+admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
 admin.site.register(DPI_Anticaduta_Consegna)
 admin.site.register(DPI_Anticaduta_Verifica)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
