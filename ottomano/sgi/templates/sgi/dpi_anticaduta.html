@@ -45,7 +45,9 @@
             <td class="text-center">{{dpi.marca}}</td>
             <td class="text-center">{{dpi.modello}}</td>
             <td class="text-center">{{dpi.fabbricazione}}</td>
-            <td class="text-center">{{dpi.matricola}}</td>
+            <td class="text-center">
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.pk}}/change/" target="_blank">{{dpi.matricola}}</a>
+            </td>
         </tr>
         {% endfor %}
 

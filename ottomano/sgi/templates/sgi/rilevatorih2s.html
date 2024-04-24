@@ -46,7 +46,7 @@
             </td>
             <td>{{rilevatore.lavoratore.nome}}</td>
             <td>{{rilevatore.get_marca_display}}</td>
-            <td>{{rilevatore.matricola}}</td>
+            <td><a href="/admin/sgi/dpi2/{{rilevatore.pk}}/change" target="_blank"> {{rilevatore.matricola}}</a></td>
             <td class="text-center">{{rilevatore.data_scadenza}}</td>
             <td class="text-center">{{rilevatore.data_bump_test|default_if_none:""}}</td>
         </tr>
