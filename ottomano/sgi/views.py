@@ -5,7 +5,7 @@ from pprint import pp
 import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 from django.core.exceptions import ObjectDoesNotExist
-# from django.db.models import Q
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
@@ -26,6 +26,9 @@ FORMAZIONE_FRAZIONI_ORE = {
 OGGI = datetime.date.today()
 FRA_4_MESI = OGGI + datetime.timedelta(days=30.5 * 6)
 DA_6_MESI = OGGI - datetime.timedelta(days=30.5 * 6)
+DA_9_MESI = OGGI - datetime.timedelta(days=30.5 * 9)
+DA_12_MESI = OGGI - datetime.timedelta(days=30.5 * 12)
+DA_18_MESI = OGGI - datetime.timedelta(days=30.5 * 18)
 
 
 def index(request):
@@ -162,8 +165,6 @@ def scadenzario_dpi_aggiorna(request):
     scadenzario_dpi_util.aggiorna_dpi_anticaduta()
 
     return redirect(scadenzario_dpi)
-
-
 
 
 def scadenzario_dpi(request):
@@ -324,6 +325,16 @@ def accessori_sollevamento(request):
 
 
 def dpi_anticaduta(request):
+    # todo: da completare ck_revisione con più date di verifica
+    DPI_Anticaduta2.objects.all().update(ck_revisione='ok_np')
+
+    DPI_Anticaduta2.objects.filter(
+        Q(verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))).update(ck_revisione='table-warning')
+
+    DPI_Anticaduta2.objects.filter(
+        Q(verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))
+    ).update(ck_revisione='table-danger')
+
     dati = DPI_Anticaduta2.objects.all()
 
     context = {'titolo': 'Registro DPI Anticaduta',
@@ -332,4 +343,3 @@ def dpi_anticaduta(request):
                'registro': dati,
                }
     return render(request, 'sgi/dpi_anticaduta.html', context)
-    pass
