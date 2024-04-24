@@ -45,6 +45,7 @@ def anagrafica(request):
 def formazione(request):
     formazione_ = Formazione.objects. \
         filter(lavoratore__in_forza=True). \
+        exclude(lavoratore__cognome='Ottomano'). \
         order_by('lavoratore__cantiere__nome', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Formazione',
