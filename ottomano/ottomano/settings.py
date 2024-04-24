@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sgi.apps.SgiConfig',
     'esterni.apps.EsterniConfig',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

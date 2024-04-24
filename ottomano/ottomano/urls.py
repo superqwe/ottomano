@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 from . import views
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('attrezzi/', include('attrezzi.urls')),
@@ -25,5 +24,7 @@ urlpatterns = [
     path('personale/', include('personale.urls')),
     path('sgi/', include('sgi.urls')),
     path('esterni/', include('esterni.urls')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
 ]
+
