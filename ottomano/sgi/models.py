@@ -149,15 +149,81 @@ DPI_ANTICADUTA_TIPOLOGIA = [
     ('c2', 'Cordino Doppio'),
 ]
 
+# FORMAZIONE CANTIERI --------------------------------------------------------------------------------------------------
+FORMAZIONE_CANTIERI_CANTIERE_TIPO =(
+    ('0','DUVRI'),
+    ('1','TITOLO IV (sotto Coordinamento)'),
+    ('2','Cantieri Esterni'),
+)
+
+FORMAZIONE_CANTIERI_TIPO = (
+    ('0', 'IFA'),
+    ('1', 'PSC'),
+    ('2', 'POS'),
+    ('3', 'Altro')
+)
+
+FORMAZIONE_CANTIERI_IFA_TRIMESTRE = (
+    ('1', 'I'),
+    ('2', 'II'),
+    ('3', 'III'),
+    ('4', 'IV'),
+)
+
+
+class FormazioneCantieri_Cantieri(models.Model):
+    tipo = models.CharField(max_length=1, choices=FORMAZIONE_CANTIERI_CANTIERE_TIPO, blank=True, null=True)
+    nome = models.CharField(max_length=20, blank=True, null=True)
+    in_corso = models.BooleanField(default=True, blank=True)
+
+    class Meta:
+        ordering = ['nome', ]
+        verbose_name = 'Formazione Cantiere - Cantiere'
+        verbose_name_plural = 'Formazione Cantiere - Cantieri'
+
+    def __str__(self):
+        return '{}'.format(self.nome)
+
+
+class FormazioneCantieri(models.Model):
+    attivo = models.BooleanField(default=True)
+    cantiere = models.ForeignKey(FormazioneCantieri_Cantieri, on_delete=models.CASCADE, blank=True, null=True)
+    tipo = models.CharField(max_length=1, choices=FORMAZIONE_CANTIERI_TIPO, blank=True, null=True)
+    tipo_nome = models.CharField('Nome altro tipo', max_length=20, blank=True, null=True)
+    tipo_revisione = models.IntegerField('Revisione', blank=True, null=True)
+    ifa_trimestre = models.CharField(max_length=1, choices=FORMAZIONE_CANTIERI_IFA_TRIMESTRE, blank=True, null=True)
+    # ifa_anno = models.IntegerField(blank=True, null=True)
+    lavoratori = models.ManyToManyField(Lavoratore, blank=True)
+
+    def nome_documento(self):
+        match self.tipo:
+            case '0':
+                return '{}/{}'.format(self.cantiere, self.get_ifa_trimestre_display(), )
+            case '1':
+                return 'PSC {}'.format(self.tipo_revisione, )
+            case '2':
+                return 'POS {}'.format(self.tipo_revisione, )
+            case '3':
+                return '{} {}'.format(self.tipo_nome, self.tipo_revisione)
+
+    class Meta:
+        ordering = ['cantiere', 'tipo', 'tipo_revisione', 'ifa_trimestre']
+        verbose_name = 'Formazione Cantiere'
+        verbose_name_plural = 'Formazione Cantiere'
+
+    def __str__(self):
+        return '{} - {} rev.{}'.format(self.cantiere, self.get_tipo_display(), self.tipo_revisione)
+
 
 class DPI_Anticaduta_Consegna(models.Model):
     data = models.DateField(blank=True, null=True)
+
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         ordering = ['-data', 'lavoratore']
-        verbose_name = 'DPI Anticaduta Consegna'
-        verbose_name_plural = 'DPI Anticaduta Consegne'
+        verbose_name = 'DPI Anticaduta - Consegna'
+        verbose_name_plural = 'DPI Anticaduta - Consegne'
 
     def __str__(self):
         # return self.data
@@ -169,8 +235,8 @@ class DPI_Anticaduta_Verifica(models.Model):
 
     class Meta:
         ordering = ['-data', ]
-        verbose_name = 'DPI Anticaduta Verifica'
-        verbose_name_plural = 'DPI Anticaduta Verifiche'
+        verbose_name = 'DPI Anticaduta - Verifica'
+        verbose_name_plural = 'DPI Anticaduta - Verifiche'
 
     def __str__(self):
         return '{}'.format(self.data.strftime('%d/%m/%y'))
@@ -253,8 +319,8 @@ class AccessoriSollevamento_Revisione(models.Model):
     anno = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Accessori di Sollevamento Revisione'
-        verbose_name_plural = 'Accessori di Sollevamento Revisione'
+        verbose_name = 'Accessori di Sollevamento - Revisione'
+        verbose_name_plural = 'Accessori di Sollevamento - Revisioni'
 
 
 class Formazione(models.Model):
@@ -338,7 +404,7 @@ class CassettaPS(models.Model):
     class Meta:
         ordering = ['numero', ]
         verbose_name = 'Cassetta PS'
-        verbose_name_plural = 'Cassette PS elenco'
+        verbose_name_plural = 'Cassette PS - Elenco'
 
     def __str__(self):
         return self.numero
@@ -429,8 +495,8 @@ class VerificaCassettaPS(models.Model):
 
     class Meta:
         ordering = ['cassetta', '-data_verifica']
-        verbose_name = 'Verifica Cassetta PS'
-        verbose_name_plural = 'Cassetta PS verifiche'
+        verbose_name = 'Cassetta PS - Verifica'
+        verbose_name_plural = 'Cassetta PS - Verifiche'
 
     def __str__(self):
         return '{} {}'.format(self.cassetta, self.data_verifica)

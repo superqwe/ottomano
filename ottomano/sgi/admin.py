@@ -4,7 +4,9 @@ from django.contrib import admin, messages
 
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta2, \
     DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica, AccessoriSollevamento, \
-    AccessoriSollevamento_Revisione
+    AccessoriSollevamento_Revisione, FormazioneCantieri, FormazioneCantieri_Cantieri
+
+from personale.models import Lavoratore
 
 
 class FormazioneAdmin(admin.ModelAdmin):
@@ -152,7 +154,7 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
         'tipologia', 'stato', 'ultima_consegna_lavoratore', 'messa_in_servizio', 'verifica', 'ultima_consegna_data',
         'marca', 'modello', 'fabbricazione', 'matricola', 'dismissione'
     )
-    list_filter = ('tipologia','stato')
+    list_filter = ('tipologia', 'stato')
     save_on_top = True
 
 
@@ -160,6 +162,30 @@ class AccessoriSollevamentoAdmin(admin.ModelAdmin):
     list_display = (
         'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
         'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
+    save_on_top = True
+
+
+class FormazioneCantieri_Admin(admin.ModelAdmin):
+    fields = (
+        ('cantiere', 'attivo'),
+        ('tipo', 'tipo_revisione', 'tipo_nome'),
+        'ifa_trimestre',
+        'lavoratori'
+    )
+    filter_horizontal = ('lavoratori',)
+    list_display = (
+        'attivo', 'cantiere', 'nome_documento', 'tipo', 'tipo_revisione', 'tipo_nome', 'ifa_trimestre', )
+    save_on_top = True
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'lavoratori':
+            kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
+
+        return super(FormazioneCantieri_Admin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
+
+class FormazioneCantieri_Cantieri_Admin(admin.ModelAdmin):
+    list_display = ('nome', 'in_corso', 'tipo')
 
 
 admin.site.register(Formazione, FormazioneAdmin)
@@ -173,3 +199,5 @@ admin.site.register(DPI_Anticaduta_Consegna)
 admin.site.register(DPI_Anticaduta_Verifica)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
+admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
+admin.site.register(FormazioneCantieri_Cantieri, FormazioneCantieri_Cantieri_Admin)

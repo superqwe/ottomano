@@ -20,6 +20,7 @@ urlpatterns = [
     path('rilevatorih2s/', views.rilevatorih2s, name='rilevatorih2s'),
     path('accessori_sollevamento/', views.accessori_sollevamento, name='accessori_sollevamento'),
     path('dpi_anticaduta/', views.dpi_anticaduta, name='dpi_anticaduta'),
+    path('formazione_cantieri/', views.formazione_cantieri, name='formazione_cantieri'),
 ]
 
 # urlpatterns = [

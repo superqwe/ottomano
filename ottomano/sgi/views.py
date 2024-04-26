@@ -4,6 +4,7 @@ from pprint import pp
 
 import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
+import sgi.formazione_cantieri_util as formazione_cantieri_util
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponse
@@ -11,7 +12,8 @@ from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
+    AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2, FormazioneCantieri, \
+    FormazioneCantieri_Cantieri
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2024
@@ -341,5 +343,18 @@ def dpi_anticaduta(request):
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_dpi_anticaduta': 'active',
                'registro': dati,
+               }
+    return render(request, 'sgi/dpi_anticaduta.html', context)
+
+
+def formazione_cantieri(request):
+    formazione_cantieri_util.rigo_3()
+
+
+
+    context = {'titolo': 'Formazione Cantieri',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_formazione_cantieri': 'active',
+               # 'registro': dati,
                }
     return render(request, 'sgi/dpi_anticaduta.html', context)
