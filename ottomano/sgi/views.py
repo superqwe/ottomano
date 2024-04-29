@@ -348,13 +348,13 @@ def dpi_anticaduta(request):
 
 
 def formazione_cantieri(request):
-    formazione_cantieri_util.rigo_3()
-
-
+    intestazione = formazione_cantieri_util.IntestazioneTabella()
 
     context = {'titolo': 'Formazione Cantieri',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_formazione_cantieri': 'active',
-               # 'registro': dati,
+               'rigo1': intestazione.rigo1,
+               'rigo2': intestazione.rigo2,
+               'rigo3': intestazione.rigo3,
                }
-    return render(request, 'sgi/dpi_anticaduta.html', context)
+    return render(request, 'sgi/formazione_cantieri.html', context)

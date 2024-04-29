@@ -20,36 +20,33 @@
 
 <div>
     <table class="table table-striped table-sm">
+
         <thead class="table-light sticky-top">
         <tr class="text-center">
-            <th scope="col">Tipologia</th>
-            <th scope="col">Messa in servizio</th>
-            <th scope="col">Revisione</th>
-            <th scope="col">Consegna</th>
-            <th scope="col">Lavoratore</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Modello</th>
-            <th scope="col">Fabbricazione</th>
-            <th scope="col">Matricola</th>
             <th scope="col"></th>
+            <th scope="col"></th>
+            {% for tipo, colonne in rigo1 %}
+            <th scope="col" colspan="{{colonne}}">{{tipo}}</th>
+            {% endfor %}
+        </tr>
+        <tr class="text-center">
+            <th scope="col"></th>
+            <th scope="col"></th>
+            {% for cantiere, colonne in rigo2 %}
+            <th scope="col" colspan="{{colonne}}">{{cantiere}}</th>
+            {% endfor %}
+
         </tr>
         </thead>
+
         <tbody>
-        {% for dpi in registro %}
-        <tr>
-            <td class="text-center">{{dpi.get_tipologia_display}}</td>
-            <td class="text-center">{{dpi.messa_in_servizio|default_if_none:''}}</td>
-            <td class="text-center {{dpi.ck_revisione}}">{{dpi.verifica|default_if_none:''}}</td>
-            <td class="text-center">{{dpi.ultima_consegna_data|default_if_none:''}}</td>
-            <td>{{dpi.ultima_consegna_lavoratore|default_if_none:'DISPONIBILE'}}</td>
-            <td class="text-center">{{dpi.marca}}</td>
-            <td class="text-center">{{dpi.modello}}</td>
-            <td class="text-center">{{dpi.fabbricazione}}</td>
-            <td class="text-center">
-                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.pk}}/change/" target="_blank">{{dpi.matricola}}</a>
-            </td>
+        <tr class="text-center">
+            <td>Cognome</td>
+            <td>Nome</td>
+            {% for documento in rigo3 %}
+            <td >{{documento}}</td>
+            {% endfor %}
         </tr>
-        {% endfor %}
 
         </tbody>
     </table>
