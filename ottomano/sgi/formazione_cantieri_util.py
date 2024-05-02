@@ -38,7 +38,6 @@ class IntestazioneTabella:
         rigo1 = []
         rigo2 = []
         rigo3 = []
-        ciclo_bordo = ["''", "'bordo-destro'"]
         for codice, tipo in FORMAZIONE_CANTIERI_CANTIERE_TIPO:
             cantieri_per_tipo = FormazioneCantieri_Cantieri.objects.filter(tipo=codice, in_corso=True)
 
@@ -52,7 +51,6 @@ class IntestazioneTabella:
                     rigo3.append(documento.nome_documento())
 
                 rigo2.append((cantiere, documenti.count()))
-                # ciclo_bordo.extend([""''"" * documenti.count()])
                 n_colonne_cantieri += documenti.count()
 
             rigo1.append((tipo, n_colonne_cantieri))
@@ -60,9 +58,7 @@ class IntestazioneTabella:
         self.rigo1 = rigo1
         self.rigo2 = rigo2
         self.rigo3 = rigo3
-        self.ciclo_bordo = ' '.join(ciclo_bordo)
 
-        print(self.ciclo_bordo)
         self._analizza()
 
     def _analizza(self):

@@ -150,10 +150,10 @@ DPI_ANTICADUTA_TIPOLOGIA = [
 ]
 
 # FORMAZIONE CANTIERI --------------------------------------------------------------------------------------------------
-FORMAZIONE_CANTIERI_CANTIERE_TIPO =(
-    ('0','DUVRI'),
-    ('1','TITOLO IV (sotto Coordinamento)'),
-    ('2','Cantieri Esterni'),
+FORMAZIONE_CANTIERI_CANTIERE_TIPO = (
+    ('0', 'DUVRI'),
+    ('1', 'TITOLO IV (sotto Coordinamento)'),
+    ('2', 'Cantieri Esterni'),
 )
 
 FORMAZIONE_CANTIERI_TIPO = (
@@ -192,17 +192,19 @@ class FormazioneCantieri(models.Model):
     tipo_nome = models.CharField('Nome altro tipo', max_length=20, blank=True, null=True)
     tipo_revisione = models.IntegerField('Revisione', blank=True, null=True)
     ifa_trimestre = models.CharField(max_length=1, choices=FORMAZIONE_CANTIERI_IFA_TRIMESTRE, blank=True, null=True)
-    # ifa_anno = models.IntegerField(blank=True, null=True)
     lavoratori = models.ManyToManyField(Lavoratore, blank=True)
 
     def nome_documento(self):
         match self.tipo:
             case '0':
-                return '{}/{}'.format(self.cantiere, self.get_ifa_trimestre_display(), )
+                return '{}'.format(self.get_ifa_trimestre_display(), )
             case '1':
                 return 'PSC {}'.format(self.tipo_revisione, )
             case '2':
-                return 'POS {}'.format(self.tipo_revisione, )
+                if self.tipo_revisione:
+                    return 'POS {}'.format(self.tipo_revisione, )
+                else:
+                    return 'POS'
             case '3':
                 return '{} {}'.format(self.tipo_nome, self.tipo_revisione)
 

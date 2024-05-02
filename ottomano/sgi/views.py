@@ -357,6 +357,5 @@ def formazione_cantieri(request):
                'rigo2': intestazione.rigo2,
                'rigo3': intestazione.rigo3,
                'dati': intestazione.dati,
-               'ciclo_bordo': intestazione.ciclo_bordo,
                }
     return render(request, 'sgi/formazione_cantieri.html', context)
