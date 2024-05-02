@@ -177,7 +177,7 @@ class FormazioneCantieri_Cantieri(models.Model):
     in_corso = models.BooleanField(default=True, blank=True)
 
     class Meta:
-        ordering = ['nome', ]
+        ordering = ['tipo', 'nome', ]
         verbose_name = 'Formazione Cantiere - Cantiere'
         verbose_name_plural = 'Formazione Cantiere - Cantieri'
 
@@ -273,7 +273,7 @@ class DPI_Anticaduta2(models.Model):
             return None
 
     class Meta:
-        ordering = ['-tipologia', 'matricola']
+        ordering = ['-tipologia', 'stato', 'matricola']
         verbose_name = 'DPI Anticaduta'
         verbose_name_plural = 'DPI Anticaduta'
 

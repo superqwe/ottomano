@@ -26,6 +26,7 @@
             <th scope="col">Messa in servizio</th>
             <th scope="col">Revisione</th>
             <th scope="col">Consegna</th>
+            <th scope="col">Dismissione</th>
             <th scope="col">Lavoratore</th>
             <th scope="col">Marca</th>
             <th scope="col">Modello</th>
@@ -41,6 +42,7 @@
             <td class="text-center">{{dpi.messa_in_servizio|default_if_none:''}}</td>
             <td class="text-center {{dpi.ck_revisione}}">{{dpi.verifica|default_if_none:''}}</td>
             <td class="text-center">{{dpi.ultima_consegna_data|default_if_none:''}}</td>
+            <td class="text-center">{{dpi.dismissione|default_if_none:''}}</td>
             <td>{{dpi.ultima_consegna_lavoratore|default_if_none:'DISPONIBILE'}}</td>
             <td class="text-center">{{dpi.marca}}</td>
             <td class="text-center">{{dpi.modello}}</td>

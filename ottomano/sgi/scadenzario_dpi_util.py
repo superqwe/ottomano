@@ -37,7 +37,7 @@ def aggiorna_stato():
 
 
 def aggiorna_dpi_anticaduta():
-    anticaduta = DPI_Anticaduta2.objects.all()
+    anticaduta = DPI_Anticaduta2.objects.all().exclude(stato='x')
 
     for articolo in anticaduta:
         try:
