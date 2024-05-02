@@ -7,6 +7,14 @@ class IntestazioneTabella:
     def __init__(self):
         self._analizza2()
         self._crea_df()
+        self._corpo_tabella()
+
+    def _corpo_tabella(self):
+        dati = []
+        for index, row in self._df.iterrows():
+            dati.append(row[1:])
+
+        self.dati = dati
 
     def _crea_df(self):
         lavoratori = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
@@ -16,24 +24,21 @@ class IntestazioneTabella:
         formazioni = FormazioneCantieri.objects.filter(attivo=True)
 
         for formazione in formazioni:
-            id_formazione = formazione.pk
-            df[str(id_formazione)] = False
+            id_formazione = str(formazione.pk)
+            df[id_formazione] = False
 
             qs_id_lavoratori_formati = formazione.lavoratori.all().values_list('id')
-            # print(a)
-            id_lavoratori_formati =[x[0] for x in qs_id_lavoratori_formati]
-            print(id_lavoratori_formati)
+            id_lavoratori_formati = [x[0] for x in qs_id_lavoratori_formati]
 
-            a = df['id'].isin(id_lavoratori_formati)
-            print(a)
-            # return
-            print()
-        print(df)
+            df.loc[df['id'].isin(id_lavoratori_formati), id_formazione] = True
+
+        self._df = df
 
     def _analizza2(self):
         rigo1 = []
         rigo2 = []
         rigo3 = []
+        ciclo_bordo = ["''", "'bordo-destro'"]
         for codice, tipo in FORMAZIONE_CANTIERI_CANTIERE_TIPO:
             cantieri_per_tipo = FormazioneCantieri_Cantieri.objects.filter(tipo=codice, in_corso=True)
 
@@ -47,6 +52,7 @@ class IntestazioneTabella:
                     rigo3.append(documento.nome_documento())
 
                 rigo2.append((cantiere, documenti.count()))
+                # ciclo_bordo.extend([""''"" * documenti.count()])
                 n_colonne_cantieri += documenti.count()
 
             rigo1.append((tipo, n_colonne_cantieri))
@@ -54,7 +60,9 @@ class IntestazioneTabella:
         self.rigo1 = rigo1
         self.rigo2 = rigo2
         self.rigo3 = rigo3
+        self.ciclo_bordo = ' '.join(ciclo_bordo)
 
+        print(self.ciclo_bordo)
         self._analizza()
 
     def _analizza(self):
