@@ -124,6 +124,8 @@
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:'dmy'}}.pdf" target="_blank">
                     {% if lavoratore.art37_ck == 'es-prep' %}
                     <i class="fa-solid fa-right-long"></i> Preposto
+                    {% elif lavoratore.art37_ck == 'es-aspp' %}
+                    <i class="fa-solid fa-right-long"></i> Aspp
                     {% else %}
                     {{lavoratore.art37|date:"d/m/y"}}
                     {% endif %}

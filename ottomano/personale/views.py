@@ -300,6 +300,9 @@ def aggiorna_stato(request):
     # art37 se ha la formazione da preposto
     Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(preposto__gt=OGGI)).update(
         art37_ck='es-prep')
+    # art37 se ha la formazione da aspp
+    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(aspp__gt=OGGI)).update(
+        art37_ck='es-aspp')
 
     Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
     Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')

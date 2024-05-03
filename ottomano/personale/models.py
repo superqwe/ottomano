@@ -4,6 +4,7 @@ STATO_DOCUMENTI = [
     (None, 'ok_np'),
     ('table-warning', 'scade'),
     ('table-danger', 'scaduto'),
+    ('es-aspp', 'esonero aspp'),
     ('es-prep', 'esonero preposto')
 ]
 
