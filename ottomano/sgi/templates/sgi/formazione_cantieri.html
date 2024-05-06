@@ -54,11 +54,20 @@
         <tr class="text-center border-top border-bottom border-secondary">
             {% for cella in rigo %}
             <td class="{% cycle '' 'bordo-destro' 'bordo-destro' '' 'bordo-destro' '' 'bordo-destro' '' 'bordo-destro' '' 'bordo-destro' ''  '' 'bordo-destro' ''  '' 'bordo-destro' '' '' %}">
+
                 {% if cella == True %}
                 <i class="fa-solid fa-circle-check verde"></i>
+
                 {% elif cella == False %}
+
                 {% else %}
-                {{cella}}
+
+                    {% if forloop.counter == 1 %}
+                    {{cella|upper}}
+                    {% else %}
+                    {{cella}}
+                    {% endif %}
+
                 {% endif %}
             </td>
             {% endfor%}

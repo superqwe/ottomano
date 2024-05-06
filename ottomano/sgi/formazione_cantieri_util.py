@@ -17,7 +17,7 @@ class IntestazioneTabella:
         self.dati = dati
 
     def _crea_df(self):
-        lavoratori = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
+        lavoratori = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede').exclude(cognome__in = ['Masi', 'Simonetti'])
         df = read_frame(lavoratori)
         df = df[['id', 'cognome', 'nome']]
 
