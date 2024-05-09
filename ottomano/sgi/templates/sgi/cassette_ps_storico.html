@@ -37,23 +37,27 @@
         <tbody>
         {% for verifica in lista_verifiche %}
         <tr>
-            <td>{{verifica.cassetta}}</td>
+            <td class="text-center">{{verifica.cassetta}}</td>
             <td class="text-center">
                 <a href="/admin/sgi/verificacassettaps/{{ verifica.pk }}" target=”_blank”>{{verifica.data_verifica}}</a>
             </td>
             <td class="text-center">{{verifica.data_scadenza|date:"m/y"}}</td>
             <td class="text-center
-            {% if verifica.operazione == 'no' %}
+            {% if verifica.operazione == 'ok' %}
+            table-success
+            {% elif verifica.operazione == 'no' %}
+            table-danger
+            {% elif verifica.operazione == 'rei' %}
             table-warning
             {% elif verifica.operazione == 'dis' %}
-            table-danger
-            {% else %}
-            table-success
+            table-dark
+            {% elif verifica.operazione == 'ms' %}
+            table-info
             {% endif %}">
                 {{verifica.get_operazione_display}}
             </td>
-            <td>{{verifica.materiale_integrato}}</td>
-            <td>{{verifica.materiale_da_integrare}}</td>
+            <td>{{verifica.materiale_integrato|linebreaksbr}}</td>
+            <td>{{verifica.materiale_da_integrare|linebreaksbr}}</td>
         </tr>
         {% endfor %}
 
