@@ -33,6 +33,10 @@
                 <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}
                     {% if verifica.operazione == "no" %}
                     <span class="badge badge-pill bg-danger">da reintegrare</span>
+                    {% elif cassetta.ubicazione == "Disponibile" %}
+                    <span class="badge badge-pill bg-success">disponibile</span>
+                    {% else %}
+                    <span class="badge badge-pill bg-primary">{{cassetta.ubicazione}}</span>
                     {% endif%}
                 </h2>
             </div>
@@ -160,7 +164,16 @@
         <div class="card">
 
             <div class="card-header">
-                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}</h2>
+                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}
+                    {% if verifica.operazione == "no" %}
+                    <span class="badge badge-pill bg-danger">da reintegrare</span>
+                    {% elif cassetta.ubicazione == "Disponibile" %}
+                    <span class="badge badge-pill bg-success">disponibile</span>
+                    {% else %}
+                    <span class="badge badge-pill bg-primary">{{cassetta.ubicazione}}</span>
+                    {% endif%}
+                </h2>
+
             </div>
 
             <div class="card-body">
