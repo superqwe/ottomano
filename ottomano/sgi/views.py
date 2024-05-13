@@ -27,6 +27,7 @@ FORMAZIONE_FRAZIONI_ORE = {
 
 OGGI = datetime.date.today()
 FRA_4_MESI = OGGI + datetime.timedelta(days=30.5 * 6)
+DA_3_MESI = OGGI - datetime.timedelta(days=30.5 * 3)
 DA_6_MESI = OGGI - datetime.timedelta(days=30.5 * 6)
 DA_9_MESI = OGGI - datetime.timedelta(days=30.5 * 9)
 DA_12_MESI = OGGI - datetime.timedelta(days=30.5 * 12)
@@ -188,7 +189,7 @@ def cassette_ps(request):
     CassettaPS.objects.filter(scadenza__lt=FRA_4_MESI).update(ck_scadenza='table-warning')
     CassettaPS.objects.filter(scadenza__lt=OGGI).update(ck_scadenza='table-danger')
 
-    lista_cassette = CassettaPS.objects.all()
+    lista_cassette = CassettaPS.objects.exclude(Q(stato=0) & Q(ultima_verifica__lt=DA_6_MESI))
 
     dati = []
     articoli_reintegro = {}
