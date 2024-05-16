@@ -454,6 +454,8 @@ def conteggio_rg(query):
     primo_soccorso_g = query.filter(primo_soccorso_ck='table-warning').count()
     ponteggiatore_r = query.filter(ponteggiatore_ck='table-danger').count()
     ponteggiatore_g = query.filter(ponteggiatore_ck='table-warning').count()
+    imbracatore_r = query.filter(imbracatore_ck='table-danger').count()
+    imbracatore_g = query.filter(imbracatore_ck='table-warning').count()
     ept_r = query.filter(ept_ck='table-danger').count()
     ept_g = query.filter(ept_ck='table-warning').count()
     autogru_r = query.filter(autogru_ck='table-danger').count()
@@ -480,6 +482,8 @@ def conteggio_rg(query):
         'primo_soccorso_g': primo_soccorso_g,
         'ponteggiatore_r': ponteggiatore_r,
         'ponteggiatore_g': ponteggiatore_g,
+        'imbracatore_r': imbracatore_r,
+        'imbracatore_g': imbracatore_g,
         'ept_r': ept_r,
         'ept_g': ept_g,
         'autogru_r': autogru_r,
