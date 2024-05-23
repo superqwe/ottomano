@@ -436,15 +436,15 @@ def dati_estratti(request):
         documenti = attestati
         documenti.extend(nomine)
 
-    context = {'titolo': 'Dati Estratti',
-               'sezione_formazione_attiva': 'active',
-               'pagina_attiva_estrai_dati': 'active',
-               'lavoratori': lavoratori,
-               'documenti': documenti,
-               'tabella': tabella,
-               }
+        context = {'titolo': 'Dati Estratti',
+                   'sezione_formazione_attiva': 'active',
+                   'pagina_attiva_estrai_dati': 'active',
+                   'lavoratori': lavoratori,
+                   'documenti': documenti,
+                   'tabella': tabella,
+                   }
 
-    return render(request, 'personale/dati_estratti.html', context)
+        return render(request, 'personale/dati_estratti.html', context)
 
 
 def conteggio_rg(query):

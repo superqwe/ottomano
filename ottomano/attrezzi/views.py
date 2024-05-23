@@ -38,6 +38,7 @@ def aggiorna_documenti(request):
         try:
             documenti = os.listdir(path_attrezzo)
         except FileNotFoundError:
+            documenti = None
             warnings.warn(f'Percorso non trovato - {path_attrezzo}')
 
         documenti_attrezzo_ok = []
