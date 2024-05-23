@@ -244,6 +244,13 @@ def aggiorna_documenti(request):
 def aggiorna_stato(request):
     Formazione.objects.filter(lavoratore__in_forza=True).update(stato='verde')
 
+    # art37 se ha la formazione da aspp
+    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(aspp__gt=OGGI)).update(
+        art37_ck='es-aspp')
+    # art37 se ha la formazione da preposto
+    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(preposto__gt=OGGI)).update(
+        art37_ck='es-prep')
+
     Formazione.objects.filter(Q(dirigente__gt=OGGI) | Q(dirigente__isnull=True)).update(dirigente_ck='')
     Formazione.objects.filter(Q(preposto__gt=OGGI) | Q(preposto__isnull=True)).update(preposto_ck='')
     Formazione.objects.filter(Q(primo_soccorso__gt=OGGI) | Q(primo_soccorso__isnull=True)).update(primo_soccorso_ck='')
@@ -266,7 +273,10 @@ def aggiorna_stato(request):
     Formazione.objects.filter(preposto__lt=FRA_N_MESI).update(preposto_ck='table-warning', stato='giallo')
     Formazione.objects.filter(primo_soccorso__lt=FRA_N_MESI).update(primo_soccorso_ck='table-warning', stato='giallo')
     Formazione.objects.filter(antincendio__lt=FRA_N_MESI).update(antincendio_ck='table-warning', stato='giallo')
-    Formazione.objects.filter(art37__lt=FRA_N_MESI).update(art37_ck='table-warning', stato='giallo')
+    Formazione.objects. \
+        filter(art37__lt=FRA_N_MESI). \
+        exclude(art37_ck__in=['es-aspp', 'es-prep']). \
+        update(art37_ck='table-warning', stato='giallo')
     Formazione.objects.filter(spazi_confinati__lt=FRA_N_MESI).update(spazi_confinati_ck='table-warning', stato='giallo')
     Formazione.objects.filter(ponteggiatore__lt=FRA_N_MESI).update(ponteggiatore_ck='table-warning', stato='giallo')
     Formazione.objects.filter(imbracatore__lt=FRA_N_MESI).update(imbracatore_ck='table-warning', stato='giallo')
@@ -281,9 +291,15 @@ def aggiorna_stato(request):
 
     Formazione.objects.filter(dirigente__lt=OGGI).update(dirigente_ck='table-danger', stato='rosso')
     Formazione.objects.filter(preposto__lt=OGGI).update(preposto_ck='table-danger', stato='rosso')
+    Formazione.objects. \
+        filter(art37__lt=OGGI). \
+        exclude(art37_ck__in=['es-aspp', 'es-prep']). \
+        update(art37_ck='table-danger', stato='rosso')
     Formazione.objects.filter(primo_soccorso__lt=OGGI).update(primo_soccorso_ck='table-danger', stato='rosso')
     Formazione.objects.filter(antincendio__lt=OGGI).update(antincendio_ck='table-danger', stato='rosso')
-    Formazione.objects.filter(art37__lt=OGGI).update(art37_ck='table-danger', stato='rosso')
+    # Formazione.objects. \
+    #     filter(art37__lt=OGGI). \
+    #     update(art37_ck='table-danger', stato='rosso')
     Formazione.objects.filter(spazi_confinati__lt=OGGI).update(spazi_confinati_ck='table-danger', stato='rosso')
     Formazione.objects.filter(ponteggiatore__lt=OGGI).update(ponteggiatore_ck='table-danger', stato='rosso')
     Formazione.objects.filter(imbracatore__lt=OGGI).update(imbracatore_ck='table-danger', stato='rosso')
@@ -295,14 +311,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(rls__lt=OGGI).update(rls_ck='table-danger', stato='rosso')
     Formazione.objects.filter(aspp__lt=OGGI).update(aspp_ck='table-danger', stato='rosso')
 
-    Formazione.objects.filter(art37=None).update(art37_ck='table-danger', stato='rosso')
-
-    # art37 se ha la formazione da preposto
-    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(preposto__gt=OGGI)).update(
-        art37_ck='es-prep')
-    # art37 se ha la formazione da aspp
-    Formazione.objects.filter(Q(lavoratore__in_forza=True) & Q(art37__lt=OGGI) & Q(aspp__gt=OGGI)).update(
-        art37_ck='es-aspp')
+    # Formazione.objects.filter(art37=None).update(art37_ck='table-danger', stato='rosso')
 
     Idoneita.objects.filter(idoneita__gt=OGGI).update(idoneita_ck='')
     Idoneita.objects.filter(idoneita__lt=FRA_1_MESI).update(idoneita_ck='table-warning')
@@ -345,6 +354,7 @@ def scadenziario_formazione(request):
     return render(request, 'personale/formazione.html', context)
 
 
+# todo: obsoleto
 def scadenziario_formazione2(request):
     context = {'titolo': 'Scadenziario Formazione',
                'sezione_formazione_attiva': 'active',
