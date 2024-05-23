@@ -15,7 +15,7 @@ class FormazioneAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-class Non_ConformitaAdmin(admin.ModelAdmin):
+class NonConformitaAdmin(admin.ModelAdmin):
     list_display = (
         'data', 'emittente', 'area', 'tipologia', 'descrizione', 'trattamento', 'causa', 'azione_correttiva'
     )
@@ -189,7 +189,7 @@ class FormazioneCantieri_Cantieri_Admin(admin.ModelAdmin):
 
 
 admin.site.register(Formazione, FormazioneAdmin)
-admin.site.register(Non_Conformita, Non_ConformitaAdmin)
+admin.site.register(Non_Conformita, NonConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)

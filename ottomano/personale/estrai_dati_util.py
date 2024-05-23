@@ -30,7 +30,8 @@ class Estrai_Dati:
     def __int__(self):
         print('ciaoo ' * 20)
 
-    def salva_lavoratori(self, lavoratori):
+    @staticmethod
+    def salva_lavoratori(lavoratori):
         config = configparser.ConfigParser()
         config.read(CFG)
 
@@ -40,7 +41,8 @@ class Estrai_Dati:
         with open(CFG, 'w') as cfg:
             config.write(cfg)
 
-    def estrai(self, elenco_lavoratori, elenco_formazione, elenco_nomine):
+    @staticmethod
+    def estrai(elenco_lavoratori, elenco_formazione, elenco_nomine):
         try:
             shutil.rmtree(PATH_ESTRAI)
         except (PermissionError, FileNotFoundError):
@@ -70,7 +72,6 @@ class Estrai_Dati:
             pathlib.Path(PATH_ESTRAI).mkdir(parents=True, exist_ok=True)
 
             # todo: gestire gli errori
-            errori = []
             for nome_attestato, (data_attestato, dummy) in zip(elenco_formazione, attestati):
                 if data_attestato:
                     nome_originale = '{} {}.pdf'.format(nome_attestato,

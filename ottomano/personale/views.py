@@ -522,6 +522,7 @@ def scadenzario_dpi(request):
 
 
 def scadenzario_formazione_schede(request, anno):
+    # todo: obsoleta
     def my_sort(sub_li):
         sub_li.sort(key=lambda x: x[2])
         return sub_li
@@ -535,6 +536,7 @@ def scadenzario_formazione_schede(request, anno):
         return (filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra),
                 math.ceil(len(filtra) / 10) * 2)
 
+    # todo: obsoleta
     def conteggio2(elenco):
         filtra = [x[3] for x in elenco]
         return filtra.count(''), filtra.count('text-warning'), filtra.count('text-danger'), len(filtra)
@@ -562,10 +564,10 @@ def scadenzario_formazione_schede(request, anno):
         # esonero art37 #####
         if corso == 'art37':
             # per i preposti
-            lavoratori = [x for x in lavoratori if x.preposto == None or x.preposto <= x.art37]
+            lavoratori = [x for x in lavoratori if x.preposto is None or x.preposto <= x.art37]
 
             # per gli aspp
-            lavoratori = [x for x in lavoratori if x.aspp == None or x.aspp <= x.art37]
+            lavoratori = [x for x in lavoratori if x.aspp is None or x.aspp <= x.art37]
         #####################
 
         if lavoratori:

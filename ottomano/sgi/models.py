@@ -201,7 +201,7 @@ class FormazioneCantieri(models.Model):
             case '1':
                 return 'PSC {}'.format(self.tipo_revisione, )
             case '2':
-                if self.tipo_revisione != None:
+                if self.tipo_revisione is not None:
                     return 'POS {}'.format(self.tipo_revisione, )
                 else:
                     return 'POS'

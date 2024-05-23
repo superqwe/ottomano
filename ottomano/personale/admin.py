@@ -23,7 +23,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
         'busta_paga',
     )
     list_display = (
-        'in_forza', 'matricola', 'cognome', 'nome', 'cantiere' ,'cf', 'data_nascita',
+        'in_forza', 'matricola', 'cognome', 'nome', 'cantiere', 'cf', 'data_nascita',
         'luogo_nascita', 'provincia_nascita', 'qualifica'
     )
     list_display_links = ('cognome', 'nome')

@@ -17,7 +17,10 @@ class IntestazioneTabella:
         self.dati = dati
 
     def _crea_df(self):
-        lavoratori = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede').exclude(cognome__in = ['Masi', 'Ottomano','Simonetti'])
+        lavoratori = Lavoratore.objects.\
+            filter(in_forza=True).\
+            exclude(cantiere__cantiere='Uffici Sede').\
+            exclude(cognome__in = ['Masi', 'Ottomano','Simonetti'])
         df = read_frame(lavoratori)
         df = df[['id', 'cognome', 'nome']]
 
@@ -64,7 +67,6 @@ class IntestazioneTabella:
     def _analizza(self):
         duvri = FormazioneCantieri_Cantieri.objects.filter(tipo='0', in_corso=True)
 
-        cantieri = []
         documenti = []
         for ifa in duvri:
             formazioni = FormazioneCantieri.objects.filter(cantiere=ifa)
