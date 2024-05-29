@@ -51,7 +51,7 @@
                         {% for lavoratore in gruppo %}
                         <div class="row {{lavoratore.3}}">
                             <div class="col-8">{{lavoratore.0}} {{lavoratore.1}}</div>
-                            <div class="col-4">{{lavoratore.2}}</div>
+                            <div class="col-4">{{lavoratore.2|date:"d.m.y"}}</div>
                         </div>
                         {% endfor %}
                     </div>
