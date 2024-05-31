@@ -18,7 +18,6 @@ def index(request):
 
 def elenco(request):
     attrezzi = Attrezzo.objects.all()
-    pp(attrezzi)
     context = {'titolo': 'Elenco Attrezzi',
                'pagina_attiva_elenco': 'active',
                'attrezzi': attrezzi}
