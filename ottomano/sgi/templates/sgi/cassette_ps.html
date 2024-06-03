@@ -79,27 +79,28 @@
 
 </div>
 
+<div class="row">
+    <caption><strong>Elenco articoli da reintegrare</strong></caption>
+    <div class="col-2">
+        <table class="table table-striped table-sm">
+            <thead class="table-light sticky-top">
+            <tr class="text-center">
+                <th scope="col">n.</th>
+                <th scope="col">Articolo</th>
+            </tr>
+            </thead>
 
-<div class="col-2">
-    <table class="table table-striped table-sm">
-        <captio><strong>Elenco articoli da reintegrare</strong></captio>
-        <thead class="table-light sticky-top">
-        <tr class="text-center">
-            <th scope="col">n.</th>
-            <th scope="col">Articolo</th>
-        </tr>
-        </thead>
+            <tbody class="table-group-divider">
+            {% for articolo, quantita in articoli_reintegro.items %}
+            <tr>
+                <td class="text-center">{{quantita}}</td>
+                <td>{{articolo}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-        <tbody class="table-group-divider">
-        {% for articolo, quantita in articoli_reintegro.items %}
-        <tr>
-            <td class="text-center">{{quantita}}</td>
-            <td>{{articolo}}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
 </div>
-
-
 {% endblock %}
