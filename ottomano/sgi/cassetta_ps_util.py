@@ -63,7 +63,11 @@ class Cassetta_PS_Util:
                             if prodotto.startswith('sc1_'):
                                 setattr(verifica, 'ck_%s' % prodotto, '')
 
-                                if scadenza < FRA_4_MESI:
+                                if scadenza< OGGI:
+                                    prodotti_in_scadenza_all1.append((scadenza, prodotto))
+                                    setattr(verifica, 'ck_%s' % prodotto, 'table-danger')
+
+                                elif scadenza < FRA_4_MESI:
                                     prodotti_in_scadenza_all1.append((scadenza, prodotto))
                                     setattr(verifica, 'ck_%s' % prodotto, 'table-warning')
 
@@ -77,7 +81,11 @@ class Cassetta_PS_Util:
                             if prodotto.startswith('sc2_'):
                                 setattr(verifica, 'ck_%s' % prodotto, '')
 
-                                if scadenza < FRA_4_MESI:
+                                if scadenza< OGGI:
+                                    prodotti_in_scadenza_all2.append((scadenza, prodotto))
+                                    setattr(verifica, 'ck_%s' % prodotto, 'table-danger')
+
+                                elif scadenza < FRA_4_MESI:
                                     prodotti_in_scadenza_all2.append((scadenza, prodotto))
                                     setattr(verifica, 'ck_%s' % prodotto, 'table-warning')
 
