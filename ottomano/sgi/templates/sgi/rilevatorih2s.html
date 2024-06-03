@@ -31,7 +31,7 @@
             <th scope="col">Matricola</th>
             <th scope="col">Scadenza</th>
             <th scope="col">Bump Test</th>
-
+            <th scope="col">Calibrazione</th>
         </tr>
         </thead>
         <tbody>
@@ -49,6 +49,7 @@
             <td><a href="/admin/sgi/rilevatoreh2s/{{rilevatore.pk}}/change" target="_blank"> {{rilevatore.matricola}}</a></td>
             <td class="text-center">{{rilevatore.data_scadenza}}</td>
             <td class="text-center">{{rilevatore.data_bump_test|default_if_none:""}}</td>
+            <td class="text-center">{{rilevatore.data_calibrazione|default_if_none:""}}</td>
         </tr>
         {% endfor %}
 

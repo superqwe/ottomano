@@ -510,6 +510,7 @@ class RilevatoreH2S(models.Model):
     marca = models.CharField(max_length=3, choices=MARCA_RILEVATORE_H2S, blank=True, null=True)
     matricola = models.CharField(max_length=20, blank=True, null=True)
     data_scadenza = models.DateField(blank=True, null=True)
+    data_calibrazione = models.DateField(blank=True, null=True)
     data_bump_test = models.DateField(blank=True, null=True)
 
     class Meta:
@@ -518,4 +519,4 @@ class RilevatoreH2S(models.Model):
         verbose_name_plural = 'Rilevatori H2S'
 
     def __str__(self):
-        return '{} {}'.format(self.marca, self.matricola)
+        return '{} {}'.format(self.get_marca_display(), self.matricola)

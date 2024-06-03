@@ -138,7 +138,8 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
         'marca',
         'matricola',
         'data_scadenza',
-        'data_bump_test'
+        'data_bump_test',
+        'data_calibrazione'
     )
     list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test')
     # list_filter = ('cassetta__stato', 'cassetta')
