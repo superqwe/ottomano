@@ -102,7 +102,7 @@
         <tr>
             <td>{{lavoratore.cognome}}</td>
             <td>{{lavoratore.nome}}</td>
-            <td class="bordo-destro">{{lavoratore.mansione|default_if_none:""}}</td>
+            <td class="bordo-destro">{{lavoratore.qualifica|default_if_none:""}}</td>
             <td class="text-center bordo-destro">
                 <a href="{% static ''%}{{lavoratore}}/unilav {{lavoratore.tipo_contratto}}.pdf" target="_blank">
                 {{lavoratore.tipo_contratto}}</a>
