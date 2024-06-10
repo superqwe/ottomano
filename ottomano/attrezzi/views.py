@@ -31,32 +31,33 @@ def aggiorna_documenti(request):
     elenco_documenti_attrezzi = []
 
     for attrezzo in elenco_attrezzi:
-        # print('\n', mezzo.nome())
         path_attrezzo = os.path.join(PATH_DOCUMENTI, attrezzo.tipologia.nome, attrezzo.nome())
 
         try:
             documenti = os.listdir(path_attrezzo)
+
+            documenti_attrezzo_ok = []
+            documenti_attrezzo_errore = []
+
+            for documento in documenti:
+                documenti_attrezzo_ok.append(os.path.splitext(documento)[0])
+                doc = os.path.splitext(documento)[0].split()
+
+                match doc[0]:
+
+                    case 'ce':
+                        attrezzo.ce = True
+
+                    case 'manuale':
+                        attrezzo.manuale = True
+
+                    case _:
+                        documenti_attrezzo_errore.append((documenti_attrezzo_ok.pop()))
+                        warnings.warn('Nome documento non processato - %s (%s)' % (attrezzo, documento))
+
         except FileNotFoundError:
             documenti = None
             warnings.warn(f'Percorso non trovato - {path_attrezzo}')
-
-        documenti_attrezzo_ok = []
-        documenti_attrezzo_errore = []
-        for documento in documenti:
-            documenti_attrezzo_ok.append(os.path.splitext(documento)[0])
-            doc = os.path.splitext(documento)[0].split()
-
-            match doc[0]:
-
-                case 'ce':
-                    attrezzo.ce = True
-
-                case 'manuale':
-                    attrezzo.manuale = True
-
-                case _:
-                    documenti_attrezzo_errore.append((documenti_attrezzo_ok.pop()))
-                    warnings.warn('Nome documento non processato - %s (%s)' % (attrezzo, documento))
 
         attrezzo.save()
         elenco_documenti_attrezzi.append((attrezzo, documenti_attrezzo_ok, documenti_attrezzo_errore))
