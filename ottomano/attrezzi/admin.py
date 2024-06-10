@@ -7,11 +7,13 @@ class TipologiaAdmin(admin.ModelAdmin):
     list_display = ('nome',
                     'faldone'
                     )
+    list_filter = ('faldone',)
 
 
 class AttrezzoAdmin(admin.ModelAdmin):
     def get_faldone(self, obj):
         return obj.tipologia.faldone
+
     get_faldone.short_description = 'Faldone'
     get_faldone.admin_order_field = 'tipologia__faldone'
 
@@ -27,7 +29,7 @@ class AttrezzoAdmin(admin.ModelAdmin):
                           'marca',
                           'modello'
                           )
-    list_filter = ('tipologia',)
+    list_filter = ('tipologia__faldone', 'tipologia')
     save_on_top = True
 
 
