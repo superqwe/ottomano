@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block titolo %}
-{{titolo}}
-<!--Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori-->
+<!--{{titolo}}-->
+Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
 {% endblock %}
 
 
@@ -26,8 +26,8 @@
         <tr class="text-center">
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-            <th scope="col" >Idoneità</th>
-<!--            <th scope="col" class="d-print-none">Idoneità</th>-->
+<!--            <th scope="col" >Idoneità</th>-->
+            <th scope="col" class="d-print-none">Idoneità</th>
             <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
             </th>
@@ -39,6 +39,7 @@
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 10</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni dell'arto superiore sinistro</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni del rachide</th>
+            <th scope="col">Evitare intense e ripetute flessioni del rachide</th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
             <th scope="col">Controlli semestrali</th>
             <th scope="col">Evitare posture incongrue</th>
@@ -55,8 +56,8 @@
         <tr>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
-            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}}">
-<!--            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}} d-print-none">-->
+<!--            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}}">-->
+            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}} d-print-none">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:'dmy'}}.pdf" target="_blank">
                 {{lavoratore.idoneita|date:"d/m/y"}}
                 </a>
@@ -107,16 +108,21 @@
                 {% endif %}
             </td>
             <td class="text-center">
-                {% if lavoratore.guanti %}
+                {% if lavoratore.flessioni_rachide %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
             <td class="text-center">
+                {% if lavoratore.guanti %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center bordo-destro">
                 {% if lavoratore.semestrale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center  bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.posture %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -126,12 +132,12 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center  bordo-destro">
                 {% if lavoratore.altezza %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.dpi_respiratori %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -141,7 +147,7 @@
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center  bordo-destro">
                 {% if lavoratore.temperature %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -163,9 +169,11 @@
         <tr class="text-center">
             <th rowspan="2" class="align-middle">Revisione</th>
             <th rowspan="2" class="align-middle">Data</th>
-            <th colspan="3">Per ricevuta</th>
+            <th colspan="5">Per ricevuta</th>
         </tr>
         <tr class="text-center">
+            <th>Masciullo</th>
+            <th>Antico</th>
             <th>Ciampo</th>
             <th>Conserva</th>
             <th>Delli Santi</th>
@@ -173,8 +181,9 @@
         </thead>
         <tbody class="border border-secondary">
         <tr>
-            <td class="text-center align-middle rigo_firme">8</td>
-            <td class="text-center align-middle rigo_firme">09/04/2024</td>
+            <td class="text-center align-middle rigo_firme">9</td>
+            <td class="text-center align-middle rigo_firme">11/06/2024</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

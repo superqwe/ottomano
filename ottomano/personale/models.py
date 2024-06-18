@@ -148,6 +148,7 @@ class Idoneita(models.Model):
     carichi_15 = models.BooleanField(default=False)
     sollecitazioni_arto_superiore_sinistro = models.BooleanField(default=False)
     sollecitazioni_rachide = models.BooleanField(default=False)
+    flessioni_rachide = models.BooleanField(default=False)
     spazi_confinati = models.BooleanField(default=False)
     altezza = models.BooleanField('Lavori in altezza', default=False)
     mansioni_gravose = models.BooleanField(default=False)

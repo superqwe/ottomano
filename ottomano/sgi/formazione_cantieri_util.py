@@ -46,7 +46,7 @@ class IntestazioneTabella:
 
             n_colonne_cantieri = 0
             for cantiere in cantieri_per_tipo:
-                documenti = FormazioneCantieri.objects.filter(cantiere=cantiere)
+                documenti = FormazioneCantieri.objects.filter(cantiere=cantiere, attivo=True)
                 # print(documenti.count())
 
                 for documento in documenti:
