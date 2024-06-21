@@ -384,6 +384,8 @@ class DPI2(models.Model):
     ck_consegna = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     ck_elmetto = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     ck_rilevatore = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_rilevatore_calibrazione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                                  default='ok_np')
     ck_maschera = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     class Meta:

@@ -158,6 +158,7 @@ def scadenzario_dpi_aggiorna(request):
         try:
             dpi = DPI2.objects.get(lavoratore=rilevatore.lavoratore)
             dpi.rilevatore = rilevatore.data_scadenza
+            dpi.ck_rilevatore_calibrazione = rilevatore.data_calibrazione_ck
             dpi.save()
         except ObjectDoesNotExist:
             pass

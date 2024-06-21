@@ -48,7 +48,12 @@
                 </a>
             </td>
             <td class="text-center {{dpi.ck_elmetto}}">{{dpi.elmetto|date:"m/y"}}</td>
-            <td class="text-center {{dpi.ck_rilevatore}}">{{dpi.rilevatore|date:"d/m/y"}}</td>
+            <td class="text-center {{dpi.ck_rilevatore}}">
+                {{dpi.rilevatore|date:"d/m/y"}}
+                {% if dpi.ck_rilevatore_calibrazione %}
+                <i class="fa-solid fa-triangle-exclamation rosso"></i>
+                {% endif %}
+            </td>
             <td class="text-center {{dpi.ck_maschera}}">{{dpi.maschera|date:"m/y"}}</td>
             <td class="text-center">{{dpi.imbracatura|date:'m/y'|default_if_none:""}}</td>
             <td class="text-center">{{dpi.cordino_singolo|date:'m/y'|default_if_none:""}}</td>

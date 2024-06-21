@@ -10,7 +10,7 @@ FRA_3_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
 MESI_6_PASSATI = OGGI - datetime.timedelta(days=30.5 * 6)
 MESI_9_PASSATI = OGGI - datetime.timedelta(days=30.5 * 9)
 GIORNI_180_DA_ATTIVAZIONE = OGGI + datetime.timedelta(days=365 * 2 - 180)
-GIORNI_180_DA_ATTIVAZIONE_IN_SCADENZA = OGGI + datetime.timedelta(days=365 * 2 - 180 - 30)
+GIORNI_180_DA_ATTIVAZIONE_IN_SCADENZA = OGGI + datetime.timedelta(days=365 * 2 - 180 + 30)
 
 
 def rilevatori_drager_calibrazione_stato():
