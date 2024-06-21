@@ -21,6 +21,7 @@ OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 FRA_2_MESI = OGGI + datetime.timedelta(days=30.5 * 2)
+FRA_3_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
 FRA_1_ANNO = OGGI + datetime.timedelta(days=365)
 VECCHIO_DI_N_MESI = OGGI + datetime.timedelta(days=-30.5 * 1)
 ANNO_CORRENTE = OGGI.year
@@ -363,9 +364,9 @@ def scadenziario_formazione2(request):
     return render(request, 'personale/formazione.html', context)
 
 
-def scadenziario_idoneita(request):
+def scadenzario_idoneita(request):
     idoneita = Idoneita.objects. \
-        filter(lavoratore__in_forza=True, idoneita__lt=FRA_2_MESI). \
+        filter(lavoratore__in_forza=True, idoneita__lt=FRA_3_MESI). \
         order_by('idoneita', 'lavoratore__cognome', 'lavoratore__nome')
 
     context = {'titolo': 'Scadenzario Idoneità',
