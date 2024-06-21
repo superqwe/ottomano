@@ -141,8 +141,8 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
         'data_bump_test',
         'data_calibrazione'
     )
-    list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test')
-    # list_filter = ('cassetta__stato', 'cassetta')
+    list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test', 'data_calibrazione',)
+    list_filter = ('marca',)
     save_on_top = True
 
 
@@ -175,7 +175,7 @@ class FormazioneCantieri_Admin(admin.ModelAdmin):
     )
     filter_horizontal = ('lavoratori',)
     list_display = (
-        'attivo', 'cantiere', 'nome_documento', 'tipo', 'tipo_revisione', 'tipo_nome', 'ifa_trimestre', )
+        'attivo', 'cantiere', 'nome_documento', 'tipo', 'tipo_revisione', 'tipo_nome', 'ifa_trimestre',)
     save_on_top = True
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):

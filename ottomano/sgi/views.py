@@ -1,10 +1,10 @@
 import datetime
 import pathlib
-from pprint import pp
 
 import sgi.cassetta_ps_util as cassetta_ps_util
-import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 import sgi.formazione_cantieri_util as formazione_cantieri_util
+import sgi.rilevatorih2s_util as rilevatorih2s_util
+import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponse
@@ -12,8 +12,7 @@ from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 
 from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2, FormazioneCantieri, \
-    FormazioneCantieri_Cantieri
+    AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2024
@@ -296,6 +295,7 @@ def cassette_ps_scadenze(request):
 
 
 def rilevatorih2s(request):
+    rilevatorih2s_util.rilevatori_drager_calibrazione_stato()
     dati = RilevatoreH2S.objects.all()
 
     context = {'titolo': 'Registro Rilevatori H2S',

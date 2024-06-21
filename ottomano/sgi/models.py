@@ -48,16 +48,20 @@ MESE = [
 ]
 
 #  RILEVATORE H2S------------------------------------------------------------------------------------------------------
-MARCA_RILEVATORE_H2S = [
+RILEVATORE_H2S_MARCA = [
     ('hw', 'Honeywell'),
     ('dr', 'Drager'),
     ('ms', 'MSA'),
 ]
-USO_RILEVATORE_H2S = [
+RILEVATORE_H2S_USO = [
     ('l', 'Consegnato'),
     ('f', 'Fornitori'),
     ('d', 'Disponibile')
-
+]
+RILEVATORE_H2S_STATO = [
+    (None, 'ok_np'),
+    ('table-warning', 'in scadenza'),
+    ('table-danger', 'scaduto')
 ]
 
 # NON CONFORMITÀ ------------------------------------------------------------------------------------------------------
@@ -505,13 +509,15 @@ class VerificaCassettaPS(models.Model):
 
 
 class RilevatoreH2S(models.Model):
-    uso = models.CharField(max_length=1, choices=USO_RILEVATORE_H2S, blank=True, null=True)
+    uso = models.CharField(max_length=1, choices=RILEVATORE_H2S_USO, blank=True, null=True)
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
-    marca = models.CharField(max_length=3, choices=MARCA_RILEVATORE_H2S, blank=True, null=True)
+    marca = models.CharField(max_length=3, choices=RILEVATORE_H2S_MARCA, blank=True, null=True)
     matricola = models.CharField(max_length=20, blank=True, null=True)
     data_scadenza = models.DateField(blank=True, null=True)
     data_calibrazione = models.DateField(blank=True, null=True)
     data_bump_test = models.DateField(blank=True, null=True)
+
+    data_calibrazione_ck = models.CharField(max_length=15, choices=RILEVATORE_H2S_STATO, blank=True, null=True)
 
     class Meta:
         ordering = ['-uso', 'lavoratore']
