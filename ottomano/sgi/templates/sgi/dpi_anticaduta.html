@@ -37,7 +37,7 @@
         </thead>
         <tbody>
         {% for dpi in registro %}
-        <tr>
+        <tr {% if dpi.dismissione %} class="table-danger" {% endif%}>
             <td class="text-center">{{dpi.get_tipologia_display}}</td>
             <td class="text-center">{{dpi.messa_in_servizio|default_if_none:''}}</td>
             <td class="text-center {{dpi.ck_revisione}}">{{dpi.verifica|default_if_none:''}}</td>
