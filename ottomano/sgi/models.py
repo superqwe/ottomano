@@ -347,6 +347,19 @@ class Formazione(models.Model):
         return '%s %s' % (self.data, self.argomento)
 
 
+class Formazione_Organico_Medio_Annuo(models.Model):
+    anno = models.IntegerField(blank=True, null=True)
+    valore = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-anno']
+        verbose_name = 'Formazione - Organico Medio Annuo'
+        verbose_name_plural = 'Formazioni - Organico Medio Annuo'
+
+    def __str__(self):
+        return 'Formazione - Organico Medio Annuo del %i: %i' % (self.anno, self.valore)
+
+
 class Non_Conformita(models.Model):
     data = models.DateField(blank=True, null=True)
     emittente = models.CharField(max_length=10, choices=NC_EMITTENTE, default='aspp', blank=True, null=True)

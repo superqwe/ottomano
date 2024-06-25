@@ -2,8 +2,8 @@ import datetime
 
 from django.contrib import admin, messages
 
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, DPI_Anticaduta2, \
-    DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica, AccessoriSollevamento, \
+from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
+    RilevatoreH2S, DPI_Anticaduta2, DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica, AccessoriSollevamento, \
     AccessoriSollevamento_Revisione, FormazioneCantieri, FormazioneCantieri_Cantieri
 
 from personale.models import Lavoratore
@@ -12,6 +12,11 @@ from personale.models import Lavoratore
 class FormazioneAdmin(admin.ModelAdmin):
     list_display = ('mese', 'corso', 'data', 'argomento', 'docente', 'ore', 'persone')
     date_hierarchy = 'data'
+    save_on_top = True
+
+
+class Formazione_Organico_Medio_AnnuoAdmin(admin.ModelAdmin):
+    list_display = ('anno', 'valore')
     save_on_top = True
 
 
@@ -190,6 +195,7 @@ class FormazioneCantieri_Cantieri_Admin(admin.ModelAdmin):
 
 
 admin.site.register(Formazione, FormazioneAdmin)
+admin.site.register(Formazione_Organico_Medio_Annuo, Formazione_Organico_Medio_AnnuoAdmin)
 admin.site.register(Non_Conformita, NonConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)

@@ -11,8 +11,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 
-from .models import Formazione, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, RilevatoreH2S, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
+from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
+    RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2024
@@ -61,10 +61,14 @@ def formazione(request, anno=ANNO_CORRENTE):
     ore_totali = ore_interno + ore_esterno
 
     # ore media persona
-    n_lavoratori = Lavoratore.objects.filter(in_forza=True).count()
-    media_interna = ore_interno / n_lavoratori
-    media_esterna = ore_esterno / n_lavoratori
-    media_totale = ore_totali / n_lavoratori
+    try:
+        organico_medio_annuo = Formazione_Organico_Medio_Annuo.objects.get(anno=anno).valore
+    except ObjectDoesNotExist:
+        organico_medio_annuo = Lavoratore.objects.filter(in_forza=True).count()
+
+    media_interna = ore_interno / organico_medio_annuo
+    media_esterna = ore_esterno / organico_medio_annuo
+    media_totale = ore_totali / organico_medio_annuo
 
     # statistiche ore
     statistiche = (
@@ -77,7 +81,8 @@ def formazione(request, anno=ANNO_CORRENTE):
                'pagina_attiva_formazione': 'active',
                'sezione_sgi_attiva': 'active',
                'formazione': formazione_,
-               'statistiche': statistiche
+               'statistiche': statistiche,
+               'organico_medio_annuo': organico_medio_annuo
                }
 
     pagina_attiva_formazione_2024 = pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
