@@ -210,6 +210,10 @@ class FormazioneCantieri(models.Model):
                 else:
                     return 'POS'
             case '3':
+                if self.tipo_revisione is None:
+                    return '{}'.format(self.tipo_nome, )
+                # else:
+                #     return 'POS'
                 return '{} {}'.format(self.tipo_nome, self.tipo_revisione)
 
     class Meta:
