@@ -212,9 +212,8 @@ class FormazioneCantieri(models.Model):
             case '3':
                 if self.tipo_revisione is None:
                     return '{}'.format(self.tipo_nome, )
-                # else:
-                #     return 'POS'
-                return '{} {}'.format(self.tipo_nome, self.tipo_revisione)
+                else:
+                    return '{} {}'.format(self.tipo_nome, self.tipo_revisione)
 
     class Meta:
         ordering = ['cantiere', 'tipo', 'tipo_revisione', 'ifa_trimestre']
