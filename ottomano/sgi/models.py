@@ -441,6 +441,7 @@ class VerificaCassettaPS(models.Model):
     operazione = models.CharField(max_length=10, choices=OPERAZIONE_CASSETTA_PS, blank=True, null=True)
     materiale_integrato = models.TextField('Materiale reintegrato', blank=True, null=True)
     materiale_da_integrare = models.TextField('Materiale da reintegrare', blank=True, null=True)
+    note = models.TextField('Note', blank=True, null=True)
 
     sc1_guanti = models.DateField('Guanti sterili', blank=True, null=True)
     sc1_iodio = models.DateField('Iodiopovidone 125ml', blank=True, null=True)

@@ -83,7 +83,7 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
              'data_verifica',
              'data_scadenza',
              'operazione',
-             ('materiale_integrato', 'materiale_da_integrare'),
+             ('materiale_integrato', 'materiale_da_integrare', 'note'),
          ]}),
 
         ('Cassetta All. I',

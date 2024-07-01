@@ -68,6 +68,7 @@
             <td>
                 <span class="text-success">{{verifica.materiale_integrato}}</span>
                 <span class="text-danger">{{verifica.materiale_da_integrare}}</span>
+                <span>{{verifica.note|default_if_none:''}}</span>
             </td>
         </tr>
         {% endfor %}

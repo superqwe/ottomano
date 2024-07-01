@@ -31,6 +31,7 @@
             <th scope="col">Operazione</th>
             <th scope="col">Materiale reintegrato</th>
             <th scope="col">Materiale da reintegrare</th>
+            <th scope="col">Note</th>
         </tr>
         </thead>
 
@@ -58,6 +59,7 @@
             </td>
             <td>{{verifica.materiale_integrato|linebreaksbr}}</td>
             <td>{{verifica.materiale_da_integrare|linebreaksbr}}</td>
+            <td>{{verifica.note|default_if_none:''}}</td>
         </tr>
         {% endfor %}
 
