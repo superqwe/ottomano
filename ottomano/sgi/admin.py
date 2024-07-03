@@ -152,13 +152,10 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
 
 
 class DPI_AnticadutaAdmin(admin.ModelAdmin):
-    # fields = (
-    #     'uso',
-    # )
     filter_horizontal = ('consegna',)
     list_display = (
         'tipologia', 'stato', 'ultima_consegna_lavoratore', 'messa_in_servizio', 'verifica', 'ultima_consegna_data',
-        'marca', 'modello', 'fabbricazione', 'matricola', 'dismissione'
+        'marca', 'modello', 'fabbricazione', 'matricola', 'matricola_interna','dismissione'
     )
     list_filter = ('tipologia', 'stato')
     save_on_top = True

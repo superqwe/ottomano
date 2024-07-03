@@ -145,6 +145,7 @@ ACCESSORI_SOLLEVAMENTO_STATO = [
 DPI_ANTICADUTA_STATO = [
     ('c', 'Consegnato'),
     ('d', 'Disponibile'),
+    ('v', 'Verifica'),
     ('x', 'Dismesso'),
 ]
 DPI_ANTICADUTA_TIPOLOGIA = [
@@ -252,6 +253,7 @@ class DPI_Anticaduta_Verifica(models.Model):
 
 
 class DPI_Anticaduta2(models.Model):
+    matricola_interna = models.IntegerField(blank=True, null=True)
     tipologia = models.CharField(max_length=2, choices=DPI_ANTICADUTA_TIPOLOGIA, blank=True, null=True)
     stato = models.CharField(max_length=1, choices=DPI_ANTICADUTA_STATO, blank=True, null=True)
     consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)
@@ -282,7 +284,7 @@ class DPI_Anticaduta2(models.Model):
             return None
 
     class Meta:
-        ordering = ['-tipologia', 'stato', 'matricola']
+        ordering = ['-tipologia', 'stato', 'matricola_interna']
         verbose_name = 'DPI Anticaduta'
         verbose_name_plural = 'DPI Anticaduta'
 
