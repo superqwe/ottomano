@@ -147,7 +147,7 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
         'data_calibrazione'
     )
     list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test', 'data_calibrazione',)
-    list_filter = ('marca',)
+    list_filter = ('marca', 'uso')
     save_on_top = True
 
 
@@ -162,6 +162,9 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
 
 
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):
+    # fields = (
+    #     'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
+    #     'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
     list_display = (
         'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
         'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')

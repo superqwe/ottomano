@@ -56,7 +56,8 @@ RILEVATORE_H2S_MARCA = [
 RILEVATORE_H2S_USO = [
     ('l', 'Consegnato'),
     ('f', 'Fornitori'),
-    ('d', 'Disponibile')
+    ('d', 'Disponibile'),
+    ('x', 'Dismesso'),
 ]
 RILEVATORE_H2S_STATO = [
     (None, 'ok_np'),
@@ -136,7 +137,7 @@ ACCESSORI_SOLLEVAMENTO_REVISIONE = [
 ACCESSORI_SOLLEVAMENTO_STATO = [
     ('recente', 'table-success'),
     ('ok', ''),
-    ('dismessa_recente', 'table-warning'),
+    ('dismessa_recente', 'table-danger'),
     ('dismessa', 'table-danger'),
 ]
 
@@ -541,7 +542,7 @@ class RilevatoreH2S(models.Model):
     data_calibrazione_ck = models.CharField(max_length=15, choices=RILEVATORE_H2S_STATO, blank=True, null=True)
 
     class Meta:
-        ordering = ['-uso', 'lavoratore']
+        ordering = ['uso', 'lavoratore']
         verbose_name = 'Rilevatore H2S'
         verbose_name_plural = 'Rilevatori H2S'
 

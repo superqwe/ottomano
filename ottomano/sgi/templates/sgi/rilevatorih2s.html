@@ -36,7 +36,7 @@
         </thead>
         <tbody>
         {% for rilevatore in registro %}
-        <tr>
+        <tr {% if rilevatore.uso == "x" %} class="table-danger" {% endif %}>
             <td>
                 {% if rilevatore.lavoratore.cognome %}
                 {{rilevatore.lavoratore.cognome}}

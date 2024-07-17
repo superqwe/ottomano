@@ -157,7 +157,7 @@ def scadenzario_dpi_aggiorna(request):
             dpi.save()
 
     # aggiorna data scadenza rilevatore h2s
-    lista_rilevatorih2s = RilevatoreH2S.objects.all()
+    lista_rilevatorih2s = RilevatoreH2S.objects.exclude(uso='x')
 
     for rilevatore in lista_rilevatorih2s:
         try:
@@ -177,7 +177,7 @@ def scadenzario_dpi_aggiorna(request):
 
 def scadenzario_dpi(request):
     lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
-    lista_rilevatorih2s = RilevatoreH2S.objects.all().exclude(uso='l')
+    lista_rilevatorih2s = RilevatoreH2S.objects.exclude(uso='l').exclude(uso='x')
 
     context = {'titolo': 'Scadenzario DPI',
                'sezione_sgi_attiva': 'active',
