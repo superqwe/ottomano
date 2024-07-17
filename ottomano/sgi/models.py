@@ -92,6 +92,12 @@ NC_RESPONSABILE_TRATTAMENTO = [
     ('rsgi', 'RSGI'),
 ]
 
+NC_GRAVITA = [
+    ('1' , 'Grigia'),
+    ('2' , 'Gialla'),
+    ('3' , 'Rossa'),
+]
+
 # ACCESSORI_SOLLEVAMENTO -----------------------------------------------------------------------------------------------
 ACCESSORI_SOLLEVAMENTO_TIPO = [
     ('car', 'Carrucola'),
@@ -379,6 +385,20 @@ class Non_Conformita(models.Model):
                                                 null=True, default='aspp')
     data_completamento = models.DateField(blank=True, null=True)
     data_verifica = models.DateField(blank=True, null=True)
+
+    delimitazioni = models.BooleanField(default=False)
+    pdl = models.BooleanField(default=False)
+    dpi = models.BooleanField(default=False)
+    ordine_pulizia = models.BooleanField(default=False)
+    sollevamenti = models.BooleanField(default=False)
+    attrezzature = models.BooleanField(default=False)
+    guida = models.BooleanField(default=False)
+    ponteggio = models.BooleanField(default=False)
+    ponteggio_uso = models.BooleanField(default=False)
+    ponteggio_stato = models.BooleanField(default=False)
+    lavori_quota = models.BooleanField(default=False)
+    spazi_confinati = models.BooleanField(default=False)
+    gravita = models.CharField(max_length=10, choices=NC_GRAVITA, blank=True, null=True)
 
     class Meta:
         ordering = ['-data']

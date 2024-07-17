@@ -21,9 +21,31 @@ class Formazione_Organico_Medio_AnnuoAdmin(admin.ModelAdmin):
 
 
 class NonConformitaAdmin(admin.ModelAdmin):
-    list_display = (
-        'data', 'emittente', 'area', 'tipologia', 'descrizione', 'trattamento', 'causa', 'azione_correttiva'
+    fields = (
+        'data',
+        ('emittente', 'area', 'tipologia', 'gravita'),
+        'descrizione',
+        'trattamento',
+        'causa',
+        'azione_correttiva',
+        ('responsabile_trattamento', 'data_completamento', 'data_verifica'),
+        ('delimitazioni',
+         'pdl',
+         'dpi',
+         'ordine_pulizia',
+         'sollevamenti',
+         'attrezzature',
+         'guida',
+         'ponteggio_uso',
+         'ponteggio_stato',
+         'lavori_quota',
+         'spazi_confinati'),
     )
+
+    list_display = (
+        'data', 'emittente', 'area', 'tipologia', 'gravita', 'descrizione', 'trattamento', 'causa', 'azione_correttiva'
+    )
+
     date_hierarchy = 'data'
     save_on_top = True
 
@@ -155,7 +177,7 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
     filter_horizontal = ('consegna',)
     list_display = (
         'tipologia', 'stato', 'ultima_consegna_lavoratore', 'messa_in_servizio', 'verifica', 'ultima_consegna_data',
-        'marca', 'modello', 'fabbricazione', 'matricola', 'matricola_interna','dismissione'
+        'marca', 'modello', 'fabbricazione', 'matricola', 'matricola_interna', 'dismissione'
     )
     list_filter = ('tipologia', 'stato')
     save_on_top = True

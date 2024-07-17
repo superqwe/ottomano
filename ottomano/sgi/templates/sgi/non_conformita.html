@@ -46,6 +46,7 @@
             <th scope="col">Emittente</th>
             <th scope="col">Area</th>
             <th scope="col">Tipologia</th>
+<!--            <th scope="col">Gravità</th>-->
             <th scope="col">Descrizione</th>
             <th scope="col">Trattamento</th>
             <th scope="col">Causa</th>
@@ -63,7 +64,8 @@
             <td>{{nc.data|date:"d/m/y"}}</td>
             <td class="text-center">{{nc.get_emittente_display}}</td>
             <td class="text-center">{{nc.get_area_display}}</td>
-            <td class="text-center">{{nc.get_tipologia_display}}</td>
+            <td class="text-center">{{nc.get_tipologia_display}} {{nc.get_gravita_display|default_if_none:""}}</td>
+<!--            <td class="text-center">{{nc.get_gravita_display|default_if_none:""}}</td>-->
             <td>{{nc.descrizione}}</td>
             <td>{{nc.trattamento}}</td>
             <td>{{nc.causa}}</td>
