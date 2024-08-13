@@ -93,9 +93,9 @@ NC_RESPONSABILE_TRATTAMENTO = [
 ]
 
 NC_GRAVITA = [
-    ('1' , 'Grigia'),
-    ('2' , 'Gialla'),
-    ('3' , 'Rossa'),
+    ('1', 'Grigia'),
+    ('2', 'Gialla'),
+    ('3', 'Rossa'),
 ]
 
 # ACCESSORI_SOLLEVAMENTO -----------------------------------------------------------------------------------------------
@@ -159,6 +159,15 @@ DPI_ANTICADUTA_TIPOLOGIA = [
     ('im', 'Imbracatura'),
     ('c1', 'Cordino Singolo'),
     ('c2', 'Cordino Doppio'),
+]
+
+DPI_ANTICADUTA_OPERAZIONE = [
+    ('ms', 'Messa in servizio'),
+    ('c', 'Consegnato'),
+    ('d', 'Riconsegna - Disponibile'),
+    ('rv', 'Riconsegna per Verifica'),
+    ('v', 'Verifica'),
+    ('x', 'Dismesso'),
 ]
 
 # FORMAZIONE CANTIERI --------------------------------------------------------------------------------------------------
@@ -233,6 +242,7 @@ class FormazioneCantieri(models.Model):
 
 
 class DPI_Anticaduta_Consegna(models.Model):
+    # todo: obsoleto
     data = models.DateField(blank=True, null=True)
 
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
@@ -248,6 +258,7 @@ class DPI_Anticaduta_Consegna(models.Model):
 
 
 class DPI_Anticaduta_Verifica(models.Model):
+    # todo: obsoleto
     data = models.DateField(blank=True, null=True)
 
     class Meta:
@@ -259,20 +270,66 @@ class DPI_Anticaduta_Verifica(models.Model):
         return '{}'.format(self.data.strftime('%d/%m/%y'))
 
 
+class DPI_Anticaduta_Operazione(models.Model):
+    data = models.DateField(blank=True, null=True)
+    operazione = models.CharField(max_length=2, choices=DPI_ANTICADUTA_OPERAZIONE, blank=True, null=True)
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['data', 'lavoratore']
+        verbose_name = 'DPI Anticaduta - Operazione'
+        verbose_name_plural = 'DPI Anticaduta - Operazioni'
+
+    def __str__(self):
+        lavoratore = self.lavoratore if self.lavoratore else ''
+        return '{} {} - {}'.format(self.data, self.get_operazione_display(), lavoratore)
+
+
 class DPI_Anticaduta2(models.Model):
-    matricola_interna = models.IntegerField(blank=True, null=True)
-    tipologia = models.CharField(max_length=2, choices=DPI_ANTICADUTA_TIPOLOGIA, blank=True, null=True)
+    matricola_interna = models.IntegerField('ID', blank=True, null=True)
     stato = models.CharField(max_length=1, choices=DPI_ANTICADUTA_STATO, blank=True, null=True)
-    consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)
-    messa_in_servizio = models.DateField(blank=True, null=True)
-    verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True, null=True)
+    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+    tipologia = models.CharField(max_length=2, choices=DPI_ANTICADUTA_TIPOLOGIA, blank=True, null=True)
     marca = models.CharField(max_length=20, blank=True, null=True)
     modello = models.CharField(max_length=20, blank=True, null=True)
     fabbricazione = models.DateField(blank=True, null=True)
     matricola = models.IntegerField(blank=True, null=True)
+    messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
-
+    verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True,
+                                 null=True)  # todo: obsoleto
+    data_verifica = models.DateField('Data ultima verifica', blank=True, null=True)
+    operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)
+
+    def save(self, *args, **kwargs):
+        for operazione in self.operazione.all():
+            match operazione.operazione:
+                case 'ms':
+                    print(operazione.data, 'consegnato - messo in servizio')
+                    self.messa_in_servizio = operazione.data
+                    self.lavoratore = operazione.lavoratore
+                    self.stato = 'c'
+                case 'c':
+                    print(operazione.data, 'consegnato')
+                    self.lavoratore = operazione.lavoratore
+                    self.stato = 'c'
+                case 'd':
+                    print(operazione.data, '*** riconsegnato disponibile in ufficio')
+                    self.stato = 'd'
+                case 'rv':
+                    print(operazione.data, '*** riconsegnato per verifica')
+                    self.stato = 'v'
+                case 'v':
+                    print(operazione.data, 'verificato')
+                    self.data_verifica = operazione.data
+                    self.stato = 'd'
+                case 'x':
+                    print(operazione.data, '*** Dismesso')
+                    self.stato = 'x'
+
+        super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
     def ultima_consegna_lavoratore(self):
         consegna = self.consegna.all()
