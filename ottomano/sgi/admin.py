@@ -181,8 +181,8 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
               ('fabbricazione', 'matricola',),
               ('messa_in_servizio', 'dismissione'),
               ('verifica', 'data_verifica', 'ck_revisione'),
-              'consegna',
               'operazione',
+              'consegna',
               )
     filter_horizontal = ('consegna', 'operazione',)
     list_display = (
@@ -192,6 +192,38 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
     list_filter = ('tipologia', 'stato')
     readonly_fields = ('stato', 'lavoratore', 'messa_in_servizio', 'dismissione', 'data_verifica', 'ck_revisione')
     save_on_top = True
+
+    # def save_related(self, request, form, formsets, change):
+    #     super(DPI_AnticadutaAdmin, self).save_related(request, form, formsets, change)
+    #     for operazione in form.instance.operazione.all():
+    #
+    #         match operazione.operazione:
+    #             case 'ms':
+    #                 print(operazione.data, 'consegnato - messo in servizio')
+    #                 self.messa_in_servizio = operazione.data
+    #                 self.lavoratore = operazione.lavoratore
+    #                 self.stato = 'c'
+    #             case 'c':
+    #                 print(operazione.data, 'consegnato')
+    #                 self.lavoratore = operazione.lavoratore
+    #                 self.stato = 'c'
+    #             case 'd':
+    #                 print(operazione.data, 'riconsegnato disponibile in ufficio')
+    #                 self.lavoratore = None
+    #                 self.stato = 'd'
+    #             case 'rv':
+    #                 print(operazione.data, 'riconsegnato per verifica')
+    #                 self.lavoratore = None
+    #                 self.stato = 'v'
+    #             case 'v':
+    #                 print(operazione.data, 'verificato')
+    #                 self.data_verifica = operazione.data
+    #                 self.stato = 'd'
+    #             case 'x':
+    #                 print(operazione.data, 'dismesso')
+    #                 self.dismissione = operazione.data
+    #                 self.lavoratore = None
+    #                 self.stato = 'x'
 
 
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):

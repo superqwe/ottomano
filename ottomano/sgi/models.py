@@ -164,7 +164,7 @@ DPI_ANTICADUTA_TIPOLOGIA = [
 DPI_ANTICADUTA_OPERAZIONE = [
     ('ms', 'Messa in servizio'),
     ('c', 'Consegnato'),
-    ('d', 'Riconsegna - Disponibile'),
+    ('d', 'Riconsegna/Disponibile'),
     ('rv', 'Riconsegna per Verifica'),
     ('v', 'Verifica'),
     ('x', 'Dismesso'),
@@ -305,6 +305,7 @@ class DPI_Anticaduta2(models.Model):
 
     def save(self, *args, **kwargs):
         for operazione in self.operazione.all():
+
             match operazione.operazione:
                 case 'ms':
                     print(operazione.data, 'consegnato - messo in servizio')
@@ -316,17 +317,21 @@ class DPI_Anticaduta2(models.Model):
                     self.lavoratore = operazione.lavoratore
                     self.stato = 'c'
                 case 'd':
-                    print(operazione.data, '*** riconsegnato disponibile in ufficio')
+                    print(operazione.data, 'riconsegnato disponibile in ufficio')
+                    self.lavoratore = None
                     self.stato = 'd'
                 case 'rv':
-                    print(operazione.data, '*** riconsegnato per verifica')
+                    print(operazione.data, 'riconsegnato per verifica')
+                    self.lavoratore = None
                     self.stato = 'v'
                 case 'v':
                     print(operazione.data, 'verificato')
                     self.data_verifica = operazione.data
                     self.stato = 'd'
                 case 'x':
-                    print(operazione.data, '*** Dismesso')
+                    print(operazione.data, 'dismesso')
+                    self.dismissione = operazione.data
+                    self.lavoratore = None
                     self.stato = 'x'
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
