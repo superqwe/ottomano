@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+<div class="col d-print-none">
+    <div class="btn-group " role="group">
+        <a href="/sgi/dpi_anticaduta"
+           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta}}">Elenco</a>
+        <a href="/sgi/dpi_anticaduta/registro"
+           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_registro}}">Registro</a>
+        <a href="/sgi/dpi_anticaduta/storia"
+           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_storia}}">Storia</a>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+
+<div>
+
+    <div>
+        <table class="table table-striped table-sm">
+            {% for dpi in dati %}
+            <thead class="table-light sticky-top">
+            <tr>
+                <th>
+                    {{ dpi.get_tipologia_display }}
+                    {{ dpi.matricola_interna }}
+                    {{ dpi.marca }}
+                    {{ dpi.modello }}
+                </th>
+                <th> Fabbricazione: {{ dpi.fabbricazione }}
+                </th>
+                <th>
+                    Matricola: {{ dpi.matricola }}
+                </th>
+            </tr>
+            <tr class="text-center">
+                <th scope="col">Data</th>
+                <th scope="col">Operazione</th>
+                <th scope="col">Lavoratore</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for op in dpi.operazione.all %}
+            <tr>
+                <td>{{op.data}}</td>
+                <td>{{op.get_operazione_display}}</td>
+                <td>{{op.lavoratore|default_if_none:""}}</td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+
+{% endblock %}

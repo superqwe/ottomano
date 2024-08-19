@@ -179,18 +179,19 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
               'tipologia',
               ('marca', 'modello'),
               ('fabbricazione', 'matricola',),
-              ('messa_in_servizio', 'dismissione'),
+              ('messa_in_servizio', 'consegna2', 'dismissione'),
               ('verifica', 'data_verifica', 'ck_revisione'),
               'operazione',
               'consegna',
               )
     filter_horizontal = ('consegna', 'operazione',)
     list_display = (
-        'tipologia', 'matricola_interna','stato', 'lavoratore', 'data_verifica',
-        'marca', 'modello', 'fabbricazione', 'matricola',  'messa_in_servizio', 'dismissione'
+        'tipologia', 'matricola_interna', 'stato',  'lavoratore', 'consegna2','data_verifica',
+        'marca', 'modello', 'fabbricazione', 'matricola', 'messa_in_servizio', 'dismissione'
     )
     list_filter = ('tipologia', 'stato')
-    readonly_fields = ('stato', 'lavoratore', 'messa_in_servizio', 'dismissione', 'data_verifica', 'ck_revisione')
+    readonly_fields = (
+        'stato', 'lavoratore', 'messa_in_servizio', 'dismissione', 'data_verifica', 'ck_revisione', 'consegna2')
     save_on_top = True
 
     # def save_related(self, request, form, formsets, change):

@@ -20,6 +20,8 @@ urlpatterns = [
     path('rilevatorih2s/', views.rilevatorih2s, name='rilevatorih2s'),
     path('accessori_sollevamento/', views.accessori_sollevamento, name='accessori_sollevamento'),
     path('dpi_anticaduta/', views.dpi_anticaduta, name='dpi_anticaduta'),
+    path('dpi_anticaduta/registro', views.dpi_anticaduta_registro, name='dpi_anticaduta_registro'),
+    path('dpi_anticaduta/storia', views.dpi_anticaduta_storia, name='dpi_anticaduta_storia'),
     path('formazione_cantieri/', views.formazione_cantieri, name='formazione_cantieri'),
 ]
 

@@ -14,6 +14,8 @@ from personale.models import Lavoratore
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
     RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
 
+from pprint import pprint as pp
+
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2024
 FORMAZIONE_FRAZIONI_ORE = {
@@ -333,6 +335,15 @@ def accessori_sollevamento(request):
     return render(request, 'sgi/accessori_sollevamento.html', context)
 
 
+def dpi_anticaduta_registro(request):
+    context = {'titolo': 'Registro DPI Anticaduta',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_dpi_anticaduta_registro': 'active',
+               # 'registro': dati,
+               }
+    return render(request, 'sgi/dpi_anticaduta.html', context)
+
+
 def dpi_anticaduta(request):
     # todo: da completare ck_revisione con più date di verifica
     DPI_Anticaduta2.objects.all().update(ck_revisione='ok_np')
@@ -346,12 +357,24 @@ def dpi_anticaduta(request):
 
     dati = DPI_Anticaduta2.objects.all()
 
-    context = {'titolo': 'Registro DPI Anticaduta',
+    context = {'titolo': 'Elenco DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_dpi_anticaduta': 'active',
                'registro': dati,
                }
     return render(request, 'sgi/dpi_anticaduta.html', context)
+
+
+def dpi_anticaduta_storia(request):
+    dati = DPI_Anticaduta2.objects.exclude(stato='x')
+    # pp(dati)
+
+    context = {'titolo': 'Storia DPI Anticaduta',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_dpi_anticaduta_soria': 'active',
+               'dati': dati,
+               }
+    return render(request, 'sgi/dpi_anticaduta_storia.html', context)
 
 
 def formazione_cantieri(request):
