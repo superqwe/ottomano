@@ -333,7 +333,7 @@ class DPI_Anticaduta2(models.Model):
                 case 'x':
                     print(operazione.data, 'dismesso')
                     self.dismissione = operazione.data
-                    self.lavoratore = None
+                    self.lavoratore = operazione.lavoratore
                     self.stato = 'x'
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)

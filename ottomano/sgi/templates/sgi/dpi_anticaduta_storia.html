@@ -31,13 +31,20 @@
 <div>
 
     <div>
-        <table class="table table-striped table-sm">
+        <table class="table  table-sm">
             {% for dpi in dati %}
-            <thead class="table-light sticky-top">
+
+            {% ifchanged %}
             <tr>
+                <th colspan="3" class="bg-primary text-white">
+                    <h2>{{ dpi.get_tipologia_display }}</h2>
+                </th>
+            </tr>
+            {% endifchanged %}
+
+            <tr {% if dpi.stato == 'x' %} class="bg-danger text-white"  {% else %} class="bg-secondary text-white" {% endif %}>
                 <th>
-                    {{ dpi.get_tipologia_display }}
-                    {{ dpi.matricola_interna }}
+                    {{ dpi.matricola_interna }} -
                     {{ dpi.marca }}
                     {{ dpi.modello }}
                 </th>
@@ -47,22 +54,22 @@
                     Matricola: {{ dpi.matricola }}
                 </th>
             </tr>
-            <tr class="text-center">
+
+            <tr>
                 <th scope="col">Data</th>
                 <th scope="col">Operazione</th>
                 <th scope="col">Lavoratore</th>
             </tr>
-            </thead>
-            <tbody>
+
             {% for op in dpi.operazione.all %}
             <tr>
                 <td>{{op.data}}</td>
-                <td>{{op.get_operazione_display}}</td>
-                <td>{{op.lavoratore|default_if_none:""}}</td>
+                <td {% if op.operazione == 'v' %} class="text-success" {% endif %}> {{op.get_operazione_display}}</td>
+                <td>{{op.lavoratore|default_if_none:"-"}}</td>
             </tr>
 
             {% endfor %}
-            </tbody>
+
             {% endfor %}
         </table>
     </div>

@@ -366,7 +366,8 @@ def dpi_anticaduta(request):
 
 
 def dpi_anticaduta_storia(request):
-    dati = DPI_Anticaduta2.objects.exclude(stato='x')
+    # dati = DPI_Anticaduta2.objects.exclude(stato='x')
+    dati = DPI_Anticaduta2.objects.all().order_by('tipologia', 'matricola_interna')
     # pp(dati)
 
     context = {'titolo': 'Storia DPI Anticaduta',
