@@ -336,15 +336,44 @@ def accessori_sollevamento(request):
 
 
 def dpi_anticaduta_registro(request):
+    dati = DPI_Anticaduta2.objects.all()
+    [x.save() for x in dati] # forza salvataggio
+
+    dati = DPI_Anticaduta2.objects.exclude(stato='x').order_by('lavoratore')
+    registro = {}
+    disponibili = []
+
+    for dpi in dati:
+
+        if dpi.lavoratore:
+
+            if dpi.lavoratore not in registro:
+                registro[dpi.lavoratore] = [None, ] * 3
+
+            match dpi.tipologia:
+                case 'im':
+                    registro[dpi.lavoratore][0] = dpi
+                case 'c1':
+                    registro[dpi.lavoratore][1] = dpi
+                case 'c2':
+                    registro[dpi.lavoratore][2] = dpi
+        else:
+            disponibili.append(dpi)
+
+    dati = []
+    for lavoratore, dpi in registro.items():
+        dati.append((lavoratore, dpi))
+
     context = {'titolo': 'Registro DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
+               'pagina_attiva_dpi_anticaduta': 'active',
                'pagina_attiva_dpi_anticaduta_registro': 'active',
-               # 'registro': dati,
+               'registro': dati,
                }
-    return render(request, 'sgi/dpi_anticaduta.html', context)
+    return render(request, 'sgi/dpi_anticaduta_registro.html', context)
 
 
-def dpi_anticaduta(request):
+def dpi_anticaduta_elenco(request):
     # todo: da completare ck_revisione con più date di verifica
     DPI_Anticaduta2.objects.all().update(ck_revisione='ok_np')
 
@@ -360,9 +389,10 @@ def dpi_anticaduta(request):
     context = {'titolo': 'Elenco DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_dpi_anticaduta': 'active',
+               'pagina_attiva_dpi_anticaduta_elenco': 'active',
                'registro': dati,
                }
-    return render(request, 'sgi/dpi_anticaduta.html', context)
+    return render(request, 'sgi/dpi_anticaduta_elenco.html', context)
 
 
 def dpi_anticaduta_storia(request):
@@ -372,7 +402,8 @@ def dpi_anticaduta_storia(request):
 
     context = {'titolo': 'Storia DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
-               'pagina_attiva_dpi_anticaduta_soria': 'active',
+               'pagina_attiva_dpi_anticaduta': 'active',
+               'pagina_attiva_dpi_anticaduta_storia': 'active',
                'dati': dati,
                }
     return render(request, 'sgi/dpi_anticaduta_storia.html', context)

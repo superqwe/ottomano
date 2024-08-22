@@ -10,16 +10,7 @@
 
 
 {% block menu_sezione %}
-<div class="col d-print-none">
-    <div class="btn-group " role="group">
-        <a href="/sgi/dpi_anticaduta"
-           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta}}">Elenco</a>
-        <a href="/sgi/dpi_anticaduta/registro"
-           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_registro}}">Registro</a>
-        <a href="/sgi/dpi_anticaduta/storia"
-           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_storia}}">Storia</a>
-    </div>
-</div>
+{% include "./menu_sezione_dpi_anticaduta.html" %}
 {% endblock %}
 
 

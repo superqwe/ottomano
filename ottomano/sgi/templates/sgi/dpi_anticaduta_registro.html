@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include "./menu_sezione_sgi.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% include "./menu_sezione_dpi_anticaduta.html" %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th colspan="2">Nominativo</th>
+            <th colspan="7">Imbracatura</th>
+            <th colspan="7">Cordino Singolo</th>
+            <th colspan="7">Cordino Doppio</th>
+        </tr>
+        <tr class="text-center">
+            <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
+
+            <th scope="col">ID</th>
+            <th scope="col">Messa in servizio</th>
+            <th scope="col">Revisionata</th>
+            <th scope="col">Consegnata</th>
+            <th scope="col">Modello</th>
+            <th scope="col">Fabbricato</th>
+            <th scope="col">Matricola</th>
+            
+            <th scope="col">ID</th>
+            <th scope="col">Messa in servizio</th>
+            <th scope="col">Revisionata</th>
+            <th scope="col">Consegnata</th>
+            <th scope="col">Modello</th>
+            <th scope="col">Fabbricato</th>
+            <th scope="col">Matricola</th>
+            
+            <th scope="col">ID</th>
+            <th scope="col">Messa in servizio</th>
+            <th scope="col">Revisionata</th>
+            <th scope="col">Consegnata</th>
+            <th scope="col">Modello</th>
+            <th scope="col">Fabbricato</th>
+            <th scope="col">Matricola</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lavoratore, dpi in registro %}
+        <tr>
+            <td> {{ lavoratore.cognome }}</td>
+            <td class="bordo-destro"> {{ lavoratore.nome }}</td>
+
+            <td class="text-center"> {{ dpi.0.matricola_interna }}</td>
+            <td class="text-center"> {{ dpi.0.messa_in_servizio|default_if_none:"" }}</td>
+            <td class="text-center {{dpi.0.ck_revisione}}"> {{ dpi.0.data_verifica|default_if_none:"" }}</td>
+            <td class="text-center"> {{ dpi.0.consegna2 }}</td>
+            <td class="text-center"> {{ dpi.0.marca }} {{ dpi.0.modello }}</td>
+            <td class="text-center"> {{ dpi.0.fabbricazione }}</td>
+            <td class=" text-center bordo-destro"> {{ dpi.0.matricola }}</td>
+
+            <td class="text-center"> {{ dpi.1.matricola_interna }}</td>
+            <td class="text-center"> {{ dpi.1.messa_in_servizio|default_if_none:"" }}</td>
+            <td class="text-center {{dpi.1.ck_revisione}}"> {{ dpi.1.data_verifica|default_if_none:"" }}</td>
+            <td class="text-center"> {{ dpi.1.consegna2 }}</td>
+            <td class="text-center"> {{ dpi.1.marca }} {{ dpi.1.modello }}</td>
+            <td class="text-center"> {{ dpi.1.fabbricazione }}</td>
+            <td class=" text-center bordo-destro"> {{ dpi.1.matricola }}</td>
+
+            <td class="text-center"> {{ dpi.2.matricola_interna }}</td>
+            <td class="text-center"> {{ dpi.2.messa_in_servizio|default_if_none:"" }}</td>
+            <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:"" }}</td>
+            <td class="text-center"> {{ dpi.2.consegna2 }}</td>
+            <td class="text-center"> {{ dpi.2.marca }} {{ dpi.2.modello }}</td>
+            <td class="text-center"> {{ dpi.2.fabbricazione }}</td>
+            <td class=" text-center bordo-destro"> {{ dpi.2.matricola }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

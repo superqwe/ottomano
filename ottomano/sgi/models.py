@@ -310,28 +310,28 @@ class DPI_Anticaduta2(models.Model):
 
             match operazione.operazione:
                 case 'ms':
-                    print(operazione.data, 'consegnato - messo in servizio')
+                    # print(operazione.data, 'consegnato - messo in servizio')
                     self.messa_in_servizio = operazione.data
                     self.lavoratore = operazione.lavoratore
                     self.stato = 'c'
                 case 'c':
-                    print(operazione.data, 'consegnato')
+                    # print(operazione.data, 'consegnato')
                     self.lavoratore = operazione.lavoratore
                     self.stato = 'c'
                 case 'd':
-                    print(operazione.data, 'riconsegnato disponibile in ufficio')
+                    # print(operazione.data, 'riconsegnato disponibile in ufficio')
                     self.lavoratore = None
                     self.stato = 'd'
                 case 'rv':
-                    print(operazione.data, 'riconsegnato per verifica')
+                    # print(operazione.data, 'riconsegnato per verifica')
                     self.lavoratore = None
                     self.stato = 'v'
                 case 'v':
-                    print(operazione.data, 'verificato')
+                    # print(operazione.data, 'verificato')
                     self.data_verifica = operazione.data
                     self.stato = 'd'
                 case 'x':
-                    print(operazione.data, 'dismesso')
+                    # print(operazione.data, 'dismesso')
                     self.dismissione = operazione.data
                     self.lavoratore = operazione.lavoratore
                     self.stato = 'x'
