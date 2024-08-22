@@ -367,7 +367,7 @@ class AccessoriSollevamento(models.Model):
     stato = models.CharField(max_length=16, choices=ACCESSORI_SOLLEVAMENTO_STATO, blank=True, null=True)
     tipo = models.CharField(max_length=4, choices=ACCESSORI_SOLLEVAMENTO_TIPO, blank=True, null=True)
     marca = models.CharField(max_length=50, blank=True, null=True)
-    anno = models.IntegerField(blank=True, null=True)
+    anno = models.IntegerField('Anno Produzione', blank=True, null=True)
     codice = models.CharField(max_length=10, blank=True, null=True)
     diametro = models.CharField(max_length=5, choices=ACCESSORI_SOLLEVAMENTO_DIAMETRO, blank=True, null=True)
     colore = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_COLORE, blank=True, null=True)
@@ -378,7 +378,7 @@ class AccessoriSollevamento(models.Model):
     usura_leggera = models.BooleanField(blank=True, null=True)
     usura_media = models.BooleanField(blank=True, null=True)
     usura_grave = models.BooleanField(blank=True, null=True)
-    usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)
+    usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)  # todo:obsoleto
     conforme = models.BooleanField(default=True)
     in_uso = models.BooleanField(default=True)
     data_messa_in_servizio = models.DateField(blank=True, null=True)
@@ -403,6 +403,10 @@ class AccessoriSollevamento_Revisione(models.Model):
     class Meta:
         verbose_name = 'Accessori di Sollevamento - Revisione'
         verbose_name_plural = 'Accessori di Sollevamento - Revisioni'
+
+    def __str__(self):
+        return 'Revisione %s del %s - Trimestre %s/%s' % (
+            self.revisione, self.data_compilazione, self.get_trimestre_display(), self.anno)
 
 
 class Formazione(models.Model):

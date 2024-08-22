@@ -186,7 +186,7 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
               )
     filter_horizontal = ('consegna', 'operazione',)
     list_display = (
-        'tipologia', 'matricola_interna', 'stato',  'lavoratore', 'consegna2','data_verifica',
+        'tipologia', 'matricola_interna', 'stato', 'lavoratore', 'consegna2', 'data_verifica',
         'marca', 'modello', 'fabbricazione', 'matricola', 'messa_in_servizio', 'dismissione'
     )
     list_filter = ('tipologia', 'stato')
@@ -228,12 +228,20 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
 
 
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):
-    # fields = (
-    #     'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
-    #     'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
+    fields = (
+        ('codice', 'tipo'),
+        'marca', 'anno',
+        ('portata', 'lunghezza', 'colore'),
+        ('terminali', 'diametro'),
+        'reparto',
+        ('usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione'),
+        ('conforme', 'in_uso'),
+        'data_messa_in_servizio', 'data_dismissione', 'note', 'stato')
     list_display = (
         'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
         'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
+    list_filter = ('in_uso',)
+    readonly_fields = ('stato',)
     save_on_top = True
 
 
