@@ -27,7 +27,6 @@
             <th scope="col">Tipologia</th>
             <th scope="col">Messa in servizio</th>
             <th scope="col">Revisione</th>
-            <th scope="col">Revisione(V)</th>
             <th scope="col">Consegna</th>
             <th scope="col">Consegna (V)</th>
             <th scope="col">Dismissione</th>
@@ -50,7 +49,6 @@
             <td class="text-center">{{dpi.get_tipologia_display}}</td>
             <td class="text-center">{{dpi.messa_in_servizio|default_if_none:''}}</td>
             <td class="text-center {{dpi.ck_revisione}}">{{dpi.data_verifica|default_if_none:''}}</td>
-            <td class="text-center {{dpi.ck_revisione}}">{{dpi.verifica|default_if_none:''}}</td>
             <td class="text-center">{{dpi.consegna2|default_if_none:''}}</td>
             <td class="text-center">{{dpi.ultima_consegna_data|default_if_none:''}}</td>
             <td class="text-center">{{dpi.dismissione|default_if_none:''}}</td>
