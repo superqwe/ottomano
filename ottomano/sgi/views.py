@@ -378,11 +378,14 @@ def dpi_anticaduta_elenco(request):
     DPI_Anticaduta2.objects.all().update(ck_revisione='ok_np')
 
     DPI_Anticaduta2.objects.filter(
-        Q(verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))).update(ck_revisione='table-warning')
+        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))).update(ck_revisione='table-warning')
 
     DPI_Anticaduta2.objects.filter(
-        Q(verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))
+        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))
     ).update(ck_revisione='table-danger')
+
+    a =DPI_Anticaduta2.objects.filter(
+        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None)))
 
     dati = DPI_Anticaduta2.objects.all()
 
