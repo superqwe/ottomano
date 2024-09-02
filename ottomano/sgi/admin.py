@@ -24,27 +24,17 @@ class NonConformitaAdmin(admin.ModelAdmin):
     fields = (
         'data',
         ('emittente', 'area', 'tipologia', 'gravita'),
-        'descrizione',
-        'trattamento',
-        'causa',
-        'azione_correttiva',
+        ('delimitazioni', 'pdl', 'dpi', 'ordine_pulizia', 'sollevamenti', 'attrezzature', 'guida', 'ponteggio_uso',
+         'ponteggio_stato', 'lavori_quota', 'spazi_confinati'),
+        ('descrizione', 'trattamento'),
+        ('causa', 'azione_correttiva'),
         ('responsabile_trattamento', 'data_completamento', 'data_verifica'),
-        ('delimitazioni',
-         'pdl',
-         'dpi',
-         'ordine_pulizia',
-         'sollevamenti',
-         'attrezzature',
-         'guida',
-         'ponteggio_uso',
-         'ponteggio_stato',
-         'lavori_quota',
-         'spazi_confinati'),
     )
-
+    date_hierarchy = 'data'
     list_display = (
         'data', 'emittente', 'area', 'tipologia', 'gravita', 'descrizione', 'trattamento', 'causa', 'azione_correttiva'
     )
+    list_filter = ('tipologia', 'gravita')
 
     date_hierarchy = 'data'
     save_on_top = True
