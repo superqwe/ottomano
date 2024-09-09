@@ -62,7 +62,10 @@
             <td> {{ lavoratore.cognome }}</td>
             <td class="bordo-destro"> {{ lavoratore.nome }}</td>
 
-            <td class="text-center"> {{ dpi.0.matricola_interna }}</td>
+            <!--Imbracatura-->
+            <td class="text-center">
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.0.pk}}" target="_blank">{{ dpi.0.matricola_interna }}</a>
+            </td>
             <td class="text-center"> {{ dpi.0.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.0.ck_revisione}}"> {{ dpi.0.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.0.consegna2 }}</td>
@@ -70,7 +73,10 @@
             <td class="text-center"> {{ dpi.0.fabbricazione }}</td>
             <td class=" text-center bordo-destro"> {{ dpi.0.matricola }}</td>
 
-            <td class="text-center"> {{ dpi.1.matricola_interna }}</td>
+            <!--Cordino Singolo-->
+            <td class="text-center">
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.1.pk}}" target="_blank">{{ dpi.1.matricola_interna }}</a>
+            </td>
             <td class="text-center"> {{ dpi.1.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.1.ck_revisione}}"> {{ dpi.1.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.1.consegna2 }}</td>
@@ -78,7 +84,10 @@
             <td class="text-center"> {{ dpi.1.fabbricazione }}</td>
             <td class=" text-center bordo-destro"> {{ dpi.1.matricola }}</td>
 
-            <td class="text-center"> {{ dpi.2.matricola_interna }}</td>
+            <!--Cordino doppio-->
+            <td class="text-center">
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.2.pk}}" target="_blank">{{ dpi.2.matricola_interna }}</a>
+            </td>
             <td class="text-center"> {{ dpi.2.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.2.consegna2 }}</td>
