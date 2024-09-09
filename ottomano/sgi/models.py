@@ -297,7 +297,7 @@ class DPI_Anticaduta2(models.Model):
     messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
     data_verifica = models.DateField('Data ultima verifica', blank=True, null=True)
-    operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True)
+    operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True, null=True)
     consegna2 = models.DateField('Ultima operazione', blank=True, null=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     # consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)  # todo: obsoleto
@@ -305,36 +305,39 @@ class DPI_Anticaduta2(models.Model):
     #                              null=True)  # todo: obsoleto
 
     def save(self, *args, **kwargs):
-        for operazione in self.operazione.all():
-            self.consegna2 = operazione.data
+        try:
+            for operazione in self.operazione.all():
+                self.consegna2 = operazione.data
 
-            match operazione.operazione:
-                case 'ms':
-                    # print(operazione.data, 'consegnato - messo in servizio')
-                    self.messa_in_servizio = operazione.data
-                    self.lavoratore = operazione.lavoratore
-                    self.stato = 'c'
-                case 'c':
-                    # print(operazione.data, 'consegnato')
-                    self.lavoratore = operazione.lavoratore
-                    self.stato = 'c'
-                case 'd':
-                    # print(operazione.data, 'riconsegnato disponibile in ufficio')
-                    self.lavoratore = None
-                    self.stato = 'd'
-                case 'rv':
-                    # print(operazione.data, 'riconsegnato per verifica')
-                    self.lavoratore = None
-                    self.stato = 'v'
-                case 'v':
-                    # print(operazione.data, 'verificato')
-                    self.data_verifica = operazione.data
-                    self.stato = 'd'
-                case 'x':
-                    # print(operazione.data, 'dismesso')
-                    self.dismissione = operazione.data
-                    self.lavoratore = operazione.lavoratore
-                    self.stato = 'x'
+                match operazione.operazione:
+                    case 'ms':
+                        # print(operazione.data, 'consegnato - messo in servizio')
+                        self.messa_in_servizio = operazione.data
+                        self.lavoratore = operazione.lavoratore
+                        self.stato = 'c'
+                    case 'c':
+                        # print(operazione.data, 'consegnato')
+                        self.lavoratore = operazione.lavoratore
+                        self.stato = 'c'
+                    case 'd':
+                        # print(operazione.data, 'riconsegnato disponibile in ufficio')
+                        self.lavoratore = None
+                        self.stato = 'd'
+                    case 'rv':
+                        # print(operazione.data, 'riconsegnato per verifica')
+                        self.lavoratore = None
+                        self.stato = 'v'
+                    case 'v':
+                        # print(operazione.data, 'verificato')
+                        self.data_verifica = operazione.data
+                        self.stato = 'd'
+                    case 'x':
+                        # print(operazione.data, 'dismesso')
+                        self.dismissione = operazione.data
+                        self.lavoratore = operazione.lavoratore
+                        self.stato = 'x'
+        except ValueError:
+            print('*** DPI Anticaduta - primo salvataggio')
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
