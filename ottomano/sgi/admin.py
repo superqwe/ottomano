@@ -4,7 +4,7 @@ from django.contrib import admin, messages
 
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
     RilevatoreH2S, DPI_Anticaduta2, DPI_Anticaduta_Operazione, AccessoriSollevamento, AccessoriSollevamento_Revisione, \
-    FormazioneCantieri, FormazioneCantieri_Cantieri  # , DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica,
+    FormazioneCantieri, FormazioneCantieri_Cantieri
 
 from personale.models import Lavoratore
 
@@ -163,6 +163,13 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
+
+        return super(DPI_Anticaduta_OperazioneAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
 class DPI_AnticadutaAdmin(admin.ModelAdmin):
     fields = ('matricola_interna',
               ('stato', 'lavoratore'),
@@ -171,11 +178,8 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
               ('fabbricazione', 'matricola',),
               ('messa_in_servizio', 'consegna2', 'dismissione'),
               ('data_verifica', 'ck_revisione'),
-              # ('verifica', 'data_verifica', 'ck_revisione'),
               'operazione',
-              # 'consegna',
               )
-    # filter_horizontal = ('consegna', 'operazione',)
     filter_horizontal = ('operazione',)
     list_display = (
         'tipologia', 'matricola_interna', 'stato', 'lavoratore', 'consegna2', 'data_verifica',
@@ -185,38 +189,6 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
     readonly_fields = (
         'stato', 'lavoratore', 'messa_in_servizio', 'dismissione', 'data_verifica', 'ck_revisione', 'consegna2')
     save_on_top = True
-
-    # def save_related(self, request, form, formsets, change):
-    #     super(DPI_AnticadutaAdmin, self).save_related(request, form, formsets, change)
-    #     for operazione in form.instance.operazione.all():
-    #
-    #         match operazione.operazione:
-    #             case 'ms':
-    #                 print(operazione.data, 'consegnato - messo in servizio')
-    #                 self.messa_in_servizio = operazione.data
-    #                 self.lavoratore = operazione.lavoratore
-    #                 self.stato = 'c'
-    #             case 'c':
-    #                 print(operazione.data, 'consegnato')
-    #                 self.lavoratore = operazione.lavoratore
-    #                 self.stato = 'c'
-    #             case 'd':
-    #                 print(operazione.data, 'riconsegnato disponibile in ufficio')
-    #                 self.lavoratore = None
-    #                 self.stato = 'd'
-    #             case 'rv':
-    #                 print(operazione.data, 'riconsegnato per verifica')
-    #                 self.lavoratore = None
-    #                 self.stato = 'v'
-    #             case 'v':
-    #                 print(operazione.data, 'verificato')
-    #                 self.data_verifica = operazione.data
-    #                 self.stato = 'd'
-    #             case 'x':
-    #                 print(operazione.data, 'dismesso')
-    #                 self.dismissione = operazione.data
-    #                 self.lavoratore = None
-    #                 self.stato = 'x'
 
 
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):
@@ -268,9 +240,7 @@ admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
-admin.site.register(DPI_Anticaduta_Operazione)
-# admin.site.register(DPI_Anticaduta_Consegna)
-# admin.site.register(DPI_Anticaduta_Verifica)
+admin.site.register(DPI_Anticaduta_Operazione, DPI_Anticaduta_OperazioneAdmin)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
 admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)

@@ -297,7 +297,7 @@ class DPI_Anticaduta2(models.Model):
     messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
     data_verifica = models.DateField('Data ultima verifica', blank=True, null=True)
-    operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True, null=True)
+    operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True)
     consegna2 = models.DateField('Ultima operazione', blank=True, null=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     # consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)  # todo: obsoleto
