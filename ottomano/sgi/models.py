@@ -241,33 +241,33 @@ class FormazioneCantieri(models.Model):
         return '{} - {} rev.{}'.format(self.cantiere, self.get_tipo_display(), self.tipo_revisione)
 
 
-class DPI_Anticaduta_Consegna(models.Model):
-    # todo: obsoleto
-    data = models.DateField(blank=True, null=True)
-
-    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        ordering = ['-data', 'lavoratore']
-        verbose_name = 'DPI Anticaduta - Consegna'
-        verbose_name_plural = 'DPI Anticaduta - Consegne'
-
-    def __str__(self):
-        # return self.data
-        return '{} {}'.format(self.data, self.lavoratore)
-
-
-class DPI_Anticaduta_Verifica(models.Model):
-    # todo: obsoleto
-    data = models.DateField(blank=True, null=True)
-
-    class Meta:
-        ordering = ['-data', ]
-        verbose_name = 'DPI Anticaduta - Verifica'
-        verbose_name_plural = 'DPI Anticaduta - Verifiche'
-
-    def __str__(self):
-        return '{}'.format(self.data.strftime('%d/%m/%y'))
+# class DPI_Anticaduta_Consegna(models.Model):
+#     # todo: obsoleto
+#     data = models.DateField(blank=True, null=True)
+#
+#     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
+#
+#     class Meta:
+#         ordering = ['-data', 'lavoratore']
+#         verbose_name = 'DPI Anticaduta - Consegna'
+#         verbose_name_plural = 'DPI Anticaduta - Consegne'
+#
+#     def __str__(self):
+#         # return self.data
+#         return '{} {}'.format(self.data, self.lavoratore)
+#
+#
+# class DPI_Anticaduta_Verifica(models.Model):
+#     # todo: obsoleto
+#     data = models.DateField(blank=True, null=True)
+#
+#     class Meta:
+#         ordering = ['-data', ]
+#         verbose_name = 'DPI Anticaduta - Verifica'
+#         verbose_name_plural = 'DPI Anticaduta - Verifiche'
+#
+#     def __str__(self):
+#         return '{}'.format(self.data.strftime('%d/%m/%y'))
 
 
 class DPI_Anticaduta_Operazione(models.Model):
@@ -296,13 +296,13 @@ class DPI_Anticaduta2(models.Model):
     matricola = models.IntegerField(blank=True, null=True)
     messa_in_servizio = models.DateField(blank=True, null=True)
     dismissione = models.DateField(blank=True, null=True)
-    verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True,
-                                 null=True)  # todo: obsoleto
     data_verifica = models.DateField('Data ultima verifica', blank=True, null=True)
     operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True)
     consegna2 = models.DateField('Ultima operazione', blank=True, null=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
-    consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)  # todo: obsoleto
+    # consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)  # todo: obsoleto
+    # verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True,
+    #                              null=True)  # todo: obsoleto
 
     def save(self, *args, **kwargs):
         for operazione in self.operazione.all():
@@ -338,21 +338,21 @@ class DPI_Anticaduta2(models.Model):
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
-    def ultima_consegna_lavoratore(self):
-        consegna = self.consegna.all()
-        try:
-            lavoratore = [c.lavoratore for c in consegna][0]
-            return lavoratore
-        except IndexError:
-            return None
+    # def ultima_consegna_lavoratore(self):
+    #     consegna = self.consegna.all()
+    #     try:
+    #         lavoratore = [c.lavoratore for c in consegna][0]
+    #         return lavoratore
+    #     except IndexError:
+    #         return None
 
-    def ultima_consegna_data(self):
-        consegna = self.consegna.all()
-        try:
-            data = [c.data for c in consegna][0]
-            return data
-        except (AttributeError, IndexError):
-            return None
+    # def ultima_consegna_data(self):
+    #     consegna = self.consegna.all()
+    #     try:
+    #         data = [c.data for c in consegna][0]
+    #         return data
+    #     except (AttributeError, IndexError):
+    #         return None
 
     class Meta:
         ordering = ['-tipologia', 'stato', 'matricola_interna']

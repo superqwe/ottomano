@@ -28,10 +28,8 @@
             <th scope="col">Messa in servizio</th>
             <th scope="col">Revisione</th>
             <th scope="col">Consegna</th>
-            <th scope="col">Consegna (V)</th>
             <th scope="col">Dismissione</th>
             <th scope="col">Lavoratore</th>
-            <th scope="col">Lavoratore(V)</th>
             <th scope="col">Marca</th>
             <th scope="col">Modello</th>
             <th scope="col">Fabbricazione</th>
@@ -50,7 +48,6 @@
             <td class="text-center">{{dpi.messa_in_servizio|default_if_none:''}}</td>
             <td class="text-center {{dpi.ck_revisione}}">{{dpi.data_verifica|default_if_none:''}}</td>
             <td class="text-center">{{dpi.consegna2|default_if_none:''}}</td>
-            <td class="text-center">{{dpi.ultima_consegna_data|default_if_none:''}}</td>
             <td class="text-center">{{dpi.dismissione|default_if_none:''}}</td>
             <td class="text-center
             {%if dpi.stato == 'd' %}
@@ -59,13 +56,6 @@
             table-warning
             {% endif %}"
             > {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}</td>
-            <td class="text-center
-            {%if dpi.stato == 'd' %}
-            table-success
-            {%elif dpi.stato == 'v' %}
-            table-warning
-            {% endif %}"
-            > {{dpi.ultima_consegna_lavoratore|default_if_none:'DISPONIBILE'}}</td>
             <td class="text-center">{{dpi.marca}}</td>
             <td class="text-center">{{dpi.modello}}</td>
             <td class="text-center">{{dpi.fabbricazione|date:'m/y'}}</td>

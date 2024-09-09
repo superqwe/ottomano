@@ -3,8 +3,8 @@ import datetime
 from django.contrib import admin, messages
 
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
-    RilevatoreH2S, DPI_Anticaduta2, DPI_Anticaduta_Operazione, DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica, \
-    AccessoriSollevamento, AccessoriSollevamento_Revisione, FormazioneCantieri, FormazioneCantieri_Cantieri
+    RilevatoreH2S, DPI_Anticaduta2, DPI_Anticaduta_Operazione, AccessoriSollevamento, AccessoriSollevamento_Revisione, \
+    FormazioneCantieri, FormazioneCantieri_Cantieri  # , DPI_Anticaduta_Consegna, DPI_Anticaduta_Verifica,
 
 from personale.models import Lavoratore
 
@@ -170,11 +170,13 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
               ('marca', 'modello'),
               ('fabbricazione', 'matricola',),
               ('messa_in_servizio', 'consegna2', 'dismissione'),
-              ('verifica', 'data_verifica', 'ck_revisione'),
+              ('data_verifica', 'ck_revisione'),
+              # ('verifica', 'data_verifica', 'ck_revisione'),
               'operazione',
-              'consegna',
+              # 'consegna',
               )
-    filter_horizontal = ('consegna', 'operazione',)
+    # filter_horizontal = ('consegna', 'operazione',)
+    filter_horizontal = ('operazione',)
     list_display = (
         'tipologia', 'matricola_interna', 'stato', 'lavoratore', 'consegna2', 'data_verifica',
         'marca', 'modello', 'fabbricazione', 'matricola', 'messa_in_servizio', 'dismissione'
@@ -267,8 +269,8 @@ admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
 admin.site.register(DPI_Anticaduta_Operazione)
-admin.site.register(DPI_Anticaduta_Consegna)
-admin.site.register(DPI_Anticaduta_Verifica)
+# admin.site.register(DPI_Anticaduta_Consegna)
+# admin.site.register(DPI_Anticaduta_Verifica)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
 admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
