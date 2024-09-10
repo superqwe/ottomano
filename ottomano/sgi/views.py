@@ -364,11 +364,20 @@ def dpi_anticaduta_registro(request):
     for lavoratore, dpi in registro.items():
         dati.append((lavoratore, dpi))
 
+    dismessi_imbracature = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='im')
+    dismessi_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c1')
+    dismessi_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c2')
+
+
+
     context = {'titolo': 'Registro DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_dpi_anticaduta': 'active',
                'pagina_attiva_dpi_anticaduta_registro': 'active',
                'registro': dati,
+               'dismessi_imbracature': dismessi_imbracature,
+               'dismessi_cordino_singolo': dismessi_cordino_singolo,
+               'dismessi_cordino_doppio': dismessi_cordino_doppio
                }
     return render(request, 'sgi/dpi_anticaduta_registro.html', context)
 

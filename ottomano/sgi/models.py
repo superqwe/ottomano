@@ -341,6 +341,9 @@ class DPI_Anticaduta2(models.Model):
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
+    def modello_completo(self):
+        return '%s %s' % (self.marca, self.modello)
+
     # def ultima_consegna_lavoratore(self):
     #     consegna = self.consegna.all()
     #     try:
