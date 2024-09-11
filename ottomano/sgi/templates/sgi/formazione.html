@@ -64,6 +64,7 @@
         <tr class="text-center">
             <th scope="col">Mese</th>
             <th scope="col">Corso</th>
+            <th scope="col">Tipologia</th>
             <th scope="col">Data</th>
             <th scope="col">Argomento del corso</th>
             <th scope="col">Docente</th>
@@ -77,6 +78,7 @@
         <tr>
             <td>{{corso.get_mese_display}}</td>
             <td class="text-center">{{corso.corso|default_if_none:"-"}}</td>
+            <td>{{corso.get_tipologia_display|default_if_none:"-"}}</td>
             <td class="text-center">{{corso.data|date:"d/m/y"}}</td>
             <td>{{corso.argomento}}</td>
             <td>{{corso.docente}}</td>
@@ -90,7 +92,7 @@
 </div>
 
 
-<div>
+<div class="d-print-none">
     <table class="table table-sm table-bordered">
 
         <thead>

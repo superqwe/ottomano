@@ -10,7 +10,7 @@ from personale.models import Lavoratore
 
 
 class FormazioneAdmin(admin.ModelAdmin):
-    list_display = ('mese', 'corso', 'data', 'argomento', 'docente', 'ore', 'persone')
+    list_display = ('mese', 'corso', 'data', 'argomento', 'docente', 'ore', 'persone', 'tipologia')
     date_hierarchy = 'data'
     save_on_top = True
 

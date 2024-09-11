@@ -191,6 +191,15 @@ FORMAZIONE_CANTIERI_IFA_TRIMESTRE = (
     ('4', 'IV'),
 )
 
+# FORMAZIONE _________--------------------------------------------------------------------------------------------------
+FORMAZIONE_TIPOLOGIA = (
+    ('ifa', 'IFA'),
+    ('obb', 'Obblighi legge'),
+    ('tiv', 'Cantieri Titolo IV'),
+    ('scc', 'Patto Sicurezza'),
+    ('sgi', 'SGI'),
+)
+
 
 class FormazioneCantieri_Cantieri(models.Model):
     tipo = models.CharField(max_length=1, choices=FORMAZIONE_CANTIERI_CANTIERE_TIPO, blank=True, null=True)
@@ -300,9 +309,6 @@ class DPI_Anticaduta2(models.Model):
     operazione = models.ManyToManyField(DPI_Anticaduta_Operazione, blank=True)
     consegna2 = models.DateField('Ultima operazione', blank=True, null=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
-    # consegna = models.ManyToManyField(DPI_Anticaduta_Consegna, blank=True)  # todo: obsoleto
-    # verifica = models.ForeignKey(DPI_Anticaduta_Verifica, on_delete=models.CASCADE, blank=True,
-    #                              null=True)  # todo: obsoleto
 
     def save(self, *args, **kwargs):
         try:
@@ -343,22 +349,6 @@ class DPI_Anticaduta2(models.Model):
 
     def modello_completo(self):
         return '%s %s' % (self.marca, self.modello)
-
-    # def ultima_consegna_lavoratore(self):
-    #     consegna = self.consegna.all()
-    #     try:
-    #         lavoratore = [c.lavoratore for c in consegna][0]
-    #         return lavoratore
-    #     except IndexError:
-    #         return None
-
-    # def ultima_consegna_data(self):
-    #     consegna = self.consegna.all()
-    #     try:
-    #         data = [c.data for c in consegna][0]
-    #         return data
-    #     except (AttributeError, IndexError):
-    #         return None
 
     class Meta:
         ordering = ['-tipologia', 'stato', 'matricola_interna']
@@ -423,6 +413,7 @@ class Formazione(models.Model):
     docente = models.CharField(max_length=30, blank=True, null=True)
     ore = models.CharField(max_length=6, blank=True, null=True)
     persone = models.IntegerField(blank=True, null=True)
+    tipologia = models.CharField(max_length=20, choices=FORMAZIONE_TIPOLOGIA, blank=True, null=True)
 
     class Meta:
         ordering = ['-data', '-corso']
