@@ -41,7 +41,7 @@ def aggiorna_dpi_anticaduta():
 
     for articolo in anticaduta:
         try:
-            dpi = DPI2.objects.get(lavoratore=articolo.ultima_consegna_lavoratore())
+            dpi = DPI2.objects.get(lavoratore=articolo.lavoratore)
             scadenza = aggiungi_n_anni(articolo.fabbricazione)
 
             match articolo.tipologia:
