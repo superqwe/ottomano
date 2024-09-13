@@ -209,6 +209,7 @@ class AccessoriSollevamentoAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+@admin.register(FormazioneCantieri)
 class FormazioneCantieri_Admin(admin.ModelAdmin):
     fields = (
         ('cantiere', 'attivo'),
@@ -219,6 +220,7 @@ class FormazioneCantieri_Admin(admin.ModelAdmin):
     filter_horizontal = ('lavoratori',)
     list_display = (
         'attivo', 'cantiere', 'nome_documento', 'tipo', 'tipo_revisione', 'tipo_nome', 'ifa_trimestre',)
+    list_filter = ('attivo',)
     save_on_top = True
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
@@ -243,5 +245,5 @@ admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
 admin.site.register(DPI_Anticaduta_Operazione, DPI_Anticaduta_OperazioneAdmin)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
-admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
+# admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
 admin.site.register(FormazioneCantieri_Cantieri, FormazioneCantieri_Cantieri_Admin)
