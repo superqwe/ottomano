@@ -147,7 +147,7 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
     list_filter = ('cassetta__stato', 'operazione', 'cassetta')
     save_on_top = True
 
-
+@admin.register(RilevatoreH2S)
 class RilevatoreH2SAdmin(admin.ModelAdmin):
     fields = (
         'uso',
@@ -162,6 +162,10 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
     list_filter = ('marca', 'uso')
     save_on_top = True
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
+
+        return super(RilevatoreH2SAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -240,7 +244,7 @@ admin.site.register(Non_Conformita, NonConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
 admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
-admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
+# admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
 admin.site.register(DPI_Anticaduta_Operazione, DPI_Anticaduta_OperazioneAdmin)
 admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
