@@ -57,6 +57,7 @@ RILEVATORE_H2S_USO = [
     ('l', 'Consegnato'),
     ('f', 'Fornitori'),
     ('d', 'Disponibile'),
+    ('m', 'Multigas'),
     ('x', 'Dismesso'),
 ]
 RILEVATORE_H2S_STATO = [
@@ -627,7 +628,7 @@ class RilevatoreH2S(models.Model):
     data_calibrazione_ck = models.CharField(max_length=15, choices=RILEVATORE_H2S_STATO, blank=True, null=True)
 
     class Meta:
-        ordering = ['uso', 'lavoratore']
+        ordering = ['uso', 'lavoratore', 'matricola']
         verbose_name = 'Rilevatore H2S'
         verbose_name_plural = 'Rilevatori H2S'
 
