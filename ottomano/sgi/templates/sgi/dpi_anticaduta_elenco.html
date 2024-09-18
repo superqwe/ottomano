@@ -49,13 +49,21 @@
             <td class="text-center {{dpi.ck_revisione}}">{{dpi.data_verifica|default_if_none:''}}</td>
             <td class="text-center">{{dpi.consegna2|default_if_none:''}}</td>
             <td class="text-center">{{dpi.dismissione|default_if_none:''}}</td>
-            <td class="text-center
-            {%if dpi.stato == 'd' %}
-            table-success
-            {%elif dpi.stato == 'v' %}
-            table-warning
-            {% endif %}"
-            > {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}</td>
+
+            {% if dpi.stato == 'd' %}
+            <td class="text-center table-success">
+                {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}
+            </td>
+            {% elif dpi.stato == 'v' %}
+            <td class="text-center table-warning">
+                DISPONIBILE PER VERIFICA </br> {{dpi.lavoratore}}
+            </td>
+            {% else %}
+            <td class="text-center">
+                {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}
+            </td>
+            {% endif %}
+
             <td class="text-center">{{dpi.marca}}</td>
             <td class="text-center">{{dpi.modello}}</td>
             <td class="text-center">{{dpi.fabbricazione|date:'m/y'}}</td>

@@ -64,43 +64,64 @@
 
             <!--Imbracatura-->
             <td class="text-center">
-                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.0.pk}}" target="_blank">{{ dpi.0.matricola_interna }}</a>
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.0.pk}}" target="_blank">
+                    {{ dpi.0.matricola_interna }}
+                    {% if dpi.0.stato == 'v' %}
+                    <i class="fa-solid fa-circle blu"></i>
+                    {% endif%}
+                </a>
             </td>
             <td class="text-center"> {{ dpi.0.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.0.ck_revisione}}"> {{ dpi.0.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.0.consegna2 }}</td>
             <td class="text-center"> {{ dpi.0.marca }} {{ dpi.0.modello }}</td>
-            <td class="text-center"> {{ dpi.0.fabbricazione }}</td>
+            <td class="text-center"> {{ dpi.0.fabbricazione|date:"m/y" }}</td>
             <td class=" text-center bordo-destro"> {{ dpi.0.matricola }}</td>
 
             <!--Cordino Singolo-->
             <td class="text-center">
-                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.1.pk}}" target="_blank">{{ dpi.1.matricola_interna }}</a>
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.1.pk}}" target="_blank">
+                    {{ dpi.1.matricola_interna }}
+                    {% if dpi.1.stato == 'v' %}
+                    <i class="fa-solid fa-circle blu"></i>
+                    {% endif%}
+                </a>
             </td>
             <td class="text-center"> {{ dpi.1.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.1.ck_revisione}}"> {{ dpi.1.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.1.consegna2 }}</td>
             <td class="text-center"> {{ dpi.1.marca }} {{ dpi.1.modello }}</td>
-            <td class="text-center"> {{ dpi.1.fabbricazione }}</td>
+            <td class="text-center"> {{ dpi.1.fabbricazione|date:"m/y"  }}</td>
             <td class=" text-center bordo-destro"> {{ dpi.1.matricola }}</td>
 
             <!--Cordino doppio-->
             <td class="text-center">
-                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.2.pk}}" target="_blank">{{ dpi.2.matricola_interna }}</a>
+                <a href="/admin/sgi/dpi_anticaduta2/{{dpi.2.pk}}" target="_blank">
+                    {{ dpi.2.matricola_interna }}
+                    {% if dpi.2.stato == 'v' %}
+                    <i class="fa-solid fa-circle blu"></i>
+                    {% endif%}
+                </a>
             </td>
             <td class="text-center"> {{ dpi.2.messa_in_servizio|default_if_none:"" }}</td>
             <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.2.consegna2 }}</td>
             <td class="text-center"> {{ dpi.2.marca }} {{ dpi.2.modello }}</td>
-            <td class="text-center"> {{ dpi.2.fabbricazione }}</td>
+            <td class="text-center"> {{ dpi.2.fabbricazione|date:"m/y"  }}</td>
             <td class="text-center bordo-destro"> {{ dpi.2.matricola }}</td>
         </tr>
         {% endfor %}
 
         </tbody>
+
     </table>
 </div>
 
+<div>
+    <p>
+        <i class="fa-solid fa-circle blu"></i> In ufficio - da inviare a verifica
+    </p>
+</div>
 
 <div>
     <h2>DPI Anticaduta Dismessi</h2>
@@ -127,7 +148,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td>{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore}}</td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -157,7 +178,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td>{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore}}</td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -187,7 +208,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td>{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore}}</td>
                         </tr>
                         {% endfor %}
                     </table>

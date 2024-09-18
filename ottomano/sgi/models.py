@@ -251,35 +251,6 @@ class FormazioneCantieri(models.Model):
         return '{} - {} rev.{}'.format(self.cantiere, self.get_tipo_display(), self.tipo_revisione)
 
 
-# class DPI_Anticaduta_Consegna(models.Model):
-#     # todo: obsoleto
-#     data = models.DateField(blank=True, null=True)
-#
-#     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
-#
-#     class Meta:
-#         ordering = ['-data', 'lavoratore']
-#         verbose_name = 'DPI Anticaduta - Consegna'
-#         verbose_name_plural = 'DPI Anticaduta - Consegne'
-#
-#     def __str__(self):
-#         # return self.data
-#         return '{} {}'.format(self.data, self.lavoratore)
-#
-#
-# class DPI_Anticaduta_Verifica(models.Model):
-#     # todo: obsoleto
-#     data = models.DateField(blank=True, null=True)
-#
-#     class Meta:
-#         ordering = ['-data', ]
-#         verbose_name = 'DPI Anticaduta - Verifica'
-#         verbose_name_plural = 'DPI Anticaduta - Verifiche'
-#
-#     def __str__(self):
-#         return '{}'.format(self.data.strftime('%d/%m/%y'))
-
-
 class DPI_Anticaduta_Operazione(models.Model):
     data = models.DateField(blank=True, null=True)
     operazione = models.CharField(max_length=2, choices=DPI_ANTICADUTA_OPERAZIONE, blank=True, null=True)
@@ -332,7 +303,7 @@ class DPI_Anticaduta2(models.Model):
                         self.stato = 'd'
                     case 'rv':
                         # print(operazione.data, 'riconsegnato per verifica')
-                        self.lavoratore = None
+                        # self.lavoratore = None
                         self.stato = 'v'
                     case 'v':
                         # print(operazione.data, 'verificato')
