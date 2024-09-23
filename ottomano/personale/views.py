@@ -331,7 +331,7 @@ def aggiorna_stato(request):
 
 
 def idoneita(request):
-    idoneita = Idoneita.objects.filter(lavoratore__in_forza=True)
+    idoneita = Idoneita.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cognome='Ottomano')
     # print(formazione)
     context = {'titolo': 'Idoneità',
                'sezione_formazione_attiva': 'active',

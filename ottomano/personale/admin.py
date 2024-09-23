@@ -56,14 +56,13 @@ class FormazioneAdmin(admin.ModelAdmin):
     )
     list_display = ('lavoratore', 'stato', 'art37', 'preposto', 'primo_soccorso', 'antincendio')
     save_on_top = True
-    # list_display_links = ('cognome', 'nome')
     list_filter = ('stato', 'lavoratore__in_forza', 'lavoratore__cantiere')
 
 
 class CantiereAdmin(admin.ModelAdmin):
     save_on_top = True
 
-
+@admin.register(Idoneita)
 class IdoneitaAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
@@ -72,7 +71,8 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'guanti',
         'posture',
         ('carichi_10', 'carichi_15'),
-        ('sollecitazioni_arto_superiore_sinistro', 'sollecitazioni_rachide', 'flessioni_rachide'),
+        ('sollecitazioni_arto_superiore_sinistro', 'sollecitazioni_spalla_sinistra',
+         'sollecitazioni_rachide', 'flessioni_rachide'),
         'spazi_confinati',
         'altezza',
         'mansioni_gravose',
@@ -87,21 +87,6 @@ class IdoneitaAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-# todo: obsoleto cancellare
-# class DPIAdmin(admin.ModelAdmin):
-#     fields = (
-#         'lavoratore',
-#         'consegna',
-#         ('elmetto', 'elmetto_df'),
-#         'maschera'
-#     )
-#     list_display = ('lavoratore', 'consegna', 'elmetto', 'maschera')
-#     list_filter = ('lavoratore__in_forza',)
-#     save_on_top = True
-
-
 admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Cantiere, CantiereAdmin)
-admin.site.register(Idoneita, IdoneitaAdmin)
-# admin.site.register(DPI, DPIAdmin)

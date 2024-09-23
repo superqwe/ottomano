@@ -38,6 +38,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 15</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 10</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni dell'arto superiore sinistro</th>
+            <th scope="col">Evitare intense e ripetute sollecitazioni della spalla sinistra</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni del rachide</th>
             <th scope="col">Evitare intense e ripetute flessioni del rachide</th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
@@ -103,6 +104,11 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 {% endif %}
             </td>
             <td class="text-center bordo-destro">
+                {% if lavoratore.sollecitazioni_spalla_sinistra %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
                 {% if lavoratore.sollecitazioni_rachide %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -112,12 +118,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.guanti %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.semestrale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -127,12 +133,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.spazi_confinati %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center  bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.altezza %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -142,12 +148,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center  bordo-destro">
                 {% if lavoratore.scale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center  bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.temperature %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
