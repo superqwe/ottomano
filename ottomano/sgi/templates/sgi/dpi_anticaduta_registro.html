@@ -117,18 +117,101 @@
     </table>
 </div>
 
-<div>
-    <p>
-        <i class="fa-solid fa-circle blu"></i> In ufficio - da inviare a verifica
-    </p>
-</div>
 
-<div>
+<div style="break-inside: avoid;">
     <h2>Disponibili</h2>
+    <div class="row text-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Imbracature</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in disponibili_imbracature %}
+                        <tr>
+                            <td>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
+                            </td>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Cordino Singolo</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in disponibili_cordino_singolo %}
+                        <tr>
+                            <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Cordino Doppio</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in disponibili_cordino_doppio %}
+                        <tr>
+                            <td><a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
-<div>
+<div style="break-inside: avoid;">
     <h2>In Verifica</h2>
     <div class="row text-center">
         <div class="col-4">
@@ -147,7 +230,14 @@
                         </thead>
                         {% for elemento in verifica_imbracature %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
+                                {% if elemento.stato == 'v' %}
+                                <i class="fa-solid fa-circle blu"></i>
+                                {% endif%}
+                            </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
@@ -175,7 +265,14 @@
                         </thead>
                         {% for elemento in verifica_cordino_singolo %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
+                                {% if elemento.stato == 'v' %}
+                                <i class="fa-solid fa-circle blu"></i>
+                                {% endif%}
+                            </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
@@ -203,7 +300,14 @@
                         </thead>
                         {% for elemento in verifica_cordino_doppio %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
+                                {% if elemento.stato == 'v' %}
+                                <i class="fa-solid fa-circle blu"></i>
+                                {% endif%}
+                            </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
@@ -216,8 +320,10 @@
         </div>
 
     </div>
+    <p>
+        <i class="fa-solid fa-circle blu"></i> In ufficio - da inviare a verifica
+    </p>
 </div>
-
 
 <div>
     <h2>Dismessi</h2>
@@ -239,7 +345,9 @@
                         </thead>
                         {% for elemento in dismessi_imbracature %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td><a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a></td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
@@ -269,7 +377,9 @@
                         </thead>
                         {% for elemento in dismessi_cordino_singolo %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td><a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a></td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
@@ -299,7 +409,9 @@
                         </thead>
                         {% for elemento in dismessi_cordino_doppio %}
                         <tr>
-                            <td>{{elemento.matricola_interna}}</td>
+                            <td><a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a></td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>

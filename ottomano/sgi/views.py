@@ -339,7 +339,7 @@ def dpi_anticaduta_registro(request):
     dati = DPI_Anticaduta2.objects.all()
     [x.save() for x in dati]  # forza salvataggio
 
-    dati = DPI_Anticaduta2.objects.exclude(stato='x').order_by('lavoratore')
+    dati = DPI_Anticaduta2.objects.exclude(stato__in=('x', 'v')).order_by('lavoratore')
     registro = {}
     disponibili = []
 
@@ -364,6 +364,10 @@ def dpi_anticaduta_registro(request):
     for lavoratore, dpi in registro.items():
         dati.append((lavoratore, dpi))
 
+    disponibili_imbracature = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='im')
+    disponibili_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='c1')
+    disponibili_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='c2')
+
     verifica_imbracature = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='im')
     verifica_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='c1')
     verifica_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='c2')
@@ -380,6 +384,9 @@ def dpi_anticaduta_registro(request):
                'dismessi_imbracature': dismessi_imbracature,
                'dismessi_cordino_singolo': dismessi_cordino_singolo,
                'dismessi_cordino_doppio': dismessi_cordino_doppio,
+               'disponibili_imbracature': disponibili_imbracature,
+               'disponibili_cordino_singolo': disponibili_cordino_singolo,
+               'disponibili_cordino_doppio': disponibili_cordino_doppio,
                'verifica_imbracature': verifica_imbracature,
                'verifica_cordino_singolo': verifica_cordino_singolo,
                'verifica_cordino_doppio': verifica_cordino_doppio,
