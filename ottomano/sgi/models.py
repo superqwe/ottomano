@@ -283,6 +283,7 @@ class DPI_Anticaduta2(models.Model):
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
     def save(self, *args, **kwargs):
+        print('ciao')
         try:
             for operazione in self.operazione.all():
                 self.consegna2 = operazione.data
@@ -314,8 +315,14 @@ class DPI_Anticaduta2(models.Model):
                         self.dismissione = operazione.data
                         self.lavoratore = operazione.lavoratore
                         self.stato = 'x'
+
+
         except ValueError:
             print('*** DPI Anticaduta - primo salvataggio')
+
+        if not self.operazione.all():
+            self.lavoratore = None
+            self.stato = 'd'
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
 

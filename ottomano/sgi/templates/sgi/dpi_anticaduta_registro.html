@@ -148,7 +148,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td class="text-start">{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -178,7 +178,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td class="text-start">{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -208,7 +208,7 @@
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                             <td>{{elemento.dismissione}}</td>
-                            <td class="text-start">{{elemento.lavoratore}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
                         </tr>
                         {% endfor %}
                     </table>

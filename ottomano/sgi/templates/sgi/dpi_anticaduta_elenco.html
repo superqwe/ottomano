@@ -60,6 +60,7 @@
             </td>
             {% else %}
             <td class="text-center">
+<!--                {{dpi.lavoratore|default_if_none:'-'}}-->
                 {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}
             </td>
             {% endif %}
