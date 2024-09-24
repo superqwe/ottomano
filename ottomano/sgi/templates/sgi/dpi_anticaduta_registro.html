@@ -91,7 +91,7 @@
             <td class="text-center {{dpi.1.ck_revisione}}"> {{ dpi.1.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.1.consegna2 }}</td>
             <td class="text-center"> {{ dpi.1.marca }} {{ dpi.1.modello }}</td>
-            <td class="text-center"> {{ dpi.1.fabbricazione|date:"m/y"  }}</td>
+            <td class="text-center"> {{ dpi.1.fabbricazione|date:"m/y" }}</td>
             <td class=" text-center bordo-destro"> {{ dpi.1.matricola }}</td>
 
             <!--Cordino doppio-->
@@ -107,7 +107,7 @@
             <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:"" }}</td>
             <td class="text-center"> {{ dpi.2.consegna2 }}</td>
             <td class="text-center"> {{ dpi.2.marca }} {{ dpi.2.modello }}</td>
-            <td class="text-center"> {{ dpi.2.fabbricazione|date:"m/y"  }}</td>
+            <td class="text-center"> {{ dpi.2.fabbricazione|date:"m/y" }}</td>
             <td class="text-center bordo-destro"> {{ dpi.2.matricola }}</td>
         </tr>
         {% endfor %}
@@ -124,7 +124,103 @@
 </div>
 
 <div>
-    <h2>DPI Anticaduta Dismessi</h2>
+    <h2>Disponibili</h2>
+</div>
+
+
+<div>
+    <h2>In Verifica</h2>
+    <div class="row text-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Imbracature</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                            <td>Nominativo</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in verifica_imbracature %}
+                        <tr>
+                            <td>{{elemento.matricola_interna}}</td>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Cordino Singolo</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                            <td>Nominativo</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in verifica_cordino_singolo %}
+                        <tr>
+                            <td>{{elemento.matricola_interna}}</td>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Cordino Doppio</h3>
+                    <table class="table table-striped table-sm">
+                        <thead class="table-light sticky-top">
+                        <tr class="text-center">
+                            <td>ID</td>
+                            <td>Modello</td>
+                            <td>Matricola</td>
+                            <td>Fabbricato</td>
+                            <td>Nominativo</td>
+                        </tr>
+                        </thead>
+                        {% for elemento in verifica_cordino_doppio %}
+                        <tr>
+                            <td>{{elemento.matricola_interna}}</td>
+                            <td>{{elemento.modello_completo}}</td>
+                            <td>{{elemento.matricola}}</td>
+                            <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                            <td class="text-start">{{elemento.lavoratore|default_if_none:"-"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div>
+    <h2>Dismessi</h2>
     <div class="row text-center">
         <div class="col-4">
             <div class="card">

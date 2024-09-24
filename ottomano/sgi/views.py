@@ -337,7 +337,7 @@ def accessori_sollevamento(request):
 
 def dpi_anticaduta_registro(request):
     dati = DPI_Anticaduta2.objects.all()
-    [x.save() for x in dati] # forza salvataggio
+    [x.save() for x in dati]  # forza salvataggio
 
     dati = DPI_Anticaduta2.objects.exclude(stato='x').order_by('lavoratore')
     registro = {}
@@ -364,11 +364,13 @@ def dpi_anticaduta_registro(request):
     for lavoratore, dpi in registro.items():
         dati.append((lavoratore, dpi))
 
+    verifica_imbracature = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='im')
+    verifica_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='c1')
+    verifica_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='v').filter(tipologia='c2')
+
     dismessi_imbracature = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='im')
     dismessi_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c1')
     dismessi_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c2')
-
-
 
     context = {'titolo': 'Registro DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
@@ -377,7 +379,10 @@ def dpi_anticaduta_registro(request):
                'registro': dati,
                'dismessi_imbracature': dismessi_imbracature,
                'dismessi_cordino_singolo': dismessi_cordino_singolo,
-               'dismessi_cordino_doppio': dismessi_cordino_doppio
+               'dismessi_cordino_doppio': dismessi_cordino_doppio,
+               'verifica_imbracature': verifica_imbracature,
+               'verifica_cordino_singolo': verifica_cordino_singolo,
+               'verifica_cordino_doppio': verifica_cordino_doppio,
                }
     return render(request, 'sgi/dpi_anticaduta_registro.html', context)
 
@@ -393,7 +398,7 @@ def dpi_anticaduta_elenco(request):
         Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))
     ).update(ck_revisione='table-danger')
 
-    a =DPI_Anticaduta2.objects.filter(
+    a = DPI_Anticaduta2.objects.filter(
         Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None)))
 
     dati = DPI_Anticaduta2.objects.all()
