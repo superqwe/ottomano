@@ -315,13 +315,16 @@ class DPI_Anticaduta2(models.Model):
                         self.lavoratore = operazione.lavoratore
                         self.stato = 'x'
 
-
         except ValueError:
             print('*** DPI Anticaduta - primo salvataggio')
 
-        if not self.operazione.all():
-            self.lavoratore = None
-            self.stato = 'd'
+        try:
+            if not self.operazione.all():
+                self.lavoratore = None
+                self.stato = 'd'
+
+        except ValueError:
+            print('*** DPI Anticaduta - primo salvataggio')
 
         super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
