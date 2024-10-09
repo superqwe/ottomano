@@ -147,6 +147,7 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
     list_filter = ('cassetta__stato', 'operazione', 'cassetta')
     save_on_top = True
 
+
 @admin.register(RilevatoreH2S)
 class RilevatoreH2SAdmin(admin.ModelAdmin):
     fields = (
@@ -166,6 +167,7 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
         kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
 
         return super(RilevatoreH2SAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(DPI_Anticaduta_Operazione)
 class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
@@ -196,6 +198,7 @@ class DPI_AnticadutaAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+@admin.register(AccessoriSollevamento)
 class AccessoriSollevamentoAdmin(admin.ModelAdmin):
     fields = (
         ('codice', 'tipo'),
@@ -207,9 +210,9 @@ class AccessoriSollevamentoAdmin(admin.ModelAdmin):
         ('conforme', 'in_uso'),
         'data_messa_in_servizio', 'data_dismissione', 'note', 'stato')
     list_display = (
-        'codice', 'tipo', 'marca', 'portata', 'colore', 'reparto', 'usura_leggera', 'usura_media', 'usura_grave',
-        'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
-    list_filter = ('in_uso',)
+        'codice', 'tipo', 'marca', 'portata', 'lunghezza', 'colore', 'reparto', 'usura_leggera', 'usura_media',
+        'usura_grave', 'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
+    list_filter = ('in_uso', 'reparto')
     readonly_fields = ('stato',)
     save_on_top = True
 
@@ -248,7 +251,7 @@ admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 # admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
 # admin.site.register(DPI_Anticaduta_Operazione, DPI_Anticaduta_OperazioneAdmin)
-admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
+# admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
 # admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
 admin.site.register(FormazioneCantieri_Cantieri, FormazioneCantieri_Cantieri_Admin)
