@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-f1pg&okn@s-dgf84v#i+*+qfso_8!e8k)vr)3ni$6(0e1a@kp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', '192.168.2.170', 'ottomano.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', '192.168.2.170', 'ottomano.pythonanywhere.com', 'pc-masi']
 
 # Application definition
 
