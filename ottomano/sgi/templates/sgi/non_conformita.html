@@ -64,7 +64,12 @@
             <td>{{nc.data|date:"d/m/y"}}</td>
             <td class="text-center">{{nc.get_emittente_display}}</td>
             <td class="text-center">{{nc.get_area_display}}</td>
-            <td class="text-center">{{nc.get_tipologia_display}} {{nc.get_gravita_display|default_if_none:""}}</td>
+            <td class="text-center">
+                {{nc.get_tipologia_display}}
+                {{nc.get_gravita_display|default_if_none:""}}
+                </br>
+                {{nc.elenco_tipologia_violazioni}}
+            </td>
 <!--            <td class="text-center">{{nc.get_gravita_display|default_if_none:""}}</td>-->
             <td>{{nc.descrizione}}</td>
             <td>{{nc.trattamento}}</td>
