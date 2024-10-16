@@ -448,11 +448,13 @@ class Non_Conformita(models.Model):
 
     def elenco_tipologia_violazioni(self):
         si_no = (self.delimitazioni, self.pdl, self.dpi, self.ordine_pulizia, self.sollevamenti,
-                 self.attrezzature, self.guida, self.ponteggio, self.lavori_quota, self.spazi_confinati)
+                 self.attrezzature, self.guida, self.ponteggio_uso or self.ponteggio_stato, self.lavori_quota, self.spazi_confinati)
         violazione = ('Delimitazioni', 'PdL', 'DPI', 'Ordine/Pulizia', 'Sollevamenti',
                       'Attrezzature', 'Guida', 'Ponteggio', 'Lavori in Quota', 'Spazi Confinati')
+
         elenco = [v for sn, v in zip(si_no, violazione) if sn]
         elenco = ', '.join(elenco)
+
         return elenco
 
     class Meta:
