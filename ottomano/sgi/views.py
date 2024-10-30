@@ -339,7 +339,7 @@ def dpi_anticaduta_registro(request):
     dati = DPI_Anticaduta2.objects.all()
     [x.save() for x in dati]  # forza salvataggio
 
-    dati = DPI_Anticaduta2.objects.exclude(stato__in=('x', 'v')).order_by('lavoratore')
+    dati = DPI_Anticaduta2.objects.exclude(stato__in=('x', 'v', 'vi', 'vd')).order_by('lavoratore')
     registro = {}
     disponibili = []
 
