@@ -61,7 +61,7 @@
         {% for nc in elenco_non_conformita %}
         <tr>
             <td class="text-center">
-                <a href="/admin/sgi/non_conformita/{{nc.id}}">{{ forloop.revcounter }}</a>
+                <a href="/admin/sgi/non_conformita/{{nc.id}}" target="_blank">{{ forloop.revcounter }}</a>
             </td>
             <td>{{nc.data|date:"d/m/y"}}</td>
             <td class="text-center">{{nc.get_emittente_display}}</td>

@@ -153,7 +153,9 @@ ACCESSORI_SOLLEVAMENTO_STATO = [
 DPI_ANTICADUTA_STATO = [
     ('c', 'Consegnato'),
     ('d', 'Disponibile'),
-    ('v', 'Verifica'),
+    ('v', 'Riconsegnato per verifica'),
+    ('vi', 'In Verifica'),
+    ('vd', 'Verificata da riconsegnare'),
     ('x', 'Dismesso'),
 ]
 DPI_ANTICADUTA_TIPOLOGIA = [
@@ -167,6 +169,7 @@ DPI_ANTICADUTA_OPERAZIONE = [
     ('c', 'Consegnato'),
     ('d', 'Riconsegna/Disponibile'),
     ('rv', 'Riconsegna per Verifica'),
+    ('vi', 'In Verifica'),
     ('v', 'Verifica'),
     ('x', 'Dismesso'),
 ]
@@ -268,7 +271,7 @@ class DPI_Anticaduta_Operazione(models.Model):
 
 class DPI_Anticaduta2(models.Model):
     matricola_interna = models.IntegerField('ID', blank=True, null=True)
-    stato = models.CharField(max_length=1, choices=DPI_ANTICADUTA_STATO, blank=True, null=True)
+    stato = models.CharField(max_length=2, choices=DPI_ANTICADUTA_STATO, blank=True, null=True)
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
     tipologia = models.CharField(max_length=2, choices=DPI_ANTICADUTA_TIPOLOGIA, blank=True, null=True)
     marca = models.CharField(max_length=20, blank=True, null=True)
@@ -305,10 +308,13 @@ class DPI_Anticaduta2(models.Model):
                         # print(operazione.data, 'riconsegnato per verifica')
                         # self.lavoratore = None
                         self.stato = 'v'
+                    case 'vi':
+                        # print(operazione.data, 'in verifica')
+                        self.stato = 'vi'
                     case 'v':
                         # print(operazione.data, 'verificato')
                         self.data_verifica = operazione.data
-                        self.stato = 'd'
+                        self.stato = 'vd'
                     case 'x':
                         # print(operazione.data, 'dismesso')
                         self.dismissione = operazione.data
@@ -448,7 +454,8 @@ class Non_Conformita(models.Model):
 
     def elenco_tipologia_violazioni(self):
         si_no = (self.delimitazioni, self.pdl, self.dpi, self.ordine_pulizia, self.sollevamenti,
-                 self.attrezzature, self.guida, self.ponteggio_uso or self.ponteggio_stato, self.lavori_quota, self.spazi_confinati)
+                 self.attrezzature, self.guida, self.ponteggio_uso or self.ponteggio_stato, self.lavori_quota,
+                 self.spazi_confinati)
         violazione = ('Delimitazioni', 'PdL', 'DPI', 'Ordine/Pulizia', 'Sollevamenti',
                       'Attrezzature', 'Guida', 'Ponteggio', 'Lavori in Quota', 'Spazi Confinati')
 

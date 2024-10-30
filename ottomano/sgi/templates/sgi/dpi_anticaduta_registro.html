@@ -234,9 +234,16 @@
                                 <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
                                     {{elemento.matricola_interna}}
                                 </a>
+                                <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
-                                <i class="fa-solid fa-circle blu"></i>
+                                 blu
+                                {% elif elemento.stato == 'vi' %}
+                                arancio
+                                {% elif elemento.stato == 'vd' %}
+                                verde
                                 {% endif%}
+                                ">
+                                </i>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
@@ -269,9 +276,16 @@
                                 <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
                                     {{elemento.matricola_interna}}
                                 </a>
+                                <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
-                                <i class="fa-solid fa-circle blu"></i>
+                                 blu
+                                {% elif elemento.stato == 'vi' %}
+                                arancio
+                                {% elif elemento.stato == 'vd' %}
+                                verde
                                 {% endif%}
+                                ">
+                                </i>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
@@ -304,9 +318,16 @@
                                 <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
                                     {{elemento.matricola_interna}}
                                 </a>
+                                <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
-                                <i class="fa-solid fa-circle blu"></i>
+                                 blu
+                                {% elif elemento.stato == 'vi' %}
+                                arancio
+                                {% elif elemento.stato == 'vd' %}
+                                verde
                                 {% endif%}
+                                ">
+                                </i>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
@@ -321,7 +342,9 @@
 
     </div>
     <p>
-        <i class="fa-solid fa-circle blu"></i> In ufficio - da inviare a verifica
+        <i class="fa-solid fa-circle blu"></i> In ufficio - da inviare a verifica |
+        <i class="fa-solid fa-circle arancio"></i> Inviata - in verifica |
+        <i class="fa-solid fa-circle verde"></i> In ufficio - verificato
     </p>
 </div>
 
