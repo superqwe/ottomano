@@ -65,9 +65,13 @@
                 {% if conteggio_rg.ponteggiatore_r %}<span class="badge bg-danger">{{conteggio_rg.ponteggiatore_r}}</span>{% endif %}
                 {% if conteggio_rg.ponteggiatore_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.ponteggiatore_g}}</span>{% endif %}
             </th>
-            <th scope="col" class="bordo-destro">Imbracatore
+            <th scope="col">Imbracatore
                 {% if conteggio_rg.imbracatore_r %}<span class="badge bg-danger">{{conteggio_rg.imbracatore_r}}</span>{% endif %}
                 {% if conteggio_rg.imbracatore_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.imbracatore_g}}</span>{% endif %}
+            </th>
+            <th scope="col" class="bordo-destro">MMC
+                {% if conteggio_rg.ept_r %}<span class="badge bg-danger">{{conteggio_rg.ept_r}}</span>{% endif %}
+                {% if conteggio_rg.ept_g %}<span class="badge bg-warning text-dark">{{conteggio_rg.ept_g}}</span>{% endif %}
             </th>
             <th scope="col">EPT
                 {% if conteggio_rg.ept_r %}<span class="badge bg-danger">{{conteggio_rg.ept_r}}</span>{% endif %}
@@ -174,13 +178,18 @@
                 {{lavoratore.ponteggiatore|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="bordo-destro text-center {{lavoratore.imbracatore_ck}}">
+            <td class="text-center {{lavoratore.imbracatore_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/imbracatore {{lavoratore.imbracatore_dc|date:'dmy'}}.pdf" target="_blank">
                 {{lavoratore.imbracatore|date:"d/m/y"}}</a>
                 {% if lavoratore.nomina_preposto_imbracatore %}
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/nomine/nomina_preposto_imbracatore {{lavoratore.nomina_preposto_imbracatore|date:'dmy'}}.pdf" target="_blank">
                 <i class="fa-solid fa-file-lines"></i></a>
                 {% endif %}
+            </td>
+            <td class="text-center bordo-destro  {{lavoratore.mmc_ck}}">
+                <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/mmc {{lavoratore.mmc_dc|date:'dmy'}}.pdf" target="_blank">
+                {{lavoratore.mmc|date:"d/m/y"}}
+                </a>
             </td>
             <td class="text-center {{lavoratore.ept_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/ept {{lavoratore.ept_dc|date:'dmy'}}.pdf" target="_blank">

@@ -11,6 +11,7 @@ DURATA_CORSI = {
     'dumper': 5,
     'gru_autocarro': 5,
     'imbracatore': 5,
+    'mmc': 5,
     'ple': 5,
     'ponteggiatore': 4,
     'primo_soccorso': 3,
