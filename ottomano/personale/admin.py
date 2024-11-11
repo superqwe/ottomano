@@ -31,6 +31,7 @@ class LavoratoreAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+@admin.register(Formazione)
 class FormazioneAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
@@ -43,6 +44,7 @@ class FormazioneAdmin(admin.ModelAdmin):
         ('spazi_confinati', 'spazi_confinati_dc', 'spazi_confinati_ck'),
         ('ponteggiatore', 'ponteggiatore_dc', 'ponteggiatore_ck'),
         ('imbracatore', 'imbracatore_dc', 'imbracatore_ck', 'nomina_preposto_imbracatore'),
+        ('mmc', 'mmc_dc', 'mmc_ck'),
         ('ept', 'ept_dc', 'ept_ck'),
         ('dumper', 'dumper_dc', 'dumper_ck'),
         ('rullo', 'rullo_dc', 'rullo_ck'),
@@ -88,5 +90,4 @@ class IdoneitaAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Lavoratore, LavoratoreAdmin)
-admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Cantiere, CantiereAdmin)
