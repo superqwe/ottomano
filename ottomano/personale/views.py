@@ -120,17 +120,6 @@ def aggiorna_documenti(request):
                 setattr(formazione_, corso, data)
                 setattr(formazione_, '%s_dc' % corso, data_dc)
 
-            # modifica art37 se è stato effettuato il corso da preposto
-            # if [x[0] for x in attestati if x[0] == 'art37']:
-            #     if OGGI > formazione_.art37 and formazione_.art37 < formazione_.preposto:
-            #
-            #
-            #         pp(attestati)
-            #         print(OGGI > formazione_.art37 , formazione_.art37 < formazione_.preposto)
-            #         formazione_.art37_ck = 'es-prep'
-            #         print(formazione_.art37_ck)
-            #         print()
-
             formazione_.save()
 
         # ricerca idoneità
@@ -261,6 +250,7 @@ def aggiorna_stato(request):
         spazi_confinati_ck='')
     Formazione.objects.filter(Q(ponteggiatore__gt=OGGI) | Q(ponteggiatore__isnull=True)).update(ponteggiatore_ck='')
     Formazione.objects.filter(Q(imbracatore__gt=OGGI) | Q(imbracatore__isnull=True)).update(imbracatore_ck='')
+    Formazione.objects.filter(Q(mmc__gt=OGGI) | Q(mmc__isnull=True)).update(mmc_ck='')
     Formazione.objects.filter(Q(ept__gt=OGGI) | Q(ept__isnull=True)).update(ept_ck='')
     Formazione.objects.filter(Q(autogru__gt=OGGI) | Q(autogru__isnull=True)).update(autogru_ck='')
     Formazione.objects.filter(Q(gru_autocarro__gt=OGGI) | Q(gru_autocarro__isnull=True)).update(gru_autocarro_ck='')
@@ -281,6 +271,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(spazi_confinati__lt=FRA_N_MESI).update(spazi_confinati_ck='table-warning', stato='giallo')
     Formazione.objects.filter(ponteggiatore__lt=FRA_N_MESI).update(ponteggiatore_ck='table-warning', stato='giallo')
     Formazione.objects.filter(imbracatore__lt=FRA_N_MESI).update(imbracatore_ck='table-warning', stato='giallo')
+    Formazione.objects.filter(mmc__lt=FRA_N_MESI).update(mmc_ck='table-warning', stato='giallo')
     Formazione.objects.filter(ept__lt=FRA_N_MESI).update(ept_ck='table-warning', stato='giallo')
     Formazione.objects.filter(autogru__lt=FRA_N_MESI).update(autogru_ck='table-warning', stato='giallo')
     Formazione.objects.filter(gru_autocarro__lt=FRA_N_MESI).update(gru_autocarro_ck='table-warning', stato='giallo')
@@ -304,6 +295,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(spazi_confinati__lt=OGGI).update(spazi_confinati_ck='table-danger', stato='rosso')
     Formazione.objects.filter(ponteggiatore__lt=OGGI).update(ponteggiatore_ck='table-danger', stato='rosso')
     Formazione.objects.filter(imbracatore__lt=OGGI).update(imbracatore_ck='table-danger', stato='rosso')
+    Formazione.objects.filter(mmc__lt=OGGI).update(mmc_ck='table-danger', stato='rosso')
     Formazione.objects.filter(ept__lt=OGGI).update(ept_ck='table-danger', stato='rosso')
     Formazione.objects.filter(autogru__lt=OGGI).update(autogru_ck='table-danger', stato='rosso')
     Formazione.objects.filter(gru_autocarro__lt=OGGI).update(gru_autocarro_ck='table-danger', stato='rosso')
@@ -355,13 +347,13 @@ def scadenziario_formazione(request):
     return render(request, 'personale/formazione.html', context)
 
 
-# todo: obsoleto
-def scadenziario_formazione2(request):
-    context = {'titolo': 'Scadenziario Formazione',
-               'sezione_formazione_attiva': 'active',
-               'pagina_attiva_scadenziario_formazione': 'active', }
-
-    return render(request, 'personale/formazione.html', context)
+# # todo: obsoleto
+# def scadenziario_formazione2(request):
+#     context = {'titolo': 'Scadenziario Formazione',
+#                'sezione_formazione_attiva': 'active',
+#                'pagina_attiva_scadenziario_formazione': 'active', }
+#
+#     return render(request, 'personale/formazione.html', context)
 
 
 def scadenzario_idoneita(request):
@@ -384,8 +376,8 @@ def estrai_dati(request):
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 
     formazione = (
-        'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati', 'ponteggiatore', 'imbracatore', 'ept',
-        'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello', 'sollevatore', 'ple', 'rls', 'aspp')
+        'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati', 'ponteggiatore', 'imbracatore', 'mmc',
+        'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello', 'sollevatore', 'ple', 'rls', 'aspp')
 
     gruppi_formazione, n_gruppi_formazione = estrai_dati_util.dividi_elenco_lavoratori(formazione, 3)
 
@@ -467,6 +459,8 @@ def conteggio_rg(query):
     ponteggiatore_g = query.filter(ponteggiatore_ck='table-warning').count()
     imbracatore_r = query.filter(imbracatore_ck='table-danger').count()
     imbracatore_g = query.filter(imbracatore_ck='table-warning').count()
+    mmc_r = query.filter(mmc_ck='table-danger').count()
+    mmc_g = query.filter(mmc_ck='table-warning').count()
     ept_r = query.filter(ept_ck='table-danger').count()
     ept_g = query.filter(ept_ck='table-warning').count()
     autogru_r = query.filter(autogru_ck='table-danger').count()
@@ -495,6 +489,8 @@ def conteggio_rg(query):
         'ponteggiatore_g': ponteggiatore_g,
         'imbracatore_r': imbracatore_r,
         'imbracatore_g': imbracatore_g,
+        'mmc_r': mmc_r,
+        'mmc_g': mmc_g,
         'ept_r': ept_r,
         'ept_g': ept_g,
         'autogru_r': autogru_r,
@@ -552,8 +548,8 @@ def scadenzario_formazione_schede(request, anno):
         scadenza_formazione = datetime.date(ANNO_PROSSIMO, 12, 31)
 
     lista_corsi = ('dirigente', 'preposto', 'primo_soccorso', 'antincendio', 'art37', 'spazi_confinati',
-                   'ponteggiatore', 'imbracatore', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro', 'carrello',
-                   'sollevatore', 'ple', 'rls', 'aspp')
+                   'ponteggiatore', 'imbracatore', 'mmc', 'ept', 'dumper', 'rullo', 'autogru', 'gru_autocarro',
+                   'carrello', 'sollevatore', 'ple', 'rls', 'aspp')
 
     scadenze = []
     for corso in lista_corsi:

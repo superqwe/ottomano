@@ -166,9 +166,11 @@
                         </thead>
                         {% for elemento in disponibili_cordino_singolo %}
                         <tr>
-                            <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
-                                {{elemento.matricola_interna}}
-                            </a>
+                            <td>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
+                            </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
