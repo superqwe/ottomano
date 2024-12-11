@@ -110,6 +110,7 @@ ACCESSORI_SOLLEVAMENTO_TIPO = [
     ('grl', 'Grilli di sollevamento a lira'),
     ('gs', 'Gancio di sollevamento'),
     ('pc', 'Pinze di sollevamento casseri'),
+    ('pr', 'Pinze di sollevamento cordoli'),
     ('pl', 'Pinze di sollevamento lamiere'),
 ]
 
