@@ -64,6 +64,7 @@ class FormazioneAdmin(admin.ModelAdmin):
 class CantiereAdmin(admin.ModelAdmin):
     save_on_top = True
 
+
 @admin.register(Idoneita)
 class IdoneitaAdmin(admin.ModelAdmin):
     fields = (
@@ -80,7 +81,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'mansioni_gravose',
         'temperature',
         'scale',
-        ('calzature_plantare', 'calzature_leggere'),
+        ('calzature_plantare', 'calzature_plantare_morbido', 'calzature_leggere'),
         'lenti',
         'semestrale',
         'dpi_respiratori'

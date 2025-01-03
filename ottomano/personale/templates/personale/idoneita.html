@@ -33,6 +33,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             </th>
             <th scope="col">Esposizione personale quotidiana al rumore non superiore al 50% dell'orario giornaliero</th>
             <th scope="col">Uso di calzature antinfortunistiche compatibili con l'utilizzo del plantare</th>
+            <th scope="col">Uso di calzatura antinfortunistica dotata di plantare morbido</th>
             <th scope="col">Uso calzature antinfortunistiche leggere</th>
             <th scope="col">Lenti polarizzate</th>
             <th scope="col">Limitare la movimentazione manuale dei carichi a max kg 15</th>
@@ -79,16 +80,21 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 {% endif %}
             </td>
             <td class="text-center">
-                {% if lavoratore.calzature_leggere %}
+                {% if lavoratore.calzature_plantare_morbido %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
             <td class="text-center">
-                {% if lavoratore.lenti %}
+                {% if lavoratore.calzature_leggere %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
             <td class="text-center bordo-destro">
+                {% if lavoratore.lenti %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
                 {% if lavoratore.carichi_15 %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -98,12 +104,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.sollecitazioni_arto_superiore_sinistro %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.sollecitazioni_spalla_sinistra %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -113,12 +119,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.flessioni_rachide %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center ">
                 {% if lavoratore.guanti %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -128,12 +134,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.posture %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.spazi_confinati %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -143,12 +149,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.dpi_respiratori %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center  bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.scale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -158,7 +164,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.mansioni_gravose %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -187,8 +193,8 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
         </thead>
         <tbody class="border border-secondary">
         <tr>
-            <td class="text-center align-middle rigo_firme">11</td>
-            <td class="text-center align-middle rigo_firme">02/10/2024</td>
+            <td class="text-center align-middle rigo_firme">12</td>
+            <td class="text-center align-middle rigo_firme">02/01/2025</td>
             <td></td>
             <td></td>
             <td></td>
