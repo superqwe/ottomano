@@ -300,6 +300,7 @@ def aggiorna_stato(request):
     Formazione.objects.filter(autogru__lt=OGGI).update(autogru_ck='table-danger', stato='rosso')
     Formazione.objects.filter(gru_autocarro__lt=OGGI).update(gru_autocarro_ck='table-danger', stato='rosso')
     Formazione.objects.filter(carrello__lt=OGGI).update(carrello_ck='table-danger', stato='rosso')
+    Formazione.objects.filter(sollevatore__lt=OGGI).update(sollevatore_ck='table-danger', stato='rosso')
     Formazione.objects.filter(ple__lt=OGGI).update(ple_ck='table-danger', stato='rosso')
     Formazione.objects.filter(rls__lt=OGGI).update(rls_ck='table-danger', stato='rosso')
     Formazione.objects.filter(aspp__lt=OGGI).update(aspp_ck='table-danger', stato='rosso')
