@@ -118,6 +118,7 @@ ACCESSORI_SOLLEVAMENTO_DIAMETRO = [
     ('3_4', '3/4"'),
     ('5_8', '5/8"'),
     ('7/8', '7/8"'),
+    ('1__1_4', '1+1/4"')
 ]
 
 ACCESSORI_SOLLEVAMENTO_COLORE = [
@@ -353,7 +354,7 @@ class AccessoriSollevamento(models.Model):
     marca = models.CharField(max_length=50, blank=True, null=True)
     anno = models.IntegerField('Anno Produzione', blank=True, null=True)
     codice = models.CharField(max_length=10, blank=True, null=True)
-    diametro = models.CharField(max_length=5, choices=ACCESSORI_SOLLEVAMENTO_DIAMETRO, blank=True, null=True)
+    diametro = models.CharField(max_length=6, choices=ACCESSORI_SOLLEVAMENTO_DIAMETRO, blank=True, null=True)
     colore = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_COLORE, blank=True, null=True)
     lunghezza = models.CharField(max_length=10, blank=True, null=True)
     portata = models.CharField(max_length=10, blank=True, null=True)
