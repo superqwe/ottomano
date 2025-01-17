@@ -79,7 +79,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         'spazi_confinati',
         'altezza',
         'mansioni_gravose',
-        'temperature',
+        ('temperature', 'sbalzi_termici'),
         'scale',
         ('calzature_plantare', 'calzature_plantare_morbido', 'calzature_leggere'),
         'lenti',

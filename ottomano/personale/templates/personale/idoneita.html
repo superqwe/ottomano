@@ -49,6 +49,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             <th scope="col">Evitare lavori in altezza</th>
             <th scope="col">Uso diligente di idonei DPI respiratori</th>
             <th scope="col">Evitare evitare la ripetura salita e discesa di scale</th>
+            <th scope="col">Evitare sbalzi termici intensi</th>
             <th scope="col">Evitare l'esposizione ad elevate temperature</th>
             <th scope="col">Evitare mansioni gravose</th>
         </tr>
@@ -160,11 +161,16 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 {% endif %}
             </td>
             <td class="text-center">
-                {% if lavoratore.temperature %}
+                {% if lavoratore.sbalzi_termici %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
             <td class="text-center bordo-destro">
+                {% if lavoratore.temperature %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
+            <td class="text-center">
                 {% if lavoratore.mansioni_gravose %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -193,8 +199,8 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
         </thead>
         <tbody class="border border-secondary">
         <tr>
-            <td class="text-center align-middle rigo_firme">12</td>
-            <td class="text-center align-middle rigo_firme">02/01/2025</td>
+            <td class="text-center align-middle rigo_firme">13</td>
+            <td class="text-center align-middle rigo_firme">17/01/2025</td>
             <td></td>
             <td></td>
             <td></td>
