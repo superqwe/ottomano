@@ -17,7 +17,7 @@ from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita,
 from pprint import pprint as pp
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-ANNO_CORRENTE = 2024
+ANNO_CORRENTE = 2025
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
     '15min': 0.25,
@@ -87,9 +87,12 @@ def formazione(request, anno=ANNO_CORRENTE):
                'organico_medio_annuo': organico_medio_annuo
                }
 
+    pagina_attiva_formazione_2025 = ''
     pagina_attiva_formazione_2024 = pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
 
     match anno:
+        case 2025:
+            pagina_attiva_formazione_2025 = 'active'
         case 2024:
             pagina_attiva_formazione_2024 = 'active'
         case 2023:
@@ -97,6 +100,7 @@ def formazione(request, anno=ANNO_CORRENTE):
         case 2022:
             pagina_attiva_formazione_2022 = 'active'
 
+    context['pagina_attiva_formazione_2025'] = pagina_attiva_formazione_2025
     context['pagina_attiva_formazione_2024'] = pagina_attiva_formazione_2024
     context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
     context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022

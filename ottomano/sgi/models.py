@@ -112,13 +112,19 @@ ACCESSORI_SOLLEVAMENTO_TIPO = [
     ('pc', 'Pinze di sollevamento casseri'),
     ('pr', 'Pinze di sollevamento cordoli'),
     ('pl', 'Pinze di sollevamento lamiere'),
+    ('pp', 'Pinze di sollevamento pozzetti'),
 ]
 
 ACCESSORI_SOLLEVAMENTO_DIAMETRO = [
+    ('12', '12mm'),
+    ('20', '20mm'),
+    ('23', '23mm'),
+    ('26', '26mm'),
+    ('32', '32mm'),
     ('3_4', '3/4"'),
     ('5_8', '5/8"'),
     ('7/8', '7/8"'),
-    ('1__1_4', '1+1/4"')
+    ('1__1_4', '1+1/4"'),
 ]
 
 ACCESSORI_SOLLEVAMENTO_COLORE = [
