@@ -117,14 +117,17 @@ def non_conformita(request, anno=ANNO_CORRENTE):
                'elenco_non_conformita': non_conformita_,
                }
 
-    pagina_attiva_non_conformita_2024 = pagina_attiva_non_conformita_2023 = ''
+    pagina_attiva_non_conformita_2025 = pagina_attiva_non_conformita_2024 = pagina_attiva_non_conformita_2023 = ''
 
     match anno:
+        case 2025:
+            pagina_attiva_non_conformita_2025 = 'active'
         case 2024:
             pagina_attiva_non_conformita_2024 = 'active'
         case 2023:
             pagina_attiva_non_conformita_2023 = 'active'
 
+    context['pagina_attiva_non_conformita_2025'] = pagina_attiva_non_conformita_2025
     context['pagina_attiva_non_conformita_2024'] = pagina_attiva_non_conformita_2024
     context['pagina_attiva_non_conformita_2023'] = pagina_attiva_non_conformita_2023
 
