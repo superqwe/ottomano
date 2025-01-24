@@ -466,8 +466,12 @@ def conteggio_rg(query):
     ept_g = query.filter(ept_ck='table-warning').count()
     autogru_r = query.filter(autogru_ck='table-danger').count()
     autogru_g = query.filter(autogru_ck='table-warning').count()
+    gru_autocarro_r = query.filter(gru_autocarro_ck='table-danger').count()
+    gru_autocarro_g = query.filter(gru_autocarro_ck='table-warning').count()
     carrello_r = query.filter(carrello_ck='table-danger').count()
     carrello_g = query.filter(carrello_ck='table-warning').count()
+    sollevatore_r = query.filter(sollevatore_ck='table-danger').count()
+    sollevatore_g = query.filter(sollevatore_ck='table-warning').count()
     ple_r = query.filter(ple_ck='table-danger').count()
     ple_g = query.filter(ple_ck='table-warning').count()
 
@@ -496,8 +500,12 @@ def conteggio_rg(query):
         'ept_g': ept_g,
         'autogru_r': autogru_r,
         'autogru_g': autogru_g,
+        'gru_autocarro_r': gru_autocarro_r,
+        'gru_autocarro_g': gru_autocarro_g,
         'carrello_r': carrello_r,
         'carrello_g': carrello_g,
+        'sollevatore_r': sollevatore_r,
+        'sollevatore_g': sollevatore_g,
         'ple_r': ple_r,
         'ple_g': ple_g,
     }
