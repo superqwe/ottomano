@@ -4,7 +4,7 @@ from django.contrib import admin, messages
 
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
     RilevatoreH2S, DPI_Anticaduta2, DPI_Anticaduta_Operazione, AccessoriSollevamento, AccessoriSollevamento_Revisione, \
-    FormazioneCantieri, FormazioneCantieri_Cantieri
+    FormazioneCantieri, FormazioneCantieri_Cantieri, NearMiss
 
 from personale.models import Lavoratore
 
@@ -36,7 +36,6 @@ class NonConformitaAdmin(admin.ModelAdmin):
     )
     list_filter = ('tipologia', 'gravita')
 
-    date_hierarchy = 'data'
     save_on_top = True
 
 
@@ -240,6 +239,21 @@ class FormazioneCantieri_Admin(admin.ModelAdmin):
 
 class FormazioneCantieri_Cantieri_Admin(admin.ModelAdmin):
     list_display = ('nome', 'in_corso', 'tipo')
+
+
+@admin.register(NearMiss)
+class NearMiss_Admin(admin.ModelAdmin):
+    date_hierarchy = 'data'
+    # fields = (
+    #     ('cantiere', 'attivo'),
+    #     ('tipo', 'tipo_revisione', 'tipo_nome'),
+    #     'ifa_trimestre',
+    #     'lavoratori'
+    # )
+    list_display = (
+        'data', 'tipologia', 'infortunato', 'descrizione', 'cause')
+    list_filter = ('tipologia',)
+    save_on_top = True
 
 
 admin.site.register(Formazione, FormazioneAdmin)

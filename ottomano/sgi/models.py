@@ -121,6 +121,7 @@ ACCESSORI_SOLLEVAMENTO_DIAMETRO = [
     ('23', '23mm'),
     ('26', '26mm'),
     ('32', '32mm'),
+    ('1_2', '1/2"'),
     ('3_4', '3/4"'),
     ('5_8', '5/8"'),
     ('7/8', '7/8"'),
@@ -210,6 +211,14 @@ FORMAZIONE_TIPOLOGIA = (
     ('tiv', 'Cantieri Titolo IV'),
     ('scc', 'Patto Sicurezza'),
     ('sgi', 'SGI'),
+)
+
+# NEAR MISS ----------------------------------------------------------------------------------------------------------
+NEARMISS_TIPOLOGIA = (
+    ('nm', 'Near Miss'),
+    ('med', 'Medicazione'),
+    ('inf', 'Infortunio'),
+    ('inc', 'Incidente'),
 )
 
 
@@ -640,3 +649,19 @@ class RilevatoreH2S(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.get_marca_display(), self.matricola)
+
+
+class NearMiss(models.Model):
+    data = models.DateField(blank=True, null=True)
+    tipologia = models.CharField(max_length=3, choices=NEARMISS_TIPOLOGIA, blank=True, null=True)
+    infortunato = models.CharField(max_length=50, blank=True, null=True)
+    descrizione = models.TextField("Descrizione dell'evento", blank=True, null=True)
+    cause = models.TextField(blank=True, null=True)
+    class Meta:
+        ordering = ['-data', ]
+        verbose_name = 'MIP'
+        verbose_name_plural = 'MIP'
+
+    def __str__(self):
+        return '{} {}'.format(self.data, self.get_tipologia_display())
+
