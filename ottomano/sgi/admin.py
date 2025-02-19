@@ -244,12 +244,6 @@ class FormazioneCantieri_Cantieri_Admin(admin.ModelAdmin):
 @admin.register(NearMiss)
 class NearMiss_Admin(admin.ModelAdmin):
     date_hierarchy = 'data'
-    # fields = (
-    #     ('cantiere', 'attivo'),
-    #     ('tipo', 'tipo_revisione', 'tipo_nome'),
-    #     'ifa_trimestre',
-    #     'lavoratori'
-    # )
     list_display = (
         'data', 'tipologia', 'infortunato', 'descrizione', 'cause')
     list_filter = ('tipologia',)

@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from personale.models import Lavoratore
 
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
-    RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2
+    RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2, NearMiss
 
 from pprint import pprint as pp
 
@@ -132,6 +132,30 @@ def non_conformita(request, anno=ANNO_CORRENTE):
     context['pagina_attiva_non_conformita_2023'] = pagina_attiva_non_conformita_2023
 
     return render(request, 'sgi/non_conformita.html', context)
+def near_miss(request, anno=ANNO_CORRENTE):
+    near_miss_ = NearMiss.objects.filter(data__year=anno).order_by('-data')
+
+    context = {'titolo': 'Near Miss/Medicazioni',
+               'sezione_sgi_attiva': 'active',
+               'pagina_attiva_near_miss': 'active',
+               'elenco_near_miss': near_miss_,
+               }
+
+    pagina_attiva_near_miss_2025 = pagina_attiva_near_miss_2024 = pagina_attiva_near_miss_2023 = ''
+
+    match anno:
+        case 2025:
+            pagina_attiva_near_miss_2025 = 'active'
+        case 2024:
+            pagina_attiva_near_miss_2024 = 'active'
+        case 2023:
+            pagina_attiva_near_miss_2023 = 'active'
+
+    context['pagina_attiva_near_miss_2025'] = pagina_attiva_near_miss_2025
+    context['pagina_attiva_near_miss_2024'] = pagina_attiva_near_miss_2024
+    context['pagina_attiva_near_miss_2023'] = pagina_attiva_near_miss_2023
+
+    return render(request, 'sgi/near_miss.html', context)
 
 
 def scadenzario_dpi_aggiorna(request):
