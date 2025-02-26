@@ -27,7 +27,7 @@
     <div class="btn-group " role="group">
         <a href="/admin/sgi/nearmiss/add/" class="btn btn-outline-primary" target="_blank">
             <i class="fa-solid fa-square-plus" aria-hidden="true"></i>
-            Non conformità</a>
+            Near Miss/Medicazione</a>
     </div>
 </div>
 {% endblock %}
@@ -46,7 +46,7 @@
             <th scope="col">n</th>
             <th scope="col">Data</th>
             <th scope="col">Tipologia</th>
-            <th scope="col">Infortunato</th>
+            <th scope="col">Lavoratore</th>
             <th scope="col">Descrizione</th>
             <th scope="col">Causa</th>
         </tr>
@@ -54,15 +54,15 @@
 
         <tbody>
         {% for near_miss in elenco_near_miss %}
-        <tr>
+        <tr style="page-break-inside: avoid;">
             <td class="text-center">
                 <a href="/admin/sgi/nearmiss/{{near_miss.id}}" target="_blank">{{ forloop.revcounter }}</a>
             </td>
             <td>{{near_miss.data|date:"d/m/y"}}</td>
             <td>{{near_miss.get_tipologia_display}}</td>
             <td>{{near_miss.infortunato}}</td>
-            <td>{{near_miss.descrizione}}</td>
-            <td>{{near_miss.cause}}</td>
+            <td>{{near_miss.descrizione|linebreaksbr}}</td>
+            <td>{{near_miss.cause|linebreaksbr}}</td>
         </tr>
         {% endfor %}
         </tbody>
