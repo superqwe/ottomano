@@ -132,6 +132,8 @@ def non_conformita(request, anno=ANNO_CORRENTE):
     context['pagina_attiva_non_conformita_2023'] = pagina_attiva_non_conformita_2023
 
     return render(request, 'sgi/non_conformita.html', context)
+
+
 def near_miss(request, anno=ANNO_CORRENTE):
     near_miss_ = NearMiss.objects.filter(data__year=anno).order_by('-data')
 
@@ -431,7 +433,8 @@ def dpi_anticaduta_elenco(request):
     DPI_Anticaduta2.objects.all().update(ck_revisione='ok_np')
 
     DPI_Anticaduta2.objects.filter(
-        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))).update(ck_revisione='table-warning')
+        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))
+    ).update(ck_revisione='table-warning')
 
     DPI_Anticaduta2.objects.filter(
         Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))

@@ -170,6 +170,8 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
 
 @admin.register(DPI_Anticaduta_Operazione)
 class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
+    list_display = ('data', 'operazione', 'lavoratore')
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
 

@@ -60,7 +60,7 @@
             </td>
             <td>{{near_miss.data|date:"d/m/y"}}</td>
             <td>{{near_miss.get_tipologia_display}}</td>
-            <td>{{near_miss.infortunato}}</td>
+            <td>{{near_miss.infortunato|default_if_none:""}}</td>
             <td>{{near_miss.descrizione|linebreaksbr}}</td>
             <td>{{near_miss.cause|linebreaksbr}}</td>
         </tr>

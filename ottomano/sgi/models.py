@@ -277,7 +277,7 @@ class DPI_Anticaduta_Operazione(models.Model):
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
-        ordering = ['data', 'lavoratore']
+        ordering = ['data', 'pk', 'lavoratore']
         verbose_name = 'DPI Anticaduta - Operazione'
         verbose_name_plural = 'DPI Anticaduta - Operazioni'
 

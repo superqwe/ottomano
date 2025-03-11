@@ -232,10 +232,7 @@
                         </thead>
                         {% for elemento in verifica_imbracature %}
                         <tr>
-                            <td>
-                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
-                                    {{elemento.matricola_interna}}
-                                </a>
+                            <td class="text-start">
                                 <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
                                  blu
@@ -246,6 +243,9 @@
                                 {% endif%}
                                 ">
                                 </i>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
@@ -274,10 +274,7 @@
                         </thead>
                         {% for elemento in verifica_cordino_singolo %}
                         <tr>
-                            <td>
-                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
-                                    {{elemento.matricola_interna}}
-                                </a>
+                            <td class="text-start">
                                 <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
                                  blu
@@ -288,6 +285,9 @@
                                 {% endif%}
                                 ">
                                 </i>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
@@ -316,10 +316,7 @@
                         </thead>
                         {% for elemento in verifica_cordino_doppio %}
                         <tr>
-                            <td>
-                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
-                                    {{elemento.matricola_interna}}
-                                </a>
+                            <td class="text-start">
                                 <i class="fa-solid fa-circle
                                 {% if elemento.stato == 'v' %}
                                  blu
@@ -330,6 +327,9 @@
                                 {% endif%}
                                 ">
                                 </i>
+                                <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                    {{elemento.matricola_interna}}
+                                </a>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
                             <td>{{elemento.matricola}}</td>
