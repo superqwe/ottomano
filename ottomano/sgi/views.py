@@ -337,7 +337,7 @@ def cassette_ps_scadenze(request):
 
 def rilevatorih2s(request):
     rilevatorih2s_util.rilevatori_drager_calibrazione_stato()
-    dati = RilevatoreH2S.objects.all()
+    dati = RilevatoreH2S.objects.exclude(data_scadenza__lt=DA_6_MESI)
 
     context = {'titolo': 'Registro Rilevatori H2S',
                'sezione_sgi_attiva': 'active',
@@ -406,9 +406,15 @@ def dpi_anticaduta_registro(request):
     verifica_cordino_singolo = DPI_Anticaduta2.objects.filter(stato__in=in_verifica).filter(tipologia='c1')
     verifica_cordino_doppio = DPI_Anticaduta2.objects.filter(stato__in=in_verifica).filter(tipologia='c2')
 
-    dismessi_imbracature = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='im')
-    dismessi_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c1')
-    dismessi_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='x').filter(tipologia='c2')
+    dismessi_imbracature = DPI_Anticaduta2.objects. \
+        filter(stato='x').filter(tipologia='im'). \
+        exclude(dismissione__lt=DA_6_MESI)
+    dismessi_cordino_singolo = DPI_Anticaduta2.objects.\
+        filter(stato='x').filter(tipologia='c1'). \
+        exclude(dismissione__lt=DA_6_MESI)
+    dismessi_cordino_doppio = DPI_Anticaduta2.objects.\
+        filter(stato='x').filter(tipologia='c2'). \
+        exclude(dismissione__lt=DA_6_MESI)
 
     context = {'titolo': 'Registro DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
@@ -436,14 +442,18 @@ def dpi_anticaduta_elenco(request):
         Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_9_MESI))
     ).update(ck_revisione='table-warning')
 
+    DPI_Anticaduta2.objects.filter(Q(data_verifica__lt=DA_9_MESI)).update(ck_revisione='table-warning')
+
     DPI_Anticaduta2.objects.filter(
         Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None))
     ).update(ck_revisione='table-danger')
 
-    a = DPI_Anticaduta2.objects.filter(
-        Q(data_verifica=None) & (Q(messa_in_servizio__lt=DA_12_MESI) | Q(messa_in_servizio=None)))
+    DPI_Anticaduta2.objects.filter(Q(data_verifica__lt=DA_12_MESI)).update(ck_revisione='table-danger')
 
-    dati = DPI_Anticaduta2.objects.all()
+    DPI_Anticaduta2.objects.filter(
+        Q(data_verifica=None) & (Q(messa_in_servizio=None))).update(ck_revisione='')
+
+    dati = DPI_Anticaduta2.objects.exclude(dismissione__lt=DA_6_MESI)
 
     context = {'titolo': 'Elenco DPI Anticaduta',
                'sezione_sgi_attiva': 'active',

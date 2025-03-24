@@ -142,7 +142,7 @@
                                 </a>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
-                            <td>{{elemento.matricola}}</td>
+                            <td class="{{elemento.ck_revisione}}">{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                         </tr>
                         {% endfor %}
@@ -172,7 +172,7 @@
                                 </a>
                             </td>
                             <td>{{elemento.modello_completo}}</td>
-                            <td>{{elemento.matricola}}</td>
+                            <td class="{{elemento.ck_revisione}}">{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                         </tr>
                         {% endfor %}
@@ -200,7 +200,7 @@
                                 {{elemento.matricola_interna}}
                             </a>
                             <td>{{elemento.modello_completo}}</td>
-                            <td>{{elemento.matricola}}</td>
+                            <td class="{{elemento.ck_revisione}}">{{elemento.matricola}}</td>
                             <td>{{elemento.fabbricazione|date:"m/y"}}</td>
                         </tr>
                         {% endfor %}

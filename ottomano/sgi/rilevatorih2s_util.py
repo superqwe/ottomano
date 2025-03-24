@@ -7,6 +7,7 @@ from pprint import pprint as pp
 
 OGGI = datetime.date.today()
 FRA_3_MESI = OGGI + datetime.timedelta(days=30.5 * 3)
+MESI_5_PASSATI = OGGI - datetime.timedelta(days=30.5 * 5)
 MESI_6_PASSATI = OGGI - datetime.timedelta(days=30.5 * 6)
 MESI_9_PASSATI = OGGI - datetime.timedelta(days=30.5 * 9)
 GIORNI_180_DA_ATTIVAZIONE = OGGI + datetime.timedelta(days=365 * 2 - 180)
@@ -27,3 +28,12 @@ def rilevatori_drager_calibrazione_stato():
         filter(data_calibrazione=None). \
         filter(data_scadenza__lt=GIORNI_180_DA_ATTIVAZIONE). \
         update(data_calibrazione_ck='table-danger')
+
+    calibrazione_in_scadenza = (drager.
+                                exclude(uso='x').
+                                filter(data_calibrazione__lt=MESI_5_PASSATI).
+                                update(data_calibrazione_ck='table-warning'))
+    calibrazione_scaduta = (drager.
+                            exclude(uso='x').
+                            filter(data_calibrazione__lt=MESI_6_PASSATI).
+                            update(data_calibrazione_ck='table-danger'))

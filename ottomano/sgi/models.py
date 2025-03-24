@@ -657,6 +657,7 @@ class NearMiss(models.Model):
     infortunato = models.CharField(max_length=50, blank=True, null=True)
     descrizione = models.TextField("Descrizione dell'evento", blank=True, null=True)
     cause = models.TextField(blank=True, null=True)
+
     class Meta:
         ordering = ['-data', ]
         verbose_name = 'MIP'
@@ -664,4 +665,3 @@ class NearMiss(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.data, self.get_tipologia_display())
-
