@@ -149,6 +149,7 @@ class VerificaCassettaPSAdmin(admin.ModelAdmin):
 
 @admin.register(RilevatoreH2S)
 class RilevatoreH2SAdmin(admin.ModelAdmin):
+    date_hierarchy = 'data_scadenza'
     fields = (
         'uso',
         'lavoratore',
