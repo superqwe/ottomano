@@ -354,7 +354,6 @@ def accessori_sollevamento(request):
     AccessoriSollevamento.objects.filter(in_uso=False).update(stato='dismessa')
     AccessoriSollevamento.objects.filter(data_dismissione__gt=DA_6_MESI).update(stato='dismessa_recente')
 
-    # dati = AccessoriSollevamento.objects.all()
     dati = AccessoriSollevamento.objects.exclude(stato='dismessa')
 
     revisione = AccessoriSollevamento_Revisione.objects.all()[0]
@@ -409,10 +408,10 @@ def dpi_anticaduta_registro(request):
     dismessi_imbracature = DPI_Anticaduta2.objects. \
         filter(stato='x').filter(tipologia='im'). \
         exclude(dismissione__lt=DA_6_MESI)
-    dismessi_cordino_singolo = DPI_Anticaduta2.objects.\
+    dismessi_cordino_singolo = DPI_Anticaduta2.objects. \
         filter(stato='x').filter(tipologia='c1'). \
         exclude(dismissione__lt=DA_6_MESI)
-    dismessi_cordino_doppio = DPI_Anticaduta2.objects.\
+    dismessi_cordino_doppio = DPI_Anticaduta2.objects. \
         filter(stato='x').filter(tipologia='c2'). \
         exclude(dismissione__lt=DA_6_MESI)
 

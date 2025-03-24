@@ -323,7 +323,7 @@ class DPI_Anticaduta2(models.Model):
                         self.stato = 'd'
                     case 'rv':
                         # print(operazione.data, 'riconsegnato per verifica')
-                        # self.lavoratore = None
+                        self.lavoratore = operazione.lavoratore
                         self.stato = 'v'
                     case 'vi':
                         # print(operazione.data, 'in verifica')
