@@ -134,6 +134,7 @@ ACCESSORI_SOLLEVAMENTO_COLORE = [
     ('g', 'Giallo'),
     ('gr', 'Grigio'),
     ('m', 'Marrone'),
+    ('r', 'Rosso'),
     ('v', 'Verde'),
 ]
 

@@ -48,9 +48,9 @@ class Lavoratore(models.Model):
     data_inizio = models.DateField(blank=True, null=True)
     data_fine = models.DateField(blank=True, null=True)
     livello = models.CharField(max_length=2, blank=True, null=True)
-    qualifica = models.CharField(max_length=50, blank=True, null=True)
-    assunzione = models.CharField(max_length=50, blank=True, null=True)
-    busta_paga = models.CharField(max_length=50, blank=True, null=True)
+    qualifica = models.CharField(max_length=60, blank=True, null=True)
+    assunzione = models.CharField(max_length=60, blank=True, null=True)
+    busta_paga = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
         ordering = ['cognome', 'nome']
