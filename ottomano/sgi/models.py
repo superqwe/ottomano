@@ -158,6 +158,14 @@ ACCESSORI_SOLLEVAMENTO_STATO = [
     ('dismessa', 'table-danger'),
 ]
 
+ACCESSORI_SOLLEVAMENTO_USURA = [
+    ('0', 'ok'),
+    ('1', 'leggero'),
+    ('2', 'medio'),
+    ('3', 'grave'),
+]
+
+
 # DPI ANTICADUTA -------------------------------------------------------------------------------------------------------
 
 DPI_ANTICADUTA_STATO = [
@@ -376,10 +384,11 @@ class AccessoriSollevamento(models.Model):
     portata = models.CharField(max_length=10, blank=True, null=True)
     terminali = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_TERMINALI, blank=True, null=True)
     reparto = models.CharField(max_length=20, blank=True, null=True)
-    usura_leggera = models.BooleanField(blank=True, null=True)
-    usura_media = models.BooleanField(blank=True, null=True)
-    usura_grave = models.BooleanField(blank=True, null=True)
-    usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)  # todo:obsoleto
+    usura = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_USURA, blank=True, null=True)
+    usura_leggera = models.BooleanField(blank=True, null=True) # todo:obsoleto
+    usura_media = models.BooleanField(blank=True, null=True) # todo:obsoleto
+    usura_grave = models.BooleanField(blank=True, null=True) # todo:obsoleto
+    # usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)  # todo:obsoleto
     conforme = models.BooleanField(default=True)
     in_uso = models.BooleanField(default=True)
     data_messa_in_servizio = models.DateField(blank=True, null=True)

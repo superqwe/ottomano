@@ -208,12 +208,13 @@ class AccessoriSollevamentoAdmin(admin.ModelAdmin):
         ('portata', 'lunghezza', 'colore'),
         ('terminali', 'diametro'),
         'reparto',
-        ('usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione'),
-        ('conforme', 'in_uso'),
+        # ('usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione'),  # todo:obsoleto
+        ('usura', 'conforme', 'in_uso'),
         'data_messa_in_servizio', 'data_dismissione', 'note', 'stato')
     list_display = (
-        'codice', 'tipo', 'marca', 'portata', 'lunghezza', 'colore', 'reparto', 'usura_leggera', 'usura_media',
-        'usura_grave', 'usura_sostituzione', 'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
+        'codice', 'tipo', 'marca', 'portata', 'lunghezza', 'colore', 'reparto', 'usura',
+        # 'usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione',  # todo:obsoleto
+        'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
     list_filter = ('in_uso', 'tipo', 'reparto')
     readonly_fields = ('stato',)
     save_on_top = True

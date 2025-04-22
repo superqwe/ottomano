@@ -354,6 +354,10 @@ def accessori_sollevamento(request):
     AccessoriSollevamento.objects.filter(in_uso=False).update(stato='dismessa')
     AccessoriSollevamento.objects.filter(data_dismissione__gt=DA_6_MESI).update(stato='dismessa_recente')
 
+    # AccessoriSollevamento.objects.filter(usura_leggera=True).update(usura='1')
+    # AccessoriSollevamento.objects.filter(usura_media=True).update(usura='2')
+    # AccessoriSollevamento.objects.filter(usura_grave=True).update(usura='3')
+
     dati = AccessoriSollevamento.objects.exclude(stato='dismessa')
 
     revisione = AccessoriSollevamento_Revisione.objects.all()[0]
