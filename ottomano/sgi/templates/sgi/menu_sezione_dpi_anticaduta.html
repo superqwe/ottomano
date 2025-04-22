@@ -1,10 +1,20 @@
 <div class="col d-print-none">
-    <div class="btn-group " role="group">
+    <div class="col btn-group " role="group">
         <a href="/sgi/dpi_anticaduta/registro"
            class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_registro}}">Registro</a>
         <a href="/sgi/dpi_anticaduta/elenco"
-        class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_elenco}}">Elenco</a>
+           class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_elenco}}">Elenco</a>
         <a href="/sgi/dpi_anticaduta/storia"
            class="btn btn-outline-primary {{pagina_attiva_dpi_anticaduta_storia}}">Storia</a>
     </div>
 </div>
+
+{% if not pagina_attiva_dpi_anticaduta_registro %}
+<div class="col text-end d-print-none">
+    <div class="btn-group " role="group">
+        {% for tipologia in tipologie %}
+        <a href="#{{tipologia.1}}" class="btn btn-outline-primary">{{tipologia.1}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

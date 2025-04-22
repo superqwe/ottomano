@@ -39,6 +39,15 @@
         </thead>
         <tbody>
         {% for dpi in registro %}
+
+        {% ifchanged %}
+        <tr>
+            <th colspan="11" class="bg-primary text-white">
+                <h2><a name="{{dpi.get_tipologia_display}}">{{ dpi.get_tipologia_display }}</a></h2>
+            </th>
+        </tr>
+        {% endifchanged %}
+
         <tr {% if dpi.dismissione %} class="table-danger" {% endif%}>
             <td class="text-center">
                 <a href="/admin/sgi/dpi_anticaduta2/{{dpi.pk}}/change/" target="_blank">{{dpi.matricola_interna|default_if_none:''}}
@@ -60,7 +69,7 @@
             </td>
             {% else %}
             <td class="text-center">
-<!--                {{dpi.lavoratore|default_if_none:'-'}}-->
+                <!--                {{dpi.lavoratore|default_if_none:'-'}}-->
                 {{dpi.lavoratore|default_if_none:'DISPONIBILE'}}
             </td>
             {% endif %}

@@ -14,6 +14,8 @@ from personale.models import Lavoratore
 from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
     RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2, NearMiss
 
+from .models import DPI_ANTICADUTA_TIPOLOGIA
+
 from pprint import pprint as pp
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
@@ -463,20 +465,20 @@ def dpi_anticaduta_elenco(request):
                'pagina_attiva_dpi_anticaduta': 'active',
                'pagina_attiva_dpi_anticaduta_elenco': 'active',
                'registro': dati,
+               'tipologie': DPI_ANTICADUTA_TIPOLOGIA,
                }
     return render(request, 'sgi/dpi_anticaduta_elenco.html', context)
 
 
 def dpi_anticaduta_storia(request):
-    # dati = DPI_Anticaduta2.objects.exclude(stato='x')
     dati = DPI_Anticaduta2.objects.all().order_by('tipologia', 'matricola_interna')
-    # pp(dati)
 
     context = {'titolo': 'Storia DPI Anticaduta',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_dpi_anticaduta': 'active',
                'pagina_attiva_dpi_anticaduta_storia': 'active',
                'dati': dati,
+               'tipologie': DPI_ANTICADUTA_TIPOLOGIA,
                }
     return render(request, 'sgi/dpi_anticaduta_storia.html', context)
 
