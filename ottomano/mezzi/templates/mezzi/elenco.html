@@ -58,7 +58,7 @@
                 {% endif %}
             </td>
             <td class="text-center">
-                <a href="{% static ''%}{{mezzo.nome}}/assicurazione {{mezzo.assicurazione|date:" dmy"}}.pdf"
+                <a href="{% static ''%}{{mezzo.nome}}/assicurazione {{mezzo.assicurazione|date:"dmy"}}.pdf"
                 target="_blank">
                 {{mezzo.assicurazione|date:"d/m/y"}}
                 </a>
@@ -74,13 +74,13 @@
                 {% endif %}
             </td>
             <td class="text-center">
-                <a href="{% static ''%}{{mezzo.nome}}/libretto {{mezzo.revisione|date:" dmy"}}.pdf" target="_blank">
+                <a href="{% static ''%}{{mezzo.nome}}/libretto {{mezzo.revisione|date:"dmy"}}.pdf" target="_blank">
                 {{mezzo.revisione|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center">{{mezzo.matricola_inail|default_if_none:""}}</td>
             <td class="text-center">
-                <a href="{% static ''%}{{mezzo.nome}}/immatricolazione {{mezzo.immatricolazione|date:" dmy"}}.pdf"
+                <a href="{% static ''%}{{mezzo.nome}}/immatricolazione {{mezzo.immatricolazione|date:"dmy"}}.pdf"
                 target="_blank">
                 {{mezzo.immatricolazione|date:"d/m/y"}}
                 </a>

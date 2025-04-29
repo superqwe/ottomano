@@ -105,6 +105,7 @@ ACCESSORI_SOLLEVAMENTO_TIPO = [
     ('cat2', 'Tirante in catena a 2 bracci'),
     ('cat4', 'Tirante in catena a 4 bracci'),
     ('f', 'Braca fibra sintetica piatta'),
+    ('fa', 'Braca fibra sintetica piatta ad anello'),
     ('fc', 'Braca fibra sintetica piatta con cricchetto'),
     ('grd', 'Grilli di sollevamento dritti'),
     ('grl', 'Grilli di sollevamento a lira'),
