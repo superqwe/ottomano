@@ -231,6 +231,10 @@ def cassette_ps(request):
     CassettaPS.objects.filter(scadenza__lt=FRA_4_MESI).update(ck_scadenza='table-warning')
     CassettaPS.objects.filter(scadenza__lt=OGGI).update(ck_scadenza='table-danger')
 
+    CassettaPS.objects.all().update(ck_ultima_verifica='ok_np')
+    CassettaPS.objects.filter(ultima_verifica__lt=DA_6_MESI).update(ck_ultima_verifica='table-warning')
+    CassettaPS.objects.filter(ultima_verifica__lt=DA_9_MESI).update(ck_ultima_verifica='table-danger')
+
     lista_cassette = CassettaPS.objects.exclude(Q(stato=0) & Q(ultima_verifica__lt=DA_6_MESI))
 
     dati = []

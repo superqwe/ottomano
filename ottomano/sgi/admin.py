@@ -52,7 +52,7 @@ class DPIAdmin(admin.ModelAdmin):
     list_filter = ('lavoratore__in_forza',)
     save_on_top = True
 
-
+@admin.register(CassettaPS)
 class CassettaPSAdmin(admin.ModelAdmin):
     fields = (
         'numero',
@@ -61,7 +61,7 @@ class CassettaPSAdmin(admin.ModelAdmin):
         'ubicazione',
         ('messa_in_servizio', 'dismissione'),
         ('scadenza', 'ck_scadenza'),
-        'ultima_verifica',
+        ('ultima_verifica','ck_ultima_verifica')
     )
     list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)
@@ -259,7 +259,7 @@ admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Formazione_Organico_Medio_Annuo, Formazione_Organico_Medio_AnnuoAdmin)
 admin.site.register(Non_Conformita, NonConformitaAdmin)
 admin.site.register(DPI2, DPIAdmin)
-admin.site.register(CassettaPS, CassettaPSAdmin)
+# admin.site.register(CassettaPS, CassettaPSAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 # admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)

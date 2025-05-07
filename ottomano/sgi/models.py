@@ -167,7 +167,6 @@ ACCESSORI_SOLLEVAMENTO_USURA = [
     ('3', 'grave'),
 ]
 
-
 # DPI ANTICADUTA -------------------------------------------------------------------------------------------------------
 
 DPI_ANTICADUTA_STATO = [
@@ -387,9 +386,9 @@ class AccessoriSollevamento(models.Model):
     terminali = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_TERMINALI, blank=True, null=True)
     reparto = models.CharField(max_length=20, blank=True, null=True)
     usura = models.CharField(max_length=2, choices=ACCESSORI_SOLLEVAMENTO_USURA, blank=True, null=True)
-    usura_leggera = models.BooleanField(blank=True, null=True) # todo:obsoleto
-    usura_media = models.BooleanField(blank=True, null=True) # todo:obsoleto
-    usura_grave = models.BooleanField(blank=True, null=True) # todo:obsoleto
+    usura_leggera = models.BooleanField(blank=True, null=True)  # todo:obsoleto
+    usura_media = models.BooleanField(blank=True, null=True)  # todo:obsoleto
+    usura_grave = models.BooleanField(blank=True, null=True)  # todo:obsoleto
     # usura_sostituzione = models.BooleanField('Sostituzione', blank=True, null=True)  # todo:obsoleto
     conforme = models.BooleanField(default=True)
     in_uso = models.BooleanField(default=True)
@@ -540,6 +539,8 @@ class CassettaPS(models.Model):
     ultima_verifica = models.DateField(blank=True, null=True)
 
     ck_scadenza = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    ck_ultima_verifica = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True,
+                                          default='ok_np')
 
     class Meta:
         ordering = ['numero', ]

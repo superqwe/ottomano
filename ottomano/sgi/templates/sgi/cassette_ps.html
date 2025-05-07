@@ -29,6 +29,7 @@
 
         <thead class="table-light sticky-top">
         <tr class="text-center">
+            <th scope="col"></th>
             <th scope="col">Cassetta</th>
             <th scope="col">Tipo</th>
             <th scope="col">Ubicazione</th>
@@ -42,6 +43,14 @@
         <tbody>
         {% for cassetta, verifica in lista_cassette %}
         <tr>
+            <td>
+                <a class="btn-outline-primary">
+<!--                <a href="/admin/sgi/verificacassettaps/add/" class="btn-outline-primary" target="_blank">-->
+                    <i class="fa-solid fa-square-plus"></i>
+                </a>
+            </td>
+
+
             <td class="text-center no_link_sottolineato">
                 <a href="/admin/sgi/cassettaps/{{ cassetta.pk }}" target="_blank">{{cassetta}}</a></td>
             <td class="text-center">{{cassetta.allegato}}</td>
@@ -56,7 +65,7 @@
                 {{cassetta.ubicazione}}
             </td>
             <td class="text-center {{cassetta.ck_scadenza}} ">{{cassetta.scadenza|date:"m/y"}}</td>
-            <td class="text-center">{{cassetta.ultima_verifica}}</td>
+            <td class="text-center {{cassetta.ck_ultima_verifica}}">{{cassetta.ultima_verifica}}</td>
             <td class="text-center
             {% if verifica.operazione == 'no' %}
             table-warning
