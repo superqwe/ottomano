@@ -29,23 +29,24 @@ OPERAZIONE_CASSETTA_PS = [
     ('ms', 'Messa in servizio'),
 ]
 
+# todo: obsoleto
 #  FORMAZIONE ---------------------------------------------------------------------------------------------------------
-MESE = [
-    ('01', 'Gennaio'),
-    ('02', 'Febbraio'),
-    ('03', 'Marzo'),
-    ('04', 'Aprile'),
-    ('05', 'Maggio'),
-    ('06', 'Giugno'),
-    ('07', 'Luglio'),
-    ('08', 'Agosto'),
-    ('09', 'Settembre'),
-    ('10', 'Ottobre'),
-    ('11', 'Novembre'),
-    ('12', 'Dicembre'),
-    ('s1', '1° Semestre'),
-    ('s2', '2° Semestre'),
-]
+# MESE = [
+#     ('01', 'Gennaio'),
+#     ('02', 'Febbraio'),
+#     ('03', 'Marzo'),
+#     ('04', 'Aprile'),
+#     ('05', 'Maggio'),
+#     ('06', 'Giugno'),
+#     ('07', 'Luglio'),
+#     ('08', 'Agosto'),
+#     ('09', 'Settembre'),
+#     ('10', 'Ottobre'),
+#     ('11', 'Novembre'),
+#     ('12', 'Dicembre'),
+#     ('s1', '1° Semestre'),
+#     ('s2', '2° Semestre'),
+# ]
 
 #  RILEVATORE H2S------------------------------------------------------------------------------------------------------
 RILEVATORE_H2S_MARCA = [
@@ -421,7 +422,7 @@ class AccessoriSollevamento_Revisione(models.Model):
 
 
 class Formazione(models.Model):
-    mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)
+    # mese = models.CharField(max_length=20, choices=MESE, blank=True, null=True)  #todo obsoleto
     corso = models.IntegerField(blank=True, null=True)
     data = models.DateField(blank=True, null=True)
     argomento = models.CharField(max_length=200, blank=True, null=True)
