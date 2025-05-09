@@ -643,6 +643,24 @@ class VerificaCassettaPS(models.Model):
     def __str__(self):
         return '{} {}'.format(self.cassetta, self.data_verifica)
 
+    def save(self, *args, **kwargs):
+        articoli = {
+            '1': ('sc1_guanti', 'sc1_iodio', 'sc1_fisiologica', 'sc1_garza10x10', 'sc1_garza18x40', 'sc1_pinzette',
+                  'sc1_cotone', 'sc1_cerotti', 'sc1_cerotto25', 'sc1_visiera', 'sc1_forbici', 'sc1_laccio',
+                  'sc1_ghiaccio', 'sc1_sacchetto', 'sc1_teli', 'sc1_rete', 'sc1_termometro', 'sc1_sfigmomanometro',
+                  'sc1_istruzioni'),
+            '2': ('sc2_guanti', 'sc2_iodio', 'sc2_fisiologica', 'sc2_garza18x40', 'sc2_garza10x10', 'sc2_pinzette',
+                  'sc2_cotone', 'sc2_cerotti', 'sc2_cerotto25', 'sc2_benda10', 'sc2_forbici', 'sc2_laccio',
+                  'sc2_ghiaccio', 'sc2_sacchetto', 'sc2_istruzioni')
+        }
+
+        scadenza_cassetta = min(getattr(self, attr) for attr in articoli[self.cassetta.allegato] if getattr(self, attr))
+
+        self.cassetta.scadenza = scadenza_cassetta
+        self.cassetta.save()
+
+        super(VerificaCassettaPS, self).save(*args, **kwargs)
+
 
 class RilevatoreH2S(models.Model):
     uso = models.CharField(max_length=1, choices=RILEVATORE_H2S_USO, blank=True, null=True)

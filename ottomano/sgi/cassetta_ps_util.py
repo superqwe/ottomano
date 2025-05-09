@@ -63,7 +63,7 @@ class Cassetta_PS_Util:
                             if prodotto.startswith('sc1_'):
                                 setattr(verifica, 'ck_%s' % prodotto, '')
 
-                                if scadenza< OGGI:
+                                if scadenza < OGGI:
                                     prodotti_in_scadenza_all1.append((scadenza, prodotto))
                                     setattr(verifica, 'ck_%s' % prodotto, 'table-danger')
 
@@ -81,7 +81,7 @@ class Cassetta_PS_Util:
                             if prodotto.startswith('sc2_'):
                                 setattr(verifica, 'ck_%s' % prodotto, '')
 
-                                if scadenza< OGGI:
+                                if scadenza < OGGI:
                                     prodotti_in_scadenza_all2.append((scadenza, prodotto))
                                     setattr(verifica, 'ck_%s' % prodotto, 'table-danger')
 
@@ -116,3 +116,4 @@ class Cassetta_PS_Util:
         prodotti_all1 = [(x[0].strftime('%m/%y'), PRODOTTI_ALL1[x[1]], scadenze_all1[x]) for x in scadenze_all1]
         prodotti_all2 = [(x[0].strftime('%m/%y'), PRODOTTI_ALL2[x[1]], scadenze_all2[x]) for x in scadenze_all2]
         return prodotti_all1, prodotti_all2
+
