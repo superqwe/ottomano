@@ -181,6 +181,7 @@ DPI_ANTICADUTA_TIPOLOGIA = [
     ('im', 'Imbracatura'),
     ('c1', 'Cordino Singolo'),
     ('c2', 'Cordino Doppio'),
+    ('rt', 'Retrattile')
 ]
 
 DPI_ANTICADUTA_OPERAZIONE = [

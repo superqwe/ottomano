@@ -409,6 +409,7 @@ def dpi_anticaduta_registro(request):
     disponibili_imbracature = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='im')
     disponibili_cordino_singolo = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='c1')
     disponibili_cordino_doppio = DPI_Anticaduta2.objects.filter(stato='d').filter(tipologia='c2')
+    retrattili = DPI_Anticaduta2.objects.filter(tipologia='rt')
 
     in_verifica = ['v', 'vi', 'vd']
     verifica_imbracature = DPI_Anticaduta2.objects.filter(stato__in=in_verifica).filter(tipologia='im')
@@ -436,6 +437,7 @@ def dpi_anticaduta_registro(request):
                'disponibili_imbracature': disponibili_imbracature,
                'disponibili_cordino_singolo': disponibili_cordino_singolo,
                'disponibili_cordino_doppio': disponibili_cordino_doppio,
+               'retrattili': retrattili,
                'verifica_imbracature': verifica_imbracature,
                'verifica_cordino_singolo': verifica_cordino_singolo,
                'verifica_cordino_doppio': verifica_cordino_doppio,

@@ -452,4 +452,54 @@
     </div>
 </div>
 
+<h2>Retrattili</h2>
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Retrattili</h3>
+                <table class="table table-striped table-sm">
+                    <thead class="table-light sticky-top">
+                    <tr class="text-center">
+                        <td>ID</td>
+                        <td>Modello</td>
+                        <td>Matricola</td>
+                        <td>Fabbricato</td>
+                        <td>Revisionato</td>
+                    </tr>
+                    </thead>
+                    {% for elemento in retrattili %}
+                    <tr>
+                        <td class="text-start">
+                            <i class="fa-solid fa-circle
+                                {% if elemento.stato == 'v' %}
+                                 arancio
+                                {% elif elemento.stato == 'vi' %}
+                                rosso
+                                {% elif elemento.stato == 'vd' %}
+                                verde
+                                {% endif%}
+                                ">
+                            </i>
+                            <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
+                                {{elemento.matricola_interna}}
+                            </a>
+                        </td>
+                        <td>{{elemento.modello_completo}}</td>
+                        <td>{{elemento.matricola}}</td>
+                        <td>{{elemento.fabbricazione|date:"m/y"}}</td>
+                        <td class="text-start">{{ dpi.0.data_verifica|default_if_none:"" }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <p>
+            <i class="fa-solid fa-circle arancio"></i> In ufficio - da inviare a verifica |
+            <i class="fa-solid fa-circle rosso"></i> Inviata - in verifica |
+            <i class="fa-solid fa-circle verde"></i> In magazzino - verificato
+        </p>
+    </div>
+</div>
+
 {% endblock %}
