@@ -1,8 +1,7 @@
+import datetime
+
 from django.db import models
-
 from personale.models import Lavoratore
-
-from pprint import pp
 
 STATO_DOCUMENTI = [
     (None, 'ok_np'),
@@ -655,7 +654,14 @@ class VerificaCassettaPS(models.Model):
                   'sc2_ghiaccio', 'sc2_sacchetto', 'sc2_istruzioni')
         }
 
-        scadenza_cassetta = min(getattr(self, attr) for attr in articoli[self.cassetta.allegato] if getattr(self, attr))
+        scadenze_cassetta = []
+        for attr in articoli[self.cassetta.allegato]:
+            scadenza = getattr(self, attr)
+
+            if (type(scadenza) is datetime.date):
+                scadenze_cassetta.append(scadenza)
+
+        scadenza_cassetta = min(scadenze_cassetta)
 
         self.cassetta.scadenza = scadenza_cassetta
         self.cassetta.save()
