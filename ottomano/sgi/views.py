@@ -10,13 +10,13 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from personale.models import Lavoratore
-
-from .models import Formazione, Formazione_Organico_Medio_Annuo, Non_Conformita, DPI2, CassettaPS, VerificaCassettaPS, \
-    RilevatoreH2S, AccessoriSollevamento, AccessoriSollevamento_Revisione, DPI_Anticaduta2, NearMiss
+from icecream import ic
+from pprint import pprint as pp
 
 from .models import DPI_ANTICADUTA_TIPOLOGIA
-
-from pprint import pprint as pp
+from .models import AccessoriSollevamento, AccessoriSollevamento_Revisione, CassettaPS, DPI2, DPI_Anticaduta2, \
+    DPI_Anticaduta_Operazione, Formazione, Formazione_Organico_Medio_Annuo, NearMiss, Non_Conformita, RilevatoreH2S, \
+    VerificaCassettaPS
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = 2025
@@ -35,6 +35,27 @@ DA_6_MESI = OGGI - datetime.timedelta(days=30.5 * 6)
 DA_9_MESI = OGGI - datetime.timedelta(days=30.5 * 9)
 DA_12_MESI = OGGI - datetime.timedelta(days=30.5 * 12)
 DA_18_MESI = OGGI - datetime.timedelta(days=30.5 * 18)
+
+
+def test(request):
+    a = DPI_Anticaduta_Operazione.objects.all().order_by('data', 'operazione', 'lavoratore')
+    ic(a)
+    context = {'a': a, }
+
+    operazioni = DPI_Anticaduta_Operazione.objects.all().order_by('data', 'operazione', 'lavoratore')
+    # pp(dir(operazioni))
+
+    # per visualizzare operazioni senza associazione ##########################
+    # for operazione in operazioni:
+    #     x = operazione.dpi_anticaduta2_set.all()
+    #     if not x:
+    #         print(operazione.data, operazione.lavoratore, operazione.pk)
+    #         print(operazione.dpi_anticaduta2_set.all())
+    #         print()
+    ###########################################################################
+
+
+    return render(request, 'sgi/test.html', context)
 
 
 def index(request):
@@ -240,27 +261,31 @@ def cassette_ps(request):
     dati = []
     articoli_reintegro = {}
     for cassetta in lista_cassette:
-        ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
-        cassetta.ultima_verifica = ultima_verifica.data_verifica
-        cassetta.scadenza = ultima_verifica.data_scadenza
+        try:
+            ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
+            cassetta.ultima_verifica = ultima_verifica.data_verifica
+            cassetta.scadenza = ultima_verifica.data_scadenza
 
-        match ultima_verifica.operazione:
-            case 'ok' | 'rei':
-                cassetta.stato = '1'
-            case 'no':
-                cassetta.stato = '-1'
-                cassetta.ubicazione = 'Da reintegrare'
-                for rigo in ultima_verifica.materiale_da_integrare.split('\n'):
-                    try:
-                        n, articolo = rigo.split(' ', 1)
-                        n = int(n[-1])
-                        articolo = articolo.strip()
-                        articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
-                    except ValueError:
-                        print('--> ERRORE -->', cassetta, rigo, '<---')
-            case 'dis':
-                cassetta.stato = '0'
-                cassetta.ubicazione = 'Dismessa'
+            match ultima_verifica.operazione:
+                case 'ok' | 'rei':
+                    cassetta.stato = '1'
+                case 'no':
+                    cassetta.stato = '-1'
+                    cassetta.ubicazione = 'Da reintegrare'
+                    for rigo in ultima_verifica.materiale_da_integrare.split('\n'):
+                        try:
+                            n, articolo = rigo.split(' ', 1)
+                            n = int(n[-1])
+                            articolo = articolo.strip()
+                            articoli_reintegro[articolo] = articoli_reintegro.get(articolo, 0) + n
+                        except ValueError:
+                            print('--> ERRORE -->', cassetta, rigo, '<---')
+                case 'dis':
+                    cassetta.stato = '0'
+                    cassetta.ubicazione = 'Dismessa'
+
+        except IndexError:
+            ultima_verifica = None
 
         cassetta.save()
         dati.append((cassetta, ultima_verifica))
@@ -276,6 +301,24 @@ def cassette_ps(request):
                }
 
     return render(request, 'sgi/cassette_ps.html', context)
+
+
+def cassette_ps_aggiungi_verifica(request, n_cassetta):
+    cassetta = CassettaPS.objects.get(pk=n_cassetta)
+
+    verifiche = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta').order_by(
+        '-data_verifica')
+
+    if verifiche:
+        ultima_verifica = verifiche[0]
+        ultima_verifica.pk = None
+        ultima_verifica.data_verifica = datetime.date.today()
+        ultima_verifica.save()
+
+        return redirect(f'/admin/sgi/verificacassettaps/{ultima_verifica.pk}/')
+
+    else:
+        return redirect('/admin/sgi/verificacassettaps/add/')
 
 
 def cassette_ps_storico(request, anno=ANNO_CORRENTE):

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+  <tr>
+    <td>data</td>
+    <td>operazione</td>
+    <td>lavoratore</td>
+  </tr>
+
+  {% for rigo in a %}
+  <tr>
+    <td>{% ifchanged %} {{rigo.data}} {% endifchanged %} </td>
+    <td>{% ifchanged %} {{rigo.operazione}} {% endifchanged %}</td>
+    <td>
+      {% ifchanged %} {{rigo.lavoratore}}
+      {% else %}
+      {{rigo.lavoratore}} <span style="color:red">copia</span>
+      {% endifchanged %}
+    </td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+
+</body>
+</html>

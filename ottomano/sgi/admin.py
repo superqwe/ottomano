@@ -172,6 +172,7 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
 
 @admin.register(DPI_Anticaduta_Operazione)
 class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
+    date_hierarchy = 'data'
     list_display = ('data', 'operazione', 'lavoratore')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

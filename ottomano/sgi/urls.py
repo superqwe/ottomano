@@ -1,8 +1,5 @@
 from django.urls import path
 
-from django.conf import settings
-from django.conf.urls.static import static
-
 from . import views
 
 urlpatterns = [
@@ -16,6 +13,8 @@ urlpatterns = [
     path('scadenzario_dpi/', views.scadenzario_dpi, name='scadenzario_dpi'),
     path('scadenzario_dpi_aggiorna/', views.scadenzario_dpi_aggiorna, name='scadenzario_dpi_aggiorna'),
     path('cassette_ps/', views.cassette_ps, name='cassette_ps'),
+    path('cassette_ps_aggiungi_verifica/<int:n_cassetta>', views.cassette_ps_aggiungi_verifica,
+         name='cassette_ps_aggiungi_verifica'),
     path('cassette_ps_storico/', views.cassette_ps_storico, name='cassette_ps_storico'),
     path('cassette_ps_storico/<int:anno>/', views.cassette_ps_storico, name='cassette_ps_storico'),
     path('cassette_ps_scadenze/', views.cassette_ps_scadenze, name='cassette_ps_contenuto'),
@@ -26,6 +25,7 @@ urlpatterns = [
     path('dpi_anticaduta/elenco', views.dpi_anticaduta_elenco, name='dpi_anticaduta_elenco'),
     path('dpi_anticaduta/storia', views.dpi_anticaduta_storia, name='dpi_anticaduta_storia'),
     path('formazione_cantieri/', views.formazione_cantieri, name='formazione_cantieri'),
+    path('test/', views.test, name='test'),
 ]
 
 # urlpatterns = [

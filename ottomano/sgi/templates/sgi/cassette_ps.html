@@ -18,11 +18,6 @@
 
 {% load static %}
 
-<!--<div>-->
-<!--    <strong>Legenda</strong>-->
-<!--    <div class="text-success">Articoli reintegrati</div>-->
-<!--    <div class="text-danger">Articoli da reintegrare</div>-->
-<!--</div>-->
 
 <div>
     <table class="table table-striped table-sm">
@@ -45,11 +40,12 @@
         <tr>
             <td>
                 <a class="btn-outline-primary">
-<!--                <a href="/admin/sgi/verificacassettaps/add/" class="btn-outline-primary" target="_blank">-->
-                    <i class="fa-solid fa-square-plus"></i>
-                </a>
+                    <a href="/sgi/cassette_ps_aggiungi_verifica/{{ cassetta.pk }}"
+                       class="btn-outline-primary"
+                       target="_blank">
+                        <i class="fa-solid fa-square-plus"></i>
+                    </a>
             </td>
-
 
             <td class="text-center no_link_sottolineato">
                 <a href="/admin/sgi/cassettaps/{{ cassetta.pk }}" target="_blank">{{cassetta}}</a></td>
@@ -84,14 +80,13 @@
 
         </tbody>
 
-
     </table>
 
 </div>
 
 <div class="row justify-content-between">
     <div class="col-4">
-    <caption><strong>Elenco articoli da reintegrare</strong></caption>
+        <caption><strong>Elenco articoli da reintegrare</strong></caption>
         <table class="table table-striped table-sm">
             <thead class="table-light sticky-top">
             <tr class="text-center">

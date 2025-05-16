@@ -661,9 +661,13 @@ class VerificaCassettaPS(models.Model):
             if (type(scadenza) is datetime.date):
                 scadenze_cassetta.append(scadenza)
 
-        scadenza_cassetta = min(scadenze_cassetta)
+        print(scadenze_cassetta)
+        try:
+            scadenza_cassetta = min(scadenze_cassetta)
+            self.cassetta.scadenza = scadenza_cassetta
+        except ValueError:
+            print('***** ERRORE SCADENZA CASSETTA **************')
 
-        self.cassetta.scadenza = scadenza_cassetta
         self.cassetta.save()
 
         super(VerificaCassettaPS, self).save(*args, **kwargs)
