@@ -65,46 +65,46 @@
             <!--Imbracatura-->
             <td class="text-center">
                 <a href="/admin/sgi/dpi_anticaduta2/{{dpi.0.pk}}" target="_blank">
-                    {{ dpi.0.matricola_interna }}
+                    {{dpi.0.matricola_interna}}
                     {% if dpi.0.stato == 'v' %}
                     <i class="fa-solid fa-circle blu"></i>
                     {% endif%}
                 </a>
             </td>
-            <td class="text-center"> {{ dpi.0.messa_in_servizio|default_if_none:"" }}</td>
-            <td class="text-center {{dpi.0.ck_revisione}}"> {{ dpi.0.data_verifica|default_if_none:"" }}</td>
-            <td class="text-center"> {{ dpi.0.consegna2 }}</td>
-            <td class="text-center"> {{ dpi.0.marca }} {{ dpi.0.modello }}</td>
-            <td class="text-center"> {{ dpi.0.fabbricazione|date:"m/y" }}</td>
-            <td class=" text-center bordo-destro"> {{ dpi.0.matricola }}</td>
+            <td class="text-center"> {{dpi.0.messa_in_servizio|default_if_none:""}}</td>
+            <td class="text-center {{dpi.0.ck_revisione}}"> {{dpi.0.data_verifica|default_if_none:""}}</td>
+            <td class="text-center"> {{dpi.0.consegna2}}</td>
+            <td class="text-center"> {{dpi.0.marca}} {{dpi.0.modello}}</td>
+            <td class="text-center"> {{dpi.0.fabbricazione|date:"m/y"}}</td>
+            <td class=" text-center bordo-destro"> {{dpi.0.matricola}}</td>
 
             <!--Cordino Singolo-->
             <td class="text-center">
                 <a href="/admin/sgi/dpi_anticaduta2/{{dpi.1.pk}}" target="_blank">
-                    {{ dpi.1.matricola_interna }}
+                    {{dpi.1.matricola_interna}}
                     {% if dpi.1.stato == 'v' %}
                     <i class="fa-solid fa-circle blu"></i>
                     {% endif%}
                 </a>
             </td>
-            <td class="text-center"> {{ dpi.1.messa_in_servizio|default_if_none:"" }}</td>
-            <td class="text-center {{dpi.1.ck_revisione}}"> {{ dpi.1.data_verifica|default_if_none:"" }}</td>
-            <td class="text-center"> {{ dpi.1.consegna2 }}</td>
-            <td class="text-center"> {{ dpi.1.marca }} {{ dpi.1.modello }}</td>
-            <td class="text-center"> {{ dpi.1.fabbricazione|date:"m/y" }}</td>
-            <td class=" text-center bordo-destro"> {{ dpi.1.matricola }}</td>
+            <td class="text-center"> {{dpi.1.messa_in_servizio|default_if_none:""}}</td>
+            <td class="text-center {{dpi.1.ck_revisione}}"> {{dpi.1.data_verifica|default_if_none:""}}</td>
+            <td class="text-center"> {{dpi.1.consegna2}}</td>
+            <td class="text-center"> {{dpi.1.marca}} {{dpi.1.modello}}</td>
+            <td class="text-center"> {{dpi.1.fabbricazione|date:"m/y"}}</td>
+            <td class=" text-center bordo-destro"> {{dpi.1.matricola}}</td>
 
             <!--Cordino doppio-->
             <td class="text-center">
                 <a href="/admin/sgi/dpi_anticaduta2/{{dpi.2.pk}}" target="_blank">
-                    {{ dpi.2.matricola_interna }}
+                    {{dpi.2.matricola_interna }}
                     {% if dpi.2.stato == 'v' %}
                     <i class="fa-solid fa-circle blu"></i>
                     {% endif%}
                 </a>
             </td>
-            <td class="text-center"> {{ dpi.2.messa_in_servizio|default_if_none:"" }}</td>
-            <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:"" }}</td>
+            <td class="text-center"> {{dpi.2.messa_in_servizio|default_if_none:""}}</td>
+            <td class="text-center {{dpi.2.ck_revisione}}"> {{ dpi.2.data_verifica|default_if_none:""}}</td>
             <td class="text-center"> {{ dpi.2.consegna2 }}</td>
             <td class="text-center"> {{ dpi.2.marca }} {{ dpi.2.modello }}</td>
             <td class="text-center"> {{ dpi.2.fabbricazione|date:"m/y" }}</td>
@@ -471,16 +471,19 @@
                     {% for elemento in retrattili %}
                     <tr>
                         <td class="text-start">
-                            <i class="fa-solid fa-circle
-                                {% if elemento.stato == 'v' %}
-                                 arancio
-                                {% elif elemento.stato == 'vi' %}
-                                rosso
-                                {% elif elemento.stato == 'vd' %}
-                                verde
-                                {% endif%}
-                                ">
-                            </i>
+
+                            {% if elemento.stato == 'v' %}
+                            <i class="fa-solid fa-circle arancio"></i>
+                            {% elif elemento.stato == 'vi' %}
+                            <i class="fa-solid fa-circle rosso"></i>
+                            {% elif elemento.stato == 'vd' %}
+                            <i class="fa-solid fa-circle verde"></i>
+                            {% elif elemento.stato == 'x' %}
+                            <i class="fa-regular fa-circle-xmark rosso"></i>
+                            {% else %}
+                            <i class="fa-solid fa-circle-exclamation rosso"></i>
+                            {% endif%}
+
                             <a href="/admin/sgi/dpi_anticaduta2/{{elemento.pk}}" target="_blank">
                                 {{elemento.matricola_interna}}
                             </a>
@@ -488,7 +491,9 @@
                         <td>{{elemento.modello_completo}}</td>
                         <td>{{elemento.matricola}}</td>
                         <td>{{elemento.fabbricazione|date:"m/y"}}</td>
-                        <td class="text-start">{{ dpi.0.data_verifica|default_if_none:"" }}</td>
+                        <td class="{{elemento.ck_revisione}}">
+                            {{elemento.data_verifica|default_if_none:""}}
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -497,7 +502,8 @@
         <p>
             <i class="fa-solid fa-circle arancio"></i> In ufficio - da inviare a verifica |
             <i class="fa-solid fa-circle rosso"></i> Inviata - in verifica |
-            <i class="fa-solid fa-circle verde"></i> In magazzino - verificato
+            <i class="fa-solid fa-circle verde"></i> In magazzino - verificato |
+            <i class="fa-regular fa-circle-xmark rosso"></i> Dismesso
         </p>
     </div>
 </div>
