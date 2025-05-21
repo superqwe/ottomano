@@ -39,7 +39,7 @@ class NonConformitaAdmin(admin.ModelAdmin):
 
     save_on_top = True
 
-
+@admin.register(DPI2)
 class DPIAdmin(admin.ModelAdmin):
     fields = (
         'lavoratore',
@@ -47,6 +47,7 @@ class DPIAdmin(admin.ModelAdmin):
         ('elmetto', 'elmetto_df', 'ck_elmetto'),
         ('rilevatore', 'ck_rilevatore'),
         ('maschera', 'ck_maschera'),
+        ('imbracatura','cordino_singolo', 'cordino_doppio'),
     )
     list_display = ('lavoratore', 'consegna', 'elmetto', 'rilevatore', 'maschera')
     list_filter = ('lavoratore__in_forza',)
@@ -259,13 +260,8 @@ class NearMiss_Admin(admin.ModelAdmin):
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Formazione_Organico_Medio_Annuo, Formazione_Organico_Medio_AnnuoAdmin)
 admin.site.register(Non_Conformita, NonConformitaAdmin)
-admin.site.register(DPI2, DPIAdmin)
-# admin.site.register(CassettaPS, CassettaPSAdmin)
+# admin.site.register(DPI2, DPIAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
-# admin.site.register(RilevatoreH2S, RilevatoreH2SAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
-# admin.site.register(DPI_Anticaduta_Operazione, DPI_Anticaduta_OperazioneAdmin)
-# admin.site.register(AccessoriSollevamento, AccessoriSollevamentoAdmin)
 admin.site.register(AccessoriSollevamento_Revisione)
-# admin.site.register(FormazioneCantieri, FormazioneCantieri_Admin)
 admin.site.register(FormazioneCantieri_Cantieri, FormazioneCantieri_Cantieri_Admin)

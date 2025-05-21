@@ -10,24 +10,31 @@
   <tr>
     <td>data</td>
     <td>operazione</td>
+    <td>id</td>
     <td>lavoratore</td>
+    <td>xxx</td>
   </tr>
 
   {% for rigo in a %}
   <tr>
     <td>{% ifchanged %} {{rigo.data}} {% endifchanged %} </td>
     <td>{% ifchanged %} {{rigo.operazione}} {% endifchanged %}</td>
+    <td>{{rigo.pk}} </td>
     <td>
       {% ifchanged %} {{rigo.lavoratore}}
       {% else %}
       {{rigo.lavoratore}} <span style="color:red">copia</span>
       {% endifchanged %}
     </td>
+    <td>
+      {{rigo}}
+    </td>
   </tr>
   {% endfor %}
 
 </table>
-
+<p>{{op}}</p>
+<p>{{opd}}</p>
 
 </body>
 </html>

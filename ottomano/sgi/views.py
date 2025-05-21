@@ -40,10 +40,28 @@ DA_18_MESI = OGGI - datetime.timedelta(days=30.5 * 18)
 def test(request):
     a = DPI_Anticaduta_Operazione.objects.all().order_by('data', 'operazione', 'lavoratore')
     ic(a)
-    context = {'a': a, }
 
     operazioni = DPI_Anticaduta_Operazione.objects.all().order_by('data', 'operazione', 'lavoratore')
-    # pp(dir(operazioni))
+
+    b = [(x.data, x.operazione, x.lavoratore) for x in operazioni]
+
+    duplicati = []
+    for x in b:
+        q = DPI_Anticaduta_Operazione.objects.filter(data=x[0], operazione=x[1], lavoratore=x[2])
+        if len(q)>1:
+            ic(x, len(q))
+            duplicati.append(x)
+
+    ic(set(duplicati))
+
+
+    # op = operazioni[0].dpi_anticaduta2_set.all()
+    # opd = dir(op)
+
+    context = {
+        'a': a,
+
+    }
 
     # per visualizzare operazioni senza associazione ##########################
     # for operazione in operazioni:
@@ -53,7 +71,6 @@ def test(request):
     #         print(operazione.dpi_anticaduta2_set.all())
     #         print()
     ###########################################################################
-
 
     return render(request, 'sgi/test.html', context)
 
