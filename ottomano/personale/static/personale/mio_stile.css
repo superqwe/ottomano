@@ -1,15 +1,37 @@
-.ff_monospace  {font-family: monospace;}
+.ff_monospace {
+  font-family: monospace;
+}
 
-.rosso {color: #dc3545;}
-.giallo {color: #ffc107;}
-.verde {color: #198754;}
-.blu {color: blue;}
-.arancio {color: orange;}
-.celeste {color: #0dcaf0;}
+.rosso {
+  color: #dc3545;
+}
+.giallo {
+  color: #ffc107;
+}
+.verde {
+  color: #198754;
+}
+.blu {
+  color: blue;
+}
+.arancio {
+  color: orange;
+}
+.celeste {
+  color: #0dcaf0;
+}
 
-.bordo-destro {border-right-width: 2px !important;}
+.bordo-destro {
+  border-right-width: 2px !important;
+}
 
 /* sgi */
-.no_link_sottolineato {text-decoration: none;}
-.rigo_firme {height: 100px;}
-.logo_ottomano {max-height: 64px}
+.no_link_sottolineato {
+  text-decoration: none;
+}
+.rigo_firme {
+  height: 100px;
+}
+.logo_ottomano {
+  max-height: 64px;
+}
