@@ -24,7 +24,7 @@
 
         <thead class="table-light sticky-top">
         <tr class="text-center">
-            <th scope="col"></th>
+            <th scope="col" class="d-print-none"></th>
             <th scope="col">Cassetta</th>
             <th scope="col">Tipo</th>
             <th scope="col">Ubicazione</th>
@@ -38,7 +38,7 @@
         <tbody>
         {% for cassetta, verifica in lista_cassette %}
         <tr>
-            <td>
+            <td class="d-print-none">
                 <a class="btn-outline-primary">
                     <a href="/sgi/cassette_ps_aggiungi_verifica/{{ cassetta.pk }}"
                        class="btn-outline-primary"
