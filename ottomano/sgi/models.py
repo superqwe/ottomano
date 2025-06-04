@@ -661,7 +661,6 @@ class VerificaCassettaPS(models.Model):
             if (type(scadenza) is datetime.date):
                 scadenze_cassetta.append(scadenza)
 
-        print(scadenze_cassetta)
         try:
             scadenza_cassetta = min(scadenze_cassetta)
             self.cassetta.scadenza = scadenza_cassetta
