@@ -30,7 +30,9 @@
         <div class="card">
 
             <div class="card-header">
-                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}
+                <h2>
+                    <a href="/admin/sgi/verificacassettaps/{{verifica.id}}" target="_blank"> Cassetta {{cassetta}} -
+                        All.{{cassetta.allegato}}</a>
                     {% if verifica.operazione == "no" %}
                     <span class="badge badge-pill bg-danger">da reintegrare</span>
                     {% elif cassetta.ubicazione == "Disponibile" %}
@@ -164,7 +166,9 @@
         <div class="card">
 
             <div class="card-header">
-                <h2>Cassetta {{cassetta}} - All.{{cassetta.allegato}}
+                <h2>
+                    <a href="/admin/sgi/verificacassettaps/{{verifica.id}}" target="_blank"> Cassetta {{cassetta}} -
+                        All.{{cassetta.allegato}}</a>
                     {% if verifica.operazione == "no" %}
                     <span class="badge badge-pill bg-danger">da reintegrare</span>
                     {% elif cassetta.ubicazione == "Disponibile" %}
@@ -311,7 +315,6 @@
                         </td>
                         <td>Istruzioni sul modo di usare i presidi e prestare i primi soccorsi</td>
                     </tr>
-
 
                     </tbody>
                 </table>
