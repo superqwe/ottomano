@@ -19,7 +19,7 @@ from .models import AccessoriSollevamento, AccessoriSollevamento_Revisione, Cass
     VerificaCassettaPS
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-ANNO_CORRENTE = 2025
+ANNO_CORRENTE = datetime.date.today().year
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
     '15min': 0.25,
@@ -48,12 +48,11 @@ def test(request):
     duplicati = []
     for x in b:
         q = DPI_Anticaduta_Operazione.objects.filter(data=x[0], operazione=x[1], lavoratore=x[2])
-        if len(q)>1:
+        if len(q) > 1:
             ic(x, len(q))
             duplicati.append(x)
 
     ic(set(duplicati))
-
 
     # op = operazioni[0].dpi_anticaduta2_set.all()
     # opd = dir(op)
@@ -79,8 +78,8 @@ def index(request):
     return HttpResponse("Hello, world. You're at the personale index.")
 
 
-def formazione(request, anno=ANNO_CORRENTE):
-    formazione_ = Formazione.objects.filter(data__year=anno)
+def formazione(request, anno_attivo=ANNO_CORRENTE):
+    formazione_ = Formazione.objects.filter(data__year=anno_attivo)
 
     # sessioni
     corsi_totali = formazione_.count()
@@ -104,7 +103,7 @@ def formazione(request, anno=ANNO_CORRENTE):
 
     # ore media persona
     try:
-        organico_medio_annuo = Formazione_Organico_Medio_Annuo.objects.get(anno=anno).valore
+        organico_medio_annuo = Formazione_Organico_Medio_Annuo.objects.get(anno=anno_attivo).valore
     except ObjectDoesNotExist:
         organico_medio_annuo = Lavoratore.objects.filter(in_forza=True).count()
 
@@ -119,31 +118,27 @@ def formazione(request, anno=ANNO_CORRENTE):
         ('Totale', corsi_totali, ore_totali, media_totale)
     )
 
+    # menu anni
+    anni = Formazione.objects.dates('data', 'year', order='DESC')
+    anni = [x.year for x in anni]
+
+    if ANNO_CORRENTE not in anni:
+        anni.insert(0, ANNO_CORRENTE)
+
+    menu_anni = []
+
+    for anno in anni:
+        attivo = 'active' if anno_attivo == anno else ''
+        menu_anni.append((anno, attivo))
+
     context = {'titolo': 'Programma di informazione, formazione, addestramento',
                'pagina_attiva_formazione': 'active',
                'sezione_sgi_attiva': 'active',
                'formazione': formazione_,
                'statistiche': statistiche,
-               'organico_medio_annuo': organico_medio_annuo
+               'organico_medio_annuo': organico_medio_annuo,
+               'menu_anni': menu_anni,
                }
-
-    pagina_attiva_formazione_2025 = ''
-    pagina_attiva_formazione_2024 = pagina_attiva_formazione_2023 = pagina_attiva_formazione_2022 = ''
-
-    match anno:
-        case 2025:
-            pagina_attiva_formazione_2025 = 'active'
-        case 2024:
-            pagina_attiva_formazione_2024 = 'active'
-        case 2023:
-            pagina_attiva_formazione_2023 = 'active'
-        case 2022:
-            pagina_attiva_formazione_2022 = 'active'
-
-    context['pagina_attiva_formazione_2025'] = pagina_attiva_formazione_2025
-    context['pagina_attiva_formazione_2024'] = pagina_attiva_formazione_2024
-    context['pagina_attiva_formazione_2023'] = pagina_attiva_formazione_2023
-    context['pagina_attiva_formazione_2022'] = pagina_attiva_formazione_2022
 
     return render(request, 'sgi/formazione.html', context)
 
@@ -151,25 +146,25 @@ def formazione(request, anno=ANNO_CORRENTE):
 def non_conformita(request, anno=ANNO_CORRENTE):
     non_conformita_ = Non_Conformita.objects.filter(data__year=anno).order_by('-data')
 
+    # menu anni
+    anni = Non_Conformita.objects.dates('data', 'year', order='DESC')
+    anni = [x.year for x in anni]
+
+    if ANNO_CORRENTE not in anni:
+        anni.insert(0, ANNO_CORRENTE)
+
+    menu_anni = []
+
+    for anno_ in anni:
+        attivo = 'active' if anno == anno_ else ''
+        menu_anni.append((anno_, attivo))
+
     context = {'titolo': 'Registro Non Conformità',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_nc': 'active',
                'elenco_non_conformita': non_conformita_,
+               'menu_anni': menu_anni,
                }
-
-    pagina_attiva_non_conformita_2025 = pagina_attiva_non_conformita_2024 = pagina_attiva_non_conformita_2023 = ''
-
-    match anno:
-        case 2025:
-            pagina_attiva_non_conformita_2025 = 'active'
-        case 2024:
-            pagina_attiva_non_conformita_2024 = 'active'
-        case 2023:
-            pagina_attiva_non_conformita_2023 = 'active'
-
-    context['pagina_attiva_non_conformita_2025'] = pagina_attiva_non_conformita_2025
-    context['pagina_attiva_non_conformita_2024'] = pagina_attiva_non_conformita_2024
-    context['pagina_attiva_non_conformita_2023'] = pagina_attiva_non_conformita_2023
 
     return render(request, 'sgi/non_conformita.html', context)
 
@@ -177,25 +172,39 @@ def non_conformita(request, anno=ANNO_CORRENTE):
 def near_miss(request, anno=ANNO_CORRENTE):
     near_miss_ = NearMiss.objects.filter(data__year=anno).order_by('-data')
 
+    # menu anni
+    anni = NearMiss.objects.dates('data', 'year', order='DESC')
+    anni = [x.year for x in anni]
+
+    if ANNO_CORRENTE not in anni:
+        anni.insert(0, ANNO_CORRENTE)
+
+    menu_anni = []
+
+    for anno_ in anni:
+        attivo = 'active' if anno == anno_ else ''
+        menu_anni.append((anno_, attivo))
+
     context = {'titolo': 'Near Miss/Medicazioni',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_near_miss': 'active',
                'elenco_near_miss': near_miss_,
+               'menu_anni': menu_anni,
                }
 
-    pagina_attiva_near_miss_2025 = pagina_attiva_near_miss_2024 = pagina_attiva_near_miss_2023 = ''
-
-    match anno:
-        case 2025:
-            pagina_attiva_near_miss_2025 = 'active'
-        case 2024:
-            pagina_attiva_near_miss_2024 = 'active'
-        case 2023:
-            pagina_attiva_near_miss_2023 = 'active'
-
-    context['pagina_attiva_near_miss_2025'] = pagina_attiva_near_miss_2025
-    context['pagina_attiva_near_miss_2024'] = pagina_attiva_near_miss_2024
-    context['pagina_attiva_near_miss_2023'] = pagina_attiva_near_miss_2023
+    # pagina_attiva_near_miss_2025 = pagina_attiva_near_miss_2024 = pagina_attiva_near_miss_2023 = ''
+    #
+    # match anno:
+    #     case 2025:
+    #         pagina_attiva_near_miss_2025 = 'active'
+    #     case 2024:
+    #         pagina_attiva_near_miss_2024 = 'active'
+    #     case 2023:
+    #         pagina_attiva_near_miss_2023 = 'active'
+    #
+    # context['pagina_attiva_near_miss_2025'] = pagina_attiva_near_miss_2025
+    # context['pagina_attiva_near_miss_2024'] = pagina_attiva_near_miss_2024
+    # context['pagina_attiva_near_miss_2023'] = pagina_attiva_near_miss_2023
 
     return render(request, 'sgi/near_miss.html', context)
 

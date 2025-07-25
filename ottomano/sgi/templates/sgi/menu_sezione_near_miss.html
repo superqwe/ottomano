@@ -1,0 +1,17 @@
+<div class="col d-print-none">
+    <div class="btn-group " role="group">
+        {% for anno, attivo in menu_anni %}
+        <a href="/sgi/near_miss/{{anno}}" class="btn btn-outline-primary {{attivo}}">{{anno}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="col text-end d-print-none">
+    <div class="btn-group " role="group">
+        <a href="/admin/sgi/nearmiss/add/" class="btn btn-outline-primary" target="_blank">
+            <i class="fa-solid fa-square-plus" aria-hidden="true"></i>
+            Near Miss/Medicazione</a>
+    </div>
+</div>
+</div>

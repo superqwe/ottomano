@@ -11,26 +11,9 @@
 
 
 {% block menu_sezione %}
-<div class="col">
-    <div class="btn-group " role="group">
-        <a href="/sgi/non_conformita/2025"
-           class="btn btn-outline-primary {{pagina_attiva_non_conformita_2025}}">2025</a>
-        <a href="/sgi/non_conformita/2024"
-           class="btn btn-outline-primary {{pagina_attiva_non_conformita_2024}}">2024</a>
-        <a href="/sgi/non_conformita/2023"
-           class="btn btn-outline-primary {{pagina_attiva_non_conformita_2023}}">2023</a>
-    </div>
-</div>
-
-
-<div class="col text-end d-print-none">
-    <div class="btn-group " role="group">
-        <a href="/admin/sgi/non_conformita/add/" class="btn btn-outline-primary" target="_blank">
-            <i class="fa-solid fa-square-plus" aria-hidden="true"></i>
-            Non conformità</a>
-    </div>
-</div>
+{% include "./menu_sezione_non_conformita.html" %}
 {% endblock %}
+
 
 
 {% block corpo %}
