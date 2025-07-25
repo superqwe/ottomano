@@ -35,7 +35,8 @@
             </th>
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-            <th scope="col"  class="bordo-destro">Mansione</th>
+            <th scope="col">Mansione</th>
+            <th scope="col"  class="bordo-destro">Cantiere</th>
 <!--            <th scope="col">Cantiere</th>-->
             <th scope="col">Art37
                 {% if conteggio_rg.art37_r %}<span class="badge bg-danger">{{conteggio_rg.art37_r}}</span>{% endif %}
@@ -122,7 +123,8 @@
             <td class="text-center"><i class="fa-solid fa-circle {{lavoratore.stato}}"></i></td>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
-            <td class="bordo-destro">{{lavoratore.lavoratore.qualifica|default_if_none:""}}</td>
+            <td>{{lavoratore.lavoratore.qualifica|default_if_none:""}}</td>
+            <td class="bordo-destro">{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>
 <!--            <td>{{lavoratore.lavoratore.cantiere|default_if_none:""}}</td>-->
             <td class="text-center {{lavoratore.art37_ck}}">
                 <a href="{% static ''%}{{lavoratore.lavoratore}}/attestati/art37 {{lavoratore.art37_dc|date:'dmy'}}.pdf" target="_blank">

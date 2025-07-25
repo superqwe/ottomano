@@ -53,11 +53,14 @@
 
         <tr class="border-top border-bottom border-secondary {% cycle 'bg-light' '' %}">
             {% for cella in rigo %}
-            <td class="{% cycle '' 'bordo-destro'   'bordo-destro'   '' '' 'bordo-destro'   '' 'bordo-destro'   '' 'bordo-destro'   '' 'bordo-destro' %}
-                       {% if forloop.counter >= 3 %}
+<!--            <td class="{% cycle '' 'bordo-destro'   'bordo-destro'   '' '' 'bordo-destro'   '' 'bordo-destro'   '' 'bordo-destro'   '' 'bordo-destro' %}-->
+<!--                       {% if forloop.counter >= 3 %}-->
+<!--                        text-center-->
+<!--                        {% endif %}-->
+<!--                      ">-->
+            <td class="bordo-destro {% if forloop.counter >= 3 %}
                         text-center
-                        {% endif %}
-                      ">
+                        {% endif %}">
 
                 {% if cella == True %}
                 <i class="fa-solid fa-circle-check verde"></i>
