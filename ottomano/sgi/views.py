@@ -367,16 +367,29 @@ def cassette_ps_storico(request, anno=ANNO_CORRENTE):
     materiale_integrato_1 = dict(sorted(materiale_integrato_1.items()))
     materiale_integrato_2 = dict(sorted(materiale_integrato_2.items()))
 
+    anni = VerificaCassettaPS.objects.dates('data_verifica', 'year', order='DESC')
+    anni = [x.year for x in anni]
+
+    if ANNO_CORRENTE not in anni:
+        anni.insert(0, ANNO_CORRENTE)
+
+    menu_anni = []
+
+    for anno_ in anni:
+        attivo = 'active' if anno == anno_ else ''
+        menu_anni.append((anno_, attivo))
+
     context = {'titolo': 'Storico verifiche Cassette PS',
                'sezione_sgi_attiva': 'active',
                'pagina_attiva_cassette_ps': 'active',
                'pagina_attiva_cassette_ps_storico': 'active',
                'lista_verifiche': dati,
                'materiale_integrato_1': materiale_integrato_1,
-               'materiale_integrato_2': materiale_integrato_2
+               'materiale_integrato_2': materiale_integrato_2,
+               'menu_anni': menu_anni,
                }
 
-    context['pagina_attiva_cassette_ps_storico_%i' % anno] = 'active'
+    # context['pagina_attiva_cassette_ps_storico_%i' % anno] = 'active'
 
     return render(request, 'sgi/cassette_ps_storico.html', context)
 
