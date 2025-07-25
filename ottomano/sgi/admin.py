@@ -39,6 +39,7 @@ class NonConformitaAdmin(admin.ModelAdmin):
 
     save_on_top = True
 
+
 @admin.register(DPI2)
 class DPIAdmin(admin.ModelAdmin):
     fields = (
@@ -47,11 +48,12 @@ class DPIAdmin(admin.ModelAdmin):
         ('elmetto', 'elmetto_df', 'ck_elmetto'),
         ('rilevatore', 'ck_rilevatore'),
         ('maschera', 'ck_maschera'),
-        ('imbracatura','cordino_singolo', 'cordino_doppio'),
+        ('imbracatura', 'cordino_singolo', 'cordino_doppio'),
     )
     list_display = ('lavoratore', 'consegna', 'elmetto', 'rilevatore', 'maschera')
     list_filter = ('lavoratore__in_forza',)
     save_on_top = True
+
 
 @admin.register(CassettaPS)
 class CassettaPSAdmin(admin.ModelAdmin):
@@ -62,7 +64,7 @@ class CassettaPSAdmin(admin.ModelAdmin):
         'ubicazione',
         ('messa_in_servizio', 'dismissione'),
         ('scadenza', 'ck_scadenza'),
-        ('ultima_verifica','ck_ultima_verifica')
+        ('ultima_verifica', 'ck_ultima_verifica')
     )
     list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
     list_filter = ('stato',)
@@ -211,16 +213,24 @@ class AccessoriSollevamentoAdmin(admin.ModelAdmin):
         ('portata', 'lunghezza', 'colore'),
         ('terminali', 'diametro'),
         'reparto',
-        # ('usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione'),  # todo:obsoleto
         ('usura', 'conforme', 'in_uso'),
         'data_messa_in_servizio', 'data_dismissione', 'note', 'stato')
     list_display = (
         'codice', 'tipo', 'marca', 'portata', 'lunghezza', 'colore', 'reparto', 'usura',
-        # 'usura_leggera', 'usura_media', 'usura_grave', 'usura_sostituzione',  # todo:obsoleto
         'conforme', 'in_uso', 'data_messa_in_servizio', 'data_dismissione', 'note')
     list_filter = ('in_uso', 'tipo', 'reparto')
     readonly_fields = ('stato',)
     save_on_top = True
+
+
+@admin.register(AccessoriSollevamento_Revisione)
+class AccessoriSollevamento_RevisioneAdmin(admin.ModelAdmin):
+    save_on_top = True
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede').exclude(cantiere__cantiere='CI')
+
+        return super(AccessoriSollevamento_RevisioneAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(FormazioneCantieri)
@@ -260,8 +270,7 @@ class NearMiss_Admin(admin.ModelAdmin):
 admin.site.register(Formazione, FormazioneAdmin)
 admin.site.register(Formazione_Organico_Medio_Annuo, Formazione_Organico_Medio_AnnuoAdmin)
 admin.site.register(Non_Conformita, NonConformitaAdmin)
-# admin.site.register(DPI2, DPIAdmin)
 admin.site.register(VerificaCassettaPS, VerificaCassettaPSAdmin)
 admin.site.register(DPI_Anticaduta2, DPI_AnticadutaAdmin)
-admin.site.register(AccessoriSollevamento_Revisione)
+# admin.site.register(AccessoriSollevamento_Revisione)
 admin.site.register(FormazioneCantieri_Cantieri, FormazioneCantieri_Cantieri_Admin)

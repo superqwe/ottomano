@@ -409,6 +409,7 @@ class AccessoriSollevamento_Revisione(models.Model):
     data_compilazione = models.DateField(blank=True, null=True)
     revisione = models.IntegerField(blank=True, null=True)
     trimestre = models.CharField(max_length=1, choices=ACCESSORI_SOLLEVAMENTO_REVISIONE, blank=True, null=True)
+    verificatore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE, blank=True, null=True)
     anno = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -416,8 +417,9 @@ class AccessoriSollevamento_Revisione(models.Model):
         verbose_name_plural = 'Accessori di Sollevamento - Revisioni'
 
     def __str__(self):
-        return 'Revisione %s del %s - Trimestre %s/%s' % (
-            self.revisione, self.data_compilazione, self.get_trimestre_display(), self.anno)
+        return f'Revisione {self.revisione} del {self.data_compilazione} - Trimestre {self.get_trimestre_display()}/{self.anno} - {self.verificatore}'
+        # return 'Revisione %s del %s - Trimestre %s/%s' % (
+        #     self.revisione, self.data_compilazione, self.get_trimestre_display(), self.anno)
 
 
 class Formazione(models.Model):
