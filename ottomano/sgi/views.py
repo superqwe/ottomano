@@ -6,19 +6,20 @@ import sgi.formazione_cantieri_util as formazione_cantieri_util
 import sgi.rilevatorih2s_util as rilevatorih2s_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import OuterRef, Subquery
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from personale.models import Lavoratore
 from icecream import ic
-from pprint import pprint as pp
+from personale.models import Lavoratore
 
-from .models import DPI_ANTICADUTA_TIPOLOGIA
 from .models import AccessoriSollevamento, AccessoriSollevamento_Revisione, CassettaPS, DPI2, DPI_Anticaduta2, \
     DPI_Anticaduta_Operazione, Formazione, Formazione_Organico_Medio_Annuo, NearMiss, Non_Conformita, RilevatoreH2S, \
     VerificaCassettaPS
+from .models import DPI_ANTICADUTA_TIPOLOGIA
 
 PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
+# PATH_DOCUMENTI = pathlib.Path(r'D:\Gestionale\Documenti_Lavoratori')
 ANNO_CORRENTE = datetime.date.today().year
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,
@@ -407,9 +408,11 @@ def cassette_ps_scadenze(request):
     n_cassette_per_rigo = 3
     dati_cassette = [dati_cassette[i: i + n_cassette_per_rigo] for i in
                      range(0, len(dati_cassette), n_cassette_per_rigo)]
+    # ic(dati_cassette)
 
-    cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
-    prodotti_in_scadenza_all1, prodotti_in_scadenza_all2 = cassettaPS_Util.prodotti_in_scadenza()
+    # cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util(elenco_scadenze)
+    cassettaPS_Util = cassetta_ps_util.Cassetta_PS_Util2(elenco_scadenze)
+    prodotti_in_scadenza_all1, prodotti_in_scadenza_all2 = cassettaPS_Util.aggiorna_stato_scadenza()
 
     context = {'titolo': 'Scadenze Cassette PS',
                'sezione_sgi_attiva': 'active',
@@ -460,8 +463,8 @@ def accessori_sollevamento(request):
 
 
 def dpi_anticaduta_registro(request):
-    dati = DPI_Anticaduta2.objects.all()
-    [x.save() for x in dati]  # forza salvataggio
+    # dati = DPI_Anticaduta2.objects.all()
+    # [x.save() for x in dati]  # forza salvataggio
 
     dati = DPI_Anticaduta2.objects.exclude(stato__in=('x', 'v', 'vi', 'vd')).order_by('lavoratore')
     registro = {}

@@ -9,8 +9,9 @@ from mezzi.models import Mezzo
 
 from mezzi import views_util
 
-pp('')
+# pp('')
 PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Mezzi'
+# PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Mezzi'
 
 
 def index(request):
@@ -27,7 +28,7 @@ def elenco(request):
 
 
 def scadenziario(request):
-    return HttpResponse("Hello, world. You're at the mezzi index.")
+    return HttpResponse("Hello, world. You're at the mezzi indexxxx.")
 
 
 def aggiorna_stato(request):
