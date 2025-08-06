@@ -67,7 +67,7 @@ class CassettaPSAdmin(admin.ModelAdmin):
         ('ultima_verifica', 'ck_ultima_verifica')
     )
     list_display = ('numero', 'stato', 'allegato', 'ubicazione', 'ultima_verifica', 'scadenza')
-    list_filter = ('stato',)
+    list_filter = ('stato', 'allegato')
     save_on_top = True
 
 
@@ -177,6 +177,7 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
 class DPI_Anticaduta_OperazioneAdmin(admin.ModelAdmin):
     date_hierarchy = 'data'
     list_display = ('data', 'operazione', 'lavoratore')
+    list_filter = ('operazione', 'lavoratore')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         kwargs["queryset"] = Lavoratore.objects.filter(in_forza=True).exclude(cantiere__cantiere='Uffici Sede')
@@ -244,7 +245,8 @@ class FormazioneCantieri_Admin(admin.ModelAdmin):
     filter_horizontal = ('lavoratori',)
     list_display = (
         'attivo', 'cantiere', 'nome_documento', 'tipo', 'tipo_revisione', 'tipo_nome', 'ifa_trimestre',)
-    list_filter = ('attivo',)
+    list_display_links = ('attivo', 'cantiere')
+    list_filter = ('attivo', 'tipo', 'cantiere')
     save_on_top = True
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
