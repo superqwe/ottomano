@@ -7,6 +7,12 @@ STATO_DOCUMENTI = [
     ('table-danger', 'scaduto')
 ]
 
+STATO_MEZZO = [
+    ('verde', 'ok'),
+    ('giallo', 'scade'),
+    ('rosso', 'scaduto')
+]
+
 TIPOLOGIA = [
     ('aut', 'Auto'),
     ('auc', 'Autocarro'),
@@ -54,9 +60,11 @@ class Mezzo(models.Model):
     inail = models.DateField(blank=True, null=True, verbose_name='Verifica Periodica')
     manuale = models.BooleanField(default=False)
     faldone = models.CharField(max_length=30, blank=True, null=True, default=None)
+    stato = models.CharField(max_length=20, choices=STATO_MEZZO, blank=True, null=True, default='ok_np')
 
     assicurazione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     revisione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
+    rct_aziendale_ck = models.CharField(max_length=20, choices=STATO_MEZZO, blank=True, null=True, default='ok_np')
     inail_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np',
                                 verbose_name='Verifica Periodica ck')
 

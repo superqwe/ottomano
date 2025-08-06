@@ -138,7 +138,8 @@ class Cassetta_PS_Util2:
                 # Controlla se esiste il campo ck_*
                 if hasattr(instance, ck_field_name):
                     valore = getattr(instance, nome_field)
-                    ic(nome_field, valore)
+
+                    # ic(nome_field, valore)
 
                     try:
                         if valore < OGGI:
@@ -161,7 +162,7 @@ class Cassetta_PS_Util2:
         verifiche = self.verifiche
         verifiche_all1 = [v for v in verifiche if v.cassetta.allegato == '1']
         verifiche_all2 = [v for v in verifiche if v.cassetta.allegato == '2']
-        ic(verifiche_all1)
+        # ic(verifiche_all1)
 
         prodotti_in_scadenza_all1 = []
         for v in verifiche_all1:

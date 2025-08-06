@@ -40,12 +40,13 @@
         <tbody>
         {% for mezzo in mezzi %}
         <tr>
-            <td class="text-center"><i class="fa-solid fa-circle"></i></td>
+            <td class="text-center"><i class="fa-solid fa-circle {{mezzo.stato}}"></i></td>
             <td>{{mezzo.get_tipologia_display}}</td>
-            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.marca|upper}}</a></td>
-            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.modello|upper}}</a></td>
-            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.targa|default_if_none:""}}</a></td>
-            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}">{{mezzo.matricola|default_if_none:""}}</a></td>
+            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}" target="_blank">{{mezzo.marca|upper}}</a></td>
+            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}" target="_blank">{{mezzo.modello|upper}}</a></td>
+            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}" target="_blank">{{mezzo.targa|default_if_none:""}}</a></td>
+            <td><a href="/admin/mezzi/mezzo/{{ mezzo.pk}}" target="_blank">{{mezzo.matricola|default_if_none:""}}</a>
+            </td>
             <td class="text-center">
                 {% if mezzo.ce %}
                 <a href="{% static ''%}{{mezzo.nome}}/ce.pdf" target="_blank">
@@ -57,23 +58,24 @@
                 </a>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center {{mezzo.assicurazione_ck}}">
                 <a href="{% static ''%}{{mezzo.nome}}/assicurazione {{mezzo.assicurazione|date:"dmy"}}.pdf"
                 target="_blank">
                 {{mezzo.assicurazione|date:"d/m/y"}}
                 </a>
             </td>
-            <td class="text-center">{% if mezzo.rct_aziendale %}<i class="fa-solid fa-circle-check verde"></i>
+            <td class="text-center">{% if mezzo.rct_aziendale %}
+                <i class="fa-solid fa-circle {{mezzo.rct_aziendale_ck}}"></i>
                 {% endif %}
             </td>
             <td class="text-center">
                 {% if mezzo.libretto %}
-                <a href="{% static ''%}{{mezzo.nome}}/libretto.pdf" target="_blank">
+                <a href="{% static ''%}{{mezzo.nome}}/libretto {{mezzo.revisione|date:"dmy"}}.pdf" target="_blank">
                     <i class="fa-solid fa-circle-check verde"></i>
                 </a>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center {{mezzo.revisione_ck}}">
                 <a href="{% static ''%}{{mezzo.nome}}/libretto {{mezzo.revisione|date:"dmy"}}.pdf" target="_blank">
                 {{mezzo.revisione|date:"d/m/y"}}
                 </a>
@@ -92,7 +94,11 @@
                 </a>
                 {% endif %}
             </td>
-            <td class="text-center">{{mezzo.inail|date:"d/m/y"}}</td>
+            <td class="text-center {{mezzo.inail_ck}}">
+<!--                <a href="{% static ''%}{{mezzo.nome}}/verifica_periodica {{mezzo.inail|date:"dmy"}}.pdf" target="_blank">-->
+                {{mezzo.inail|date:"d/m/y"}}
+                </a>
+            </td>
             <td class="text-center">
                 {% if mezzo.manuale %}
                 <a href="{% static ''%}{{mezzo.nome}}/manuale.pdf" target="_blank">

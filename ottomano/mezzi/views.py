@@ -1,17 +1,20 @@
 import datetime
 import os.path
 import warnings
-from pprint import pprint as pp
 
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render
-from mezzi.models import Mezzo
+from django.shortcuts import render, redirect
+from icecream import ic
 
 from mezzi import views_util
+from mezzi.models import Mezzo, RCT
 
-# pp('')
 PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Mezzi'
 # PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Mezzi'
+
+OGGI = datetime.date.today()
+FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
 
 
 def index(request):
@@ -28,11 +31,41 @@ def elenco(request):
 
 
 def scadenziario(request):
-    return HttpResponse("Hello, world. You're at the mezzi indexxxx.")
+    mezzi = Mezzo.objects.filter(in_forza=True, stato__in=['giallo', 'rosso'])
+
+    context = {'titolo': 'Elenco Mezzi',
+               'pagina_attiva_scadenzario': 'active',
+               'mezzi': mezzi}
+
+    return render(request, 'mezzi/elenco.html', context)
 
 
 def aggiorna_stato(request):
-    return HttpResponse("Hello, world. You're at the mezzi index.")
+    Mezzo.objects.filter(in_forza=True).update(stato='verde')
+
+    Mezzo.objects.filter(Q(assicurazione__gt=OGGI) | Q(assicurazione__isnull=True)).update(assicurazione_ck='')
+    Mezzo.objects.filter(Q(revisione__gt=OGGI) | Q(revisione__isnull=True)).update(revisione_ck='')
+    Mezzo.objects.filter(Q(inail__gt=OGGI) | Q(inail__isnull=True)).update(inail_ck='')
+
+    Mezzo.objects.filter(assicurazione__lt=FRA_1_MESI).update(assicurazione_ck='table-warning', stato='giallo')
+    Mezzo.objects.filter(revisione__lt=FRA_1_MESI).update(revisione_ck='table-warning', stato='giallo')
+    Mezzo.objects.filter(inail__lt=FRA_1_MESI).update(inail_ck='table-warning', stato='giallo')
+
+    Mezzo.objects.filter(assicurazione__lt=OGGI).update(assicurazione_ck='table-danger', stato='rosso')
+    Mezzo.objects.filter(revisione__lt=OGGI).update(revisione_ck='table-danger', stato='rosso')
+    Mezzo.objects.filter(inail__lt=OGGI).update(inail_ck='table-danger', stato='rosso')
+
+    rct = RCT.objects.get().scadenza
+
+    if rct <= FRA_1_MESI:
+        colore = 'giallo'
+    elif rct <= OGGI:
+        colore = 'rosso'
+    else:
+        colore = 'verde'
+
+    Mezzo.objects.filter(rct_aziendale=True).update(rct_aziendale_ck=colore, stato=colore)
+    return redirect('/mezzi/elenco')
 
 
 def aggiorna_documenti(request):

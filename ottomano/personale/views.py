@@ -348,15 +348,6 @@ def scadenziario_formazione(request):
     return render(request, 'personale/formazione.html', context)
 
 
-# # todo: obsoleto
-# def scadenziario_formazione2(request):
-#     context = {'titolo': 'Scadenziario Formazione',
-#                'sezione_formazione_attiva': 'active',
-#                'pagina_attiva_scadenziario_formazione': 'active', }
-#
-#     return render(request, 'personale/formazione.html', context)
-
-
 def scadenzario_idoneita(request):
     idoneita = Idoneita.objects. \
         filter(lavoratore__in_forza=True, idoneita__lt=FRA_3_MESI). \
