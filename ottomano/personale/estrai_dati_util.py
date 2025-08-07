@@ -7,12 +7,17 @@ import pathlib
 import shutil
 import zipfile
 from itertools import islice
-from pprint import pp
+
+from django.conf import settings
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
-PATH_BASE = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-PATH_ESTRAI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Estratti')
+if settings.NOME_COMPUTER.lower() == 'srvdc1':
+    PATH_BASE = pathlib.Path(r'D:\Gestionale\Documenti_Lavoratori')
+    PATH_ESTRAI = pathlib.Path(r'D:\Gestionale\Documenti_Estratti')
+else:
+    PATH_BASE = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
+    PATH_ESTRAI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Estratti')
 
 
 def chunk(arr_range, arr_size):

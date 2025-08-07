@@ -10,12 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-import os
+import socket
 import sys
+from pathlib import Path
 
 from django.conf.locale.it import formats as it_formats
 
-from pathlib import Path
+NOME_COMPUTER = socket.gethostname()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,10 @@ SECRET_KEY = 'django-insecure-f1pg&okn@s-dgf84v#i+*+qfso_8!e8k)vr)3ni$6(0e1a@kp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', '192.168.2.170', 'ottomano.pythonanywhere.com', 'pc-masi']
+if NOME_COMPUTER.lower() == 'srvdc1':
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.143', '192.168.2.170', 'ottomano.pythonanywhere.com', 'pc-masi']
 
 # Application definition
 
@@ -61,21 +65,38 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'ottomano.urls'
 
 if sys.platform == 'win32':
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                ],
+    if NOME_COMPUTER.lower() == 'srvdc1':
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [r'D:\Gestionale\ottomano\templates', ],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
             },
-        },
-    ]
+        ]
+    else:
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
 else:
     TEMPLATES = [
         {
@@ -143,12 +164,12 @@ it_formats.DATE_FORMAT = "d/m/y"
 
 STATIC_URL = 'static/'
 
-if sys.platform == 'win32':
+if NOME_COMPUTER.lower() == 'srvdc1':
     STATICFILES_DIRS = [
-        r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',
-        r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
-        r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
-        r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
+        r'D:\Gestionale\Documenti_Lavoratori',
+        r'D:\Gestionale\Documenti_Mezzi',
+        r'D:\Gestionale\Documenti_Attrezzi',
+        r'D:\Gestionale\Documenti_Cantieri',
     ]
 else:
     STATICFILES_DIRS = [

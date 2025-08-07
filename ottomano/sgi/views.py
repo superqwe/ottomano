@@ -5,8 +5,8 @@ import sgi.cassetta_ps_util as cassetta_ps_util
 import sgi.formazione_cantieri_util as formazione_cantieri_util
 import sgi.rilevatorih2s_util as rilevatorih2s_util
 import sgi.scadenzario_dpi_util as scadenzario_dpi_util
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import OuterRef, Subquery
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -18,8 +18,10 @@ from .models import AccessoriSollevamento, AccessoriSollevamento_Revisione, Cass
     VerificaCassettaPS
 from .models import DPI_ANTICADUTA_TIPOLOGIA
 
-PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
-# PATH_DOCUMENTI = pathlib.Path(r'D:\Gestionale\Documenti_Lavoratori')
+if settings.NOME_COMPUTER.lower() == 'srvdc1':
+    PATH_DOCUMENTI = pathlib.Path(r'D:\Gestionale\Documenti_Lavoratori')
+else:
+    PATH_DOCUMENTI = pathlib.Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
 ANNO_CORRENTE = datetime.date.today().year
 FORMAZIONE_FRAZIONI_ORE = {
     '10min': 1 / 6,

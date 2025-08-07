@@ -2,16 +2,17 @@ import datetime
 import os.path
 import warnings
 
+from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from icecream import ic
-
 from mezzi import views_util
 from mezzi.models import Mezzo, RCT
 
-PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Mezzi'
-# PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Mezzi'
+if settings.NOME_COMPUTER.lower() == 'srvdc1':
+    PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Mezzi'
+else:
+    PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Mezzi'
 
 OGGI = datetime.date.today()
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)

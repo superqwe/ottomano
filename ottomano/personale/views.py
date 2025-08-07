@@ -3,20 +3,24 @@ import glob
 import itertools
 import math
 import os
-
 from pprint import pprint as pp
 
+from django.conf import settings
 # import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from . import aggiorna_documenti_util
 from personale import estrai_dati_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
-PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
-# PATH_DOCUMENTI = r'z:\Documenti_Lavoratori'
+from . import aggiorna_documenti_util
+
+if settings.NOME_COMPUTER.lower() == 'srvdc1':
+    PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Lavoratori'
+else:
+    PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
+
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
 FRA_1_MESI = OGGI + datetime.timedelta(days=30.5)
@@ -53,7 +57,8 @@ def formazione(request):
                'pagina_attiva_formazione': 'active',
                'sezione_formazione_attiva': 'active',
                'formazione': formazione_,
-               'conteggio_rg': conteggio_rg(formazione_)}
+               'conteggio_rg': conteggio_rg(formazione_),
+               }
 
     return render(request, 'personale/formazione.html', context)
 

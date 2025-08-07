@@ -1,15 +1,15 @@
-from django.shortcuts import render
 import os
 import warnings
+
+from attrezzi.models import Attrezzo
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from attrezzi.models import Attrezzo
-
-from pprint import pprint as pp
-
-pp('')
-PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Attrezzi'
+if settings.NOME_COMPUTER.lower() == 'srvdc1':
+    PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Attrezzi'
+else:
+    PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Attrezzi'
 
 
 def index(request):
