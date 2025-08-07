@@ -3,14 +3,16 @@ import glob
 import itertools
 import math
 import os
+import shutil
+from pathlib import Path
 from pprint import pprint as pp
 
 from django.conf import settings
-# import personale.importa_dati
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from icecream import ic
 from personale import estrai_dati_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
@@ -18,8 +20,10 @@ from . import aggiorna_documenti_util
 
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Lavoratori'
+    PATH_BCK = r'D:\Gestionale'
 else:
     PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
+    PATH_BCK = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano'
 
 OGGI = datetime.date.today()
 FRA_N_MESI = OGGI + datetime.timedelta(days=30.5 * 4)
@@ -30,6 +34,18 @@ FRA_1_ANNO = OGGI + datetime.timedelta(days=365)
 VECCHIO_DI_N_MESI = OGGI + datetime.timedelta(days=-30.5 * 1)
 ANNO_CORRENTE = OGGI.year
 ANNO_PROSSIMO = OGGI.year + 1
+
+
+def backup_db():
+    pathname = os.path.join(PATH_BCK, '*.sqlite3')
+    db = glob.glob(pathname)
+    backup_gia_effettuato = [True for x in db if Path(x).stem == f'bck_{OGGI}']
+
+    if not backup_gia_effettuato:
+        src = os.path.join(PATH_BCK, 'db.sqlite3')
+        dst = os.path.join(PATH_BCK, f'bck_{OGGI}.sqlite3')
+
+        shutil.copy2(src, dst)
 
 
 def index(request):
@@ -48,6 +64,8 @@ def anagrafica(request):
 
 
 def formazione(request):
+    backup_db()
+
     formazione_ = Formazione.objects. \
         filter(lavoratore__in_forza=True). \
         exclude(lavoratore__cognome='Ottomano'). \

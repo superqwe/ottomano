@@ -18,7 +18,7 @@ __pycache__/
 
 venv
 *.bat
-db*.*
+*.sqlite3
 ottomano/attrezzi/migrations
 ottomano/mezzi/migrations
 ottomano/esterni/migrations

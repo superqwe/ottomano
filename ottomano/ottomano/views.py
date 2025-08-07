@@ -19,7 +19,7 @@ def index(request):
 
 
 def importa_imbracature():
-    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240417 Cinture sicurezza.xlsx'
+    PATH_XLSX = r'D:\Gestionale\Programmi\ottomano\ottomano\240417 Cinture sicurezza.xlsx'
     df = pd.read_excel(PATH_XLSX, sheet_name='2023 Nuovo', skiprows=0, na_values=None)
 
     for index, row in df.iterrows():
@@ -77,7 +77,7 @@ def importa_imbracature():
 
 
 def importa_funi_catene():
-    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240415 ACCESSORI DI SOLLEVAMENTO MOD ACS t2 r10 bozza.xlsm'
+    PATH_XLSX = r'D:\Gestionale\Programmi\ottomano\ottomano\240415 ACCESSORI DI SOLLEVAMENTO MOD ACS t2 r10 bozza.xlsm'
     df = pd.read_excel(PATH_XLSX, sheet_name='ACCESSORI DI SOLLEVAMENTO', skiprows=0, na_values=None)
 
     for index, row in df.iterrows():
@@ -151,7 +151,7 @@ def importa_funi_catene():
 
 
 def importa_rilevatori():
-    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\240124 Scadenzario DPI.xlsx'
+    PATH_XLSX = r'D:\Gestionale\Programmi\ottomano\ottomano\240124 Scadenzario DPI.xlsx'
     df = pd.read_excel(PATH_XLSX, sheet_name='Foglio2', skiprows=0, na_values=None)
     # print(df.columns)
 
@@ -180,7 +180,7 @@ def importa_rilevatori():
 
 
 def importa_dati_anagrafica2():
-    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\231227_2 personale_lavoratore  - paola.xlsx'
+    PATH_XLSX = r'D:\Gestionale\Programmi\ottomano\ottomano\231227_2 personale_lavoratore  - paola.xlsx'
     df = pd.read_excel(PATH_XLSX, sheet_name='personale_lavoratore', skiprows=0, na_values='')
     print(df.columns)
 
@@ -232,7 +232,7 @@ def importa_dati_anagrafica2():
 
 
 def importa_dati_anagrafica():
-    PATH_XLSX = r'C:\Users\L. MASI\Documents\Programmi\ore\Elenco_personale_2023_agg_31_08.xls'
+    PATH_XLSX = r'D:\Gestionale\Programmi\ore\Elenco_personale_2023_agg_31_08.xls'
 
     df = pd.read_excel(PATH_XLSX, sheet_name='ELENCO 2022', skiprows=2, na_values='')
     df.drop(columns='Unnamed: 0', inplace=True)
