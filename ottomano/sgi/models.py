@@ -312,54 +312,55 @@ class DPI_Anticaduta2(models.Model):
     consegna2 = models.DateField('Ultima operazione', blank=True, null=True)
     ck_revisione = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
 
-    def save(self, *args, **kwargs):
-        try:
-            for operazione in self.operazione.all():
-                self.consegna2 = operazione.data
-
-                match operazione.operazione:
-                    case 'ms':
-                        # print(operazione.data, 'consegnato - messo in servizio')
-                        self.messa_in_servizio = operazione.data
-                        self.lavoratore = operazione.lavoratore
-                        self.stato = 'c'
-                    case 'c':
-                        # print(operazione.data, 'consegnato')
-                        self.lavoratore = operazione.lavoratore
-                        self.stato = 'c'
-                    case 'd':
-                        # print(operazione.data, 'riconsegnato disponibile in ufficio')
-                        self.lavoratore = None
-                        self.stato = 'd'
-                    case 'rv':
-                        # print(operazione.data, 'riconsegnato per verifica')
-                        self.lavoratore = operazione.lavoratore
-                        self.stato = 'v'
-                    case 'vi':
-                        # print(operazione.data, 'in verifica')
-                        self.stato = 'vi'
-                    case 'v':
-                        # print(operazione.data, 'verificato')
-                        self.data_verifica = operazione.data
-                        self.stato = 'vd'
-                    case 'x':
-                        # print(operazione.data, 'dismesso')
-                        self.dismissione = operazione.data
-                        self.lavoratore = operazione.lavoratore
-                        self.stato = 'x'
-
-        except ValueError:
-            print('*** DPI Anticaduta - primo salvataggio')
-
-        try:
-            if not self.operazione.all():
-                self.lavoratore = None
-                self.stato = 'd'
-
-        except ValueError:
-            print('*** DPI Anticaduta - primo salvataggio')
-
-        super(DPI_Anticaduta2, self).save(*args, **kwargs)
+    # todo obsoleto - sostituito da signals
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         for operazione in self.operazione.all():
+    #             self.consegna2 = operazione.data
+    #
+    #             match operazione.operazione:
+    #                 case 'ms':
+    #                     # print(operazione.data, 'consegnato - messo in servizio')
+    #                     self.messa_in_servizio = operazione.data
+    #                     self.lavoratore = operazione.lavoratore
+    #                     self.stato = 'c'
+    #                 case 'c':
+    #                     # print(operazione.data, 'consegnato')
+    #                     self.lavoratore = operazione.lavoratore
+    #                     self.stato = 'c'
+    #                 case 'd':
+    #                     # print(operazione.data, 'riconsegnato disponibile in ufficio')
+    #                     self.lavoratore = None
+    #                     self.stato = 'd'
+    #                 case 'rv':
+    #                     # print(operazione.data, 'riconsegnato per verifica')
+    #                     self.lavoratore = operazione.lavoratore
+    #                     self.stato = 'v'
+    #                 case 'vi':
+    #                     # print(operazione.data, 'in verifica')
+    #                     self.stato = 'vi'
+    #                 case 'v':
+    #                     # print(operazione.data, 'verificato')
+    #                     self.data_verifica = operazione.data
+    #                     self.stato = 'vd'
+    #                 case 'x':
+    #                     # print(operazione.data, 'dismesso')
+    #                     self.dismissione = operazione.data
+    #                     self.lavoratore = operazione.lavoratore
+    #                     self.stato = 'x'
+    #
+    #     except ValueError:
+    #         print('*** DPI Anticaduta - primo salvataggio')
+    #
+    #     try:
+    #         if not self.operazione.all():
+    #             self.lavoratore = None
+    #             self.stato = 'd'
+    #
+    #     except ValueError:
+    #         print('*** DPI Anticaduta - primo salvataggio')
+    #
+    #     super(DPI_Anticaduta2, self).save(*args, **kwargs)
 
     def modello_completo(self):
         return '%s %s' % (self.marca, self.modello)
