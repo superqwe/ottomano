@@ -1,5 +1,6 @@
 import datetime
 import os.path
+from icecream import ic
 
 DURATA_CORSI = {
     'art37': 5,
@@ -20,6 +21,9 @@ DURATA_CORSI = {
     'sollevatore': 5,
     'spazi_confinati': 5,
 }
+
+OGGI = datetime.date.today()
+VECCHIO_DI_N_MESI = OGGI + datetime.timedelta(days=-30.5 * 1)
 
 
 def calcola_data_scadenza(data_corso, durata):
@@ -66,3 +70,27 @@ def calcola_data_attestati(attestati, lavoratore):
 def aggiungi_anni(data, anni=1):
     if data:
         return datetime.date(data.year + anni, data.month, data.day)
+
+
+def filtra_solo_documenti_nuovi(path_cartella, vecchiaia=VECCHIO_DI_N_MESI):
+    """path_documenti e' il path della directory"""
+    elenco_documenti = os.listdir(path_cartella)
+
+    documenti = []
+    for documento in elenco_documenti:
+        path_documento = os.path.join(path_cartella, documento)
+        data_di_modifica = datetime.datetime.fromtimestamp(os.path.getmtime(path_documento)).date()
+
+        if data_di_modifica > vecchiaia:
+            documenti.append(documento)
+
+    return documenti
+
+
+def verifica_se_recente(path_documento, vecchiaia=VECCHIO_DI_N_MESI):
+    data_di_modifica = datetime.datetime.fromtimestamp(os.path.getmtime(path_documento)).date()
+
+    if data_di_modifica > vecchiaia:
+        return True
+
+    return False

@@ -81,63 +81,26 @@ def formazione(request):
     return render(request, 'personale/formazione.html', context)
 
 
-def aggiorna_documenti(request):
-    # verifica se sono presenti nuovi lavoratori
-    elenco_lavoratori = Lavoratore.objects.all().values_list('cognome', 'nome').order_by('cognome')
-    elenco_lavoratori = [('%s %s' % lavoratore).lower() for lavoratore in elenco_lavoratori]
+def aggiorna_documenti2(request):
+    elenco_lavoratori = list(
+        Lavoratore.objects.filter(in_forza=True).values_list('cognome', 'nome').order_by('cognome'))
 
-    dir_lavoratori = os.listdir(PATH_DOCUMENTI)
-    dir_lavoratori = [lavoratore.lower() for lavoratore in dir_lavoratori]
+    dir_lavoratori = [('%s %s' % lavoratore).lower() for lavoratore in elenco_lavoratori]
 
-    nuovi_lavoratori = []
     lista_documenti = []
     for lavoratore in dir_lavoratori:
-        # print(lavoratore)
-
-        # todo: creazione nuovo lavoratore - non funziona!!!
-        if not lavoratore in elenco_lavoratori:
-            path_dir_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
-
-            if os.path.isdir(path_dir_lavoratore):
-                nuovi_lavoratori.append(lavoratore)
-                print('\n' * 3, 'Nuovo lavoratore', lavoratore.split(maxsplit=1), '\n' * 3)
-                cognome, nome = lavoratore.split(maxsplit=1)
-
-                nuovo_lavoratore = Lavoratore(cognome=cognome.title(), nome=nome.title())
-                nuovo_lavoratore.save()
-
-                nuovo_lavoratore_idoneita = Idoneita(lavoratore=nuovo_lavoratore)
-                nuovo_lavoratore_idoneita.save()
-            else:
-                continue
 
         # ricerca attestati
         path_attestati = os.path.join(PATH_DOCUMENTI, lavoratore, 'attestati')
         try:
-            attestati = os.listdir(path_attestati)
-
-            # filtra attestasti vecchi
-            attestati = [x for x in attestati if datetime.datetime.fromtimestamp(
-                os.path.getmtime(
-                    os.path.join(path_attestati, x)
-                )
-            ).date() > VECCHIO_DI_N_MESI
-                         ]
-
+            attestati = aggiorna_documenti_util.filtra_solo_documenti_nuovi(path_attestati)
             attestati = aggiorna_documenti_util.calcola_data_attestati(attestati, lavoratore)
         except FileNotFoundError:
             attestati = []
 
-        # scadenza art37 --> preposto
-
-        # salva su db
         cognome, nome = lavoratore.split(maxsplit=1)
         if attestati:
-            try:
-                formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-            except ObjectDoesNotExist:
-                lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
-                formazione_ = Formazione(lavoratore=lavoratore)
+            formazione_ = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
 
             for corso, data_dc, data in attestati:
                 setattr(formazione_, corso, data)
@@ -146,103 +109,58 @@ def aggiorna_documenti(request):
             formazione_.save()
 
         # ricerca idoneità
-        try:
-            path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
-        except TypeError:
-            # todo: eccezione da gestire
-            print('*** errore nella ricerca dell\'idoneità di ', lavoratore)
-
-        os.chdir(path_lavoratore)
-        lfile = glob.glob('idoneità*')
+        path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore, 'idoneità *')
 
         try:
-            idoneita = Idoneita.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-        except ObjectDoesNotExist:
-            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
-            idoneita = Idoneita(lavoratore=lavoratore)
+            path_idoneita = glob.glob(path_lavoratore)[0]
 
-        match len(lfile):
-            case 1:
-                scadenza_idoneita = os.path.splitext(lfile[0])[0].split()[1]
+        except IndexError:
+            print('*** manca idoneità *** %s' % lavoratore)
+
+        if path_idoneita:
+            idoneita_recente = aggiorna_documenti_util.verifica_se_recente(path_idoneita)
+
+            if idoneita_recente:
+                scadenza_idoneita = Path(path_idoneita).stem.split()[1]
                 scadenza_idoneita = datetime.datetime.strptime(scadenza_idoneita, '%d%m%y')
-                idoneita.idoneita = scadenza_idoneita
 
                 attestati.append(('idoneità', scadenza_idoneita, None))
 
-            case 0:
-                print('*** manca idoneità *** %s' % lavoratore)
-            case _:
-                print('*** più di una idoneità *** %s' % lavoratore)
-
-        idoneita.save()
+                idoneita = Idoneita.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+                idoneita.idoneita = scadenza_idoneita
+                idoneita.save()
 
         # ricerca nomine
         try:
             path_nomine = os.path.join(PATH_DOCUMENTI, lavoratore, 'nomine')
-            nomine = os.listdir(path_nomine)
 
-            for nomina in nomine:
-                tipo_nomina, data_nomina = os.path.splitext(nomina)[0].split()
-                data_nomina = datetime.datetime.strptime(data_nomina, '%d%m%y')
+            nomine = aggiorna_documenti_util.filtra_solo_documenti_nuovi(path_nomine)
 
+            if nomine:
                 formazione = Formazione.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
 
-                match tipo_nomina:
-                    case 'nomina_preposto':
-                        formazione.nomina_preposto = data_nomina
-                    case 'nomina_preposto_subappalti':
-                        formazione.nomina_preposto_subappalti = data_nomina
-                    case 'nomina_preposto_imbracatore':
-                        formazione.nomina_preposto_imbracatore = data_nomina
-                    case 'nomina_antincendio':
-                        formazione.nomina_antincendio = data_nomina
-                    case 'nomina_primo_soccorso':
-                        formazione.nomina_primo_soccorso = data_nomina
+                for nomina in nomine:
+                    tipo_nomina, data_nomina = os.path.splitext(nomina)[0].split()
+                    data_nomina = datetime.datetime.strptime(data_nomina, '%d%m%y')
 
-                formazione.save()
+                    match tipo_nomina:
+                        case 'nomina_preposto':
+                            formazione.nomina_preposto = data_nomina
+                        case 'nomina_preposto_subappalti':
+                            formazione.nomina_preposto_subappalti = data_nomina
+                        case 'nomina_preposto_imbracatore':
+                            formazione.nomina_preposto_imbracatore = data_nomina
+                        case 'nomina_antincendio':
+                            formazione.nomina_antincendio = data_nomina
+                        case 'nomina_primo_soccorso':
+                            formazione.nomina_primo_soccorso = data_nomina
+
+                    formazione.save()
 
         except FileNotFoundError:
             pass
 
-        # # ricerca consegna DPI
-        # try:
-        #     path_lavoratore = os.path.join(PATH_DOCUMENTI, lavoratore)
-        # except TypeError:
-        #     # todo: eccezione da gestire
-        #     print('*** errore nella ricerca della consegna DPI di ', lavoratore)
-        #
-        # os.chdir(path_lavoratore)
-        # lfile = glob.glob('consegna_dpi*')
-        #
-        # try:
-        #     dpi = DPI.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-        # except ObjectDoesNotExist:
-        #     lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
-        #     dpi = DPI(lavoratore=lavoratore)
-        #
-        # match len(lfile):
-        #     case 1:
-        #         data_consegna_dpi = os.path.splitext(lfile[0])[0].split()[1]
-        #         data_consegna_dpi = datetime.datetime.strptime(data_consegna_dpi, '%d%m%y')
-        #         dpi.consegna = data_consegna_dpi
-        #
-        #         attestati.append(('consegna_dpi', data_consegna_dpi, None))
-        #
-        #     case 0:
-        #         print('*** manca consegna dpi *** %s' % lavoratore)
-        #     case _:
-        #         print('*** più di una consegna dpi *** %s' % lavoratore)
-        #
-        # dpi.save()
-
         lista_documenti.append([lavoratore, attestati])
-
-    # lista_dpi = DPI.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
-    #
-    # # aggiorna data scadenza elemetto
-    # for dpi in lista_dpi:
-    #     dpi.elmetto = aggiorna_documenti_util.aggiungi_anni(dpi.elmetto_df, 5)
-    #     dpi.save()
 
     os.chdir(PATH_DOCUMENTI)
 
