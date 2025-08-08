@@ -9,6 +9,7 @@ import zipfile
 from itertools import islice
 
 from django.conf import settings
+from icecream import ic
 
 N_COLONNE = 6
 CFG = 'estrai.cfg'
@@ -115,4 +116,4 @@ class Estrai_Dati:
 
         os.chdir(path_iniziale)
 
-        return tabella
+        return tabella, file_zip

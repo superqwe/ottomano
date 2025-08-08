@@ -170,6 +170,7 @@ if NOME_COMPUTER.lower() == 'srvdc1':
         r'D:\Gestionale\Documenti_Mezzi',
         r'D:\Gestionale\Documenti_Attrezzi',
         r'D:\Gestionale\Documenti_Cantieri',
+        r'D:\Gestionale\Documenti_Estratti',
     ]
 else:
     STATICFILES_DIRS = [
@@ -177,6 +178,7 @@ else:
         r'C:\Users\L. MASI\Documents\Documenti_Mezzi',
         r'C:\Users\L. MASI\Documents\Documenti_Attrezzi',
         r'C:\Users\L. MASI\Documents\Documenti_Cantieri',
+        r'C:\Users\L. MASI\Documents\Documenti_Estratti',
     ]
 
 # Default primary key field type

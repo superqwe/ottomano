@@ -384,7 +384,7 @@ def dati_estratti(request):
         attestati = []
         nomine = []
         for x in request.POST.keys():
-            print(x)
+            # print(x)
             if x != 'csrfmiddlewaretoken':
                 if x.isnumeric():
                     lavoratore = Formazione.objects.get(id__exact=x)
@@ -397,11 +397,11 @@ def dati_estratti(request):
         dati = estrai_dati_util.Estrai_Dati()
         # dati.salva_lavoratori(lavoratori)
 
-        print()
-        pp(attestati)
-        print()
+        # print()
+        # pp(attestati)
+        # print()
 
-        tabella = dati.estrai(lavoratori, attestati, nomine)
+        tabella, zip_file_nome = dati.estrai(lavoratori, attestati, nomine)
 
         documenti = attestati
         documenti.extend(nomine)
@@ -412,9 +412,12 @@ def dati_estratti(request):
                    'lavoratori': lavoratori,
                    'documenti': documenti,
                    'tabella': tabella,
+                   'zip': zip_file_nome
                    }
 
         return render(request, 'personale/dati_estratti.html', context)
+
+    return
 
 
 def conteggio_rg(query):

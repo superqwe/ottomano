@@ -16,6 +16,9 @@
 
 
 {% block corpo %}
+
+{% load static %}
+
 <div>
     <table class="table table-striped table-sm">
 
@@ -52,6 +55,16 @@
         </tbody>
 
     </table>
+
+    <div>
+        <p class="text-primary">
+            Scarica tutto
+            <i class="fa-solid fa-arrow-right-long"></i>
+            <a href="{% static '' %}{{zip}}" target="_blank">
+                <i class="fa-solid fa-file-zipper fa-2xl"></i>
+            </a>
+        </p>
+    </div>
 
 </div>
 
