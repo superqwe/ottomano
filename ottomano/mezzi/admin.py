@@ -14,6 +14,7 @@ class MezzoAdmin(admin.ModelAdmin):
         ('libretto_inail', 'immatricolazione', 'matricola_inail'),
         ('inail', 'inail_ck'),
         'manuale',
+        ('scadenza_ap', 'consegnato_ap'),
         'faldone'
     )
 

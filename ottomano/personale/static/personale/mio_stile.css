@@ -21,6 +21,10 @@
   color: #0dcaf0;
 }
 
+.grigio {
+  color: grey;
+}
+
 .bordo-destro {
   border-right-width: 2px !important;
 }
