@@ -45,14 +45,18 @@
             <th scope="col">Qualifica</th>
             <th scope="col">Sesso</th>
             <th scope="col">Cantiere</th>
+            <th scope="col">Scadenza badge AP</th>
+            <th scope="col">Badge AP consegnato</th>
         </tr>
         </thead>
         <tbody>
         {% for lavoratore in lavoratori%}
         <tr>
             <td class="text-center">{{lavoratore.matricola}}</td>
-            <td>{{lavoratore.cognome}}</td>
-            <td>{{lavoratore.nome}}</td>
+            <td><a href="/admin/personale/lavoratore/{{lavoratore.pk}}/change" target="_blank">
+                {{lavoratore.cognome}}</a></td>
+            <td><a href="/admin/personale/lavoratore/{{lavoratore.pk}}/change" target="_blank">
+                {{lavoratore.nome}}</a></td>
             <td>{{lavoratore.data_nascita|date:"d/m/y"}}</td>
             <td class="text-center">{{lavoratore.luogo_nascita|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.provincia_nascita|default_if_none:""|default_if_none:""}}</td>
@@ -72,6 +76,14 @@
             <td class="text-center">{{lavoratore.qualifica|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.sesso|default_if_none:""}}</td>
             <td class="text-center">{{lavoratore.cantiere|default_if_none:""}}</td>
+            <td class="text-center">{{lavoratore.scadenza_ap|default_if_none:""}}</td>
+            <td class="text-center">
+                {% if lavoratore.consegnato_ap == True %}
+                <i class="fa-solid fa-circle-check verde"></i>
+                {% elif lavoratore.consegnato_ap == False %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>

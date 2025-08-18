@@ -4,7 +4,7 @@ from .models import Lavoratore, Formazione, Cantiere, Idoneita, DPI
 
 
 # Register your models here.
-
+@admin.register(Lavoratore)
 class LavoratoreAdmin(admin.ModelAdmin):
     fields = (
         'in_forza',
@@ -21,13 +21,14 @@ class LavoratoreAdmin(admin.ModelAdmin):
         'qualifica',
         'assunzione',
         'busta_paga',
+        ('scadenza_ap', 'consegnato_ap')
     )
     list_display = (
         'in_forza', 'matricola', 'cognome', 'nome', 'cantiere', 'cf', 'data_nascita',
-        'luogo_nascita', 'provincia_nascita', 'qualifica'
+        'luogo_nascita', 'provincia_nascita', 'qualifica', 'scadenza_ap', 'consegnato_ap'
     )
     list_display_links = ('cognome', 'nome')
-    list_filter = ('in_forza', 'cantiere')
+    list_filter = ('in_forza', 'cantiere', 'consegnato_ap')
     save_on_top = True
 
 
@@ -90,5 +91,5 @@ class IdoneitaAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-admin.site.register(Lavoratore, LavoratoreAdmin)
+# admin.site.register(Lavoratore, LavoratoreAdmin)
 admin.site.register(Cantiere, CantiereAdmin)

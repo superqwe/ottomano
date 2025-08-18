@@ -51,6 +51,8 @@ class Lavoratore(models.Model):
     qualifica = models.CharField(max_length=60, blank=True, null=True)
     assunzione = models.CharField(max_length=60, blank=True, null=True)
     busta_paga = models.CharField(max_length=60, blank=True, null=True)
+    scadenza_ap = models.IntegerField('Scadenza badge AP', blank=True, null=True)
+    consegnato_ap = models.BooleanField('Badge AP consegnato', blank=True, null=True)
 
     class Meta:
         ordering = ['cognome', 'nome']
