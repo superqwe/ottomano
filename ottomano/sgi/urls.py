@@ -11,7 +11,7 @@ urlpatterns = [
     path('near_miss/', views.near_miss, name='near_miss'),
     path('near_miss/<int:anno>/', views.near_miss, name='near_miss'),
     path('scadenzario_dpi/', views.scadenzario_dpi, name='scadenzario_dpi'),
-    path('scadenzario_dpi_aggiorna/', views.scadenzario_dpi_aggiorna, name='scadenzario_dpi_aggiorna'),
+    path('scadenzario_dpi_aggiorna/', views.scadenzario_dpi_aggiorna2, name='scadenzario_dpi_aggiorna'),
     path('cassette_ps/', views.cassette_ps, name='cassette_ps'),
     path('cassette_ps_aggiungi_verifica/<int:n_cassetta>', views.cassette_ps_aggiungi_verifica,
          name='cassette_ps_aggiungi_verifica'),

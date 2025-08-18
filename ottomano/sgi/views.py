@@ -213,6 +213,7 @@ def near_miss(request, anno=ANNO_CORRENTE):
 
 
 def scadenzario_dpi_aggiorna(request):
+    # todo: obsoleto
     lavoratori = Lavoratore.objects.filter(in_forza=True)
 
     for lavoratore in lavoratori:
@@ -258,6 +259,78 @@ def scadenzario_dpi_aggiorna(request):
     scadenzario_dpi_util.aggiorna_stato()
 
     scadenzario_dpi_util.aggiorna_dpi_anticaduta()
+
+    return redirect(scadenzario_dpi)
+
+
+def scadenzario_dpi_aggiorna2(request):
+    lavoratori = Lavoratore.objects.filter(in_forza=True).select_related('cantiere')
+    dpi_map = {
+        (dpi.lavoratore.cognome.lower(), getattr(dpi.lavoratore, 'nome', '').lower()): dpi
+        for dpi in DPI2.objects.select_related('lavoratore').all()
+    }
+
+    # aggiorna_consegna_dpi
+    updated_dpi = []
+
+    for lavoratore in lavoratori:
+        cognome = lavoratore.cognome
+        nome = getattr(lavoratore, 'nome', '')
+        path_lavoratore = PATH_DOCUMENTI.joinpath(f'{cognome} {nome}')
+        consegna_dpi_files = list(path_lavoratore.glob('consegna_dpi*'))
+
+        dpi = dpi_map.get((cognome.lower(), nome.lower()))
+        if not dpi:
+            dpi = DPI2(lavoratore=lavoratore)
+
+        if consegna_dpi_files:
+            try:
+                data_str = consegna_dpi_files[0].name.split()[1].split('.')[0]
+                data_consegna = datetime.datetime.strptime(data_str, '%d%m%y')
+                dpi.consegna = data_consegna
+                updated_dpi.append(dpi)
+            except (IndexError, ValueError):
+                continue
+
+    DPI2.objects.bulk_update(updated_dpi, ['consegna'])
+
+    # aggiorna data scadenza elemetto
+    lista_dpi = DPI2.objects.filter(
+        lavoratore__in_forza=True
+    ).exclude(
+        lavoratore__cantiere__cantiere='Uffici Sede'
+    ).select_related('lavoratore', 'lavoratore__cantiere')
+
+    updated_dpi = []
+
+    for dpi in lista_dpi:
+        if dpi.elmetto_df:
+            try:
+                scadenza = datetime.datetime(dpi.elmetto_df.year + 5, dpi.elmetto_df.month, dpi.elmetto_df.day)
+                dpi.elmetto = scadenza
+                updated_dpi.append(dpi)
+            except ValueError:
+                continue
+
+    DPI2.objects.bulk_update(updated_dpi, ['elmetto'])
+
+    # aggiorna data scadenza rilevatore h2s
+    rilevatori = RilevatoreH2S.objects.exclude(uso='x').select_related('lavoratore')
+    updated_dpi = []
+
+    for rilevatore in rilevatori:
+        try:
+            dpi = DPI2.objects.get(lavoratore=rilevatore.lavoratore)
+            dpi.rilevatore = rilevatore.data_scadenza
+            # Se esiste il campo ck_rilevatore_calibrazione:
+            # dpi.ck_rilevatore_calibrazione = rilevatore.data_calibrazione_ck
+            updated_dpi.append(dpi)
+        except DPI2.DoesNotExist:
+            continue
+
+    scadenzario_dpi_util.aggiorna_stato2()
+
+    scadenzario_dpi_util.aggiorna_dpi_anticaduta2()
 
     return redirect(scadenzario_dpi)
 
