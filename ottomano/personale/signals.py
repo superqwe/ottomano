@@ -1,9 +1,10 @@
+from pathlib import Path
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 from .models import Lavoratore, Formazione, Idoneita
-from icecream import ic
 from .views import PATH_DOCUMENTI
-from pathlib import Path
 
 
 @receiver(post_save, sender=Lavoratore)
