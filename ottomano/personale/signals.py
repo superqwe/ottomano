@@ -8,7 +8,7 @@ from .views import PATH_DOCUMENTI
 
 
 @receiver(post_save, sender=Lavoratore)
-def crea_formazione_idoneita(sender, instance, created, **kwargs):
+def crea_nuovo_lavoratore(sender, instance, created, **kwargs):
     if created:
         Formazione.objects.create(lavoratore=instance)
         Idoneita.objects.create(lavoratore=instance)
