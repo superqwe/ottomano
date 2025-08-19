@@ -17,6 +17,7 @@ from personale import estrai_dati_util
 from personale.models import Lavoratore, Formazione, Idoneita, DPI
 
 from . import aggiorna_documenti_util
+from . import backup_db
 
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Lavoratori'
@@ -36,16 +37,16 @@ ANNO_CORRENTE = OGGI.year
 ANNO_PROSSIMO = OGGI.year + 1
 
 
-def backup_db():
-    pathname = os.path.join(PATH_BCK, '*.sqlite3')
-    db = glob.glob(pathname)
-    backup_gia_effettuato = [True for x in db if Path(x).stem == f'bck_{OGGI}']
-
-    if not backup_gia_effettuato:
-        src = os.path.join(PATH_BCK, 'db.sqlite3')
-        dst = os.path.join(PATH_BCK, f'bck_{OGGI}.sqlite3')
-
-        shutil.copy2(src, dst)
+# def backup_db():
+#     pathname = os.path.join(PATH_BCK, '*.sqlite3')
+#     db = glob.glob(pathname)
+#     backup_gia_effettuato = [True for x in db if Path(x).stem == f'bck_{OGGI}']
+#
+#     if not backup_gia_effettuato:
+#         src = os.path.join(PATH_BCK, 'db.sqlite3')
+#         dst = os.path.join(PATH_BCK, f'bck_{OGGI}.sqlite3')
+#
+#         shutil.copy2(src, dst)
 
 
 def index(request):
@@ -63,7 +64,7 @@ def anagrafica(request):
 
 
 def formazione(request):
-    backup_db()
+    backup_db.backup()
 
     formazione_ = Formazione.objects. \
         filter(lavoratore__in_forza=True). \
