@@ -1,33 +1,37 @@
-{% extends "attrezzi/base.html" %}
+{% extends "base.html" %}
 
 {% block titolo %}
-Documenti
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include './0_menu_macro_sezione_attrezzi.html' %}
 {% endblock %}
 
 {% block menu_sezione %}
-ms
 {% endblock %}
 
 
 {% block corpo %}
 
-{% for attrezzo, doc_ok, doc_no in attrezzi %}
-<p>{{attrezzo|upper}}</p>
+<div>
+    {% for attrezzo, doc_ok, doc_no in attrezzi %}
+    <p>{{attrezzo|upper}}</p>
 
-<ul>
-    {% for documento in doc_ok %}
-    <li>
-        {{ documento }}
-        {% endfor %}
-    </li>
-    {% for documento in doc_no %}
-    <li class="rosso">
-        {{ documento }}
-        {% endfor %}
-    </li>
+    <ul>
+        {% for documento in doc_ok %}
+        <li>
+            {{ documento }}
+            {% endfor %}
+        </li>
+        {% for documento in doc_no %}
+        <li class="rosso">
+            {{ documento }}
+            {% endfor %}
+        </li>
 
-</ul>
-{% endfor %}
-
+    </ul>
+    {% endfor %}
+</div>
 
 {% endblock %}

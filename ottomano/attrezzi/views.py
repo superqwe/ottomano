@@ -22,7 +22,7 @@ def elenco(request):
                'pagina_attiva_elenco': 'active',
                'attrezzi': attrezzi}
 
-    return render(request, 'attrezzi/base.html', context)
+    return render(request, 'attrezzi/elenco.html', context)
 
 
 def aggiorna_documenti(request):

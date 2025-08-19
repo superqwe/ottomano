@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{titolo}}
+{% endblock %}
+
+{% block menu_macro_sezione %}
+{% include './0_menu_macro_sezione_attrezzi.html' %}
+{% endblock %}
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% load static %}
+
+
+{% block corpo %}
+<div>
+    <table class="table table-striped table-sm">
+        <thead class="table-light">
+        <tr class="text-center  sticky-top">
+            <th scope="col">Tipologia</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modello</th>
+            <th scope="col">Matricola</th>
+            <th scope="col">Dichiarazione CE</th>
+            <th scope="col">Manuale</th>
+            <th scope="col">Faldone</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attrezzo in attrezzi %}
+        <tr>
+            <td>{{attrezzo.tipologia}}</td>
+            <td><a href="/admin/attrezzi/attrezzo/{{ attrezzo.pk}}">{{attrezzo.marca|upper}}</a></td>
+            <td><a href="/admin/attrezzi/attrezzo/{{ attrezzo.pk}}">{{attrezzo.modello|upper}}</a></td>
+            <td><a href="/admin/attrezzi/attrezzo/{{ attrezzo.pk}}">{{attrezzo.matricola|default_if_none:""}}</a></td>
+            <td class="text-center">
+                {% if attrezzo.ce %}
+                <a href="{% static ''%}{{attrezzo.tipologia}}/{{attrezzo.nome}}/ce.pdf" target="_blank">
+                    <i class="fa-solid fa-circle-check verde"></i></a>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if attrezzo.manuale %}
+                <a href="{% static ''%}{{attrezzo.tipologia}}/{{attrezzo.nome}}/manuale.pdf" target="_blank">
+                    <i class="fa-solid fa-circle-check verde"></i></a>
+                {% endif %}
+            </td>
+            <td class="text-center">{{attrezzo.tipologia.faldone}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
+{% endblock %}

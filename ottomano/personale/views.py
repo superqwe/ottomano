@@ -60,7 +60,6 @@ def anagrafica(request):
                'lavoratori': lavoratori}
 
     return render(request, './personale/anagrafica.html', context)
-    # return render(request, 'base.html', context)
 
 
 def formazione(request):
