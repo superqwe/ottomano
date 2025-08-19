@@ -36,7 +36,8 @@
             <th scope="col">Libretto INAIL</th>
             <th scope="col">Verifica periodica</th>
             <th scope="col">Manuale Uso e Manutenzione</th>
-            <th scope="col">Scadenza badge AP</th>
+            <th scope="col">Verifica SCC</th>
+            <th scope="col">Badge AP scadenza</th>
             <th scope="col">Badge AP consegnato</th>
             <th scope="col">Faldone</th>
         </tr>
@@ -108,6 +109,15 @@
                 <a href="{% static ''%}{{mezzo.nome}}/manuale.pdf" target="_blank">
                     <i class="fa-solid fa-circle-check verde"></i>
                 </a>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if mezzo.scc_numero_verifica %}
+                {{mezzo.scc_numero_verifica}}
+                {% elif mezzo.scc_verificato%}
+                <i class="fa-solid fa-circle-check verde"></i>
+                {% elif mezzo.scc_verificato == False %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
             <td class="text-center">{{mezzo.scadenza_ap|default_if_none:""}}</td>

@@ -63,6 +63,8 @@ class Mezzo(models.Model):
     stato = models.CharField(max_length=20, choices=STATO_MEZZO, blank=True, null=True, default='ok_np')
     scadenza_ap = models.IntegerField('Scadenza badge AP', blank=True, null=True)
     consegnato_ap = models.BooleanField('Badge AP consegnato', blank=True, null=True)
+    scc_verificato = models.BooleanField('Mezzo verificato SCC', blank=True, null=True)
+    scc_numero_verifica = models.CharField('Numero verifica SCC', max_length=30, blank=True, null=True, default=None)
 
     assicurazione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')
     revisione_ck = models.CharField(max_length=20, choices=STATO_DOCUMENTI, blank=True, null=True, default='ok_np')

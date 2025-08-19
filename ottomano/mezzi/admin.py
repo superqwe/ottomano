@@ -1,9 +1,9 @@
 from django.contrib import admin
+
 from .models import Mezzo, RCT
 
 
-# Register your models here.
-
+@admin.register(Mezzo)
 class MezzoAdmin(admin.ModelAdmin):
     fields = (
         'in_forza',
@@ -14,6 +14,7 @@ class MezzoAdmin(admin.ModelAdmin):
         ('libretto_inail', 'immatricolazione', 'matricola_inail'),
         ('inail', 'inail_ck'),
         'manuale',
+        ('scc_verificato', 'scc_numero_verifica'),
         ('scadenza_ap', 'consegnato_ap'),
         'faldone'
     )
@@ -26,5 +27,4 @@ class MezzoAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-admin.site.register(Mezzo, MezzoAdmin)
 admin.site.register(RCT)
