@@ -85,7 +85,8 @@ if sys.platform == 'win32':
         TEMPLATES = [
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates', ],
+                'DIRS': [r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\ottomano\templates',
+                         ],
                 'APP_DIRS': True,
                 'OPTIONS': {
                     'context_processors': [
