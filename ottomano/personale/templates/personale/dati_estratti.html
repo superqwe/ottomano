@@ -33,7 +33,7 @@
         </thead>
 
         <tbody>
-        {% for lavoratore, attestati, nomine in tabella %}
+        {% for lavoratore, attestati, nomine, documenti in tabella %}
         <tr>
             <td>{{lavoratore.0}}</td>
             <td>{{lavoratore.1}}</td>
@@ -45,6 +45,14 @@
             {% for nomina in nomine %}
             <td class="text-center">
                 {% if nomina %}
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                {% endif%}
+            </td>
+            {% endfor %}
+
+            {% for documento in documenti %}
+            <td class="text-center">
+                {% if documento %}
                 <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
                 {% endif%}
             </td>

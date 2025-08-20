@@ -26,7 +26,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
         <tr class="text-center">
             <th scope="col">Cognome</th>
             <th scope="col">Nome</th>
-<!--            <th scope="col" >Idoneità</th>-->
+            <!--            <th scope="col" >Idoneità</th>-->
             <th scope="col" class="d-print-none">Idoneità</th>
             <th scope="col">Obbligo dei DPI per il rumore anche per livelli di esposizione giornaliera a rumore tra 80 e
                 85 dB(A)
@@ -59,10 +59,11 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
         <tr>
             <td>{{lavoratore.lavoratore.cognome}}</td>
             <td>{{lavoratore.lavoratore.nome}}</td>
-<!--            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}}">-->
+            <!--            <td class="text-center bordo-destro {{lavoratore.idoneita_ck}}">-->
             <td class="text-center bordo-destro {{lavoratore.idoneita_ck}} d-print-none">
-                <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:'dmy'}}.pdf" target="_blank">
-                {{lavoratore.idoneita|date:"d/m/y"}}
+                <a href="{% static ''%}{{lavoratore.lavoratore}}/idoneità {{lavoratore.idoneita|date:'dmy'}}.pdf"
+                   target="_blank">
+                    {{lavoratore.idoneita|date:"d/m/y"}}
                 </a>
             </td>
             <td class="text-center">

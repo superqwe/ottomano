@@ -1,41 +1,48 @@
 .ff_monospace {
-  font-family: monospace;
+    font-family: monospace;
 }
 
 .rosso {
-  color: #dc3545;
+    color: #dc3545;
 }
+
 .giallo {
-  color: #ffc107;
+    color: #ffc107;
 }
+
 .verde {
-  color: #198754;
+    color: #198754;
 }
+
 .blu {
-  color: blue;
+    color: blue;
 }
+
 .arancio {
-  color: orange;
+    color: orange;
 }
+
 .celeste {
-  color: #0dcaf0;
+    color: #0dcaf0;
 }
 
 .grigio {
-  color: grey;
+    color: grey;
 }
 
 .bordo-destro {
-  border-right-width: 2px !important;
+    border-right-width: 2px !important;
 }
 
 /* sgi */
 .no_link_sottolineato {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .rigo_firme {
-  height: 100px;
+    height: 100px;
 }
+
 .logo_ottomano {
-  max-height: calc(1.375rem + 1.5vw);
+    max-height: calc(1.375rem + 1.5vw);
 }

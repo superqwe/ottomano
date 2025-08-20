@@ -348,7 +348,9 @@ def scadenzario_idoneita(request):
 
 def estrai_dati(request):
     lavoratori = Formazione.objects.filter(lavoratore__in_forza=True).exclude(
-        lavoratore__cantiere__cantiere='Uffici Sede')
+        lavoratore__cantiere__cantiere='Uffici Sede').exclude(
+        lavoratore__cognome='Ottomano'
+    )
 
     gruppi_lavoratori, n_gruppi_lavoratori = estrai_dati_util.dividi_elenco_lavoratori(lavoratori)
 
@@ -383,28 +385,27 @@ def dati_estratti(request):
         lavoratori = []
         attestati = []
         nomine = []
+        documenti_vari = []
         for x in request.POST.keys():
-            # print(x)
+            # ic(x)
             if x != 'csrfmiddlewaretoken':
                 if x.isnumeric():
                     lavoratore = Formazione.objects.get(id__exact=x)
                     lavoratori.append(lavoratore)
                 elif x.startswith('nomina_'):
                     nomine.append(x)
+                elif x.startswith(('unilav', 'idoneita', 'consegna_dpi')):
+                    documenti_vari.append(x)
                 else:
                     attestati.append(x)
 
         dati = estrai_dati_util.Estrai_Dati()
-        # dati.salva_lavoratori(lavoratori)
 
-        # print()
-        # pp(attestati)
-        # print()
-
-        tabella, zip_file_nome = dati.estrai(lavoratori, attestati, nomine)
+        tabella, zip_file_nome = dati.estrai(lavoratori, attestati, nomine, documenti_vari)
 
         documenti = attestati
         documenti.extend(nomine)
+        documenti.extend(documenti_vari)
 
         context = {'titolo': 'Dati Estratti',
                    'sezione_formazione_attiva': 'active',

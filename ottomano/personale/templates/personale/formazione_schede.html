@@ -14,14 +14,13 @@
     <a href="/personale/scadenzario_formazione" class="btn btn-outline-primary">Scadenzario Trimestrale</a>
     <div class="btn-group " role="group">
         <a href="/personale/scadenzario_formazione_schede/corrente"
-        class="btn btn-outline-primary {{pagina_attiva_formazione_corrente}}">Corrente</a>
+           class="btn btn-outline-primary {{pagina_attiva_formazione_corrente}}">Corrente</a>
         <a href="/personale/scadenzario_formazione_schede/prossimo"
-        class="btn btn-outline-primary {{pagina_attiva_formazione_prossimo}}">Prossimo</a>
+           class="btn btn-outline-primary {{pagina_attiva_formazione_prossimo}}">Prossimo</a>
     </div>
 </div>
 {% include "./1_sottomenu_sezione_personale.html" %}
 {% endblock %}
-
 
 
 {% block corpo %}
@@ -36,7 +35,8 @@
         <div class="card">
 
             <div class="card-header">
-                <h5 class="card-title">{{corso|upper}} <span class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span></h5>
+                <h5 class="card-title">{{corso|upper}} <span
+                        class="badge rounded-pill bg-primary">{{ conteggi.3 }}</span></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
                     {% if conteggi.0 %}<span class="badge rounded-pill bg-success">{{ conteggi.0 }}</span>{% endif %}
                     {% if conteggi.1 %}<span class="badge rounded-pill bg-warning">{{ conteggi.1 }}</span>{% endif %}
@@ -80,11 +80,12 @@
         </thead>
 
         <tbody class="border border-secondary">
-        <td class="text-center align-middle rigo_firme">0</td>
-        <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <tr>
+            <td class="text-center align-middle rigo_firme">0</td>
+            <td class="text-center align-middle rigo_firme">{% now "SHORT_DATE_FORMAT" %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         </tbody>
 

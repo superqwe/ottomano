@@ -180,6 +180,7 @@ class Idoneita(models.Model):
 
 
 class DPI(models.Model):
+    # todo: obsoleto
     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
     consegna = models.DateField(blank=True, null=True, default=None)
     elmetto = models.DateField(blank=True, null=True, default=None)

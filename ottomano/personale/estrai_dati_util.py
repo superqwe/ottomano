@@ -11,6 +11,9 @@ from itertools import islice
 from django.conf import settings
 from icecream import ic
 
+from .models import Idoneita
+from sgi.models import DPI2
+
 N_COLONNE = 6
 CFG = 'estrai.cfg'
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
@@ -48,7 +51,7 @@ class Estrai_Dati:
             config.write(cfg)
 
     @staticmethod
-    def estrai(elenco_lavoratori, elenco_formazione, elenco_nomine):
+    def estrai(elenco_lavoratori, elenco_formazione, elenco_nomine, elenco_documenti):
         try:
             shutil.rmtree(PATH_ESTRAI)
         except (PermissionError, FileNotFoundError):
@@ -56,6 +59,7 @@ class Estrai_Dati:
 
         tabella = []
         for lavoratore in elenco_lavoratori:
+            # ic(lavoratore)
             cognome, nome = lavoratore.lavoratore.cognome, lavoratore.lavoratore.nome
             rigo = [(cognome, nome), ]
 
@@ -66,6 +70,31 @@ class Estrai_Dati:
 
             nomine = [getattr(lavoratore, nomina) for nomina in elenco_nomine]
             rigo.append(nomine)
+
+            documenti = []
+            if 'unilav' in elenco_documenti:
+                tipo_contratto = lavoratore.lavoratore.tipo_contratto
+                if tipo_contratto in ('T.I.', 'T.I. - P. TIME'):
+                    nome_documento = 'Indeterminato'
+                elif lavoratore.tipo_contratto == 'T.D.':
+                    nome_documento = lavoratore.lavoratore.data_fine
+                else:
+                    print(f'*** {lavoratore} con contratto da gestire per estrazione - {tipo_contratto} -  ***')
+                    nome_documento = None
+
+                documenti.append((nome_documento))
+
+            if 'idoneita' in elenco_documenti:
+                idoneita = Idoneita.objects.filter(lavoratore=lavoratore.lavoratore).first().idoneita
+                documenti.append(idoneita)
+
+            if 'consegna_dpi' in elenco_documenti:
+                consegna_dpi = DPI2.objects.filter(lavoratore=lavoratore.lavoratore).first().consegna
+                documenti.append(consegna_dpi)
+
+            rigo.append(documenti)
+
+            # ic(rigo)
 
             tabella.append(rigo)
 
@@ -98,11 +127,33 @@ class Estrai_Dati:
 
                     path_originale = path_lavoratore_nomine / nome_originale
                     path_destinazione = PATH_ESTRAI / nome_destinazione
-                    print(path_originale, path_destinazione)
 
                     shutil.copy(path_originale, path_destinazione)
 
-        # pp(tabella)
+            for nome_documento, documento_esistente in zip(elenco_documenti, documenti):
+                if documento_esistente:
+                    ic(nome_documento, documento_esistente)
+
+                    if nome_documento == 'unilav':
+                        if documento_esistente == 'Indeterminato':
+                            nome_originale = 'unilav ind.pdf'
+                        else:
+                            nome_originale = f'unilav {documento_esistente.strftime("%d%m%y")}.pdf'
+
+                    elif nome_documento == 'idoneita':
+                        nome_originale = f'idoneità {documento_esistente.strftime("%d%m%y")}.pdf'
+
+                    elif nome_documento == 'consegna_dpi':
+                        nome_originale = f'consegna_dpi {documento_esistente.strftime("%d%m%y")}.pdf'
+
+                    nome_destinazione = f'{nominativo} {nome_documento}.pdf'
+
+                    path_originale = path_lavoratore / nome_originale
+                    path_destinazione = PATH_ESTRAI / nome_destinazione
+
+                    shutil.copy(path_originale, path_destinazione)
+
+        # ic(tabella)
 
         # zippa i file estratti
         path_iniziale = pathlib.Path.cwd()
