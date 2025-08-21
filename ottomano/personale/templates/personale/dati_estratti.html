@@ -50,12 +50,12 @@
             </td>
             {% endfor %}
 
-            {% for documento in documenti %}
-            <td class="text-center">
-                {% if documento %}
-                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
-                {% endif%}
-            </td>
+            {% for valore, stato, tipo in documenti %}
+            {% if tipo == 'unilav' %}
+            <td class="text-center"> {{valore}}</td>
+            {% else%}
+            <td class="text-center {{stato}}"> {{valore|default_if_none:""}}</td>
+            {% endif%}
             {% endfor %}
 
         </tr>

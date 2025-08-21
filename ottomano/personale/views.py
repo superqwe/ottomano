@@ -403,6 +403,8 @@ def dati_estratti(request):
 
         tabella, zip_file_nome = dati.estrai(lavoratori, attestati, nomine, documenti_vari)
 
+        documenti_vari = ['Idoneità' if x == 'idoneita' else x for x in documenti_vari]
+
         documenti = attestati
         documenti.extend(nomine)
         documenti.extend(documenti_vari)

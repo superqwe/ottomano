@@ -82,15 +82,21 @@ class Estrai_Dati:
                     print(f'*** {lavoratore} con contratto da gestire per estrazione - {tipo_contratto} -  ***')
                     nome_documento = None
 
-                documenti.append((nome_documento))
+                documenti.append((nome_documento, None, 'unilav'))
 
             if 'idoneita' in elenco_documenti:
-                idoneita = Idoneita.objects.filter(lavoratore=lavoratore.lavoratore).first().idoneita
-                documenti.append(idoneita)
+                idoneita_ = Idoneita.objects.filter(lavoratore=lavoratore.lavoratore).first()
+                idoneita = idoneita_.idoneita
+                idoneita_ck = idoneita_.idoneita_ck
+
+                documenti.append((idoneita, idoneita_ck, 'idoneita'))
 
             if 'consegna_dpi' in elenco_documenti:
-                consegna_dpi = DPI2.objects.filter(lavoratore=lavoratore.lavoratore).first().consegna
-                documenti.append(consegna_dpi)
+                consegna_dpi = DPI2.objects.filter(lavoratore=lavoratore.lavoratore).first()
+                consegna = consegna_dpi.consegna
+                consegna_ck = consegna_dpi.ck_consegna
+
+                documenti.append((consegna, consegna_ck, 'consegna_dpi'))
 
             rigo.append(documenti)
 
@@ -130,7 +136,7 @@ class Estrai_Dati:
 
                     shutil.copy(path_originale, path_destinazione)
 
-            for nome_documento, documento_esistente in zip(elenco_documenti, documenti):
+            for nome_documento, (documento_esistente, _, __) in zip(elenco_documenti, documenti):
                 if documento_esistente:
                     ic(nome_documento, documento_esistente)
 
