@@ -15,6 +15,7 @@ env
 .idea
 jupyter
 __pycache__/
+logs
 
 venv
 *.bat

@@ -186,3 +186,84 @@ else:
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging
+import os
+import sys
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)  # crea la cartella se non esiste
+
+
+def make_file_handler(level, filename):
+    return {
+        'level': level,
+        'class': 'logging.handlers.RotatingFileHandler',
+        'filename': os.path.join(LOG_DIR, filename),
+        'maxBytes': 1024 * 1024 * 5,  # 5MB
+        'backupCount': 3,
+        'formatter': 'verbose',
+        'encoding': 'utf-8',
+    }
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    # Formatter
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime}] {levelname} {name} - {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname}: {message}',
+            'style': '{',
+        },
+    },
+
+    # Handler
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'formatter': 'simple',
+        },
+        'debug_file': make_file_handler('DEBUG', 'debug.log'),
+        'info_file': make_file_handler('INFO', 'info.log'),
+        'warning_file': make_file_handler('WARNING', 'warning.log'),
+        'error_file': make_file_handler('ERROR', 'errors.log'),
+        'critical_file': make_file_handler('CRITICAL', 'critical.log'),
+        'print_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'print.log'),
+            'maxBytes': 1024 * 1024 * 2,
+            'backupCount': 3,
+            'formatter': 'verbose',
+            'encoding': 'utf-8',
+        },
+    },
+
+    # Logger
+    'loggers': {
+        'django': {
+            'handlers': [
+                'console',
+                'debug_file',
+                'info_file',
+                'warning_file',
+                'error_file',
+                'critical_file',
+            ],
+            'level': 'INFO',  # puoi usare 'INFO' in produzione
+            'propagate': True,
+        },
+        'print_logger': {
+            'handlers': ['print_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

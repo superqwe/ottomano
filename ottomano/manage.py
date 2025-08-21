@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+import logging
 import os
 import sys
+
+from logging_redirect import DualStream
+
+print_logger = logging.getLogger('print_logger')
+sys.stdout = DualStream(print_logger, logging.INFO)
+sys.stderr = DualStream(print_logger, logging.ERROR)
 
 
 def main():
