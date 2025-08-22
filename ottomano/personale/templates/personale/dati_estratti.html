@@ -76,24 +76,15 @@
 
 </div>
 
-
-<div class="container">
-
-    <!--    <div class="row">-->
-    <!--        {% for lavoratore in lavoratori %}-->
-    <!--        <p>{{ lavoratore }}</p>-->
-    <!--        {% endfor %}-->
-    <!--    </div>-->
-
-
-    <!--    <div class="row">-->
-    <!--        {% for documento in documenti %}-->
-    <!--        <p>{{ documento }}</p>-->
-    <!--        {% endfor %}-->
-    <!--    </div>-->
-
-
+{% if file_non_trovati%}
+<div class="text-bg-danger">
+    <h2>File non trovati</h2>
+    <ul>
+        {% for file in file_non_trovati %}
+        <li>{{file}}</li>
+        {% endfor %}
+    </ul>
 </div>
-
+{% endif %}
 
 {% endblock %}

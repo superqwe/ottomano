@@ -211,56 +211,56 @@ def near_miss(request, anno=ANNO_CORRENTE):
 
     return render(request, 'sgi/near_miss.html', context)
 
-
-def scadenzario_dpi_aggiorna(request):
-    # todo: obsoleto
-    lavoratori = Lavoratore.objects.filter(in_forza=True)
-
-    for lavoratore in lavoratori:
-        cognome, nome = lavoratore.cognome, lavoratore.nome
-        path_lavoratore = PATH_DOCUMENTI.joinpath('{} {}'.format(cognome, nome))
-        consegna_dpi = list(path_lavoratore.glob('consegna_dpi*'))
-
-        try:
-            dpi = DPI2.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
-        except ObjectDoesNotExist:
-            lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
-            dpi = DPI2(lavoratore=lavoratore)
-
-        if consegna_dpi:
-            data_consegna = consegna_dpi[0].name.split()[1].split('.')[0]
-            data_consegna = datetime.datetime.strptime(data_consegna, '%d%m%y')
-            dpi.consegna = data_consegna
-
-        dpi.save()
-
-    # aggiorna data scadenza elemetto
-    lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
-
-    for dpi in lista_dpi:
-        data_fabbrica = dpi.elmetto_df
-
-        if data_fabbrica:
-            dpi.elmetto = datetime.datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
-            dpi.save()
-
-    # aggiorna data scadenza rilevatore h2s
-    lista_rilevatorih2s = RilevatoreH2S.objects.exclude(uso='x')
-
-    for rilevatore in lista_rilevatorih2s:
-        try:
-            dpi = DPI2.objects.get(lavoratore=rilevatore.lavoratore)
-            dpi.rilevatore = rilevatore.data_scadenza
-            dpi.ck_rilevatore_calibrazione = rilevatore.data_calibrazione_ck
-            dpi.save()
-        except ObjectDoesNotExist:
-            pass
-
-    scadenzario_dpi_util.aggiorna_stato()
-
-    scadenzario_dpi_util.aggiorna_dpi_anticaduta()
-
-    return redirect(scadenzario_dpi)
+# # todo: obsoleto
+# def scadenzario_dpi_aggiorna(request):
+#
+#     lavoratori = Lavoratore.objects.filter(in_forza=True)
+#
+#     for lavoratore in lavoratori:
+#         cognome, nome = lavoratore.cognome, lavoratore.nome
+#         path_lavoratore = PATH_DOCUMENTI.joinpath('{} {}'.format(cognome, nome))
+#         consegna_dpi = list(path_lavoratore.glob('consegna_dpi*'))
+#
+#         try:
+#             dpi = DPI2.objects.get(lavoratore__cognome__iexact=cognome, lavoratore__nome__iexact=nome)
+#         except ObjectDoesNotExist:
+#             lavoratore = Lavoratore.objects.get(cognome__iexact=cognome, nome__iexact=nome)
+#             dpi = DPI2(lavoratore=lavoratore)
+#
+#         if consegna_dpi:
+#             data_consegna = consegna_dpi[0].name.split()[1].split('.')[0]
+#             data_consegna = datetime.datetime.strptime(data_consegna, '%d%m%y')
+#             dpi.consegna = data_consegna
+#
+#         dpi.save()
+#
+#     # aggiorna data scadenza elemetto
+#     lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+#
+#     for dpi in lista_dpi:
+#         data_fabbrica = dpi.elmetto_df
+#
+#         if data_fabbrica:
+#             dpi.elmetto = datetime.datetime(data_fabbrica.year + 5, data_fabbrica.month, data_fabbrica.day)
+#             dpi.save()
+#
+#     # aggiorna data scadenza rilevatore h2s
+#     lista_rilevatorih2s = RilevatoreH2S.objects.exclude(uso='x')
+#
+#     for rilevatore in lista_rilevatorih2s:
+#         try:
+#             dpi = DPI2.objects.get(lavoratore=rilevatore.lavoratore)
+#             dpi.rilevatore = rilevatore.data_scadenza
+#             dpi.ck_rilevatore_calibrazione = rilevatore.data_calibrazione_ck
+#             dpi.save()
+#         except ObjectDoesNotExist:
+#             pass
+#
+#     scadenzario_dpi_util.aggiorna_stato()
+#
+#     scadenzario_dpi_util.aggiorna_dpi_anticaduta()
+#
+#     return redirect(scadenzario_dpi)
 
 
 def scadenzario_dpi_aggiorna2(request):
@@ -274,10 +274,13 @@ def scadenzario_dpi_aggiorna2(request):
     updated_dpi = []
 
     for lavoratore in lavoratori:
+        print(lavoratore)
         cognome = lavoratore.cognome
         nome = getattr(lavoratore, 'nome', '')
         path_lavoratore = PATH_DOCUMENTI.joinpath(f'{cognome} {nome}')
         consegna_dpi_files = list(path_lavoratore.glob('consegna_dpi*'))
+        print(consegna_dpi_files)
+        print('-')
 
         dpi = dpi_map.get((cognome.lower(), nome.lower()))
         if not dpi:

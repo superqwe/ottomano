@@ -429,7 +429,7 @@ def dati_estratti(request):
 
         dati = estrai_dati_util.Estrai_Dati()
 
-        tabella, zip_file_nome = dati.estrai(lavoratori, attestati, nomine, documenti_vari)
+        tabella, zip_file_nome, file_non_trovati = dati.estrai(lavoratori, attestati, nomine, documenti_vari)
 
         documenti_vari = ['Idoneità' if x == 'idoneita' else x for x in documenti_vari]
 
@@ -443,7 +443,8 @@ def dati_estratti(request):
                    'lavoratori': lavoratori,
                    'documenti': documenti,
                    'tabella': tabella,
-                   'zip': zip_file_nome
+                   'zip': zip_file_nome,
+                   'file_non_trovati': file_non_trovati
                    }
 
         return render(request, 'personale/dati_estratti.html', context)

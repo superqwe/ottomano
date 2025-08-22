@@ -58,6 +58,7 @@ class Estrai_Dati:
             pass
 
         tabella = []
+        file_non_trovati = []
         for lavoratore in elenco_lavoratori:
             # ic(lavoratore)
             cognome, nome = lavoratore.lavoratore.cognome, lavoratore.lavoratore.nome
@@ -112,7 +113,6 @@ class Estrai_Dati:
 
             pathlib.Path(PATH_ESTRAI).mkdir(parents=True, exist_ok=True)
 
-            # todo: gestire gli errori
             for nome_attestato, (data_attestato, dummy) in zip(elenco_formazione, attestati):
                 if data_attestato:
                     nome_originale = '{} {}.pdf'.format(nome_attestato,
@@ -123,7 +123,10 @@ class Estrai_Dati:
                     path_originale = path_lavoratore_attestati / nome_originale
                     path_destinazione = PATH_ESTRAI / nome_destinazione
 
-                    shutil.copy(path_originale, path_destinazione)
+                    try:
+                        shutil.copy(path_originale, path_destinazione)
+                    except FileNotFoundError:
+                        file_non_trovati.append(path_originale)
 
             for nome_nomina, nomina_esistente in zip(elenco_nomine, nomine):
                 if nomina_esistente:
@@ -134,11 +137,14 @@ class Estrai_Dati:
                     path_originale = path_lavoratore_nomine / nome_originale
                     path_destinazione = PATH_ESTRAI / nome_destinazione
 
-                    shutil.copy(path_originale, path_destinazione)
+                    try:
+                        shutil.copy(path_originale, path_destinazione)
+                    except FileNotFoundError:
+                        file_non_trovati.append(path_originale)
+
 
             for nome_documento, (documento_esistente, _, __) in zip(elenco_documenti, documenti):
                 if documento_esistente:
-                    ic(nome_documento, documento_esistente)
 
                     if nome_documento == 'unilav':
                         if documento_esistente == 'Indeterminato':
@@ -157,7 +163,10 @@ class Estrai_Dati:
                     path_originale = path_lavoratore / nome_originale
                     path_destinazione = PATH_ESTRAI / nome_destinazione
 
-                    shutil.copy(path_originale, path_destinazione)
+                    try:
+                        shutil.copy(path_originale, path_destinazione)
+                    except FileNotFoundError:
+                        file_non_trovati.append(path_originale)
 
         # ic(tabella)
 
@@ -173,4 +182,4 @@ class Estrai_Dati:
 
         os.chdir(path_iniziale)
 
-        return tabella, file_zip
+        return tabella, file_zip, file_non_trovati
