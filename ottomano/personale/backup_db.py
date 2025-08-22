@@ -12,7 +12,7 @@ else:
     PATH_BCK = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano'
 
 OGGI = datetime.date.today()
-MAX_BACKUP = 5
+MAX_BACKUP = 10
 
 
 def backup():
