@@ -19,6 +19,7 @@ def index(request):
 def elenco(request):
     attrezzi = Attrezzo.objects.all()
     context = {'titolo': 'Elenco Attrezzi',
+               'sezione_attrezzi_attiva': 'active',
                'pagina_attiva_elenco': 'active',
                'attrezzi': attrezzi}
 
@@ -63,6 +64,7 @@ def aggiorna_documenti(request):
         elenco_documenti_attrezzi.append((attrezzo, documenti_attrezzo_ok, documenti_attrezzo_errore))
 
     context = {'titolo': 'Documenti Mezzi Aggiornati',
+               'sezione_attrezzi_attiva': 'active',
                'pagina_attiva_aggiorna_documenti': 'active',
                'attrezzi': elenco_documenti_attrezzi}
 
