@@ -25,6 +25,7 @@ def index(request):
 def elenco(request):
     mezzi = Mezzo.objects.filter(in_forza=True)
     context = {'titolo': 'Elenco Mezzi',
+               'sezione_mezzi_attiva': 'active',
                'pagina_attiva_elenco': 'active',
                'mezzi': mezzi}
 
@@ -35,6 +36,7 @@ def scadenziario(request):
     mezzi = Mezzo.objects.filter(in_forza=True, stato__in=['giallo', 'rosso'])
 
     context = {'titolo': 'Elenco Mezzi',
+               'sezione_mezzi_attiva': 'active',
                'pagina_attiva_scadenzario': 'active',
                'mezzi': mezzi}
 
@@ -138,6 +140,7 @@ def aggiorna_documenti(request):
         elenco_documenti_mezzi.append((mezzo, documenti_mezzo_ok, documenti_mezzo_errore))
 
     context = {'titolo': 'Documenti Mezzi Aggiornati',
+               'sezione_mezzi_attiva': 'active',
                'pagina_attiva_aggiorna_documenti': 'active',
                'mezzi': elenco_documenti_mezzi}
 
