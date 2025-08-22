@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_utility.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+<div>
+    <table class="table table-striped table-sm">
+
+        <thead class="table-light sticky-top">
+        <tr class="text-center">
+            <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
+            {% for documento in documenti %}
+            <th scope="col">{{ documento|title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for lavoratore, attestati, nomine, documenti in tabella %}
+        <tr>
+            <td>{{lavoratore.0}}</td>
+            <td>{{lavoratore.1}}</td>
+
+            {% for attestato in attestati %}
+            <td class="text-center {{attestato.1}}">{{attestato.0|default_if_none:""}}</td>
+            {% endfor %}
+
+            {% for nomina in nomine %}
+            <td class="text-center">
+                {% if nomina %}
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                {% endif%}
+            </td>
+            {% endfor %}
+
+            {% for valore, stato, tipo in documenti %}
+            {% if tipo == 'unilav' %}
+            <td class="text-center"> {{valore}}</td>
+            {% else%}
+            <td class="text-center {{stato}}"> {{valore|default_if_none:""}}</td>
+            {% endif%}
+            {% endfor %}
+
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div>
+        <p class="text-primary">
+            Scarica tutto
+            <i class="fa-solid fa-arrow-right-long"></i>
+            <a href="{% static '' %}{{zip}}" target="_blank">
+                <i class="fa-solid fa-file-zipper fa-2xl"></i>
+            </a>
+        </p>
+    </div>
+
+</div>
+
+{% if file_non_trovati%}
+<div class="text-bg-danger">
+    <h2>File non trovati</h2>
+    <ul>
+        {% for file in file_non_trovati %}
+        <li>{{file}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

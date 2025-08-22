@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_utility.html" %}
+{% endblock %}
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+<div class="container-fluid">
+    <div class="row">
+        <form action="./dati_estratti" method="post" name="lavoratori">
+            {% csrf_token %}
+            <div>
+                <button class="btn btn-primary" type="submit">Estrai documenti</button>
+            </div>
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Lavoratori</h2>
+                        <p class="card-text">
+
+                        <div class="row">
+                            {% for gruppo in gruppi_lavoratori %}
+                            <div class="col-2">
+                                {% for lavoratore in gruppo %}
+                                <input type="checkbox" class="checkbox-lavoratore" id="{{lavoratore.pk}}"
+                                       name="{{lavoratore.pk}}" value="{{lavoratore}}">
+                                <label for="{{lavoratore.pk}}">{{lavoratore}}</label><br>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="btn btn-outline-secondary" id="lavoratori_tutti" onclick="selezionaTuttiLavoratori()">
+                            Seleziona tutto
+                        </a>
+                        <a class="btn btn-outline-secondary" onclick="deselezionaTuttiLavoratori()">
+                            Deseleziona tutto</a>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="card col-6">
+                    <div class="card-body">
+                        <h2 class="card-title">Attestati</h2>
+                        <p class="card-text">
+
+                        <div class="row">
+                            {% for gruppo in gruppi_formazione %}
+                            <div class="col-4">
+                                {% for formazione in gruppo %}
+                                <input type="checkbox" class="checkbox-formazione" id="{{formazione}}"
+                                       name="{{formazione}}" value="{{formazione}}_">
+                                <label for="{{formazione}}">{{formazione|title}}</label><br>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="btn btn-outline-secondary" id="formazione_tutti" onclick="selezionaTuttiAttestati()">
+                            Seleziona tutto
+                        </a>
+                        <a class="btn btn-outline-secondary" onclick="deselezionaTuttiAttestati()">
+                            Deseleziona tutto</a>
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h2 class="card-title">Nomine</h2>
+                        <p class="card-text">
+                            {% for nomina in nomine %}
+                            <input type="checkbox" class="checkbox-nomine" id="{{nomina}}" name="{{nomina}}"
+                                   value="{{nomina}}_">
+                            <label for="{{nomina}}">{{nomina|title}}</label><br>
+                            {% endfor %}
+
+                            <a class="btn btn-outline-secondary" id="nomine_tutti" onclick="selezionaTuttiNomine()">
+                                Seleziona tutto
+                            </a>
+                            <a class="btn btn-outline-secondary" onclick="deselezionaTuttiNomine()">
+                                Deseleziona tutto</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h2 class="card-title">Documenti</h2>
+                        <p class="card-text">
+                            <input type="checkbox" class="checkbox-documenti" id="unilav" name="unilav" value="unilav_">
+                            <label for="unilav">Unilav</label><br>
+                            <input type="checkbox" class="checkbox-documenti" id="idoneita" name="idoneita"
+                                   value="idoneita_">
+                            <label for="idoneita">Idoneità</label><br>
+                            <input type="checkbox" class="checkbox-documenti" id="consegna_dpi" name="consegna_dpi"
+                                   value="consegna_dpi">
+                            <label for="consegna_dpi">consegna_dpi</label><br>
+
+                            <a class="btn btn-outline-secondary" id="documenti_tutti"
+                               onclick="selezionaTuttiDocumenti()">
+                                Seleziona tutto
+                            </a>
+                            <a class="btn btn-outline-secondary" onclick="deselezionaTuttiDocumenti()">
+                                Deseleziona tutto</a>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary" type="submit">Estrai documenti</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    // Lavoratori
+    function selezionaTuttiLavoratori() {
+        const checkboxes = document.querySelectorAll('.checkbox-lavoratore');
+        checkboxes.forEach(cb => cb.checked = true);
+    }
+
+    function deselezionaTuttiLavoratori() {
+        const checkboxes = document.querySelectorAll('.checkbox-lavoratore');
+        checkboxes.forEach(cb => cb.checked = false);
+    }
+
+    // Formazione
+    function selezionaTuttiAttestati() {
+        const checkboxes = document.querySelectorAll('.checkbox-formazione');
+        checkboxes.forEach(cb => cb.checked = true);
+    }
+
+    function deselezionaTuttiAttestati() {
+        const checkboxes = document.querySelectorAll('.checkbox-formazione');
+        checkboxes.forEach(cb => cb.checked = false);
+    }
+
+    // Nomine
+    function selezionaTuttiNomine() {
+        const checkboxes = document.querySelectorAll('.checkbox-nomine');
+        checkboxes.forEach(cb => cb.checked = true);
+    }
+
+    function deselezionaTuttiNomine() {
+        const checkboxes = document.querySelectorAll('.checkbox-nomine');
+        checkboxes.forEach(cb => cb.checked = false);
+    }
+
+    // Documenti
+    function selezionaTuttiDocumenti() {
+        const checkboxes = document.querySelectorAll('.checkbox-documenti');
+        checkboxes.forEach(cb => cb.checked = true);
+    }
+
+    function deselezionaTuttiDocumenti() {
+        const checkboxes = document.querySelectorAll('.checkbox-documenti');
+        checkboxes.forEach(cb => cb.checked = false);
+    }
+
+
+</script>
+
+
+{% endblock %}
+

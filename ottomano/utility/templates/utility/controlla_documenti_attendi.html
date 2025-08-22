@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<meta http-equiv="refresh" content="1;url=./documenti_controllati">
+{% endblock %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_utility.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% endblock %}
+
+
+{% block corpo %}
+
+
+
+<div class="col-2 d-flex align-items-center">
+    <strong role="status">Controllo documenti in corso...</strong>
+    <div class="spinner-border ms-auto" aria-hidden="true"></div>
+</div>
+
+{% endblock %}

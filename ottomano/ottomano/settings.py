@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'personale.apps.PersonaleConfig',
     'sgi.apps.SgiConfig',
     'esterni.apps.EsterniConfig',
+    'utility.apps.UtilityConfig',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
