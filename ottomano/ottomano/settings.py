@@ -240,7 +240,7 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'print.log'),
-            'maxBytes': 1024 * 1024 * 2,
+            'maxBytes': 1024 * 1024 * 5,
             'backupCount': 3,
             'formatter': 'verbose',
             'encoding': 'utf-8',

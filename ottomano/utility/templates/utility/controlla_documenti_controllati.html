@@ -18,8 +18,50 @@
 {% block corpo %}
 
 
-<div class="col-2 d-flex align-items-center">
-    ok
+<div>
+    <h2>Personale</h2>
+    {% if documenti_personale_non_trovati %}
+    <p class="text-danger">Documenti non trovati</p>
+    <ul>
+        {% for documento in documenti_personale_non_trovati %}
+        <li> {{ documento }}</li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p class="text-success">Tutti i documenti sono presenti</p>
+    {% endif %}
+
+
+    <h2>Mezzi</h2>
+    {% if documenti_mezzi_non_trovati %}
+    <p class="text-danger">Documenti non trovati</p>
+    <ul>
+        {% for documento in documenti_mezzi_non_trovati %}
+        <li> {{ documento }}</li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p class="text-success">Tutti i documenti sono presenti</p>
+    {% endif %}
+
+
+    <h2>Attrezzature</h2>
+    {% if documenti_attrezzature_non_trovate %}
+    <p class="text-danger">Documenti non trovati</p>
+    <ul>
+        {% for documento in documenti_attrezzature_non_trovate %}
+        <li> {{ documento }}</li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+    <p class="text-success">Tutti i documenti sono presenti</p>
+    {% endif %}
+
+
 </div>
+
 
 {% endblock %}

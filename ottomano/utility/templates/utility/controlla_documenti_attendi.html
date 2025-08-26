@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<meta http-equiv="refresh" content="1;url=./documenti_controllati">
+<!--<meta http-equiv="refresh" content="1;url=./documenti_controllati">-->
 {% endblock %}
 
 {% block titolo %}
@@ -19,12 +19,37 @@
 
 
 {% block corpo %}
+<div class="col" id="pulsante">
+    <div class="btn-group " role="group">
+        <a href="/utility/documenti_controllati" class="btn btn-outline-primary" id="btn-verifica">
+            Esegui verifica</a>
+    </div>
+</div>
 
 
-
-<div class="col-2 d-flex align-items-center">
+<div class="col-2 d-flex align-items-center d-none" id="attendere">
     <strong role="status">Controllo documenti in corso...</strong>
     <div class="spinner-border ms-auto" aria-hidden="true"></div>
 </div>
+
+
+<script>
+    document.getElementById("btn-verifica").addEventListener("click", function (e) {
+        e.preventDefault(); // evita il comportamento predefinito del link
+
+        // Nasconde il blocco pulsante
+        document.getElementById("pulsante").classList.add("d-none");
+
+        // Mostra il blocco attendere
+        const attendere = document.getElementById("attendere");
+        attendere.classList.remove("d-none");
+        attendere.classList.add("d-flex");
+
+        // Dopo 1 secondo, reindirizza alla pagina
+        setTimeout(function () {
+            window.location.href = "/utility/documenti_controllati";
+        }, 1); // puoi modificare il tempo in millisecondi
+    });
+</script>
 
 {% endblock %}
