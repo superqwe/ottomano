@@ -7,6 +7,7 @@ from icecream import ic
 from mezzi.models import Mezzo
 from personale.models import Lavoratore, Formazione, Idoneita
 from sgi.models import DPI2
+import logging
 
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI_LAVORATORI = Path(r'D:\Gestionale\Documenti_Lavoratori')

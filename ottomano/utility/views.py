@@ -1,8 +1,13 @@
+import datetime
+import glob
+import os
+import shutil
 from pathlib import Path
 
 from attrezzi.models import Attrezzo
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from icecream import ic
 from mezzi.models import Mezzo
 from personale.models import Lavoratore, Formazione, Idoneita
 from sgi.models import DPI2
@@ -15,11 +20,13 @@ if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI_MEZZI = Path(r'D:\Gestionale\Documenti_Mezzi')
     PATH_DOCUMENTI_ATTREZZI = Path(r'D:\Gestionale\Documenti_Attrezzi')
     PATH_LOG = Path(r'D:\Gestionale\logs')
+    PATH_DB = Path(r'D:\Gestionale')
 else:
     PATH_DOCUMENTI_LAVORATORI = Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
     PATH_DOCUMENTI_MEZZI = Path(r'C:\Users\L. MASI\Documents\Documenti_Mezzi')
     PATH_DOCUMENTI_ATTREZZI = Path(r'C:\Users\L. MASI\Documents\Documenti_Attrezzi')
     PATH_LOG = Path(r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\logs')
+    PATH_DB = Path(r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano')
 
 
 def estrai_dati(request):
@@ -295,14 +302,41 @@ def log(request, livello='info'):
         dati = ''.join(util_log.format_log_line(line) for line in dati)
         dati = dati.replace('\n', '<br>')
 
-
     context = {
         'titolo': 'Log',
         'sezione_utility_attiva': 'active',
-        'pagina_attiva_log': 'active',
         'pagina_attiva_log': 'active',
         f'pagina_attiva_log_{livello}': 'active',
         'livello': livello,
         'dati': dati,
     }
     return render(request, 'utility/log.html', context)
+
+
+def db_bck(request):
+    path_db = str(PATH_DB / 'bck_*.sqlite3')
+    db_list = glob.glob(path_db)
+
+    db_list = [(
+        datetime.datetime.fromtimestamp(os.path.getmtime(db)).strftime('%d/%m/%Y %H:%M:%S'),
+        Path(db).stem
+    ) for db in db_list]
+    db_list.sort(reverse=True)
+
+    context = {
+        'titolo': 'Backup Database',
+        'sezione_utility_attiva': 'active',
+        'pagina_attiva_db_bck': 'active',
+        'db_list': db_list,
+    }
+    return render(request, 'utility/db_bck.html', context)
+
+
+def db_bck_crea(request):
+    origine  = PATH_DB / 'db.sqlite3'
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    destinazione = PATH_DB / f'bck_{timestamp}.sqlite3'
+
+    shutil.copy2(origine, destinazione)
+
+    return redirect('utility:db_bck')

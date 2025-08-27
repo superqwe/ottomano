@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_utility.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% include "./2_sottomenu_db_bck.html" %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+<div  class="d-inline-block">
+    <table class="table table-striped">
+        <thead>
+        <tr class="text-center">
+            <th>Data Modifica</th>
+            <th>Nome</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for nome, data in db_list %}
+        <tr>
+            <td>{{nome}}</td>
+            <td>{{data}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
