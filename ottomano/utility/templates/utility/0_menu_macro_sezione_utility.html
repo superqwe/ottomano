@@ -4,6 +4,8 @@
            class="btn btn-outline-primary  {{pagina_attiva_estrai_dati}}">Estrai Dati</a>
         <a href="/utility/documenti_controllati"
            class="btn btn-outline-primary  {{pagina_attiva_controlla_documenti}}">Controlla Documenti</a>
+        <a href="{% url 'utility:log' livello='info' %}"
+           class="btn btn-outline-primary  {{pagina_attiva_log}}">Log</a>
         <a href="/admin" class="btn btn-outline-primary" target="_blank">Admin</a>
     </div>
 </div>

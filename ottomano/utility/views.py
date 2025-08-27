@@ -1,24 +1,25 @@
-import datetime
 from pathlib import Path
 
 from attrezzi.models import Attrezzo
 from django.conf import settings
 from django.shortcuts import render
-from icecream import ic
 from mezzi.models import Mezzo
 from personale.models import Lavoratore, Formazione, Idoneita
 from sgi.models import DPI2
 from utility import documenti_controllati_util
 from utility import estrai_dati_util
+from utility import util_log
 
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI_LAVORATORI = Path(r'D:\Gestionale\Documenti_Lavoratori')
     PATH_DOCUMENTI_MEZZI = Path(r'D:\Gestionale\Documenti_Mezzi')
     PATH_DOCUMENTI_ATTREZZI = Path(r'D:\Gestionale\Documenti_Attrezzi')
+    PATH_LOG = Path(r'D:\Gestionale\logs')
 else:
     PATH_DOCUMENTI_LAVORATORI = Path(r'C:\Users\L. MASI\Documents\Documenti_Lavoratori')
     PATH_DOCUMENTI_MEZZI = Path(r'C:\Users\L. MASI\Documents\Documenti_Mezzi')
     PATH_DOCUMENTI_ATTREZZI = Path(r'C:\Users\L. MASI\Documents\Documenti_Attrezzi')
+    PATH_LOG = Path(r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\logs')
 
 
 def estrai_dati(request):
@@ -284,3 +285,24 @@ def documenti_controllati2(request):
     }
 
     return render(request, 'utility/controlla_documenti_controllati.html', context)
+
+
+def log(request, livello='info'):
+    file_log = PATH_LOG / f'{livello}.log'
+
+    with open(file_log, 'r') as file_log:
+        dati = file_log.readlines()
+        dati = ''.join(util_log.format_log_line(line) for line in dati)
+        dati = dati.replace('\n', '<br>')
+
+
+    context = {
+        'titolo': 'Log',
+        'sezione_utility_attiva': 'active',
+        'pagina_attiva_log': 'active',
+        'pagina_attiva_log': 'active',
+        f'pagina_attiva_log_{livello}': 'active',
+        'livello': livello,
+        'dati': dati,
+    }
+    return render(request, 'utility/log.html', context)

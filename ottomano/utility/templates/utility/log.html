@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block titolo %}
+{{ titolo }}
+{% endblock %}
+
+
+{% block menu_macro_sezione %}
+{% include "./0_menu_macro_sezione_utility.html" %}
+{% endblock %}
+
+
+{% block menu_sezione %}
+{% include "./2_sottomenu_log.html" %}
+{% endblock %}
+
+
+{% block corpo %}
+
+{% load static %}
+
+<div class="font-monospace">
+    <h2>{{livello|upper}}</h2>
+    <pre>
+{{dati|safe}}
+    </pre>
+</div>
+
+
+{% endblock %}

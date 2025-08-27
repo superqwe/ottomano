@@ -274,13 +274,13 @@ def scadenzario_dpi_aggiorna2(request):
     updated_dpi = []
 
     for lavoratore in lavoratori:
-        print(lavoratore)
+        # print(lavoratore)
         cognome = lavoratore.cognome
         nome = getattr(lavoratore, 'nome', '')
         path_lavoratore = PATH_DOCUMENTI.joinpath(f'{cognome} {nome}')
         consegna_dpi_files = list(path_lavoratore.glob('consegna_dpi*'))
-        print(consegna_dpi_files)
-        print('-')
+        # print(consegna_dpi_files)
+        # print('-')
 
         dpi = dpi_map.get((cognome.lower(), nome.lower()))
         if not dpi:

@@ -1,0 +1,17 @@
+<div class="col d-print-none">
+    <div class="btn-group " role="group">
+        <a href="{% url 'utility:log' livello='debug' %}"
+           class="btn btn-outline-primary {{pagina_attiva_log_debug}}">
+            Debug</a>
+        <a href="{% url 'utility:log' livello='info' %}"
+           class="btn btn-outline-primary {{pagina_attiva_log_info}}">
+            Info</a>
+        <a href="{% url 'utility:log' livello='warning' %}"
+           class="btn btn-outline-primary {{pagina_attiva_log_warning}}">
+            Warning</a>
+        <a href="{% url 'utility:log' livello='errors' %}"
+           class="btn btn-outline-primary {{pagina_attiva_log_errors}}">
+            Error</a>
+
+    </div>
+</div>

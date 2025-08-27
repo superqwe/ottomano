@@ -46,3 +46,20 @@
 .logo_ottomano {
     max-height: calc(1.375rem + 1.5vw);
 }
+
+span.time {
+    font-weight: bold
+}
+
+span.debug {
+    color: blue;
+}
+span.info {
+    color: green;
+}
+span.warning{
+    color: darkmagenta;
+}
+span.error {
+    color: red;
+}
