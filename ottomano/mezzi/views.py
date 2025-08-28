@@ -7,7 +7,6 @@ from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from icecream import ic
 from mezzi import views_util
 from mezzi.models import Mezzo, RCT
 
@@ -62,12 +61,13 @@ def aggiorna_stato(request):
 
     rct = RCT.objects.get().scadenza
 
-    if rct <= FRA_1_MESI:
-        colore = 'giallo'
+    if rct > FRA_1_MESI:
+        colore = 'verde'
     elif rct <= OGGI:
         colore = 'rosso'
     else:
-        colore = 'verde'
+        colore = 'giallo'
+    # ic(colore, rct, FRA_1_MESI, OGGI)
 
     Mezzo.objects.filter(rct_aziendale=True).update(rct_aziendale_ck=colore, stato=colore)
     return redirect('/mezzi/elenco')
@@ -148,7 +148,6 @@ def aggiorna_documenti(request):
     rct = RCT.objects.first()
     rct.scadenza = rct_scadenza
     rct.save()
-
 
     context = {'titolo': 'Documenti Mezzi Aggiornati',
                'sezione_mezzi_attiva': 'active',
