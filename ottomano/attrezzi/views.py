@@ -17,7 +17,7 @@ def index(request):
 
 
 def elenco(request):
-    attrezzi = Attrezzo.objects.all()
+    attrezzi = Attrezzo.objects.filter(in_uso=True)
     context = {'titolo': 'Elenco Attrezzi',
                'sezione_attrezzi_attiva': 'active',
                'pagina_attiva_elenco': 'active',
@@ -27,7 +27,7 @@ def elenco(request):
 
 
 def aggiorna_documenti(request):
-    elenco_attrezzi = Attrezzo.objects.all()
+    elenco_attrezzi = Attrezzo.objects.filter(in_uso=True)
 
     elenco_documenti_attrezzi = []
 

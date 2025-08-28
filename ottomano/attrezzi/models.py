@@ -16,6 +16,7 @@ class Tipologia(models.Model):
 
 
 class Attrezzo(models.Model):
+    in_uso = models.BooleanField(default=True)
     tipologia = models.ForeignKey(Tipologia, on_delete=models.CASCADE)
     marca = models.CharField(max_length=50, blank=True, null=True)
     modello = models.CharField(max_length=50, blank=True, null=True)

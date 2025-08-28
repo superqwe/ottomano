@@ -17,7 +17,8 @@ class AttrezzoAdmin(admin.ModelAdmin):
     get_faldone.short_description = 'Faldone'
     get_faldone.admin_order_field = 'tipologia__faldone'
 
-    list_display = ('tipologia',
+    list_display = ('in_uso',
+                    'tipologia',
                     'marca',
                     'modello',
                     'matricola',
@@ -25,11 +26,12 @@ class AttrezzoAdmin(admin.ModelAdmin):
                     'manuale',
                     'get_faldone'
                     )
-    list_display_links = ('tipologia',
+    list_display_links = ('in_uso',
+                          'tipologia',
                           'marca',
                           'modello'
                           )
-    list_filter = ('tipologia__faldone', 'tipologia')
+    list_filter = ('in_uso', 'tipologia__faldone', 'tipologia')
     save_on_top = True
 
 
