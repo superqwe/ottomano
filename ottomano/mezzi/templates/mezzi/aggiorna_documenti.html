@@ -1,15 +1,18 @@
 {% extends "mezzi/elenco.html" %}
 
 {% block titolo %}
-Documenti
+{{titolo}}
 {% endblock %}
 
 {% block menu_sezione %}
-ms
 {% endblock %}
 
 
 {% block corpo %}
+<p>RCT</p>
+<ul>
+    <li>{{rct|date:"d/m/y"}}</li>
+</ul>
 
 {% for mezzo, doc_ok, doc_no in mezzi %}
 <p>{{mezzo|upper}}</p>

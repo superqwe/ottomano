@@ -1,11 +1,13 @@
 import datetime
 import os.path
 import warnings
+from pathlib import Path
 
 from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from icecream import ic
 from mezzi import views_util
 from mezzi.models import Mezzo, RCT
 
@@ -139,9 +141,20 @@ def aggiorna_documenti(request):
         mezzo.save()
         elenco_documenti_mezzi.append((mezzo, documenti_mezzo_ok, documenti_mezzo_errore))
 
+    # data automatica RCT
+    path_rct = Path(PATH_DOCUMENTI).glob('rct*')
+    rct_scadenza = max([datetime.datetime.strptime(path.name.split()[1].split('.')[0], "%d%m%y") for path in path_rct])
+
+    rct = RCT.objects.first()
+    rct.scadenza = rct_scadenza
+    rct.save()
+
+
     context = {'titolo': 'Documenti Mezzi Aggiornati',
                'sezione_mezzi_attiva': 'active',
                'pagina_attiva_aggiorna_documenti': 'active',
-               'mezzi': elenco_documenti_mezzi}
+               'mezzi': elenco_documenti_mezzi,
+               'rct': rct_scadenza,
+               }
 
     return render(request, 'mezzi/aggiorna_documenti.html', context)
