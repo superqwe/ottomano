@@ -19,7 +19,7 @@
 
 {% load static %}
 
-<div  class="d-inline-block">
+<div class="d-inline-block">
     <table class="table table-striped">
         <thead>
         <tr class="text-center">
@@ -36,6 +36,18 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <h3>Ripristino Database</h3>
+    <p>Operazioni da effettuare per ripristinare una copia di backup del database:</p>
+    <ul>
+        <li>Chiudere la finestra dos del gestionale sul server</li>
+        <li>Accedere al percorso <span class="ff_monospace info">\\Srvdc1\d\Gestionale\</span></li>
+        <li>Eliminare il file <span class="ff_monospace info">db.sqlite3 </span></li>
+        <li>Duplicare il file <span class="ff_monospace info">bck_*.sqlite3</span> rinominandolo
+            <span class="ff_monospace info">db.sqlite3</span></li>
+        <li>Riavviare il gestionale dal server</li>
+    </ul>
+
 </div>
 
 
