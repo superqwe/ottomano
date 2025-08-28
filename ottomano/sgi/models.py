@@ -419,8 +419,6 @@ class AccessoriSollevamento_Revisione(models.Model):
 
     def __str__(self):
         return f'Revisione {self.revisione} del {self.data_compilazione} - Trimestre {self.get_trimestre_display()}/{self.anno} - {self.verificatore}'
-        # return 'Revisione %s del %s - Trimestre %s/%s' % (
-        #     self.revisione, self.data_compilazione, self.get_trimestre_display(), self.anno)
 
 
 class Formazione(models.Model):

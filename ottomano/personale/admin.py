@@ -1,9 +1,8 @@
 from django.contrib import admin
 
-from .models import Lavoratore, Formazione, Cantiere, Idoneita, DPI
+from .models import Lavoratore, Formazione, Cantiere, Idoneita, Idoneita_Revisione
 
 
-# Register your models here.
 @admin.register(Lavoratore)
 class LavoratoreAdmin(admin.ModelAdmin):
     fields = (
@@ -62,6 +61,7 @@ class FormazioneAdmin(admin.ModelAdmin):
     list_filter = ('stato', 'lavoratore__in_forza', 'lavoratore__cantiere')
 
 
+@admin.register(Cantiere)
 class CantiereAdmin(admin.ModelAdmin):
     save_on_top = True
 
@@ -91,5 +91,10 @@ class IdoneitaAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
-# admin.site.register(Lavoratore, LavoratoreAdmin)
-admin.site.register(Cantiere, CantiereAdmin)
+@admin.register(Idoneita_Revisione)
+class IdoneitaRevisioneAdmin(admin.ModelAdmin):
+    fields = ('data', 'revisione')
+    list_display = ('data', 'revisione')
+    save_on_top = True
+
+# admin.site.register(Cantiere, CantiereAdmin)

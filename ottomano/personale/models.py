@@ -179,19 +179,31 @@ class Idoneita(models.Model):
         return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.idoneita)
 
 
-class DPI(models.Model):
-    # todo: obsoleto sostituito da sgi.DPI2
-    lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
-    consegna = models.DateField(blank=True, null=True, default=None)
-    elmetto = models.DateField(blank=True, null=True, default=None)
-    elmetto_df = models.DateField(blank=True, null=True, default=None)
-    rilevatore = models.DateField(blank=True, null=True, default=None)
-    maschera = models.DateField(blank=True, null=True, default=None)
+class Idoneita_Revisione(models.Model):
+    data = models.DateField(blank=True, null=True)
+    revisione = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        ordering = ['lavoratore', ]
-        verbose_name = 'Consegna DPI'
-        verbose_name_plural = 'Consegne DPI'
+        verbose_name = 'Idoneità - Revisione'
+        verbose_name_plural = 'Idoneità - Revisione'
 
     def __str__(self):
-        return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.consegna)
+        return f'Revisione {self.data} del {self.revisione}'
+
+
+# class DPI(models.Model):
+#     # todo: obsoleto sostituito da sgi.DPI2
+#     lavoratore = models.ForeignKey(Lavoratore, on_delete=models.CASCADE)
+#     consegna = models.DateField(blank=True, null=True, default=None)
+#     elmetto = models.DateField(blank=True, null=True, default=None)
+#     elmetto_df = models.DateField(blank=True, null=True, default=None)
+#     rilevatore = models.DateField(blank=True, null=True, default=None)
+#     maschera = models.DateField(blank=True, null=True, default=None)
+#
+#     class Meta:
+#         ordering = ['lavoratore', ]
+#         verbose_name = 'Consegna DPI'
+#         verbose_name_plural = 'Consegne DPI'
+#
+#     def __str__(self):
+#         return '%s %s - %s' % (self.lavoratore.cognome, self.lavoratore.nome, self.consegna)
