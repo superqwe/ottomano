@@ -1,5 +1,6 @@
 import datetime
 import glob
+import logging
 import os
 import shutil
 from pathlib import Path
@@ -7,6 +8,7 @@ from pathlib import Path
 from attrezzi.models import Attrezzo
 from django.conf import settings
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from icecream import ic
 from mezzi.models import Mezzo
 from personale.models import Lavoratore, Formazione, Idoneita
@@ -27,6 +29,8 @@ else:
     PATH_DOCUMENTI_ATTREZZI = Path(r'C:\Users\L. MASI\Documents\Documenti_Attrezzi')
     PATH_LOG = Path(r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano\logs')
     PATH_DB = Path(r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano')
+
+LOGGER = logging.getLogger(__name__)
 
 
 def estrai_dati(request):
@@ -295,22 +299,34 @@ def documenti_controllati2(request):
 
 
 def log(request, livello='info'):
-    file_log = PATH_LOG / f'{livello}.log'
+    if livello == 'scrivi':
+        LOGGER.info("Scrittura forzata del log da template")
 
-    with open(file_log, 'r', encoding='utf-8') as file_log:
-        dati = file_log.readlines()
-        dati = ''.join(util_log.format_log_line(line) for line in dati)
-        dati = dati.replace('\n', '<br>')
+        for handler in LOGGER.handlers:
+            handler.flush()
+            if hasattr(handler, 'stream'):
+                os.fsync(handler.stream.fileno())
 
-    context = {
-        'titolo': 'Log',
-        'sezione_utility_attiva': 'active',
-        'pagina_attiva_log': 'active',
-        f'pagina_attiva_log_{livello}': 'active',
-        'livello': livello,
-        'dati': dati,
-    }
-    return render(request, 'utility/log.html', context)
+        return redirect(reverse('utility:log', kwargs={'livello': 'info'}))
+
+    else:
+        file_log = PATH_LOG / f'{livello}.log'
+
+        with open(file_log, 'r', encoding='utf-8', errors='replace') as file_log:
+            dati = file_log.readlines()
+            # ic(dati)
+            dati = ''.join(util_log.format_log_line(line) for line in dati)
+            dati = dati.replace('\n', '<br>')
+
+        context = {
+            'titolo': 'Log',
+            'sezione_utility_attiva': 'active',
+            'pagina_attiva_log': 'active',
+            f'pagina_attiva_log_{livello}': 'active',
+            'livello': livello,
+            'dati': dati,
+        }
+        return render(request, 'utility/log.html', context)
 
 
 def db_bck(request):
@@ -333,7 +349,7 @@ def db_bck(request):
 
 
 def db_bck_crea(request):
-    origine  = PATH_DB / 'db.sqlite3'
+    origine = PATH_DB / 'db.sqlite3'
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     destinazione = PATH_DB / f'bck_{timestamp}.sqlite3'
 
