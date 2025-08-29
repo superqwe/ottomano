@@ -297,7 +297,7 @@ def documenti_controllati2(request):
 def log(request, livello='info'):
     file_log = PATH_LOG / f'{livello}.log'
 
-    with open(file_log, 'r') as file_log:
+    with open(file_log, 'r', encoding='utf-8') as file_log:
         dati = file_log.readlines()
         dati = ''.join(util_log.format_log_line(line) for line in dati)
         dati = dati.replace('\n', '<br>')
