@@ -46,7 +46,7 @@ class DPIAdmin(admin.ModelAdmin):
         'lavoratore',
         ('consegna', 'ck_consegna'),
         ('elmetto', 'elmetto_df', 'ck_elmetto'),
-        ('rilevatore', 'ck_rilevatore'),
+        ('rilevatore', 'ck_rilevatore', 'ck_rilevatore_calibrazione'),
         ('maschera', 'ck_maschera'),
         ('imbracatura', 'cordino_singolo', 'cordino_doppio'),
     )
@@ -161,7 +161,7 @@ class RilevatoreH2SAdmin(admin.ModelAdmin):
         'matricola',
         'data_scadenza',
         'data_bump_test',
-        'data_calibrazione'
+        ('data_calibrazione', 'data_calibrazione_ck')
     )
     list_display = ('uso', 'lavoratore', 'marca', 'matricola', 'data_scadenza', 'data_bump_test', 'data_calibrazione',)
     list_filter = ('marca', 'uso')

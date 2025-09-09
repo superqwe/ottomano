@@ -8,6 +8,8 @@ from django.conf import settings
 
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_BCK = r'D:\Gestionale'
+elif settings.NOME_COMPUTER.lower() == 'desktop-8g2ro2g':
+    PATH_BCK = r'D:\Studio\Python\ottomano\ottomano'
 else:
     PATH_BCK = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano'
 

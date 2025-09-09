@@ -30,6 +30,7 @@ SECRET_KEY = 'django-insecure-f1pg&okn@s-dgf84v#i+*+qfso_8!e8k)vr)3ni$6(0e1a@kp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# print(NOME_COMPUTER.lower())
 if NOME_COMPUTER.lower() == 'srvdc1':
     ALLOWED_HOSTS = ['*']
 else:
@@ -71,6 +72,23 @@ if sys.platform == 'win32':
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
                 'DIRS': [r'D:\Gestionale\ottomano\templates', ],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
+    elif NOME_COMPUTER.lower() == 'desktop-8g2ro2g':
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [r'D:\Studio\Python\ottomano\ottomano\ottomano\templates',
+                         ],
                 'APP_DIRS': True,
                 'OPTIONS': {
                     'context_processors': [
@@ -174,6 +192,16 @@ if NOME_COMPUTER.lower() == 'srvdc1':
         r'D:\Gestionale\Documenti_Cantieri',
         r'D:\Gestionale\Documenti_Estratti',
     ]
+
+elif NOME_COMPUTER.lower() == 'desktop-8g2ro2g':
+    STATICFILES_DIRS = [
+        r'F:\Ottomano\Documenti_Lavoratori',
+        r'F:\Ottomano\Documenti_Mezzi',
+        r'F:\Ottomano\Documenti_Attrezzi',
+        r'F:\Ottomano\Documenti_Cantieri',
+        r'F:\Ottomano\Documenti_Estratti',
+    ]
+
 else:
     STATICFILES_DIRS = [
         r'C:\Users\L. MASI\Documents\Documenti_Lavoratori',

@@ -2,7 +2,7 @@ import datetime
 import inspect
 from pprint import pp
 
-from sgi.models import DPI2, DPI_Anticaduta2
+from sgi.models import DPI2, DPI_Anticaduta2, RilevatoreH2S
 
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
@@ -16,25 +16,6 @@ MESI_9_PASSATI = OGGI - datetime.timedelta(days=30.5 * 9)
 def aggiungi_n_anni(data, n=10):
     data_out = datetime.date(data.year + n, data.month, 1)
     return data_out
-
-
-# def aggiorna_stato():
-#     # todo: obsoleto
-#     DPI2.objects.filter(Q(consegna__lte=OGGI)).update(ck_consegna=None)
-#     DPI2.objects.filter(Q(consegna__lt=MESI_6_PASSATI)).update(ck_consegna='table-warning')
-#     DPI2.objects.filter(Q(consegna__lt=MESI_9_PASSATI) | Q(consegna__isnull=True)).update(ck_consegna='table-danger')
-#
-#     DPI2.objects.filter(Q(elmetto__gt=OGGI)).update(ck_elmetto='')
-#     DPI2.objects.filter(Q(elmetto__lt=FRA_3_MESI)).update(ck_elmetto='table-warning')
-#     DPI2.objects.filter(Q(elmetto__lt=OGGI) | Q(elmetto__isnull=True)).update(ck_elmetto='table-danger')
-#
-#     DPI2.objects.filter(Q(rilevatore__gt=OGGI)).update(ck_rilevatore='')
-#     DPI2.objects.filter(Q(rilevatore__lt=FRA_3_MESI)).update(ck_rilevatore='table-warning')
-#     DPI2.objects.filter(Q(rilevatore__lt=OGGI) | Q(rilevatore__isnull=True)).update(ck_rilevatore='table-danger')
-#
-#     DPI2.objects.filter(Q(maschera__gt=OGGI)).update(ck_maschera='')
-#     DPI2.objects.filter(Q(maschera__lt=FRA_3_MESI)).update(ck_maschera='table-warning')
-#     DPI2.objects.filter(Q(maschera__lt=OGGI) | Q(maschera__isnull=True)).update(ck_maschera='table-danger')
 
 
 def aggiorna_stato2():
@@ -65,6 +46,7 @@ def aggiorna_stato2():
             dpi.ck_elmetto = 'table-danger'
 
         # ck_rilevatore
+        print('\n', dpi.lavoratore, dpi.rilevatore, dpi.ck_rilevatore_calibrazione)
         if dpi.rilevatore:
             if dpi.rilevatore > OGGI:
                 dpi.ck_rilevatore = ''
@@ -74,6 +56,13 @@ def aggiorna_stato2():
                 dpi.ck_rilevatore = 'table-danger'
         else:
             dpi.ck_rilevatore = 'table-danger'
+
+        # ck_rilevatore_calibrazione
+        rilevatoreh2s = RilevatoreH2S.objects.filter(lavoratore=dpi.lavoratore, uso='l').first()
+        try:
+            dpi.ck_rilevatore_calibrazione = rilevatoreh2s.data_calibrazione_ck
+        except AttributeError:
+            pass
 
         # ck_maschera
         if dpi.maschera:
@@ -90,7 +79,7 @@ def aggiorna_stato2():
 
     DPI2.objects.bulk_update(
         updated_dpi,
-        ['ck_consegna', 'ck_elmetto', 'ck_rilevatore', 'ck_maschera']
+        ['ck_consegna', 'ck_elmetto', 'ck_rilevatore', 'ck_rilevatore_calibrazione', 'ck_maschera']
     )
 
 

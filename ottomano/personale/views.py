@@ -15,9 +15,14 @@ from personale.models import Lavoratore, Formazione, Idoneita, Idoneita_Revision
 from . import aggiorna_documenti_util
 from . import backup_db
 
+print(settings.NOME_COMPUTER.lower())
+
 if settings.NOME_COMPUTER.lower() == 'srvdc1':
     PATH_DOCUMENTI = r'D:\Gestionale\Documenti_Lavoratori'
     PATH_BCK = r'D:\Gestionale'
+elif settings.NOME_COMPUTER.lower() == 'desktop-8g2ro2g':
+    PATH_DOCUMENTI = r'F:\Ottomano\Documenti_Lavoratori'
+    PATH_BCK = r'D:\Studio\Python\ottomano\ottomano'
 else:
     PATH_DOCUMENTI = r'C:\Users\L. MASI\Documents\Documenti_Lavoratori'
     PATH_BCK = r'C:\Users\L. MASI\Documents\Programmi\ottomano\ottomano'

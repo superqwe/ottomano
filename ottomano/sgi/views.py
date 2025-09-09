@@ -14,7 +14,8 @@ from icecream import ic
 from personale.models import Lavoratore
 
 from .models import AccessoriSollevamento, AccessoriSollevamento_Revisione, CassettaPS, DPI2, DPI_Anticaduta2, \
-    DPI_Anticaduta_Operazione, Formazione, Formazione_Organico_Medio_Annuo, NearMiss, Non_Conformita, RilevatoreH2S, \
+    DPI_Anticaduta_Operazione, Formazione, Formazione_Organico_Medio_Annuo, NearMiss, Non_Conformita, \
+    RilevatoreH2S, \
     VerificaCassettaPS
 from .models import DPI_ANTICADUTA_TIPOLOGIA
 
@@ -211,6 +212,7 @@ def near_miss(request, anno=ANNO_CORRENTE):
 
     return render(request, 'sgi/near_miss.html', context)
 
+
 # # todo: obsoleto
 # def scadenzario_dpi_aggiorna(request):
 #
@@ -309,7 +311,8 @@ def scadenzario_dpi_aggiorna2(request):
     for dpi in lista_dpi:
         if dpi.elmetto_df:
             try:
-                scadenza = datetime.datetime(dpi.elmetto_df.year + 5, dpi.elmetto_df.month, dpi.elmetto_df.day)
+                scadenza = datetime.datetime(dpi.elmetto_df.year + 5, dpi.elmetto_df.month,
+                                             dpi.elmetto_df.day)
                 dpi.elmetto = scadenza
                 updated_dpi.append(dpi)
             except ValueError:
@@ -328,6 +331,7 @@ def scadenzario_dpi_aggiorna2(request):
             # Se esiste il campo ck_rilevatore_calibrazione:
             # dpi.ck_rilevatore_calibrazione = rilevatore.data_calibrazione_ck
             updated_dpi.append(dpi)
+            # print(rilevatore.lavoratore, rilevatore.data_calibrazione)
         except DPI2.DoesNotExist:
             continue
 
@@ -339,7 +343,8 @@ def scadenzario_dpi_aggiorna2(request):
 
 
 def scadenzario_dpi(request):
-    lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(lavoratore__cantiere__cantiere='Uffici Sede')
+    lista_dpi = DPI2.objects.filter(lavoratore__in_forza=True).exclude(
+        lavoratore__cantiere__cantiere='Uffici Sede')
     lista_rilevatorih2s = RilevatoreH2S.objects.exclude(uso='l').exclude(uso='x')
 
     context = {'titolo': 'Scadenzario DPI',
@@ -367,7 +372,8 @@ def cassette_ps(request):
     articoli_reintegro = {}
     for cassetta in lista_cassette:
         try:
-            ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[0]
+            ultima_verifica = VerificaCassettaPS.objects.filter(cassetta=cassetta).select_related('cassetta')[
+                0]
             cassetta.ultima_verifica = ultima_verifica.data_verifica
             cassetta.scadenza = ultima_verifica.data_scadenza
 
@@ -433,8 +439,9 @@ def cassette_ps_storico(request, anno=ANNO_CORRENTE):
     materiale_integrato_2 = {}
     for verifica in dati:
         allegato = verifica.cassetta.allegato
-        materiale_integrato_verifica = [(int(x.strip().split(' ', 1)[0].split('.')[1]), x.strip().split(' ', 1)[1]) for
-                                        x in verifica.materiale_integrato.split('\n') if x]
+        materiale_integrato_verifica = [
+            (int(x.strip().split(' ', 1)[0].split('.')[1]), x.strip().split(' ', 1)[1]) for
+            x in verifica.materiale_integrato.split('\n') if x]
 
         for n, articolo in materiale_integrato_verifica:
 
