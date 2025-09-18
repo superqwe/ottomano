@@ -1,0 +1,4 @@
+git pull https://github.com/superqwe/ottomano.git
+
+web reload
+

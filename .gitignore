@@ -20,11 +20,6 @@ logs
 venv
 *.bat
 *.sqlite3
-ottomano/attrezzi/migrations
-ottomano/mezzi/migrations
-ottomano/esterni/migrations
-ottomano/personale/migrations
-ottomano/sgi/migrations
 ottomano/New File.txt
 SyncToy*
 qodana.yaml

@@ -42,6 +42,7 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
             <th scope="col">Evitare intense e ripetute sollecitazioni della spalla sinistra</th>
             <th scope="col">Evitare intense e ripetute sollecitazioni del rachide</th>
             <th scope="col">Evitare intense e ripetute flessioni del rachide</th>
+            <th scope="col">Evitare l'utilizzo continuativo di martello pneumatico</th>
             <th scope="col">Utilizzo di guanti in lattice anallergici con sottoguanti in cotone</th>
             <th scope="col">Controlli semestrali</th>
             <th scope="col">Evitare posture incongrue</th>
@@ -126,17 +127,22 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
+            <td class="text-center">
+                {% if lavoratore.martello_pneumatico %}
+                <i class="fa-solid fa-circle-xmark rosso"></i>
+                {% endif %}
+            </td>
             <td class="text-center ">
                 {% if lavoratore.guanti %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.semestrale %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.posture %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -146,12 +152,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.altezza %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.dpi_respiratori %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
@@ -161,12 +167,12 @@ Prescrizioni derivanti dalla sorveglianza sanitaria dei lavoratori
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center">
+            <td class="text-center bordo-destro">
                 {% if lavoratore.sbalzi_termici %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}
             </td>
-            <td class="text-center bordo-destro">
+            <td class="text-center">
                 {% if lavoratore.temperature %}
                 <i class="fa-solid fa-circle-xmark rosso"></i>
                 {% endif %}

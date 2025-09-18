@@ -77,6 +77,7 @@ class IdoneitaAdmin(admin.ModelAdmin):
         ('carichi_10', 'carichi_15'),
         ('sollecitazioni_arto_superiore_sinistro', 'sollecitazioni_spalla_sinistra',
          'sollecitazioni_rachide', 'flessioni_rachide'),
+        'martello_pneumatico',
         'spazi_confinati',
         'altezza',
         'mansioni_gravose',
