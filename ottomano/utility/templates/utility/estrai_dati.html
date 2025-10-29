@@ -16,7 +16,7 @@
 {% block corpo %}
 <div class="container-fluid">
     <div class="row">
-        <form action="./dati_estratti" method="post" name="lavoratori">
+        <form action="/utility/dati_estratti/" method="post" name="lavoratori">
             {% csrf_token %}
             <div>
                 <button class="btn btn-primary" type="submit">Estrai documenti</button>
